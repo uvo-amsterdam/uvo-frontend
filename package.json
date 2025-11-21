@@ -1,0 +1,55 @@
+{
+    "name": "uvo-amsterdam",
+    "description": "UvO Amsterdam Website",
+    "version": "0.0.0",
+    "license": "UNLICENSED",
+    "private": true,
+    "engines": {
+        "node": ">=24",
+        "pnpm": ">=10"
+    },
+    "packageManager": "pnpm@10.20.0",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "directory": "/",
+        "url": "https://github.com/dennisb-ah/uvo-amsterdam.git"
+    },
+    "scripts": {
+        "clean": "rimraf .next .turbo node_modules coverage .swc",
+        "postinstall": "husky",
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "----- Lint & Format -----": "-----",
+        "format": "biome check . --fix",
+        "format-n-lint": "biome check . && stylelint **/*.scss",
+        "format-n-lint:fix": "biome check . --fix && stylelint **/*.scss --fix",
+        "pre-commit": "pnpm format-n-lint:fix"
+    },
+    "dependencies": {
+        "next": "16.0.3",
+        "react": "19.2.0",
+        "react-dom": "19.2.0",
+        "rimraf": "^6.0.1",
+        "stylelint": "^16.25.0",
+        "husky": "^9.1.7",
+        "@biomejs/biome": "2.3.5",
+        "sass": "1.94.2"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "stylelint-config-standard-scss": "15.0.1",
+        "tailwindcss": "^4",
+        "typescript": "^5",
+        "lint-staged": "16.1.2"
+    },
+    "lint-staged": {
+        "*.{css,scss,sass}": "stylelint --fix",
+        "*.{js,cjs,mjs,jsx,ts,tsx,graphql,json,jsonc}": "biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
+    }
+}

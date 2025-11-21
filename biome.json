@@ -1,0 +1,94 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "defaultBranch": "main"
+    },
+    "files": {
+        "includes": [
+            "**/*.js",
+            "**/*.cjs",
+            "**/*.mjs",
+            "**/*.jsx",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.json",
+            "**/*.jsonc",
+            "!.github/workflows",
+            "!**/build",
+            "!**/coverage",
+            "!**/dist",
+            "!**/.*",
+            "!**/.npm",
+            "!**/.git",
+            "!**/.idea",
+            "!**/.next",
+            "!**/*.log",
+            "!**/node_modules",
+            "!**/*.d.ts",
+            "!**/_generated-*.ts",
+            "!**/.yalc",
+            "!.pnpm-store"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 80,
+        "lineEnding": "lf"
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "style": {
+                "useFilenamingConvention": {
+                    "options": {
+                        "strictCase": false,
+                        "requireAscii": true,
+                        "filenameCases": ["kebab-case"]
+                    },
+                    "level": "warn"
+                }
+            }
+        }
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            [":NODE:", ":BUN:"],
+                            "react",
+                            [
+                                ":URL:",
+                                ":PATH:",
+                                ":PACKAGE_WITH_PROTOCOL:",
+                                ":PACKAGE:",
+                                ":ALIAS:",
+                                "!**/*.css",
+                                "!**/*.scss",
+                                "!**/*.svg"
+                            ],
+                            ":BLANK_LINE:",
+                            ["**/*.css", "**/*.scss"],
+                            ":BLANK_LINE:",
+                            "**/*.svg"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "double",
+            "arrowParentheses": "asNeeded"
+        }
+    }
+}
