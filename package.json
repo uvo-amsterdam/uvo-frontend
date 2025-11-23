@@ -16,7 +16,7 @@
         "url": "https://github.com/dennisb-ah/uvo-amsterdam.git"
     },
     "scripts": {
-        "clean": "rimraf .next .turbo node_modules coverage .swc",
+        "clean": "rimraf .next node_modules coverage .swc",
         "postinstall": "husky",
         "dev": "next dev --turbopack",
         "build": "next build",
@@ -26,6 +26,7 @@
         "format": "biome check . --fix",
         "format-n-lint": "biome check . && stylelint **/*.scss",
         "format-n-lint:fix": "biome check . --fix && stylelint **/*.scss --fix",
+        "format-n-lint:ci": "biome ci --error-on-warnings && stylelint \"**/*.{css,scss,sass}\"",
         "pre-commit": "pnpm format-n-lint:fix"
     },
     "dependencies": {
