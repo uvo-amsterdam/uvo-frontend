@@ -46,7 +46,7 @@
         "stylelint-config-standard-scss": "15.0.1",
         "tailwindcss": "^4",
         "typescript": "^5",
-        "lint-staged": "16.1.2"
+        "lint-staged": "16.2.7"
     },
     "lint-staged": {
         "*.{css,scss,sass}": "stylelint --fix",
