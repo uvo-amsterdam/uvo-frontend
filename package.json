@@ -43,7 +43,7 @@
         "@types/node": "^24",
         "@types/react": "^19",
         "@types/react-dom": "^19",
-        "stylelint-config-standard-scss": "15.0.1",
+        "stylelint-config-standard-scss": "16.0.0",
         "tailwindcss": "^4",
         "typescript": "^5",
         "lint-staged": "16.2.7"
