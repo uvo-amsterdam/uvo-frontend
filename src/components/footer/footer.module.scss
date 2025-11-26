@@ -2,4 +2,8 @@
 
 .root {
   background-color: globals.$primary-color;
+  display: grid;
+  gap: 1rem;
+  padding: 3.125rem;
+  height: auto;
 }

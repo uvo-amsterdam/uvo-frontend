@@ -1,19 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import '../styles/globals.scss';
-import React, { type ReactNode } from 'react';
+import '@radix-ui/themes/styles.css';
+import type { ReactNode } from 'react';
 import { Footer } from '@components/footer/footer';
 import { Header } from '@components/header/header';
-
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
+import { Theme } from '@radix-ui/themes';
 
 export const metadata: Metadata = {
     title: 'UvO Amsterdam',
@@ -27,16 +18,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                <div className="main">
-                    <Header />
-                    <div className="content">
-                        {children}
-                        <Footer />
+            <body className="body">
+                <Theme>
+                    <div className="main">
+                        <Header />
+                        <div className="content">
+                            {children}
+                            <Footer />
+                        </div>
                     </div>
-                </div>
+                </Theme>
             </body>
         </html>
     );
