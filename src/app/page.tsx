@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import '../styles/globals.scss';
 
 export default function Home() {
