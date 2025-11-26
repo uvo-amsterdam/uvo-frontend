@@ -1,0 +1,5 @@
+@use '../../styles/globals';
+
+.root {
+  background-color: globals.$primary-color;
+}

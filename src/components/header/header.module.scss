@@ -1,0 +1,17 @@
+@use '../../styles/globals';
+
+.root {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row;
+  background-color: globals.$quaternary-color;
+  align-items: center;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 5%;
+  }
+}
