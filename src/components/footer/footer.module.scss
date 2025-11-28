@@ -7,3 +7,26 @@
   padding: 3.125rem;
   height: auto;
 }
+
+.infoSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (max-width: globals.$breakpoint-sm) {
+  .infoSection {
+    grid-template-columns: 1fr;
+  }
+}

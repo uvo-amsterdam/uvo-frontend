@@ -4,15 +4,17 @@
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
-  background: linear-gradient(-20deg, globals.$primary-color 0%, globals.$primary-color 55%, globals.$white-color 55%, globals.$white-color  100%);
+  background: linear-gradient(-20deg, globals.$primary-color 55%, globals.$white-color 55%);
   align-items: center;
   padding: 0 5%;
+  max-height: 3.75rem;
 
-  // @media (max-width: globals.$breakpoint-sm) {
-  //  display: flex;
-  //  align-items: center;
-  //  width: 100%;
-  //  justify-content: space-between;
-  //  padding: 0 5%;
-  // }
+  @media (max-width: globals.$breakpoint-sm) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 5%;
+    background: linear-gradient(-70deg, globals.$primary-color 55%, globals.$white-color 55%);
+  }
 }
