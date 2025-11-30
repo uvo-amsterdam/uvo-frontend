@@ -10,12 +10,13 @@ export const Header: FC = () => {
                 name="viewport"
                 content="minimum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no"
             />
-            <Image
-                src="/images/uvo-logo.jpeg"
-                alt="UvO logo"
-                width={100}
-                height={100}
-            />
+            <div className={css.imageContainer}>
+                <Image
+                    src="/images/logo/uvo-logo.jpeg"
+                    alt="UvO logo"
+                    fill={true}
+                />
+            </div>
         </header>
     );
 };

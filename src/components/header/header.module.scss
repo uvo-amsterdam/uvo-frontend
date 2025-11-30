@@ -7,7 +7,9 @@
   background: linear-gradient(-20deg, globals.$primary-color 55%, globals.$white-color 55%);
   align-items: center;
   padding: 0 5%;
+  height: 100%;
   max-height: 3.75rem;
+  box-shadow: var(--shadow-3);
 
   @media (max-width: globals.$breakpoint-sm) {
     display: flex;
@@ -17,4 +19,12 @@
     padding: 0 5%;
     background: linear-gradient(-70deg, globals.$primary-color 55%, globals.$white-color 55%);
   }
+}
+
+.imageContainer {
+  position: relative;
+  margin: .1rem;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  width: auto;
 }
