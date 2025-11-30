@@ -22,10 +22,8 @@ export default function RootLayout({
                 <Theme>
                     <div className="main">
                         <Header />
-                        <div className="content">
-                            {children}
-                            <Footer />
-                        </div>
+                        <div className="content">{children}</div>
+                        <Footer />
                     </div>
                 </Theme>
             </body>

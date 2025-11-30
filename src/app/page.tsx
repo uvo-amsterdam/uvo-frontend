@@ -9,7 +9,7 @@ export default function Home() {
      */
     return (
         <div className={css.root}>
-            <Text align="center">
+            <Text>
                 <Strong>UVO IN A FEW WORDS</Strong>
                 <br />
                 <br />

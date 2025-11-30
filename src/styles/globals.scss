@@ -11,12 +11,12 @@ $breakpoint-md: '64em';
 
 .main {
   display: flex;
-  flex-flow: column;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
-  overflow-y: auto;
+  flex: 1 0 auto;
   width: 100%;
 }
 
