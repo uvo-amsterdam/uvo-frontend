@@ -1,5 +1,6 @@
 import '../styles/globals.scss';
 import { Strong, Text } from '@radix-ui/themes';
+import Image from 'next/image';
 
 import css from './page.module.scss';
 
@@ -9,6 +10,15 @@ export default function Home() {
      */
     return (
         <div className={css.root}>
+            <div className={css.slideshow}>
+                <div className={css.imageContainer}>
+                    <Image
+                        src="/images/homepage/image.jpeg"
+                        alt="Team picture"
+                        fill={true}
+                    />
+                </div>
+            </div>
             <Text>
                 <Strong>UVO IN A FEW WORDS</Strong>
                 <br />
