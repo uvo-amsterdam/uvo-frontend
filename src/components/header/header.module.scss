@@ -10,8 +10,9 @@
   height: 100%;
   max-height: 3.75rem;
   box-shadow: var(--shadow-6);
-  border-bottom-left-radius: var(--radius-2);
-  border-bottom-right-radius: var(--radius-2);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 
   @media (max-width: globals.$breakpoint-sm) {
     display: flex;
