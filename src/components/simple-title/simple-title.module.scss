@@ -1,0 +1,25 @@
+@use '../../styles/globals';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  width: 100%;
+  clear: both;
+}
+
+.title {
+  font-size: 1.8rem !important;
+  text-wrap: nowrap;
+  padding: 0 2rem;
+}
+
+.divider {
+  flex: 1;
+  min-width: 10px;
+}
+
+.filled {
+  background: linear-gradient(to bottom, globals.$white-color, globals.$primary-color);
+}
