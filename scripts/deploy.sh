@@ -5,6 +5,7 @@ IFS=$'\n\t'
 REPO_DIR="/home/cloudpanel/htdocs/uvo-amsterdam.dev"
 APP_NAME="uvo-app"
 BRANCH="main"
+PM2_ECOSYSTEM="$REPO_DIR/ecosystem.config.js"
 
 echo "=== Deploy started: $(date -u) ==="
 
@@ -39,12 +40,12 @@ pnpm run build
 echo "=== Zero-downtime restart via PM2 using ecosystem.config.js ==="
 # Try to start the app via ecosystem file, then reload if already running.
 if command -v pm2 >/dev/null 2>&1; then
-  pm2 start ecosystem.config.js --env production || pm2 reload ecosystem.config.js --env production
+  pm2 start "$PM2_ECOSYSTEM" --env production || pm2 reload "$PM2_ECOSYSTEM" --env production
   pm2 save
 else
   echo "pm2 not installed. Installing pm2 globally..."
   pnpm install -g pm2
-  pm2 start ecosystem.config.js --env production
+  pm2 start "$PM2_ECOSYSTEM" --env production || pm2 reload "$PM2_ECOSYSTEM" --env production
   pm2 save
 fi
 
