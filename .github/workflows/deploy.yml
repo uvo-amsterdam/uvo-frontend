@@ -1,0 +1,37 @@
+name: Deploy to CloudPanel (UVO Amsterdam)
+
+on:
+  push:
+    branches:
+      - main
+env:
+  SSH_USER: ${{ secrets.SSH_USER }}
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+      - name: Upload deploy script & ecosystem
+        run: |
+          # Create scripts folder if it doesn't exist
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "mkdir -p /home/scripts"
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./scripts/deploy.sh $SSH_USER@$SSH_HOST:/home/scripts/deploy.sh
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "chmod +x /home/scripts/deploy.sh"
+
+      - name: Execute deploy script
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/scripts/deploy.sh"
