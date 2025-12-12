@@ -5,7 +5,9 @@ IFS=$'\n\t'
 REPO_DIR="/home/uvo-amsterdam/htdocs/www.uvo-amsterdam.dev"
 APP_NAME="uvo-app"
 BRANCH="main"
-PM2_ECOSYSTEM="$REPO_DIR/ecosystem.config.js"
+
+# Absolute path to ecosystem file
+ECOSYSTEM="$REPO_DIR/ecosystem.config.js"
 
 echo "=== Deploy started: $(date -u) ==="
 
@@ -18,35 +20,35 @@ fi
 
 cd "$REPO_DIR"
 
-if [ ! -d ".git" ]; then
-  echo "Cloning repository..."
-  git clone --branch "$BRANCH" --depth=1 git@github.com:DennisB-AH/uvo-amsterdam.git .
-fi
-
-echo "=== Fetching latest code (branch: $BRANCH) ==="
-# Ensure we are on the right branch and fetch latest
-git fetch origin "$BRANCH" --depth=1 || true
-git reset --hard "origin/$BRANCH"
-
-echo "=== Installing dependencies (pnpm) ==="
-pnpm install
-
-
-echo "=== Building Next.js app ==="
-# Ensure NODE_ENV=production while building
-export NODE_ENV=production
-pnpm run build
-
-echo "=== Zero-downtime restart via PM2 using ecosystem.config.js ==="
-# Try to start the app via ecosystem file, then reload if already running.
-if command -v pm2 >/dev/null 2>&1; then
-  pm2 start "$PM2_ECOSYSTEM" --env production || pm2 reload "$PM2_ECOSYSTEM" --env production
-  pm2 save
+# Git clone or pull
+if [ -d ".git" ]; then
+    echo "Repository exists, updating..."
+    git fetch origin "$BRANCH" --depth=1 || true
+    git reset --hard "origin/$BRANCH"
 else
-  echo "pm2 not installed. Installing pm2 globally..."
-  pnpm install -g pm2
-  pm2 start "$PM2_ECOSYSTEM" --env production || pm2 reload "$PM2_ECOSYSTEM" --env production
-  pm2 save
+    echo "Cloning repository..."
+    git clone --branch "$BRANCH" --depth=1 git@github.com:DennisB-AH/uvo-amsterdam.git .
 fi
+
+# Install dependencies
+echo "=== Installing dependencies (pnpm ci) ==="
+if [ -f pnpm-lock.yaml ]; then
+  pnpm install --frozen-lockfile
+else
+  pnpm install
+fi
+
+# Build Next.js
+echo "=== Building Next.js app ==="
+export NODE_ENV=production
+pnpm build
+
+# PM2 zero-downtime reload
+echo "=== Zero-downtime restart via PM2 using $ECOSYSTEM ==="
+export PM2_HOME="$REPO_DIR/.pm2"
+mkdir -p "$PM2_HOME"
+
+pm2 start "$ECOSYSTEM" --env production || pm2 reload "$ECOSYSTEM" --env production
+pm2 save
 
 echo "=== Deploy finished: $(date -u) ==="
