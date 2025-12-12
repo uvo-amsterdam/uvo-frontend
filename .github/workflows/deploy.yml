@@ -3,7 +3,7 @@ name: Deploy to CloudPanel (UVO Amsterdam)
 on:
   push:
     branches:
-      - main
+      - feat/cicd
 
 jobs:
   deploy:
