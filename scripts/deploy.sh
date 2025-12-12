@@ -27,13 +27,9 @@ echo "=== Fetching latest code (branch: $BRANCH) ==="
 git fetch origin "$BRANCH" --depth=1 || true
 git reset --hard "origin/$BRANCH"
 
-echo "=== Installing dependencies (pnpm ci) ==="
-# Use pnpm ci if package-lock exists
-if [ -f package-lock.json ]; then
-  pnpm ci --prefer-offline --no-audit --progress=false
-else
-  pnpm install --no-audit --progress=false
-fi
+echo "=== Installing dependencies (pnpm) ==="
+pnpm install --no-audit --progress=false
+
 
 echo "=== Building Next.js app ==="
 # Ensure NODE_ENV=production while building
