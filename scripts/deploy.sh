@@ -28,7 +28,7 @@ git fetch origin "$BRANCH" --depth=1 || true
 git reset --hard "origin/$BRANCH"
 
 echo "=== Installing dependencies (pnpm) ==="
-pnpm install --no-audit --progress=false
+pnpm install
 
 
 echo "=== Building Next.js app ==="
