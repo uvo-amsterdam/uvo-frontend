@@ -1,0 +1,65 @@
+name: Deploy to CloudPanel (UVO Amsterdam)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+      - name: Create temporary .env file for upload
+        run: |
+          # Option A: full .env in one secret (DOTENV)
+          if [ -n "${{ secrets.DOTENV }}" ]; then
+            echo "${{ secrets.DOTENV }}" > ./__deploy_env
+          else
+            # Option B: create .env from individual secrets (example shown)
+            # Uncomment and adapt the following lines if you set individual ENV_* secrets
+            # printf "DATABASE_URL=%s\n" "${{ secrets.ENV_DATABASE_URL }}" >> ./__deploy_env
+            # printf "NEXT_PUBLIC_API_URL=%s\n" "${{ secrets.ENV_NEXT_PUBLIC_API_URL }}" >> ./__deploy_env
+            echo "No DOTENV secret found and no individual ENV_* secrets configured."
+            exit 1
+          fi
+
+      - name: Upload deploy script & env & ecosystem to server
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+          TARGET_DIR: /home/cloudpanel/htdocs/uvo-amsterdam.dev
+        run: |
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./deploy.sh $SSH_USER@$SSH_HOST:$TARGET_DIR/deploy.sh
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./ecosystem.config.js $SSH_USER@$SSH_HOST:$TARGET_DIR/ecosystem.config.js
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./__deploy_env $SSH_USER@$SSH_HOST:$TARGET_DIR/.env
+          # set permission on files
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "chmod +x $TARGET_DIR/deploy.sh && chown -R $SSH_USER:$SSH_USER $TARGET_DIR || true"
+
+      - name: Execute deploy script on server
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+          TARGET_DIR: /home/cloudpanel/htdocs/uvo-amsterdam.dev
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "
+            set -euo pipefail
+            cd $TARGET_DIR
+            # ensure git has origin and branch
+            git remote get-url origin || true
+            chmod +x ./deploy.sh
+            ./deploy.sh
+          "
