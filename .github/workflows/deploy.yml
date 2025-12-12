@@ -29,7 +29,7 @@ jobs:
       - name: Upload deploy script & ecosystem
         run: |
           # Create scripts folder if it doesn't exist
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "mkdir -p $REPO_DIR/scripts"
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "mkdir -p $TARGET_DIR/scripts"
           scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./scripts/deploy.sh $SSH_USER@$SSH_HOST:$TARGET_DIR/scripts/deploy.sh
           scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./ecosystem.config.js $SSH_USER@$SSH_HOST:$TARGET_DIR/ecosystem.config.js
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "chmod +x $TARGET_DIR/scripts/deploy.sh"
