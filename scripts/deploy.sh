@@ -7,7 +7,7 @@ APP_NAME="uvo-app"
 BRANCH="main"
 
 # Absolute path to ecosystem file
-ECOSYSTEM="$REPO_DIR/ecosystem.config.js"
+ECOSYSTEM="$REPO_DIR/ecosystem.config.cjs"
 
 echo "=== Deploy started: $(date -u) ==="
 
