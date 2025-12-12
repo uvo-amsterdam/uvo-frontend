@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-REPO_DIR="/home/cloudpanel/htdocs/uvo-amsterdam.dev"
+REPO_DIR="/home/uvo-amsterdam/htdocs/www.uvo-amsterdam.dev"
 APP_NAME="uvo-app"
 BRANCH="main"
 PM2_ECOSYSTEM="$REPO_DIR/ecosystem.config.js"
