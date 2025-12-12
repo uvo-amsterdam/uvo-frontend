@@ -27,24 +27,18 @@ echo "=== Fetching latest code (branch: $BRANCH) ==="
 git fetch origin "$BRANCH" --depth=1 || true
 git reset --hard "origin/$BRANCH"
 
-echo "=== Installing dependencies (npm ci) ==="
-# Use npm ci if package-lock exists
+echo "=== Installing dependencies (pnpm ci) ==="
+# Use pnpm ci if package-lock exists
 if [ -f package-lock.json ]; then
-  npm ci --prefer-offline --no-audit --progress=false
+  pnpm ci --prefer-offline --no-audit --progress=false
 else
-  npm install --no-audit --progress=false
+  pnpm install --no-audit --progress=false
 fi
 
 echo "=== Building Next.js app ==="
 # Ensure NODE_ENV=production while building
 export NODE_ENV=production
-npm run build
-
-# Ensure .env exists. The workflow uploads it; fail early if missing.
-if [ ! -f .env ]; then
-  echo "ERROR: .env file not found at $REPO_DIR/.env"
-  exit 1
-fi
+pnpm run build
 
 echo "=== Zero-downtime restart via PM2 using ecosystem.config.js ==="
 # Try to start the app via ecosystem file, then reload if already running.
@@ -53,7 +47,7 @@ if command -v pm2 >/dev/null 2>&1; then
   pm2 save
 else
   echo "pm2 not installed. Installing pm2 globally..."
-  npm install -g pm2
+  pnpm install -g pm2
   pm2 start ecosystem.config.js --env production
   pm2 save
 fi
