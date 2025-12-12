@@ -19,7 +19,7 @@ cd "$REPO_DIR"
 
 if [ ! -d ".git" ]; then
   echo "Cloning repository..."
-  git clone --branch "$BRANCH" --depth=1 https://github.com/DennisB-AH/uvo-amsterdam.git .
+  git clone --branch "$BRANCH" --depth=1 git@github.com:DennisB-AH/uvo-amsterdam.git .
 fi
 
 echo "=== Fetching latest code (branch: $BRANCH) ==="
