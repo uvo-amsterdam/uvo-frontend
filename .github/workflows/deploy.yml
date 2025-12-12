@@ -21,17 +21,17 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      - name: Upload deploy script & ecosystem to server
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
-          TARGET_DIR: /home/uvo-amsterdam/htdocs/www.uvo-amsterdam.dev
-        run: |
-          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./scripts/deploy.sh $SSH_USER@$SSH_HOST:$TARGET_DIR/deploy.sh
-          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./ecosystem.config.js $SSH_USER@$SSH_HOST:$TARGET_DIR/ecosystem.config.js
-          # set permission on files
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "chmod +x $TARGET_DIR/deploy.sh && chown -R $SSH_USER:$SSH_USER $TARGET_DIR || true"
+#      - name: Upload deploy script & ecosystem to server
+#        env:
+#          SSH_USER: ${{ secrets.SSH_USER }}
+#          SSH_HOST: ${{ secrets.SSH_HOST }}
+#          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+#          TARGET_DIR: /home/uvo-amsterdam/htdocs/www.uvo-amsterdam.dev
+#        run: |
+#          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./scripts/deploy.sh $SSH_USER@$SSH_HOST:$TARGET_DIR/deploy.sh
+#          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -P $SSH_PORT ./ecosystem.config.js $SSH_USER@$SSH_HOST:$TARGET_DIR/ecosystem.config.js
+#          # set permission on files
+#          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "chmod +x $TARGET_DIR/deploy.sh && chown -R $SSH_USER:$SSH_USER $TARGET_DIR || true"
 
       - name: Execute deploy script on server
         env:
