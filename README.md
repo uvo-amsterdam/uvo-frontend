@@ -90,11 +90,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ---
 
-## 4. Scripts
+## 4. Libraries
+
+### 4.1 Radix
+We use the Radix component library for this project. You can find the documentation [here](https://www.radix-ui.com/themes/docs)
+
+### 4.2 Tabler
+We use the Tabler icons for this project. You can find the documentation [here](https://tabler-icons.io/)
+
+---
+
+## 5. Scripts
 
 Below is an overview of the most important scripts defined in `package.json`. In most cases, you’ll invoke them by running `pnpm <script-name>` from the repository root.
 
-### 4.1 Cleaning
+### 5.1 Cleaning
 
 #### `clean`
 
@@ -105,7 +115,7 @@ pnpm clean
 
 ---
 
-### 4.2 Development
+### 5.2 Development
 
 #### `dev`
 
@@ -118,7 +128,7 @@ pnpm dev
 
 ---
 
-### 4.3 Build
+### 5.3 Build
 
 #### `build`
 
@@ -129,7 +139,7 @@ pnpm build
 
 ---
 
-### 4.4 Linting and Formatting
+### 5.4 Linting and Formatting
 
 #### `format-n-lint`
 
@@ -157,7 +167,7 @@ pnpm format-n-lint:ci
 
 ---
 
-### 4.5 Pre-commit Hook
+### 5.5 Pre-commit Hook
 
 #### `pre-commit`
 
@@ -170,7 +180,7 @@ pnpm pre-commit
 
 ---
 
-## 5. Contributing
+## 6. Contributing
 
 1. **Branch & PR**: Create a new branch for any changes, then open a Pull Request.
 2. **Lint & Test**: Please ensure your changes pass `pnpm format-n-lint` prior to pushing.

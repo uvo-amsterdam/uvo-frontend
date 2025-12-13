@@ -1,19 +1,24 @@
-@use "tailwindcss";
+$primary-color: #4342FF;
 
-:root {
-  --background: #fff;
-  --foreground: #171717;
+// $secondary-color: #070707;
+$quaternary-color: #3DDC97;
+$quinary-color: #C03221;
+$black-color: #070707;
+$white-color: #fff;
+$breakpoint-sm: '48em';
+$breakpoint-md: '64em';
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.content {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.body {
+  margin: 0;
 }
