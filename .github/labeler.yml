@@ -1,0 +1,10 @@
+"Documentation":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "README.md"]
+  - head-branch: ["^docs"]
+
+"Enhancement":
+  - head-branch: ["^feature", "^feat"]
+
+"Bug":
+  - head-branch: ["^fix", "^bugfix", "^hotfix"]
