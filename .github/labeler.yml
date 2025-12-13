@@ -8,3 +8,15 @@
 
 "Bug":
   - head-branch: ["^fix", "^bugfix", "^hotfix"]
+
+"Component":
+  - changed-files:
+      - any-glob-to-any-file: ["src/components/**"]
+
+"Styling":
+  - changed-files:
+      - any-glob-to-any-file: ["**.scss"]
+
+"GitHub Actions":
+  - changed-files:
+      - any-glob-to-any-file: [".github/**"]
