@@ -8,9 +8,35 @@ This repo contains docs, code for maintaining the website.
 If you have any questions, please reach out to the maintainers(Listed in the CODEOWNERS file).
 
 ---
-
-## Table of contents
-1. [Welcome to the UvO Amsterdam repository](#1-welcome-to-uvo-amsterdam-repository)
+## Table of Contents
+<!-- TOC -->
+* [UvO Amsterdam](#uvo-amsterdam)
+  * [1. Welcome to UvO Amsterdam repository](#1-welcome-to-uvo-amsterdam-repository)
+  * [Table of Contents](#table-of-contents)
+  * [2. Installation](#2-installation)
+    * [2.1 Prerequisites](#21-prerequisites)
+    * [2.2 Setting Up PNPM](#22-setting-up-pnpm)
+      * [Global Installation](#global-installation)
+      * [Corepack](#corepack)
+  * [3. Running Locally](#3-running-locally)
+    * [3.1 Clone Repository](#31-clone-repository)
+    * [3.2 Initial Setup](#32-initial-setup)
+    * [3.3 Running the Development Server](#33-running-the-development-server)
+  * [4. Scripts](#4-scripts)
+    * [4.1 Cleaning](#41-cleaning)
+      * [`clean`](#clean)
+    * [4.2 Development](#42-development)
+      * [`dev`](#dev)
+    * [4.3 Build](#43-build)
+      * [`build`](#build)
+    * [4.4 Linting and Formatting](#44-linting-and-formatting)
+      * [`format-n-lint`](#format-n-lint)
+      * [`format-n-lint:fix`](#format-n-lintfix)
+      * [`format-n-lint:ci`](#format-n-lintci)
+    * [4.5 Pre-commit Hook](#45-pre-commit-hook)
+      * [`pre-commit`](#pre-commit)
+  * [5. Contributing](#5-contributing)
+<!-- TOC -->
 
 ---
 
@@ -125,7 +151,7 @@ pnpm dev
 ```sh
 pnpm build
 ```
-- Runs a production build 
+- Runs a production build
 
 ---
 
