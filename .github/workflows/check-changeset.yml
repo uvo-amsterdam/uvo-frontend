@@ -12,12 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Fetch all branches
-        run: git fetch --prune --unshallow
+      - name: Fetch base branch
+        run: git fetch origin main
 
       - name: Check for changeset file
         run: |
-          if ! git diff --name-only origin/main...HEAD | grep -q '^.changeset/.*\.md$'; then
+          file=$(git diff --name-only origin/main...HEAD | grep '^.changeset/.*\.md$' || true)
+          if [ -z "$file" ]; then
             echo "No changeset found. Please add a changeset."
             exit 1
+          else
+            echo "Changeset found: $file"
           fi
