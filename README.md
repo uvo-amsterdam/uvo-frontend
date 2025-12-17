@@ -44,10 +44,10 @@ If you have any questions, please reach out to the maintainers(Listed in the COD
 
 ### 2.1 Prerequisites
 
-1. **Node.js**: version **24.11.1 or higher**  
+1. **Node.js**: version **24 or higher**  
    [Download Node.js](https://nodejs.org/en/download/)
 
-2. After the installation we need to enable the [PNPM](https://pnpm.io/) package manager - **10.20.0 or higher**.
+2. After the installation we need to enable the [PNPM](https://pnpm.io/) package manager - **10.25.0 or higher**.
 
 > **Tip**: You can verify your installed versions by running:
 >

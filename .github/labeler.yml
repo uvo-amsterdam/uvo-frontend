@@ -1,0 +1,22 @@
+"documentation":
+  - changed-files:
+      - any-glob-to-any-file: ["docs/**", "README.md"]
+  - head-branch: ["^docs"]
+
+"enhancement":
+  - head-branch: ["^feature", "^feat"]
+
+"bug":
+  - head-branch: ["^fix", "^bugfix", "^hotfix"]
+
+"component":
+  - changed-files:
+      - any-glob-to-any-file: ["src/components/**"]
+
+"styling":
+  - changed-files:
+      - any-glob-to-any-file: ["**.scss"]
+
+"gitHub actions":
+  - changed-files:
+      - any-glob-to-any-file: [".github/**"]
