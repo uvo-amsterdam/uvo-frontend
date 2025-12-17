@@ -1,4 +1,4 @@
-@use '../../styles/globals';
+@use '@styles/globals';
 
 .root {
   box-sizing: border-box;
@@ -13,6 +13,7 @@
   position: sticky;
   top: 0;
   z-index: 5;
+  justify-content: space-between;
 
   @media (max-width: globals.$breakpoint-sm) {
     display: flex;
@@ -32,4 +33,14 @@
   min-width: 60px;
   height: 100%;
   width: auto;
+}
+
+.navContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.navLink {
+  color: globals.$black-color;
+  font-weight: bold;
 }
