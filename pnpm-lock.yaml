@@ -55,8 +55,8 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.3)
       csstype:
-        specifier: 3.2.0
-        version: 3.2.0
+        specifier: 3.2.3
+        version: 3.2.3
       lint-staged:
         specifier: 16.2.7
         version: 16.2.7
@@ -1533,8 +1533,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  csstype@3.2.0:
-    resolution: {integrity: sha512-si++xzRAY9iPp60roQiFta7OFbhrgvcthrhlNAGeQptSY25uJjkfUV8OArC3KLocB8JT8ohz+qgxWCmz8RhjIg==}
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -3778,7 +3778,7 @@ snapshots:
 
   '@types/react@19.2.3':
     dependencies:
-      csstype: 3.2.0
+      csstype: 3.2.3
 
   ajv@8.17.1:
     dependencies:
@@ -3896,7 +3896,7 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  csstype@3.2.0: {}
+  csstype@3.2.3: {}
 
   debug@4.4.3:
     dependencies:
