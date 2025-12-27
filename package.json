@@ -8,12 +8,12 @@
         "node": ">=24",
         "pnpm": ">=10"
     },
-    "packageManager": "pnpm@10.25.0",
+    "packageManager": "pnpm@10.26.1",
     "type": "module",
     "repository": {
         "type": "git",
         "directory": "/",
-        "url": "https://github.com/dennisb-ah/uvo-amsterdam.git"
+        "url": "https://github.com/uvo-amsterdam/uvo-frontend.git"
     },
     "scripts": {
         "clean": "rimraf .next node_modules coverage .swc",
