@@ -91,10 +91,10 @@ To get started, clone this **UvO Amsterdam** repository locally. Use HTTPS or SS
 
 ```sh
 # HTTPS
-git clone https://github.com/DennisB-AH/uvo-amsterdam.git
+git clone https://github.com/uvo-amsterdam/uvo-frontend.git
 
 # SSH
-git clone git@github.com:DennisB-AH/uvo-amsterdam.git
+git clone git@github.com:uvo-amsterdam/uvo-frontend.git
 ```
 
 ### 3.2 Initial Setup
