@@ -38,6 +38,10 @@
 .navContainer {
   display: flex;
   gap: 1rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    display: none; // Temporary until a nice side drawer is implemented
+  }
 }
 
 .navLink {
