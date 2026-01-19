@@ -42,7 +42,7 @@ export default function Contact() {
                             member.lastName +
                             ' (' +
                             member.email +
-                            (member.altEmail ? `·or·${member.altEmail}` : '') +
+                            (member.altEmail ? ` or ${member.altEmail}` : '') +
                             ')'}
                     </div>
                 ))}
@@ -52,7 +52,7 @@ export default function Contact() {
                 <br />
                 {GENERAL_CONTACT.map(entry => (
                     <div key={entry.email}>
-                        {`${entry.name}:·${entry.email}`}
+                        {`${entry.name}: ${entry.email}`}
                     </div>
                 ))}
             </Text>
