@@ -59,6 +59,18 @@ jobs:
             echo "tag_exists=0" >> $GITHUB_OUTPUT
           fi
 
+      - name: Commit and push version changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add .
+          if git commit -m "chore: version bump and changelog update"; then
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
+
   tag_and_push:
     needs: version
     runs-on: ubuntu-latest
