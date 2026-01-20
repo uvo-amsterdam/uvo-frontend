@@ -1,11 +1,12 @@
 import React, { type FC } from 'react';
+import { LOCATION } from '@constants/location';
 import { Link, Separator, Text } from '@radix-ui/themes';
 
 import css from './footer.module.scss';
 
 export const Footer: FC = () => {
     /**
-     * TODO: Move info to constants file! (for translations etc.)
+     * TODO: Move info to constants file! (for translations etc.) & add sponsors
      * Change Algemene voorwaarden link to actual page
      */
     const footerInfo = [
@@ -14,12 +15,8 @@ export const Footer: FC = () => {
             contents: ['Een volleybal vereniging vol gezelligheid!'],
         },
         {
-            title: 'Adres',
-            contents: [
-                'Uvo Amsterdam',
-                'Science Park 306',
-                '1098 XH Amsterdam',
-            ],
+            title: 'Address',
+            contents: Object.values(LOCATION),
         },
         {
             title: 'Contact',
