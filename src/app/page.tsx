@@ -1,4 +1,4 @@
-import '../styles/globals.scss';
+import '@styles/globals.scss';
 import { SimpleTitle } from '@components/simple-title/simple-title';
 import { Strong, Text } from '@radix-ui/themes';
 import Image from 'next/image';
