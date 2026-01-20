@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,24 +16,72 @@ jobs:
   version:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      major_release: ${{ steps.check_major_tag.outputs.major_release }}
+      tag_exists: ${{ steps.check_major_tag.outputs.tag_exists }}
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10.25.0
 
       - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 25
 
       - name: Install dependencies
         run: pnpm install
+
       - name: Run changeset version
         run: pnpm changeset version
+
+      - name: Get new version from package.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if major tag exists
+        id: check_major_tag
+        run: |
+          MAJOR=$(echo "${{ steps.get_version.outputs.version }}" | cut -d. -f1)
+          MINOR=$(echo "${{ steps.get_version.outputs.version }}" | cut -d. -f2)
+          PATCH=$(echo "${{ steps.get_version.outputs.version }}" | cut -d. -f3)
+          if [ "$MINOR" = "0" ] && [ "$PATCH" = "0" ]; then
+            TAG_EXISTS=$(git ls-remote --tags origin v$MAJOR.0.0 | wc -l)
+            echo "major_release=true" >> $GITHUB_OUTPUT
+            echo "tag_exists=$TAG_EXISTS" >> $GITHUB_OUTPUT
+          else
+            echo "major_release=false" >> $GITHUB_OUTPUT
+            echo "tag_exists=0" >> $GITHUB_OUTPUT
+          fi
+
+  tag_and_push:
+    needs: version
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      # reviewers can be set in the repository settings for this environment
+    if: |
+      (needs.version.outputs.major_release == 'true' && needs.version.outputs.tag_exists == '0' && github.event_name == 'workflow_dispatch') ||
+      (needs.version.outputs.major_release == 'false' || needs.version.outputs.tag_exists != '0')
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 25
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Push changes and tags
         run: |
@@ -40,7 +89,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           if git commit -m "chore: update versions"; then
-            git push origin main --follow-tags
+            git push origin main
           else
             echo "No changes to commit"
           fi
+          VERSION=${{ needs.version.outputs.version }}
+          git tag v$VERSION
+          git push origin v$VERSION
