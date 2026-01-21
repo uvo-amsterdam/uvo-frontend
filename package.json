@@ -1,7 +1,7 @@
 {
     "name": "uvo-frontend",
     "description": "UvO Amsterdam Website",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "license": "UNLICENSED",
     "private": true,
     "engines": {
