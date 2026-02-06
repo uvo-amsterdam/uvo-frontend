@@ -39,7 +39,7 @@
         "react-dom": "19.2.4",
         "rimraf": "6.1.2",
         "sass": "1.97.3",
-        "stylelint": "17.1.0"
+        "stylelint": "17.1.1"
     },
     "devDependencies": {
         "@changesets/cli": "2.29.8",
