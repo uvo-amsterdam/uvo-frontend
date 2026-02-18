@@ -8,10 +8,6 @@ import css from './header.module.scss';
 export const Header: FC = () => {
     return (
         <header className={css.root}>
-            <meta
-                name="viewport"
-                content="minimum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no"
-            />
             <div className={css.imageContainer}>
                 <Link href={'/'}>
                     <Image

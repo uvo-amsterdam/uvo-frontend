@@ -1,0 +1,127 @@
+@use '@styles/globals';
+
+.root {
+    padding: 5rem 4% 4.5rem;
+    background: globals.$cream;
+    position: relative;
+    overflow: hidden;
+
+    // Sweeping wave curve top divider (volleyball seam inspired)
+    &::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: globals.$off-white;
+        clip-path: ellipse(55% 100% at 50% 0%);
+        z-index: 1;
+    }
+
+    // Decorative seam arc — lower right
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -15%;
+        right: -8%;
+        width: 45%;
+        height: 70%;
+        border-radius: 50%;
+        background: rgb(67 66 255 / 3%);
+        background-image:
+            linear-gradient(45deg, rgb(67 66 255 / 2.5%) 25%, transparent 25%),
+            linear-gradient(-45deg, rgb(67 66 255 / 2.5%) 25%, transparent 25%);
+        background-size: 16px 16px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    @media (max-width: globals.$breakpoint-sm) {
+        padding: 3.5rem 3%;
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-family: globals.$font-heading;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: globals.$gray-800;
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: globals.$gray-600;
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: globals.$breakpoint-md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: globals.$breakpoint-sm) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cell {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+        transition: transform globals.$transition-normal, filter globals.$transition-normal;
+    }
+
+    &:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.85);
+    }
+
+    &:hover .caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wide {
+    grid-column: span 2;
+
+    @media (max-width: globals.$breakpoint-sm) {
+        grid-column: span 1;
+    }
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
+    color: globals.$white-color;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity globals.$transition-fast, transform globals.$transition-fast;
+}

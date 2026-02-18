@@ -26,6 +26,8 @@ export const Footer: FC = () => {
             ],
         },
     ];
+    const signUpUrl =
+        'https://docs.google.com/forms/d/e/1FAIpQLSeWLaAr0S6cBgUI3lWOJ9vA24qMP_DlUwF0DseY4vlHkaLl3A/closedform?embedded=true';
     return (
         <footer className={css.root}>
             <div className={css.infoSection}>
@@ -37,6 +39,18 @@ export const Footer: FC = () => {
                         ))}
                     </div>
                 ))}
+                <div className={css.bottomSection}>
+                    <Text>Join UvO</Text>
+                    <Text>Want to play volleyball with us?</Text>
+                    <Link
+                        href={signUpUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        highContrast
+                    >
+                        Sign up here →
+                    </Link>
+                </div>
             </div>
             <Separator my="3" size="4" />
             <div className={css.bottom}>
