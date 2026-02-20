@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Heading, Text } from '@radix-ui/themes';
 import Image from 'next/image';
 
 import css from './photo-gallery.module.scss';
@@ -29,20 +30,26 @@ const PHOTOS = [
         alt: 'Committee activity',
         span: 'normal',
     },
-    { src: '/images/homepage/team-photo.jpeg', alt: 'Match day', span: 'wide' },
+    {
+        src: '/images/homepage/team-photo.jpeg',
+        alt: 'Match day',
+        span: 'wide',
+    },
 ];
 
 export const PhotoGallery: FC = () => {
     return (
         <section className={css.root}>
             <div className={css.header}>
-                <h2 className={css.title}>Life at UvO</h2>
-                <p className={css.subtitle}>
+                <Heading as="h2" className={css.title}>
+                    Life at UvO
+                </Heading>
+                <Text as="p" size="3" className={css.subtitle}>
                     Volleyball, borrels, tournaments, trips & more
-                </p>
+                </Text>
             </div>
             <div className={css.grid}>
-                {PHOTOS.map((photo, i) => (
+                {PHOTOS.map(photo => (
                     <div
                         key={photo.alt}
                         className={`${css.cell} ${photo.span === 'wide' ? css.wide : ''}`}
@@ -55,7 +62,7 @@ export const PhotoGallery: FC = () => {
                             style={{ objectFit: 'cover' }}
                         />
                         <div className={css.caption}>
-                            <span>{photo.alt}</span>
+                            <Text size="2">{photo.alt}</Text>
                         </div>
                     </div>
                 ))}

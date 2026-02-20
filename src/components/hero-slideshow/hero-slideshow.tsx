@@ -43,11 +43,11 @@ export const HeroSlideshow: FC = () => {
                 </h1>
                 <p className={css.subtitle}>
                     Volleyball, borrels, tournaments & lifelong friendships —
-                    since 1997 🏐
+                    since 1997
                 </p>
                 <div className={css.actions}>
                     <Link href="/sign-up" className={css.primaryBtn}>
-                        Join UvO ✌️
+                        Join UvO
                     </Link>
                     <Link href="#about" className={css.secondaryBtn}>
                         What's UvO? ↓

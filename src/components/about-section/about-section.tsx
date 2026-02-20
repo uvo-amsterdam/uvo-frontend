@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Heading, Link, Text } from '@radix-ui/themes';
 
 import css from './about-section.module.scss';
 
@@ -14,41 +15,45 @@ export const AboutSection: FC = () => {
         <section id="about" className={css.root}>
             <div className={css.grid}>
                 <div className={css.textCol}>
-                    <h2 className={css.title}>UvO in a few words</h2>
-                    <p className={css.body}>
+                    <Heading as="h2" className={css.title}>
+                        UvO in a few words
+                    </Heading>
+                    <Text as="p" size="3" className={css.body}>
                         Welcome to UvO, the most fun student volleyball
                         association in Amsterdam! UvO has been around for over
-                        25 years. We play with eight women's teams and five
-                        men's teams in the Nevobo competition and also have two
-                        beginner training-only teams.
-                    </p>
-                    <p className={css.body}>
+                        25 years. We play with eight women&apos;s teams and five
+                        men&apos;s teams in the Nevobo competition and also have
+                        two beginner training-only teams.
+                    </Text>
+                    <Text as="p" size="3" className={css.body}>
                         The training evenings are every Monday and Thursday at
                         USC Universum (Science Park). Home game evenings are
                         mostly on Tuesdays in the Wethouder Verheijhal and
                         sometimes on Saturdays at USC Universum. We close the
                         training sessions and home play evenings with a nice
                         drink.
-                    </p>
-                    <p className={css.body}>
+                    </Text>
+                    <Text as="p" size="3" className={css.body}>
                         UvO is a self-run association: together, members make
                         everything possible! 15 committees organize tournaments,
                         activities, trips and of course parties! With our 250
                         members, we have a great time all year round.
-                    </p>
-                    <p className={css.contact}>
+                    </Text>
+                    <Text as="p" size="2" className={css.contact}>
                         Would you like to know more?{' '}
-                        <a href="mailto:bestuur@uvo-amsterdam.nl">
+                        <Link href="mailto:bestuur@uvo-amsterdam.nl">
                             bestuur@uvo-amsterdam.nl
-                        </a>
-                    </p>
+                        </Link>
+                    </Text>
                 </div>
 
                 <div className={css.statsCol}>
                     {STATS.map(stat => (
                         <div key={stat.label} className={css.statCard}>
-                            <span className={css.statValue}>{stat.value}</span>
-                            <span className={css.statLabel}>{stat.label}</span>
+                            <Text className={css.statValue}>{stat.value}</Text>
+                            <Text size="2" className={css.statLabel}>
+                                {stat.label}
+                            </Text>
                         </div>
                     ))}
                 </div>

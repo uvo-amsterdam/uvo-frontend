@@ -1,70 +1,48 @@
 import type { FC } from 'react';
+import { InfoCard } from '@components/info-card/info-card';
 import { LOCATION } from '@constants/location';
+import { Heading, Text } from '@radix-ui/themes';
+import { IconBrandInstagram, IconClock, IconMapPin } from '@tabler/icons-react';
 
 import css from './location-section.module.scss';
+
+const LOCATION_CARDS = [
+    {
+        icon: <IconMapPin size={24} stroke={1.5} />,
+        label: 'Training & Home Games',
+        values: [LOCATION.name],
+        detail: `${LOCATION.address}, ${LOCATION.postalCode}`,
+    },
+    {
+        icon: <IconClock size={24} stroke={1.5} />,
+        label: 'Training Schedule',
+        values: ['Monday 18:00 – 23:20', 'Thursday 18:00 – 22:00'],
+        detail: 'Home games mostly on Tuesdays',
+    },
+    {
+        icon: <IconBrandInstagram size={24} stroke={1.5} />,
+        label: 'Instagram',
+        values: ['@uvoamsterdam'],
+        detail: 'Follow us for updates & vibes',
+        href: 'https://www.instagram.com/uvoamsterdam/',
+    },
+];
 
 export const LocationSection: FC = () => {
     return (
         <section className={css.root}>
             <div className={css.container}>
                 <div className={css.info}>
-                    <h2 className={css.title}>Where to find us</h2>
-                    <p className={css.subtitle}>
+                    <Heading as="h2" className={css.title}>
+                        Where to find us
+                    </Heading>
+                    <Text as="p" size="3" className={css.subtitle}>
                         Come visit us at our training location
-                    </p>
+                    </Text>
 
-                    <div className={css.card}>
-                        <div className={css.cardIcon}>📍</div>
-                        <div className={css.cardBody}>
-                            <span className={css.cardLabel}>
-                                Training & Home Games
-                            </span>
-                            <span className={css.cardValue}>
-                                {LOCATION.name}
-                            </span>
-                            <span className={css.cardDetail}>
-                                {LOCATION.address}
-                            </span>
-                            <span className={css.cardDetail}>
-                                {LOCATION.postalCode}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className={css.card}>
-                        <div className={css.cardIcon}>🕐</div>
-                        <div className={css.cardBody}>
-                            <span className={css.cardLabel}>
-                                Training Schedule
-                            </span>
-                            <span className={css.cardValue}>
-                                Monday 18:00 – 23:20
-                            </span>
-                            <span className={css.cardValue}>
-                                Thursday 18:00 – 22:00
-                            </span>
-                            <span className={css.cardDetail}>
-                                Home games mostly on Tuesdays
-                            </span>
-                        </div>
-                    </div>
-
-                    <a
-                        href="https://www.instagram.com/uvoamsterdam/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={css.card}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                        <div className={css.cardIcon}>📸</div>
-                        <div className={css.cardBody}>
-                            <span className={css.cardLabel}>Instagram</span>
-                            <span className={css.cardValue}>@uvoamsterdam</span>
-                            <span className={css.cardDetail}>
-                                Follow us for updates & vibes
-                            </span>
-                        </div>
-                    </a>
+                    {LOCATION_CARDS.map(card => (
+                        <InfoCard key={card.label} {...card} />
+                    ))}
                 </div>
 
                 <div className={css.mapWrapper}>

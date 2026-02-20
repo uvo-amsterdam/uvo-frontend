@@ -33,6 +33,24 @@ $transition-slow: 0.6s ease;
 $font-body: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
 $font-heading: 'Barlow Condensed', 'Impact', 'Arial Narrow', sans-serif;
 
+// ─── Shared Section Mixins ───
+@mixin section-heading {
+  font-family: $font-heading;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: $gray-800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+@mixin section-subtitle {
+  font-size: 1.1rem;
+  color: $gray-600;
+  margin: 0;
+}
+
 // ─── Global Reset & Base ───
 html {
   scroll-behavior: smooth;

@@ -71,11 +71,15 @@
     align-items: center;
     text-align: center;
     height: 100%;
-    padding: 0 8%;
+
+    // Offset for the sticky header (3.75rem) so content is visually centered
+    // in the visible viewport below the header
+    padding: 3.75rem 8% 0;
+    box-sizing: border-box;
     color: globals.$white-color;
 
     @media (max-width: globals.$breakpoint-sm) {
-        padding: 0 5%;
+        padding: 3.75rem 5% 0;
     }
 }
 
@@ -99,7 +103,6 @@
     color: globals.$accent-color;
     -webkit-text-fill-color: globals.$accent-color;
     background: none;
-    background-clip: unset;
     background-clip: unset;
 }
 

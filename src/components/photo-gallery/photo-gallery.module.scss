@@ -50,19 +50,17 @@
 }
 
 .title {
-    font-family: globals.$font-heading;
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: globals.$gray-800;
-    margin: 0 0 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.01em;
+    @include globals.section-heading;
+
+    margin-bottom: 0.5rem;
+
+    @media (max-width: globals.$breakpoint-sm) {
+        font-size: 2rem;
+    }
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    color: globals.$gray-600;
-    margin: 0;
+    @include globals.section-subtitle;
 }
 
 .grid {

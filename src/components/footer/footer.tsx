@@ -1,4 +1,5 @@
 import React, { type FC } from 'react';
+import { FORMS } from '@constants/forms';
 import { LOCATION } from '@constants/location';
 import { Link, Separator, Text } from '@radix-ui/themes';
 
@@ -26,8 +27,6 @@ export const Footer: FC = () => {
             ],
         },
     ];
-    const signUpUrl =
-        'https://docs.google.com/forms/d/e/1FAIpQLSeWLaAr0S6cBgUI3lWOJ9vA24qMP_DlUwF0DseY4vlHkaLl3A/closedform?embedded=true';
     return (
         <footer className={css.root}>
             <div className={css.infoSection}>
@@ -43,7 +42,7 @@ export const Footer: FC = () => {
                     <Text>Join UvO</Text>
                     <Text>Want to play volleyball with us?</Text>
                     <Link
-                        href={signUpUrl}
+                        href={FORMS.SIGN_UP}
                         target="_blank"
                         rel="noopener noreferrer"
                         highContrast
