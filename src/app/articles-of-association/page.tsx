@@ -1,13 +1,17 @@
-import '@styles/globals.scss';
-
-import { UnderConstruction } from '@components/under-construction/under-construction';
+'use client';
+import dynamic from 'next/dynamic';
 
 import css from './page.module.scss';
 
-export default function MemberInfo() {
+const PdfViewer = dynamic(
+    () => import('../../components/pdf-viewer/pdf-viewer'),
+    { ssr: false },
+);
+
+export default function ArticlesOfAssociation() {
     return (
         <div className={css.root}>
-            <UnderConstruction />
+            <PdfViewer file="/statuten.pdf" />
         </div>
     );
 }
