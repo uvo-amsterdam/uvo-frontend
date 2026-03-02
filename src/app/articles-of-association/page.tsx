@@ -1,19 +1,19 @@
-'use client';
 import { Heading } from '@radix-ui/themes';
-import dynamic from 'next/dynamic';
 
 import css from './page.module.scss';
-
-const PdfViewer = dynamic(
-    () => import('../../components/pdf-viewer/pdf-viewer'),
-    { ssr: false },
-);
 
 export default function ArticlesOfAssociation() {
     return (
         <div className={css.root}>
             <Heading>Articles of association</Heading>
-            <PdfViewer file="/statuten.pdf" />
+            <iframe
+                title="AoA"
+                src="/statuten.pdf"
+                style={{ border: 0, width: '100%', height: '100vh' }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+            />
         </div>
     );
 }
