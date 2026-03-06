@@ -30,7 +30,7 @@
         "pre-commit": "pnpm format-n-lint:fix"
     },
     "dependencies": {
-        "@biomejs/biome": "2.4.4",
+        "@biomejs/biome": "2.4.6",
         "@radix-ui/themes": "3.3.0",
         "@tabler/icons-react": "3.37.1",
         "husky": "9.1.7",
