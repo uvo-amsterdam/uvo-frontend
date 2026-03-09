@@ -1,3 +1,395 @@
+@use '@styles/globals';
+
+/* ═══════════════════════════════════
+   Sign-Up Page
+   ═══════════════════════════════════ */
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero — full-bleed photo with gradient scrim ── */
+
+.hero {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-end;
+  padding: 5rem 8% 8rem;
+  overflow: hidden;
+
+  // elliptical bottom mask into off-white
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: globals.$off-white;
+    clip-path: ellipse(55% 100% at 50% 100%);
+    z-index: 3;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    min-height: 340px;
+    padding: 4rem 5% 6rem;
+  }
+}
+
+.heroBg {
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 0;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgb(67 66 255 / 92%) 0%,
+    rgb(67 66 255 / 70%) 40%,
+    rgb(67 66 255 / 45%) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  color: globals.$white-color;
+}
+
+.title {
+  @include globals.section-heading;
+
+  font-size: 4rem;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.6rem;
+  }
+}
+
+.subtitle {
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 560px;
+  font-size: 1.15rem;
+}
+
+/* ── Why UvO? — selling points + photo ── */
+
+.whySection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+
+  @media (max-width: globals.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5%;
+  }
+}
+
+.whyText {
+  display: flex;
+  flex-direction: column;
+}
+
+.whyPhoto {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: globals.$breakpoint-md) {
+    order: -1; // photo on top when stacked
+  }
+}
+
+.whyImage {
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+  border-radius: 14px;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 10%);
+}
+
+.sectionTitle {
+  @include globals.section-heading;
+
+  font-size: 3rem;
+  color: globals.$gray-800;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: globals.$accent-color;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.sellingPoints {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    gap: 1rem;
+  }
+}
+
+.pointNumber {
+  font-family: globals.$font-heading;
+  font-weight: 900;
+  font-size: 4rem;
+  line-height: 1;
+  color: globals.$primary-color;
+  opacity: 0.15;
+  flex-shrink: 0;
+  min-width: 80px;
+  letter-spacing: -0.02em;
+  user-select: none;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 3rem;
+    min-width: 52px;
+  }
+}
+
+.pointText {
+  color: globals.$gray-800;
+  line-height: 1.7;
+  padding-top: 0.7rem;
+  max-width: 640px;
+}
+
+/* ── Tryout Band — full-width with diagonal slat ── */
+
+.tryoutBand {
+  position: relative;
+  background: globals.$primary-color;
+  color: globals.$white-color;
+  padding: 5rem 8% 4rem;
+  margin-top: 2rem;
+  overflow: hidden;
+
+  // diagonal slant top edge
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: globals.$off-white;
+    transform: skewY(-3deg);
+    transform-origin: top left;
+    z-index: 1;
+  }
+
+  // decorative volleyball seam arc
+  &::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 55%;
+    width: 55%;
+    height: 140%;
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 5%);
+    background: rgb(255 255 255 / 2%);
+    background-image:
+      linear-gradient(45deg, rgb(255 255 255 / 2%) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(255 255 255 / 2%) 25%, transparent 25%);
+    background-size: 18px 18px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 4rem 5% 3rem;
+  }
+}
+
+.tryoutInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tryoutHeadline {
+  @include globals.section-heading;
+
+  font-size: 3.4rem;
+  color: inherit;
+  margin-bottom: 1.25rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.tryoutBody {
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 640px;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.8rem;
+  background: globals.$accent-color;
+  color: globals.$white-color;
+  font-family: globals.$font-heading;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  text-decoration: none;
+  transition:
+    transform globals.$transition-fast,
+    box-shadow globals.$transition-fast,
+    background globals.$transition-fast;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+
+  &:hover {
+    background: globals.$accent-dark;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
+  }
+}
+
+/* ── Pricing Tables ── */
+
+.pricing {
+  padding: 4rem 8% 5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5% 4rem;
+  }
+}
+
+.pricingHeader {
+  margin-bottom: 2.5rem;
+}
+
+.tableBlock {
+  margin-bottom: 2.5rem;
+}
+
+.tableLabel {
+  @include globals.section-heading;
+
+  font-size: 1.6rem;
+  color: globals.$gray-800;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+}
+
+.feeTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: globals.$font-body;
+  font-size: 0.95rem;
+  background: globals.$white-color;
+  min-width: 420px;
+
+  thead tr {
+    background: globals.$primary-color;
+    color: globals.$white-color;
+  }
+
+  th {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-family: globals.$font-heading;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 0.85rem 1.2rem;
+    color: globals.$gray-800;
+    border-bottom: 1px solid rgb(0 0 0 / 6%);
+  }
+
+  tbody tr:nth-child(even) {
+    background: globals.$cream;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  // subtle italic for surcharge row
+  tbody tr:last-child {
+    font-style: italic;
+    opacity: 0.85;
+  }
+}
+
+.pricingNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  color: globals.$gray-600;
+}
+
+.noteIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: globals.$gray-600;
+}
+
+.noteText {
+  line-height: 1.6;
 }
