@@ -38,7 +38,7 @@
   }
 }
 
-.navLink {
+.navLink, .navButton {
   color: globals.$white-color;
   font-family: globals.$font-heading;
   font-weight: 700;
@@ -48,10 +48,23 @@
   letter-spacing: 0.05em;
   padding: 0.35rem 0.65rem;
   border-radius: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: background globals.$transition-fast, color globals.$transition-fast;
 
   &:hover {
     background: rgb(255 255 255 / 20%);
     color: globals.$white-color;
   }
+}
+
+.dropdownLink {
+  text-decoration: none;
+  color: inherit;
+  font-family: globals.$font-heading;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
 }

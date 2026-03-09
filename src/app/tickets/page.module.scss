@@ -1,3 +1,144 @@
+@use '@styles/globals';
+
+/* ═══════════════════════════════════
+   Tickets Page
+   ═══════════════════════════════════ */
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+
+.hero {
+  padding: 5rem 8% 8rem;
+  background: globals.$primary-color;
+  color: globals.$white-color;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: globals.$off-white;
+    clip-path: ellipse(55% 100% at 50% 100%);
+    z-index: 1;
+  }
+
+  // decorative seam arc
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 55%;
+    height: 160%;
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 6%);
+    background: rgb(255 255 255 / 2%);
+    background-image:
+      linear-gradient(45deg, rgb(255 255 255 / 2%) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(255 255 255 / 2%) 25%, transparent 25%);
+    background-size: 18px 18px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 4rem 5% 6rem;
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+.heroIcon {
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  @include globals.section-heading;
+
+  font-size: 3.4rem;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.subtitle {
+  line-height: 1.7;
+  opacity: 0.9;
+  max-width: 560px;
+}
+
+/* ── Ticket Embed ── */
+
+.embedSection {
+  padding: 3rem 8% 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 2rem 4% 3rem;
+  }
+}
+
+.embedContainer {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  background: globals.$white-color;
+  border: 1px solid globals.$gray-200;
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  min-height: 700px;
+  border: none;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    min-height: 500px;
+  }
+}
+
+/* ── Fallback ── */
+
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+}
+
+.fallbackText {
+  color: globals.$gray-400;
+}
+
+.fallbackLink {
+  color: globals.$primary-color;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color globals.$transition-fast;
+
+  &:hover {
+    color: globals.$accent-color;
+    text-decoration: underline;
+  }
 }

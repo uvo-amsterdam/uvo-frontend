@@ -1,4 +1,226 @@
+@use '@styles/globals';
+
+/* ═══════════════════════════════════
+   Merch Page
+   ═══════════════════════════════════ */
+
 .root {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+
+.hero {
+  padding: 5rem 8% 4rem;
+  background: globals.$off-white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -15%;
+    width: 65%;
+    height: 120%;
+    border-radius: 50% 0 50% 50%;
+    background: rgb(67 66 255 / 4%);
+    background-image:
+      linear-gradient(45deg, rgb(67 66 255 / 3%) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(67 66 255 / 3%) 25%, transparent 25%);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5% 2.5rem;
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.title {
+  @include globals.section-heading;
+
+  font-size: 3.4rem;
+  margin-bottom: 1rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: globals.$accent-color;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.subtitle {
+  color: globals.$gray-600;
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ── Product Showcase ── */
+
+.showcase {
+  padding: 3rem 8% 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 2rem 5% 1rem;
+  }
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: globals.$breakpoint-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.imageCard {
+  border-radius: 12px;
+  overflow: hidden;
+  background: globals.$white-color;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+  transition: transform globals.$transition-fast;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+/* ── Gear & Care (Sports Magazine Layout) ── */
+
+.gearAndCare {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  padding: 4rem 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+
+  @media (max-width: globals.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5%;
+  }
+}
+
+.gcHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.gcTitle {
+  @include globals.section-heading;
+
+  font-size: 3rem;
+  color: globals.$gray-800;
+  position: relative;
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: globals.$accent-color;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.gcContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gcBullet {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: globals.$gray-800;
+}
+
+.gcIcon {
+  color: globals.$accent-color;
+  flex-shrink: 0;
+}
+
+/* ── Simple CTA ── */
+
+.cta {
+  padding: 3rem 8% 6rem;
+  display: flex;
+  justify-content: center;
+  background: globals.$white-color;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 2rem 5% 4rem;
+  }
+}
+
+.ctaButton {
+  background-color: globals.$accent-color;
+  font-family: globals.$font-heading;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1.2rem 2.5rem;
+  height: auto;
+  border-radius: 6px;
+  transition:
+    background-color globals.$transition-fast,
+    transform globals.$transition-fast,
+    box-shadow globals.$transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    background-color: globals.$accent-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgb(0 0 0 / 15%);
+  }
 }

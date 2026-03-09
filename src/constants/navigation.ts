@@ -7,14 +7,21 @@ export const NAVIGATION: Pages = [
         subtitle: 'Welcome to the UvO Amsterdam website!',
     },
     {
-        link: '/merch',
-        title: 'Merch',
-        subtitle: 'Buy our merchandise',
-    },
-    {
-        link: '/tickets',
-        title: 'Tickets',
-        subtitle: 'Get your tickets',
+        link: '#',
+        title: 'Shop',
+        subtitle: 'Get your merch and tickets',
+        subPages: [
+            {
+                link: '/merch',
+                title: 'Merch',
+                subtitle: 'Buy our merchandise',
+            },
+            {
+                link: '/tickets',
+                title: 'Tickets',
+                subtitle: 'Get your tickets',
+            },
+        ],
     },
     {
         link: '/sign-up',
