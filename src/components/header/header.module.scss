@@ -57,6 +57,10 @@
     background: rgb(255 255 255 / 20%);
     color: globals.$white-color;
   }
+
+  &.activeNav {
+    color: globals.$accent-color !important;
+  }
 }
 
 .dropdownLink {
@@ -67,4 +71,14 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   display: block;
+  transition: color globals.$transition-fast;
+
+  &[data-highlighted] {
+    background-color: transparent !important;
+    color: globals.$accent-color !important;
+  }
+
+  &.activeDropdown {
+    color: globals.$accent-color !important;
+  }
 }

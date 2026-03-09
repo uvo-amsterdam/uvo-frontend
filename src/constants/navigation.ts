@@ -34,11 +34,6 @@ export const NAVIGATION: Pages = [
         subtitle: 'Discover our committees',
     },
     {
-        link: '/articles-of-association',
-        title: 'Articles of Association',
-        subtitle: 'Read our articles of association',
-    },
-    {
         link: '/member-info',
         title: 'Member Info',
         subtitle: 'Information for members',

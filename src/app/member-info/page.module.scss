@@ -1,3 +1,384 @@
+@use '@styles/globals';
+
+/* ═══════════════════════════════════
+   Member Info Page
+   ═══════════════════════════════════ */
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero — full-bleed photo with gradient scrim ── */
+
+.hero {
+  position: relative;
+  min-height: 380px;
+  display: flex;
+  align-items: flex-end;
+  padding: 5rem 8% 6rem;
+  overflow: hidden;
+
+  // elliptical bottom mask into off-white
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: globals.$off-white;
+    clip-path: ellipse(55% 100% at 50% 100%);
+    z-index: 3;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    min-height: 300px;
+    padding: 4rem 5% 5rem;
+  }
+}
+
+.heroBg {
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 0;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgb(67 66 255 / 92%) 0%,
+    rgb(67 66 255 / 70%) 40%,
+    rgb(67 66 255 / 45%) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  color: globals.$white-color;
+}
+
+.title {
+  @include globals.section-heading;
+
+  font-size: 4rem;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.6rem;
+  }
+}
+
+.subtitle {
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 560px;
+  font-size: 1.15rem;
+}
+
+/* ── General Section Layouts ── */
+
+.infoSection {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 4rem;
+  padding: 5rem 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: globals.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 4rem 8%;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5%;
+  }
+}
+
+.altBackground {
+  background: globals.$cream;
+  max-width: 100%; // To span full width if applied globally
+  padding-left: max(8%, calc((100vw - 1400px) / 2 + 8%));
+  padding-right: max(8%, calc((100vw - 1400px) / 2 + 8%));
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+.sectionTitle {
+  @include globals.section-heading;
+
+  font-size: 2.6rem;
+  color: globals.$gray-800;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: globals.$accent-color;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2rem;
+  }
+}
+
+.headerCenter {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .sectionTitle::after {
+    margin: 0.75rem auto 0;
+  }
+}
+
+/* ── Accordion (DWF) ── */
+
+.accordionRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accordionItem {
+  background: globals.$white-color;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
+}
+
+.accordionHeader {
+  margin: 0;
+  display: flex;
+}
+
+.accordionTrigger {
+  all: unset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background: globals.$white-color;
+  cursor: pointer;
+  transition: background globals.$transition-fast;
+
+  &:hover {
+    background: globals.$cream;
+  }
+  
+  &[data-state='open'] .accordionChevron {
+    transform: rotate(180deg);
+  }
+}
+
+.accordionTriggerText {
+  font-family: globals.$font-heading;
+  font-size: 1.8rem;
+  color: globals.$primary-color;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.accordionChevron {
+  color: globals.$primary-color;
+  transition: transform globals.$transition-fast;
+}
+
+.accordionContent {
+  overflow: hidden;
+
+  &[data-state='open'] {
+    animation: slide-down 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  }
+
+  &[data-state='closed'] {
+    animation: slide-up 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  }
+  
+  .stepList {
+    padding: 0 2rem 2rem;
+    border-top: 1px solid rgb(0 0 0 / 4%);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@keyframes slide-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes slide-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+/* ── Step List Items ── */
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    gap: 1rem;
+  }
+}
+
+.stepNumber {
+  font-family: globals.$font-heading;
+  font-weight: 900;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: globals.$primary-color;
+  opacity: 0.15;
+  flex-shrink: 0;
+  min-width: 55px;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+.stepText {
+  color: globals.$gray-800;
+  line-height: 1.6;
+  padding-top: 0.4rem;
+  max-width: 640px;
+
+  a {
+    color: globals.$primary-color;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ── Text Content ── */
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: globals.$gray-800;
+  max-width: 640px;
+}
+
+.paragraph {
+  line-height: 1.7;
+}
+
+.contactCard {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: globals.$white-color;
+  border-radius: 8px;
+  border-left: 4px solid globals.$accent-color;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.emailLink {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-family: globals.$font-body;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: globals.$primary-color;
+  text-decoration: none;
+  transition: color globals.$transition-fast;
+
+  &:hover {
+    color: globals.$accent-color;
+  }
+}
+
+/* ── Documents Section ── */
+
+.documentsSection {
+  padding: 5rem 8%;
+  
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 3rem 5%;
+  }
+}
+
+.docGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  @media (max-width: globals.$breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.docCard {
+  background: globals.$white-color;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: globals.$gray-800;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform globals.$transition-fast, border-color globals.$transition-fast;
+  
+  /* Flattened styling */
+  box-shadow: none;
+  border: 2px solid rgb(0 0 0 / 6%);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: globals.$primary-color;
+    
+    .docIcon {
+      color: globals.$accent-color;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.docIcon {
+  color: globals.$primary-color;
+  margin-bottom: 1.25rem;
+  transition: transform globals.$transition-fast, color globals.$transition-fast;
+}
+
+.docTitle {
+  font-family: globals.$font-heading;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.docDesc {
+  color: globals.$gray-600;
+  line-height: 1.5;
 }
