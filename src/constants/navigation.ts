@@ -54,6 +54,11 @@ export const NAVIGATION: Pages = [
         subtitle: 'Training schedule and info',
     },
     {
+        link: '/competition',
+        title: 'Competition',
+        subtitle: 'Upcoming match fixtures',
+    },
+    {
         link: '/contact',
         title: 'Contact',
         subtitle: 'Get in touch with us',
