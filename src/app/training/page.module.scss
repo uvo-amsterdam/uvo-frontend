@@ -1,3 +1,37 @@
+@use '@styles/globals';
+
 .root {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: globals.$off-white;
+}
+
+.hero {
+  @include globals.hero-solid(5rem, 3rem);
+}
+
+.heroInner {
+  @include globals.hero-content(600px);
+}
+
+.title {
+  @include globals.hero-title(4.5rem, 3.5rem);
+}
+
+.subtitle {
+  @include globals.hero-subtitle;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  margin-top: -3rem; // overlap with hero arc
+  padding-bottom: 5rem;
+}
+
+.contentInner {
+  @include globals.content-section(2rem, 1rem);
+
+  max-width: 1000px; // Constraint width since tables are too wide on huge screens
 }

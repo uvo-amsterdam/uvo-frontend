@@ -31,9 +31,11 @@
     },
     "dependencies": {
         "@biomejs/biome": "2.4.4",
+        "@directus/sdk": "^21.2.0",
         "@radix-ui/react-accordion": "1.2.12",
         "@radix-ui/themes": "3.3.0",
         "@tabler/icons-react": "3.37.1",
+        "clsx": "^2.1.1",
         "husky": "9.1.7",
         "next": "16.1.6",
         "react": "19.2.4",

@@ -104,7 +104,6 @@ const MerchPage: FC = () => {
                 </div>
             </section>
 
-            {/* ── Simple CTA ── */}
             <section className={css.cta}>
                 <Button size="4" className={css.ctaButton} asChild>
                     <a
