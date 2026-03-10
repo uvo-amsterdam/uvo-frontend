@@ -1,12 +1,12 @@
+import { NEVOBO_BASE_URL } from '@constants/api';
+import { parseNevoboExcel } from '@utils/nevobo-utils';
 import { NextResponse } from 'next/server';
-import * as XLSX from 'xlsx';
-
-const NEVOBO_URL =
-    'https://api.nevobo.nl/export/vereniging/CKL7K23/programma.xlsx';
 
 export async function GET() {
     try {
-        const response = await fetch(NEVOBO_URL);
+        const response = await fetch(
+            `${NEVOBO_BASE_URL}vereniging/CKL7K23/programma.xlsx`,
+        );
 
         if (!response.ok) {
             return NextResponse.json(
@@ -15,15 +15,7 @@ export async function GET() {
             );
         }
 
-        const buffer = await response.arrayBuffer();
-        const workbook = XLSX.read(new Uint8Array(buffer), { type: 'array' });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const rows: unknown[][] = XLSX.utils.sheet_to_json(sheet, {
-            header: 1,
-        });
-
-        // Skip the header row
-        const fixtures = rows.slice(1, 16);
+        const fixtures = await parseNevoboExcel(response);
 
         return NextResponse.json(fixtures);
     } catch {

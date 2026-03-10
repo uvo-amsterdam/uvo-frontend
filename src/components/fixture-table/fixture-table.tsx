@@ -1,72 +1,13 @@
 'use client';
 
-import { type FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useFixtures } from '@hooks/useFixtures';
 import { Heading, Text } from '@radix-ui/themes';
-import { formatDateFromSerial, formatTimeFromSerial } from '@utils/date-utils';
 
 import css from './fixture-table.module.scss';
 
-interface Fixture {
-    date: string;
-    time: string;
-    home: string;
-    away: string;
-    venue: string;
-    city: string;
-    isUvo: boolean;
-}
-
-function parseFixtures(rows: unknown[][]): Fixture[] {
-    return rows
-        .filter(row => row.length > 0 && row[0] != null)
-        .map(row => {
-            const dateSerial = row[0] as number;
-            const timeSerial = row[1] as number;
-            const home = (row[2] as string) ?? '';
-            const away = (row[3] as string) ?? '';
-            const venue = (row[10] as string) ?? '';
-            const city = (row[11] as string) ?? '';
-
-            return {
-                date:
-                    typeof dateSerial === 'number'
-                        ? formatDateFromSerial(dateSerial)
-                        : String(dateSerial ?? ''),
-                time:
-                    typeof timeSerial === 'number'
-                        ? formatTimeFromSerial(timeSerial)
-                        : String(timeSerial ?? ''),
-                home,
-                away,
-                venue,
-                city,
-                isUvo:
-                    home.toLowerCase().includes('uvo') ||
-                    away.toLowerCase().includes('uvo'),
-            };
-        });
-}
-
 export const FixtureTable: FC = () => {
-    const [fixtures, setFixtures] = useState<Fixture[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-
-    useEffect(() => {
-        fetch('/api/fixtures')
-            .then(res => {
-                if (!res.ok) throw new Error('API error');
-                return res.json();
-            })
-            .then((rows: unknown[][]) => {
-                setFixtures(parseFixtures(rows));
-                setLoading(false);
-            })
-            .catch(() => {
-                setError(true);
-                setLoading(false);
-            });
-    }, []);
+    const { data: fixtures, loading, error } = useFixtures();
 
     if (loading) {
         return (
