@@ -12,7 +12,7 @@ importers:
         specifier: 2.4.4
         version: 2.4.4
       '@radix-ui/react-accordion':
-        specifier: ^1.2.12
+        specifier: 1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/themes':
         specifier: 3.3.0
@@ -42,7 +42,7 @@ importers:
         specifier: 17.4.0
         version: 17.4.0(typescript@5.9.3)
       xlsx:
-        specifier: ^0.18.5
+        specifier: 0.18.5
         version: 0.18.5
     devDependencies:
       '@changesets/cli':
