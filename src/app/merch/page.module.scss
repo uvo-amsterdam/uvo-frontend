@@ -40,30 +40,15 @@
 }
 
 .heroContent {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
+  @include globals.hero-content(720px);
+
+  color: globals.$gray-800;
 }
 
 .title {
-  @include globals.section-heading;
+  @include globals.section-title-accent(3.4rem, 2.2rem, 60px);
 
-  font-size: 3.4rem;
   margin-bottom: 1rem;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: globals.$accent-color;
-    margin-top: 0.75rem;
-    border-radius: 2px;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2.2rem;
-  }
 }
 
 .subtitle {
@@ -75,15 +60,7 @@
 /* ── Product Showcase ── */
 
 .showcase {
-  padding: 3rem 8% 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    padding: 2rem 5% 1rem;
-  }
+  @include globals.content-section(3rem 8% 2rem, 2rem 5% 1rem);
 }
 
 .imageGrid {
@@ -150,25 +127,9 @@
 }
 
 .gcTitle {
-  @include globals.section-heading;
+  @include globals.section-title-accent(3rem, 2.2rem, 60px);
 
-  font-size: 3rem;
-  color: globals.$gray-800;
   position: relative;
-  
-  &::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: globals.$accent-color;
-    margin-top: 0.75rem;
-    border-radius: 2px;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2.2rem;
-  }
 }
 
 .gcContent {

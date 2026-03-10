@@ -12,74 +12,27 @@
 /* ── Hero — full-bleed photo with gradient scrim ── */
 
 .hero {
-  position: relative;
-  min-height: 420px;
-  display: flex;
-  align-items: flex-end;
-  padding: 5rem 8% 8rem;
-  overflow: hidden;
-
-  // elliptical bottom mask into off-white
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: globals.$off-white;
-    clip-path: ellipse(55% 100% at 50% 100%);
-    z-index: 3;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    min-height: 340px;
-    padding: 4rem 5% 6rem;
-  }
+  @include globals.hero-base(420px, 5rem 8% 8rem, 4rem 5% 6rem);
 }
 
 .heroBg {
-  object-fit: cover;
-  object-position: center 30%;
-  z-index: 0;
+  @include globals.hero-bg;
 }
 
 .heroScrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgb(67 66 255 / 92%) 0%,
-    rgb(67 66 255 / 70%) 40%,
-    rgb(67 66 255 / 45%) 100%
-  );
+  @include globals.hero-scrim;
 }
 
 .heroContent {
-  position: relative;
-  z-index: 2;
-  max-width: 650px;
-  color: globals.$white-color;
+  @include globals.hero-content;
 }
 
 .title {
-  @include globals.section-heading;
-
-  font-size: 4rem;
-  color: inherit;
-  margin-bottom: 1rem;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2.6rem;
-  }
+  @include globals.hero-title;
 }
 
 .subtitle {
-  line-height: 1.7;
-  opacity: 0.92;
-  max-width: 560px;
-  font-size: 1.15rem;
+  @include globals.hero-subtitle;
 }
 
 /* ── Why UvO? — selling points + photo ── */
@@ -115,7 +68,7 @@
   justify-content: center;
 
   @media (max-width: globals.$breakpoint-md) {
-    order: -1; // photo on top when stacked
+    order: -1;
   }
 }
 
@@ -130,24 +83,7 @@
 }
 
 .sectionTitle {
-  @include globals.section-heading;
-
-  font-size: 3rem;
-  color: globals.$gray-800;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: globals.$accent-color;
-    margin-top: 0.75rem;
-    border-radius: 2px;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2.2rem;
-  }
+  @include globals.section-title-accent(3rem, 2.2rem, 60px);
 }
 
 .sellingPoints {
@@ -158,26 +94,11 @@
 }
 
 .point {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    gap: 1rem;
-  }
+  @include globals.numbered-item;
 }
 
 .pointNumber {
-  font-family: globals.$font-heading;
-  font-weight: 900;
-  font-size: 4rem;
-  line-height: 1;
-  color: globals.$primary-color;
-  opacity: 0.15;
-  flex-shrink: 0;
-  min-width: 80px;
-  letter-spacing: -0.02em;
-  user-select: none;
+  @include globals.numbered-item-number(4rem, 80px);
 
   @media (max-width: globals.$breakpoint-sm) {
     font-size: 3rem;
@@ -186,10 +107,10 @@
 }
 
 .pointText {
-  color: globals.$gray-800;
+  @include globals.numbered-item-text;
+
   line-height: 1.7;
   padding-top: 0.7rem;
-  max-width: 640px;
 }
 
 /* ── Tryout Band — full-width with diagonal slat ── */
@@ -268,44 +189,13 @@
 }
 
 .ctaButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2.8rem;
-  background: globals.$accent-color;
-  color: globals.$white-color;
-  font-family: globals.$font-heading;
-  font-weight: 800;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-radius: 6px;
-  text-decoration: none;
-  transition:
-    transform globals.$transition-fast,
-    box-shadow globals.$transition-fast,
-    background globals.$transition-fast;
-  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
-
-  &:hover {
-    background: globals.$accent-dark;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
-  }
+  @include globals.cta-button;
 }
 
 /* ── Pricing Tables ── */
 
 .pricing {
-  padding: 4rem 8% 5rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    padding: 3rem 5% 4rem;
-  }
+  @include globals.content-section(4rem 8% 5rem, 3rem 5% 4rem);
 }
 
 .pricingHeader {

@@ -1,4 +1,3 @@
-import '@styles/globals.scss';
 import { BOARD } from '@constants/board';
 import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';

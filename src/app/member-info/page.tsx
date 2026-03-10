@@ -401,7 +401,7 @@ const MemberInfoPage: FC = () => {
                         </Text>
                     </NextLink>
 
-                    <a href="/member-info" className={css.docCard}>
+                    <NextLink href="/member-info" className={css.docCard}>
                         <IconReceipt2
                             stroke={2.5}
                             size={44}
@@ -414,9 +414,9 @@ const MemberInfoPage: FC = () => {
                             Reimbursement form for expenses made on behalf of a
                             committee.
                         </Text>
-                    </a>
+                    </NextLink>
 
-                    <a href="/member-info" className={css.docCard}>
+                    <NextLink href="/member-info" className={css.docCard}>
                         <IconShieldCheck
                             stroke={2.5}
                             size={44}
@@ -429,7 +429,7 @@ const MemberInfoPage: FC = () => {
                             Our Huishoudelijk Reglement covering club
                             guidelines.
                         </Text>
-                    </a>
+                    </NextLink>
                 </div>
             </section>
         </div>

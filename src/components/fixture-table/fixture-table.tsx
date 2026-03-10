@@ -2,6 +2,7 @@
 
 import { type FC, useEffect, useState } from 'react';
 import { Heading, Text } from '@radix-ui/themes';
+import { formatDateFromSerial, formatTimeFromSerial } from '@utils/date-utils';
 
 import css from './fixture-table.module.scss';
 
@@ -13,39 +14,6 @@ interface Fixture {
     venue: string;
     city: string;
     isUvo: boolean;
-}
-
-function excelSerialToDate(serial: number): Date {
-    return new Date((serial - 25569) * 86400000);
-}
-
-function formatDate(serial: number): string {
-    const date = excelSerialToDate(serial);
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-    ];
-    return `${days[date.getUTCDay()]} ${date.getUTCDate()} ${months[date.getUTCMonth()]}`;
-}
-
-function formatTime(serial: number): string {
-    const date = excelSerialToDate(serial);
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-
-    if (hours < 0) return 'TBD';
-    return `${hours}:${minutes}`;
 }
 
 function parseFixtures(rows: unknown[][]): Fixture[] {
@@ -62,11 +30,11 @@ function parseFixtures(rows: unknown[][]): Fixture[] {
             return {
                 date:
                     typeof dateSerial === 'number'
-                        ? formatDate(dateSerial)
+                        ? formatDateFromSerial(dateSerial)
                         : String(dateSerial ?? ''),
                 time:
                     typeof timeSerial === 'number'
-                        ? formatTime(timeSerial)
+                        ? formatTimeFromSerial(timeSerial)
                         : String(timeSerial ?? ''),
                 home,
                 away,

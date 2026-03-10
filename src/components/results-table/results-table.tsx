@@ -3,6 +3,7 @@
 import { type FC, useEffect, useState } from 'react';
 import { Heading, Text } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
+import { formatDateFromSerial } from '@utils/date-utils';
 
 import css from './results-table.module.scss';
 
@@ -16,30 +17,6 @@ interface MatchResult {
     uvoWin: boolean;
     uvoLoss: boolean;
     isUvo: boolean;
-}
-
-function excelSerialToDate(serial: number): Date {
-    return new Date((serial - 25569) * 86400000);
-}
-
-function formatDate(serial: number): string {
-    const date = excelSerialToDate(serial);
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-    ];
-    return `${days[date.getUTCDay()]} ${date.getUTCDate()} ${months[date.getUTCMonth()]}`;
 }
 
 function determineWin(
@@ -87,7 +64,7 @@ function parseResults(rows: unknown[][]): MatchResult[] {
             return {
                 date:
                     typeof dateSerial === 'number'
-                        ? formatDate(dateSerial)
+                        ? formatDateFromSerial(dateSerial)
                         : String(dateSerial ?? ''),
                 home,
                 away,

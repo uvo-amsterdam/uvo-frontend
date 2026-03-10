@@ -12,74 +12,27 @@
 /* ── Hero — full-bleed photo with gradient scrim ── */
 
 .hero {
-  position: relative;
-  min-height: 380px;
-  display: flex;
-  align-items: flex-end;
-  padding: 5rem 8% 6rem;
-  overflow: hidden;
-
-  // elliptical bottom mask into off-white
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: globals.$off-white;
-    clip-path: ellipse(55% 100% at 50% 100%);
-    z-index: 3;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    min-height: 300px;
-    padding: 4rem 5% 5rem;
-  }
+  @include globals.hero-base;
 }
 
 .heroBg {
-  object-fit: cover;
-  object-position: center 30%;
-  z-index: 0;
+  @include globals.hero-bg;
 }
 
 .heroScrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgb(67 66 255 / 92%) 0%,
-    rgb(67 66 255 / 70%) 40%,
-    rgb(67 66 255 / 45%) 100%
-  );
+  @include globals.hero-scrim;
 }
 
 .heroContent {
-  position: relative;
-  z-index: 2;
-  max-width: 650px;
-  color: globals.$white-color;
+  @include globals.hero-content;
 }
 
 .title {
-  @include globals.section-heading;
-
-  font-size: 4rem;
-  color: inherit;
-  margin-bottom: 1rem;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2.6rem;
-  }
+  @include globals.hero-title;
 }
 
 .subtitle {
-  line-height: 1.7;
-  opacity: 0.92;
-  max-width: 560px;
-  font-size: 1.15rem;
+  @include globals.hero-subtitle;
 }
 
 /* ── General Section Layouts ── */
@@ -107,7 +60,7 @@
 
 .altBackground {
   background: globals.$cream;
-  max-width: 100%; // To span full width if applied globally
+  max-width: 100%;
   padding-left: max(8%, calc((100vw - 1400px) / 2 + 8%));
   padding-right: max(8%, calc((100vw - 1400px) / 2 + 8%));
 
@@ -118,24 +71,7 @@
 }
 
 .sectionTitle {
-  @include globals.section-heading;
-
-  font-size: 2.6rem;
-  color: globals.$gray-800;
-
-  &::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 4px;
-    background: globals.$accent-color;
-    margin-top: 0.75rem;
-    border-radius: 2px;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    font-size: 2rem;
-  }
+  @include globals.section-title-accent;
 }
 
 .headerCenter {
@@ -237,43 +173,15 @@
 /* ── Step List Items ── */
 
 .step {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-
-  @media (max-width: globals.$breakpoint-sm) {
-    gap: 1rem;
-  }
+  @include globals.numbered-item;
 }
 
 .stepNumber {
-  font-family: globals.$font-heading;
-  font-weight: 900;
-  font-size: 2.8rem;
-  line-height: 1;
-  color: globals.$primary-color;
-  opacity: 0.15;
-  flex-shrink: 0;
-  min-width: 55px;
-  letter-spacing: -0.02em;
-  user-select: none;
+  @include globals.numbered-item-number;
 }
 
 .stepText {
-  color: globals.$gray-800;
-  line-height: 1.6;
-  padding-top: 0.4rem;
-  max-width: 640px;
-
-  a {
-    color: globals.$primary-color;
-    text-decoration: none;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+  @include globals.numbered-item-text;
 }
 
 /* ── Text Content ── */
