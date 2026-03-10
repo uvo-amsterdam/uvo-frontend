@@ -20,6 +20,14 @@ This document outlines the design philosophy, visual identity, and guiding princ
   * [6. Component Guidelines](#6-component-guidelines)
   * [7. Anti-Patterns (What to Avoid)](#7-anti-patterns-what-to-avoid)
   * [8. Reference and Inspiration](#8-reference-and-inspiration)
+  * [9. Code Quality Principles (DRY & SOLID)](#9-code-quality-principles-dry--solid)
+    * [9.1 Shared SCSS Mixins](#91-shared-scss-mixins)
+    * [9.2 Utility Extraction](#92-utility-extraction)
+    * [9.3 Component Composition](#93-component-composition)
+  * [10. Library Usage Guidelines](#10-library-usage-guidelines)
+    * [10.1 Radix UI (Themes & Primitives)](#101-radix-ui-themes--primitives)
+    * [10.2 Tabler Icons](#102-tabler-icons)
+    * [10.3 Next.js Components](#103-nextjs-components)
 <!-- TOC -->
 
 ---
@@ -170,3 +178,90 @@ When designing new pages or components, look to these types of sources for inspi
 - **Other student sports associations:** Look at what other clubs in the Nevobo network are doing
 
 **Never** look to SaaS landing pages, startup templates, or corporate websites. They'll pull the design in the wrong direction every time.
+
+## 9. Code Quality Principles (DRY & SOLID)
+
+Maintaining clean, DRY, SOLID code is just as important as visual consistency. Every new page or component should reuse existing abstractions before writing new CSS or utility functions.
+
+### 9.1 Shared SCSS Mixins
+
+The file `src/styles/globals.scss` contains shared mixins that capture repeated visual patterns. **Always use these mixins** instead of writing the same CSS from scratch:
+
+| Mixin | Purpose | Usage |
+| --- | --- | --- |
+| `hero-base($min-h, $pad, $pad-sm)` | Full-bleed hero with photo bg & elliptical bottom mask | Photo hero pages (sign-up, member-info) |
+| `hero-solid($pad, $pad-sm)` | Solid-color brand hero with decorative seam arc | Color hero pages (competition, tickets) |
+| `hero-bg` | Cover-fit background image | `next/image` inside a photo hero |
+| `hero-scrim` | Blue gradient overlay on photo heroes | Semi-transparent scrim div |
+| `hero-content($max-w)` | Positioned content container inside heroes | Title + subtitle wrapper |
+| `hero-title($size, $size-sm)` | Hero heading typography | `<Heading as="h1">` inside heroes |
+| `hero-subtitle` | Hero subtitle typography | `<Text>` subtitle inside heroes |
+| `hero-icon` | Hero decorative icon styling | Tabler icon in solid-color heroes |
+| `section-title-accent($size, $size-sm, $bar-width)` | Section heading with orange accent underline | Any `<h2>` section heading |
+| `numbered-item` / `numbered-item-number` / `numbered-item-text` | Numbered step / point list pattern | Instructional steps, selling points |
+| `content-section($pad, $pad-sm)` | Constrained content area (max‑width 1400px, 8% padding) | Any content section below a hero |
+| `cta-button` | Accent-colored call-to-action button | Primary action links |
+
+**Rule:** If you're writing more than 5 lines of hero-related CSS in a page stylesheet, you should be using one of these mixins.
+
+### 9.2 Utility Extraction
+
+Shared utility functions live in `src/utils/`. Before writing a helper function inline in a component:
+
+1. **Check `src/utils/`** for an existing function that does what you need.
+2. If none exists and the function is likely to be reused, **create it in `src/utils/`** and import it.
+3. Never duplicate utility functions across components (e.g., date formatting, data normalization).
+
+Current utilities:
+- `date-utils.ts` — Excel serial date ↔ JS Date conversions, used by Nevobo data components.
+
+### 9.3 Component Composition
+
+- **Single Responsibility:** Components should do one thing. Separate data fetching/parsing logic from rendering where possible.
+- **Open for Extension:** Prefer props and composition over copy-pasting component code. If two pages share a similar section, extract a shared component with configurable props.
+- **Consistent Naming:** Default-exported page components must be named after their route (e.g., the `/training` page exports `Training`, not `MemberInfo`).
+- **No Unnecessary Global Imports:** Don't import `@styles/globals.scss` in page components — it's applied via the root layout.
+
+## 10. Library Usage Guidelines
+
+We have three UI libraries installed. Use them consistently to avoid reinventing built-in functionality.
+
+### 10.1 Radix UI (Themes & Primitives)
+
+**Installed packages:** `@radix-ui/themes`, `@radix-ui/react-accordion`
+
+| When to use | Component |
+| --- | --- |
+| Headings | `<Heading>` from `@radix-ui/themes` |
+| Body text / paragraphs | `<Text>` from `@radix-ui/themes` |
+| External links | `<Link>` from `@radix-ui/themes` |
+| Buttons / CTA wrappers | `<Button>` from `@radix-ui/themes` (with `asChild` for link buttons) |
+| Bold / emphasis | `<Strong>`, `<Em>` from `@radix-ui/themes` |
+| Accordion / Collapsible | `@radix-ui/react-accordion` |
+
+**Rules:**
+- Prefer Radix typography components (`Heading`, `Text`) over raw `<h1>`–`<h6>` and `<p>` tags for consistent sizing and weight.
+- Use Radix `Link` for external links (it adds appropriate `rel` attributes and styling).
+- When wrapping a Next.js `<Link>` inside a Radix component, use the `asChild` pattern.
+
+### 10.2 Tabler Icons
+
+**Installed package:** `@tabler/icons-react`
+
+- Use Tabler icons for **all** iconography throughout the site. Do not use emoji, Unicode symbols, or SVGs from other libraries.
+- Keep icon props consistent: `size={28}` for inline icons, `size={44}` for hero/card icons, and `stroke={1.5}` as the default weight.
+- Import icons by their specific name (e.g., `IconChevronDown`) — never use a generic icon loader.
+
+### 10.3 Next.js Components
+
+| When to use | Component |
+| --- | --- |
+| Internal navigation links | `<Link>` from `next/link` (`NextLink`) |
+| Optimized images | `<Image>` from `next/image` |
+| Page metadata | `export const metadata: Metadata` |
+
+**Rules:**
+- **Never use raw `<a>` tags for internal links.** Always use `next/link` for client-side navigation and proper prefetching.
+- Use raw `<a>` only for external links that should open in a new tab, and pair with `target="_blank"` + `rel="noopener noreferrer"`.
+- Always use `next/image` for images — it provides automatic optimization, lazy loading, and responsive sizing.
+- Every page should export `metadata` for SEO (title, description).
