@@ -9,6 +9,6 @@ export async function parseNevoboExcel(
     const rows: unknown[][] = XLSX.utils.sheet_to_json(sheet, {
         header: 1,
     });
-    // Skip header, take first 15 (most recent results / next fixtures)
-    return rows.slice(1, 16);
+    // Skip header
+    return rows.slice(1);
 }

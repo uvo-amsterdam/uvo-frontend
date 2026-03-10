@@ -1,0 +1,19 @@
+@use '@styles/globals';
+
+.empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: globals.$white-color;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+    border: 1px solid globals.$gray-200;
+}
+
+.marginTop {
+    margin-top: 3rem;
+}
+
+.emptyText {
+    color: globals.$gray-600;
+    line-height: 1.6;
+}

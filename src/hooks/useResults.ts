@@ -1,4 +1,4 @@
-import { formatDateFromSerial } from '@utils/date-utils';
+import { excelSerialToDate, formatDateFromSerial } from '@utils/date-utils';
 import { useApiFetch } from './useApiFetch';
 
 export interface MatchResult {
@@ -11,6 +11,7 @@ export interface MatchResult {
     uvoWin: boolean;
     uvoLoss: boolean;
     isUvo: boolean;
+    timestamp: number;
 }
 
 function determineWin(
@@ -70,6 +71,10 @@ function parseResults(rows: unknown[][]): MatchResult[] {
                 isUvo:
                     home.toLowerCase().includes('uvo') ||
                     away.toLowerCase().includes('uvo'),
+                timestamp:
+                    typeof dateSerial === 'number'
+                        ? excelSerialToDate(dateSerial).getTime()
+                        : 0,
             };
         });
 }
@@ -79,4 +84,73 @@ export function useResults() {
         '/api/results',
         parseResults,
     );
+}
+
+export function useFilteredResults(teamFilter?: string) {
+    const { data: rawResults, loading, error } = useResults();
+
+    const filteredResults = [];
+
+    if (!teamFilter) {
+        filteredResults.push(...rawResults);
+    } else {
+        const lowerFilter = teamFilter.toLowerCase();
+        const isGents =
+            lowerFilter.includes('gents') || lowerFilter.includes('heren');
+        const isLadies =
+            lowerFilter.includes('ladies') || lowerFilter.includes('dames');
+
+        const numberMatch = teamFilter.match(/\d+/);
+        const number = numberMatch ? numberMatch[0] : '';
+
+        let nevoboSuffix = '';
+        if (isGents && number) nevoboSuffix = `HS ${number}`;
+        if (isLadies && number) nevoboSuffix = `DS ${number}`;
+
+        // Date filter logic
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const isAfterAugust1st = now.getMonth() >= 7; // 0-indexed month, 7 = August
+
+        const topTeams = ['gents 1', 'gents 2', 'ladies 1', 'ladies 2'];
+        const isTopTeam = topTeams.includes(lowerFilter);
+
+        let thresholdDate: Date;
+        if (isTopTeam) {
+            const seasonStartYear = isAfterAugust1st
+                ? currentYear
+                : currentYear - 1;
+            thresholdDate = new Date(seasonStartYear, 7, 1); // August 1st
+        } else {
+            if (isAfterAugust1st) {
+                thresholdDate = new Date(currentYear, 7, 1); // August 1st
+            } else {
+                thresholdDate = new Date(currentYear, 0, 1); // January 1st
+            }
+        }
+
+        const thresholdTimestamp = thresholdDate.getTime();
+
+        filteredResults.push(
+            ...rawResults.filter(r => {
+                if (r.timestamp < thresholdTimestamp) return false;
+
+                if (!nevoboSuffix) {
+                    return (
+                        r.home.toLowerCase().includes(lowerFilter) ||
+                        r.away.toLowerCase().includes(lowerFilter)
+                    );
+                }
+
+                const regex = new RegExp(`${nevoboSuffix}(?!\\d)`);
+                const homeMatches =
+                    r.home.toLowerCase().includes('uvo') && regex.test(r.home);
+                const awayMatches =
+                    r.away.toLowerCase().includes('uvo') && regex.test(r.away);
+                return homeMatches || awayMatches;
+            }),
+        );
+    }
+
+    return { results: filteredResults, loading, error };
 }

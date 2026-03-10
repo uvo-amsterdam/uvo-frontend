@@ -1,37 +1,42 @@
 'use client';
 
-import type { FC } from 'react';
-import { useResults } from '@hooks/useResults';
-import { Heading, Text } from '@radix-ui/themes';
+import { type FC, useState } from 'react';
+import { TableEmptyState } from '@components/ui-states/table-empty-state';
+import { TableSkeleton } from '@components/ui-states/table-skeleton';
+import { useFilteredResults } from '@hooks/useResults';
+import { Button, Heading } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 
 import css from './results-table.module.scss';
 
-export const ResultsTable: FC = () => {
-    const { data: results, loading, error } = useResults();
+export const ResultsTable: FC<{
+    teamFilter?: string;
+    hideLocation?: boolean;
+}> = ({ teamFilter, hideLocation }) => {
+    const {
+        results: rawResults,
+        loading,
+        error,
+    } = useFilteredResults(teamFilter);
+    const [showAll, setShowAll] = useState(false);
 
-    if (loading) {
-        return (
-            <div className={css.skeletonWrap}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <div
-                        key={`skeleton-${i.toString()}`}
-                        className={css.skeletonRow}
-                    />
-                ))}
-            </div>
-        );
-    }
+    const maxResults = teamFilter ? 10 : 15;
+    const displayedResults = showAll
+        ? rawResults
+        : rawResults.slice(0, maxResults);
 
-    if (error || results.length === 0) {
+    if (loading) return <TableSkeleton marginTop />;
+
+    if (error || rawResults.length === 0) {
         return (
-            <div className={css.empty}>
-                <Text size="4" className={css.emptyText}>
-                    {error
+            <TableEmptyState
+                marginTop
+                message={
+                    error
                         ? "Couldn't load the results right now — try again later!"
-                        : 'No recent results to show. Check back after the next match!'}
-                </Text>
-            </div>
+                        : 'No recent results to show. Check back after the next match!'
+                }
+            />
         );
     }
 
@@ -41,7 +46,6 @@ export const ResultsTable: FC = () => {
                 Recent Results
             </Heading>
 
-            {/* ── Desktop table ── */}
             <div className={css.tableWrap}>
                 <table className={css.table}>
                     <thead>
@@ -51,12 +55,12 @@ export const ResultsTable: FC = () => {
                             <th>Home</th>
                             <th>Score</th>
                             <th>Away</th>
-                            <th>Venue</th>
-                            <th>City</th>
+                            {!hideLocation && <th>Venue</th>}
+                            {!hideLocation && <th>City</th>}
                         </tr>
                     </thead>
                     <tbody>
-                        {results.map((r, i) => (
+                        {displayedResults.map((r, i) => (
                             <tr
                                 key={`result-${i.toString()}`}
                                 className={
@@ -96,17 +100,16 @@ export const ResultsTable: FC = () => {
                                 >
                                     {r.away}
                                 </td>
-                                <td>{r.venue}</td>
-                                <td>{r.city}</td>
+                                {!hideLocation && <td>{r.venue}</td>}
+                                {!hideLocation && <td>{r.city}</td>}
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
 
-            {/* ── Mobile cards ── */}
             <div className={css.cardList}>
-                {results.map((r, i) => (
+                {displayedResults.map((r, i) => (
                     <div
                         key={`card-${i.toString()}`}
                         className={`${css.card} ${r.uvoWin ? css.winCard : r.isUvo ? css.uvoCard : ''}`}
@@ -144,7 +147,7 @@ export const ResultsTable: FC = () => {
                                 {r.away}
                             </span>
                         </div>
-                        {(r.venue || r.city) && (
+                        {!hideLocation && (r.venue || r.city) && (
                             <div className={css.cardVenue}>
                                 {r.venue}
                                 {r.venue && r.city ? ' — ' : ''}
@@ -154,6 +157,19 @@ export const ResultsTable: FC = () => {
                     </div>
                 ))}
             </div>
+
+            {rawResults.length > maxResults && !showAll && (
+                <div className={css.showMoreWrap}>
+                    <Button
+                        variant="soft"
+                        size="3"
+                        onClick={() => setShowAll(true)}
+                        className={css.showMoreBtn}
+                    >
+                        Show More Results
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };
