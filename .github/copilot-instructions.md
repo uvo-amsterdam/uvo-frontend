@@ -41,7 +41,7 @@
 - Use SSR/SSG where appropriate for performance and SEO.
 - Use React hooks for state and side effects.
 - Ensure accessibility: semantic HTML, ARIA attributes, keyboard navigation.
-- Avoid deprecated APIs and anti-patterns (e.g., unbounded recursion, polling without backoff).
+- Avoid deprecated APIs and antipatterns (e.g., unbounded recursion, polling without backoff).
 
 ## Git & PR Hygiene
 - Use Conventional commit prefixes: feat:, fix:, chore:, refactor:, test:, docs:
