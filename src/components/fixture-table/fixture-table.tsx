@@ -47,8 +47,8 @@ export const FixtureTable: FC = () => {
                         <tr>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Home</th>
-                            <th>Away</th>
+                            <th className={css.teamCol}>Home</th>
+                            <th className={css.teamCol}>Away</th>
                             <th>Venue</th>
                             <th>City</th>
                         </tr>

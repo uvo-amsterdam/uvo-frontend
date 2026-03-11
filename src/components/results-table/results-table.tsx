@@ -48,9 +48,9 @@ export const ResultsTable: FC = () => {
                         <tr>
                             <th className={css.thIcon} />
                             <th>Date</th>
-                            <th>Home</th>
+                            <th className={css.teamCol}>Home</th>
                             <th>Score</th>
-                            <th>Away</th>
+                            <th className={css.teamCol}>Away</th>
                             <th>Venue</th>
                             <th>City</th>
                         </tr>

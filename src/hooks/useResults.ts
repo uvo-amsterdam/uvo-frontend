@@ -1,4 +1,4 @@
-import { formatDateFromSerial } from '@utils/date-utils';
+import { formatDateStr } from '@utils/date-utils';
 import { useApiFetch } from './useApiFetch';
 
 export interface MatchResult {
@@ -47,7 +47,7 @@ function parseResults(rows: unknown[][]): MatchResult[] {
     return rows
         .filter(row => row.length > 0 && row[0] != null)
         .map(row => {
-            const dateSerial = row[0] as number;
+            const dateVal = row[0] as string | Date;
             const home = (row[2] as string) ?? '';
             const away = (row[3] as string) ?? '';
             const score = (row[4] as string) ?? '';
@@ -56,10 +56,7 @@ function parseResults(rows: unknown[][]): MatchResult[] {
             const { uvoWin, uvoLoss } = determineWin(home, away, score);
 
             return {
-                date:
-                    typeof dateSerial === 'number'
-                        ? formatDateFromSerial(dateSerial)
-                        : String(dateSerial ?? ''),
+                date: formatDateStr(dateVal),
                 home,
                 away,
                 score,

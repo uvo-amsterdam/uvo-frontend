@@ -1,4 +1,4 @@
-import { formatDateFromSerial, formatTimeFromSerial } from '@utils/date-utils';
+import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './useApiFetch';
 
 export interface Fixture {
@@ -15,22 +15,16 @@ function parseFixtures(rows: unknown[][]): Fixture[] {
     return rows
         .filter(row => row.length > 0 && row[0] != null)
         .map(row => {
-            const dateSerial = row[0] as number;
-            const timeSerial = row[1] as number;
+            const dateVal = row[0] as string | Date;
+            const timeVal = row[1] as string | Date;
             const home = (row[2] as string) ?? '';
             const away = (row[3] as string) ?? '';
             const venue = (row[10] as string) ?? '';
             const city = (row[11] as string) ?? '';
 
             return {
-                date:
-                    typeof dateSerial === 'number'
-                        ? formatDateFromSerial(dateSerial)
-                        : String(dateSerial ?? ''),
-                time:
-                    typeof timeSerial === 'number'
-                        ? formatTimeFromSerial(timeSerial)
-                        : String(timeSerial ?? ''),
+                date: formatDateStr(dateVal),
+                time: timeVal ? formatTimeStr(timeVal) : 'TBD',
                 home,
                 away,
                 venue,

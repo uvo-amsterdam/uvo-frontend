@@ -58,6 +58,10 @@
     white-space: nowrap;
   }
 
+  .teamCol {
+    width: 20%;
+  }
+
   td {
     padding: 0.8rem 1rem;
     border-bottom: 1px solid globals.$gray-100;
@@ -177,20 +181,23 @@
 
 .skeletonRow {
   height: 48px;
-  background: linear-gradient(
-    90deg,
-    globals.$gray-100 25%,
-    globals.$cream 50%,
-    globals.$gray-100 75%
-  );
+  background: linear-gradient(90deg,
+      globals.$gray-100 25%,
+      globals.$cream 50%,
+      globals.$gray-100 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* ── Empty State ── */
