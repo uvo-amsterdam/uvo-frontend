@@ -23,8 +23,6 @@
   }
 }
 
-/* ── Desktop Table ── */
-
 .tableWrap {
   border-radius: 14px;
   overflow: hidden;
@@ -95,8 +93,6 @@
   font-weight: 700;
   color: globals.$primary-color;
 }
-
-/* ── Mobile Cards ── */
 
 .cardList {
   display: none;
@@ -171,8 +167,6 @@
   color: globals.$gray-600;
 }
 
-/* ── Loading Skeleton ── */
-
 .skeletonWrap {
   display: flex;
   flex-direction: column;
@@ -200,8 +194,6 @@
   }
 }
 
-/* ── Empty State ── */
-
 .empty {
   text-align: center;
   padding: 3rem 1rem;
@@ -214,4 +206,19 @@
 .emptyText {
   color: globals.$gray-600;
   line-height: 1.6;
+}
+
+.showMoreWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.showMoreBtn {
+  font-family: globals.$font-heading;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 2rem;
 }

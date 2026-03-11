@@ -9,6 +9,6 @@ export async function parseNevoboExcel(
     // read-excel-file/node can read from a Buffer
     const rows = await readXlsxFile(buffer);
 
-    // Skip header, take first 15 (most recent results / next fixtures)
-    return rows.slice(1, 16);
+    // Skip header
+    return rows.slice(1);
 }

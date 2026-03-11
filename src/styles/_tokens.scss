@@ -156,3 +156,51 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
     box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
   }
 }
+
+// ─── Page Hero Patterns ───
+@mixin hero-solid($pad: 5rem 8% 8rem, $pad-sm: 4rem 5% 6rem) {
+  padding: $pad;
+  background: $primary-color;
+  color: $white-color;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    padding: $pad-sm;
+  }
+}
+
+@mixin hero-content($max-w: 650px) {
+  position: relative;
+  z-index: 2;
+  max-width: $max-w;
+  color: inherit;
+}
+
+@mixin hero-title($size: 3.4rem, $size-sm: 2.2rem) {
+  @include section-heading;
+
+  display: block;
+  font-size: $size;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    font-size: $size-sm;
+  }
+}
+
+@mixin hero-subtitle {
+  line-height: 1.7;
+  opacity: 0.92;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+@mixin hero-icon {
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+  display: flex;
+}

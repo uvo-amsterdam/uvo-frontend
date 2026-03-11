@@ -1,16 +1,20 @@
 import { readItems } from '@directus/sdk';
 import { NextResponse } from 'next/server';
-import { directus } from '../../../lib/directus';
+import { logger } from '../../../lib/logger';
+import { directus } from '../../../lib/server/directus';
 
-export const revalidate = 60; // Cache for 60 seconds
+export const dynamic = 'force-static';
 
 export async function GET() {
     try {
+        logger.info(
+            '[Directus Fetch] Fetching fresh Team Compositions from Directus...',
+        );
         const teams = await directus.request(readItems('Team_Compositions'));
 
         return NextResponse.json(teams);
     } catch (error) {
-        console.error('Error fetching Team Compositions:', error);
+        logger.error({ error }, 'Error fetching Team Compositions');
         return NextResponse.json(
             { error: 'Failed to fetch Team Compositions' },
             { status: 500 },

@@ -1,36 +1,33 @@
 'use client';
 
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
+import { TableEmptyState } from '@components/ui-states/table-empty-state';
+import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useFixtures } from '@hooks/useFixtures';
-import { Heading, Text } from '@radix-ui/themes';
+import { Button, Heading } from '@radix-ui/themes';
 
 import css from './fixture-table.module.scss';
 
 export const FixtureTable: FC = () => {
     const { data: fixtures, loading, error } = useFixtures();
+    const [showAll, setShowAll] = useState(false);
 
-    if (loading) {
-        return (
-            <div className={css.skeletonWrap}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <div
-                        key={`skeleton-${i.toString()}`}
-                        className={css.skeletonRow}
-                    />
-                ))}
-            </div>
-        );
-    }
+    const maxResults = 15;
+    const displayedFixtures = showAll
+        ? fixtures
+        : fixtures.slice(0, maxResults);
+
+    if (loading) return <TableSkeleton />;
 
     if (error || fixtures.length === 0) {
         return (
-            <div className={css.empty}>
-                <Text size="4" className={css.emptyText}>
-                    {error
+            <TableEmptyState
+                message={
+                    error
                         ? "Couldn't load the fixtures right now — try again later!"
-                        : 'No upcoming matches at the moment. Check back soon!'}
-                </Text>
-            </div>
+                        : 'No upcoming matches at the moment. Check back soon!'
+                }
+            />
         );
     }
 
@@ -40,7 +37,6 @@ export const FixtureTable: FC = () => {
                 Upcoming Matches
             </Heading>
 
-            {/* ── Desktop table ── */}
             <div className={css.tableWrap}>
                 <table className={css.table}>
                     <thead>
@@ -54,7 +50,7 @@ export const FixtureTable: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {fixtures.map((f, i) => (
+                        {displayedFixtures.map((f, i) => (
                             <tr
                                 key={`fixture-${i.toString()}`}
                                 className={f.isUvo ? css.uvoRow : undefined}
@@ -89,9 +85,8 @@ export const FixtureTable: FC = () => {
                 </table>
             </div>
 
-            {/* ── Mobile cards ── */}
             <div className={css.cardList}>
-                {fixtures.map((f, i) => (
+                {displayedFixtures.map((f, i) => (
                     <div
                         key={`card-${i.toString()}`}
                         className={`${css.card} ${f.isUvo ? css.uvoCard : ''}`}
@@ -131,6 +126,19 @@ export const FixtureTable: FC = () => {
                     </div>
                 ))}
             </div>
+
+            {fixtures.length > maxResults && !showAll && (
+                <div className={css.showMoreWrap}>
+                    <Button
+                        variant="soft"
+                        size="3"
+                        onClick={() => setShowAll(true)}
+                        className={css.showMoreBtn}
+                    >
+                        Show More Matches
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

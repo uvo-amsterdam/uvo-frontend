@@ -284,3 +284,20 @@
   color: globals.$gray-600;
   line-height: 1.6;
 }
+
+/* ── Show More ── */
+
+.showMoreWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.showMoreBtn {
+  font-family: globals.$font-heading;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 2rem;
+}

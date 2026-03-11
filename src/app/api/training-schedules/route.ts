@@ -1,11 +1,15 @@
 import { readItems } from '@directus/sdk';
 import { NextResponse } from 'next/server';
-import { directus } from '../../../lib/directus';
+import { logger } from '../../../lib/logger';
+import { directus } from '../../../lib/server/directus';
 
-export const revalidate = 60; // Cache for 60 seconds
+export const dynamic = 'force-static';
 
 export async function GET() {
     try {
+        logger.info(
+            '[Directus Fetch] Fetching fresh Training Schedules from Directus...',
+        );
         const [mondayEven, mondayUneven, thursdayEven, thursdayUneven] =
             await Promise.all([
                 directus.request(readItems('Monday_Even_Schedule')),
@@ -21,7 +25,7 @@ export async function GET() {
             thursdayUneven,
         });
     } catch (error) {
-        console.error('Error fetching Training Schedules:', error);
+        logger.error({ error }, 'Error fetching Training Schedules');
         return NextResponse.json(
             { error: 'Failed to fetch Training Schedules' },
             { status: 500 },
