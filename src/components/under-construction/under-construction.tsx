@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { Text } from '@radix-ui/themes';
 import { IconBarrierBlockOff } from '@tabler/icons-react';
 

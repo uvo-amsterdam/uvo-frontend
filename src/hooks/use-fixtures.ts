@@ -1,5 +1,5 @@
 import { formatDateStr, formatTimeStr } from '@utils/date-utils';
-import { useApiFetch } from './useApiFetch';
+import { useApiFetch } from './use-api-fetch';
 
 export interface Fixture {
     date: string;

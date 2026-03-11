@@ -2,7 +2,6 @@ import { TeamCard } from '@components/team-card/team-card';
 import { readItems } from '@directus/sdk';
 import type { TeamComposition } from '@interfaces/team-composition.interface';
 import { Heading, Text } from '@radix-ui/themes';
-import { IconUsersGroup } from '@tabler/icons-react';
 import { createSlug } from '@utils/string-utils';
 import type { Metadata } from 'next';
 import { logger } from '../../lib/logger';
@@ -20,7 +19,7 @@ const TeamsPage = async () => {
 
     try {
         const compositions = (await directus.request(
-            readItems('Team_Compositions' as any),
+            readItems('Team_Compositions'),
         )) as TeamComposition[];
 
         // Extract unique team names, filtering out nulls

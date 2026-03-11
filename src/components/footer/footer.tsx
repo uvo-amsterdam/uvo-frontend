@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { FORMS } from '@constants/forms';
 import { LOCATION } from '@constants/location';
 import { Link, Separator, Text } from '@radix-ui/themes';

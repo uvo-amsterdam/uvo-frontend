@@ -3,7 +3,7 @@
 import { type FC, useState } from 'react';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
-import { useFixtures } from '@hooks/useFixtures';
+import { useFixtures } from '@hooks/use-fixtures';
 import { Button, Heading } from '@radix-ui/themes';
 
 import css from './fixture-table.module.scss';

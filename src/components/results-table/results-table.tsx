@@ -3,7 +3,7 @@
 import { type FC, useState } from 'react';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
-import { useFilteredResults } from '@hooks/useResults';
+import { useFilteredResults } from '@hooks/use-results';
 import { Button, Heading } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 

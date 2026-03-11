@@ -37,7 +37,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
     let players: TeamComposition[] = [];
     try {
         const allCompositions = (await directus.request(
-            readItems('Team_Compositions' as any),
+            readItems('Team_Compositions'),
         )) as TeamComposition[];
 
         players = allCompositions.filter(

@@ -1,7 +1,8 @@
 'use client';
 
 import { type FC, useMemo } from 'react';
-import { useTrainingSchedules } from '@hooks/useTrainingSchedules';
+import { useTrainingSchedules } from '@hooks/use-training-schedules';
+import type { ScheduleItem } from '@interfaces/training-schedule.interface';
 import { getNextScheduleType, type ScheduleType } from '@utils/schedule-utils';
 import { TrainingScheduleTable } from '../training-schedule-table/training-schedule-table';
 
@@ -42,7 +43,11 @@ export const TrainingScheduleList: FC = () => {
     }
 
     // Define the list of schedules to render
-    const schedules: { type: ScheduleType; title: string; data: any[] }[] = [
+    const schedules: {
+        type: ScheduleType;
+        title: string;
+        data: ScheduleItem[];
+    }[] = [
         {
             type: 'mondayEven',
             title: 'Monday (Even Weeks)',
