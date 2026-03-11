@@ -7,32 +7,6 @@
   flex-direction: column;
 }
 
-/* ── Hero — full-bleed photo with gradient scrim ── */
-
-.hero {
-  @include globals.hero-base(420px, 5rem 8% 8rem, 4rem 5% 6rem);
-}
-
-.heroBg {
-  @include globals.hero-bg;
-}
-
-.heroScrim {
-  @include globals.hero-scrim;
-}
-
-.heroContent {
-  @include globals.hero-content;
-}
-
-.title {
-  @include globals.hero-title;
-}
-
-.subtitle {
-  @include globals.hero-subtitle;
-}
-
 /* ── Why UvO? — selling points + photo ── */
 
 .whySection {

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Hero } from '@components/hero/hero';
 import { Button, Heading, Text } from '@radix-ui/themes';
 import {
     IconBan,
@@ -15,22 +16,11 @@ const MERCH_LINK =
 const MerchPage: FC = () => {
     return (
         <div className={css.root}>
-            {/* ── Hero Section ── */}
-            <section className={css.hero}>
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        UvO Merch
-                    </Heading>
-                    <Text as="p" size="4" className={css.subtitle}>
-                        Gear up with the official UvO Amsterdam collection —
-                        custom-printed apparel for every volleyball lover. Plus,
-                        UvO receives 10% cashback on every purchase, so your
-                        merch also helps the association!
-                    </Text>
-                </div>
-            </section>
+            <Hero
+                title="UvO Merch"
+                subtitle="Gear up with the official UvO Amsterdam collection — custom-printed apparel for every volleyball lover. Plus, UvO receives 10% cashback on every purchase, so your merch also helps the association!"
+            />
 
-            {/* ── Product Showcase ── */}
             <section className={css.showcase}>
                 <div className={css.imageGrid}>
                     <div className={css.imageCard}>
@@ -63,7 +53,6 @@ const MerchPage: FC = () => {
                 </div>
             </section>
 
-            {/* ── Gear & Care (Sports Magazine Layout) ── */}
             <section className={css.gearAndCare}>
                 <div className={css.gcHeader}>
                     <Heading as="h2" className={css.gcTitle}>

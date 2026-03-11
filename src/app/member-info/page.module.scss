@@ -7,32 +7,6 @@
   flex-direction: column;
 }
 
-/* ── Hero — full-bleed photo with gradient scrim ── */
-
-.hero {
-  @include globals.hero-base;
-}
-
-.heroBg {
-  @include globals.hero-bg;
-}
-
-.heroScrim {
-  @include globals.hero-scrim;
-}
-
-.heroContent {
-  @include globals.hero-content;
-}
-
-.title {
-  @include globals.hero-title;
-}
-
-.subtitle {
-  @include globals.hero-subtitle;
-}
-
 /* ── General Section Layouts ── */
 
 .infoSection {
@@ -118,7 +92,7 @@
   &:hover {
     background: globals.$cream;
   }
-  
+
   &[data-state='open'] .accordionChevron {
     transform: rotate(180deg);
   }
@@ -147,7 +121,7 @@
   &[data-state='closed'] {
     animation: slide-up 300ms cubic-bezier(0.87, 0, 0.13, 1);
   }
-  
+
   .stepList {
     padding: 0 2rem 2rem;
     border-top: 1px solid rgb(0 0 0 / 4%);
@@ -159,13 +133,23 @@
 }
 
 @keyframes slide-down {
-  from { height: 0; }
-  to { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 
 @keyframes slide-up {
-  from { height: var(--radix-accordion-content-height); }
-  to { height: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
 }
 
 /* ── Step List Items ── */
@@ -224,7 +208,7 @@
 
 .documentsSection {
   padding: 5rem 8%;
-  
+
   @media (max-width: globals.$breakpoint-sm) {
     padding: 3rem 5%;
   }
@@ -256,7 +240,7 @@
   flex-direction: column;
   align-items: flex-start;
   transition: transform globals.$transition-fast, border-color globals.$transition-fast;
-  
+
   /* Flattened styling */
   box-shadow: none;
   border: 2px solid rgb(0 0 0 / 6%);
@@ -264,7 +248,7 @@
   &:hover {
     transform: translateY(-4px);
     border-color: globals.$primary-color;
-    
+
     .docIcon {
       color: globals.$accent-color;
       transform: scale(1.1);

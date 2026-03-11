@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { FixtureTable } from '@components/fixture-table/fixture-table';
+import { Hero } from '@components/hero/hero';
 import { ResultsTable } from '@components/results-table/results-table';
-import { Heading, Text } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 
@@ -16,25 +16,12 @@ export const metadata: Metadata = {
 const CompetitionPage: FC = () => {
     return (
         <div className={css.root}>
-            {/* ── Hero Section ── */}
-            <section className={css.hero}>
-                <div className={css.heroContent}>
-                    <IconTrophy
-                        size={44}
-                        stroke={1.5}
-                        className={css.heroIcon}
-                    />
-                    <Heading as="h1" className={css.title}>
-                        Competition
-                    </Heading>
-                    <Text as="p" size="4" className={css.subtitle}>
-                        Check out the upcoming matches and recent results for
-                        all UvO teams!
-                    </Text>
-                </div>
-            </section>
+            <Hero
+                title="Competition"
+                subtitle="Check out the upcoming matches and recent results for all UvO teams!"
+                icon={<IconTrophy size={44} stroke={1.5} />}
+            />
 
-            {/* ── Fixtures & Results Section ── */}
             <section className={css.fixtureSection}>
                 <FixtureTable />
                 <ResultsTable />

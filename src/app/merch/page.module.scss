@@ -7,54 +7,6 @@
   flex-direction: column;
 }
 
-/* ── Hero ── */
-
-.hero {
-  padding: 5rem 8% 4rem;
-  background: globals.$off-white;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10%;
-    right: -15%;
-    width: 65%;
-    height: 120%;
-    border-radius: 50% 0 50% 50%;
-    background: rgb(67 66 255 / 4%);
-    background-image:
-      linear-gradient(45deg, rgb(67 66 255 / 3%) 25%, transparent 25%),
-      linear-gradient(-45deg, rgb(67 66 255 / 3%) 25%, transparent 25%);
-    background-size: 20px 20px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  @media (max-width: globals.$breakpoint-sm) {
-    padding: 3rem 5% 2.5rem;
-  }
-}
-
-.heroContent {
-  @include globals.hero-content(720px);
-
-  color: globals.$gray-800;
-}
-
-.title {
-  @include globals.section-title-accent(3.4rem, 2.2rem, 60px);
-
-  margin-bottom: 1rem;
-}
-
-.subtitle {
-  color: globals.$gray-600;
-  line-height: 1.7;
-  max-width: 600px;
-}
-
 /* ── Product Showcase ── */
 
 .showcase {

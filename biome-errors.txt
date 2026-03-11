@@ -1,0 +1,243 @@
+ WARN  Unsupported engine: wanted: {"node":">=25"} (current: {"node":"v24.11.1","pnpm":"10.30.2"})
+biome.json:2:16 deserialize ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The configuration schema version does not match the CLI version 2.4.4
+  
+    1 │ {
+  > 2 │     "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+      │                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3 │     "vcs": {
+    4 │         "enabled": true,
+  
+  i   Expected:                     2.4.4
+      Found:                        2.3.11
+  
+  
+  i Run the command biome migrate to migrate the configuration file.
+  
+
+src\components\footer\footer.tsx:1:8 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━
+
+  ! These imports are unused.
+  
+  > 1 │ import React, { type FC } from 'react';
+      │        ^^^^^
+    2 │ import { FORMS } from '@constants/forms';
+    3 │ import { LOCATION } from '@constants/location';
+  
+  i Unused imports might be the result of an incomplete refactoring.
+  
+  i Unsafe fix: Remove the unused imports.
+  
+    1 │ import·React,·{·type·FC·}·from·'react';
+      │        -------                         
+
+src\components\simple-title\simple-title.tsx:1:8 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━
+
+  ! These imports are unused.
+  
+  > 1 │ import React, { type FC } from 'react';
+      │        ^^^^^
+    2 │ import { Separator, Text } from '@radix-ui/themes';
+    3 │ import type { textPropDefs } from '@radix-ui/themes/components/text.props';
+  
+  i Unused imports might be the result of an incomplete refactoring.
+  
+  i Unsafe fix: Remove the unused imports.
+  
+    1 │ import·React,·{·type·FC·}·from·'react';
+      │        -------                         
+
+src\components\training-schedule-list\training-schedule-list.tsx:45:65 lint/suspicious/noExplicitAny ━━━━━━━━━━
+
+  ! Unexpected any. Specify a different type.
+  
+    44 │     // Define the list of schedules to render
+  > 45 │     const schedules: { type: ScheduleType; title: string; data: any[] }[] = [
+       │                                                                 ^^^
+    46 │         {
+    47 │             type: 'mondayEven',
+  
+  i any disables many type checking rules. Its use should be avoided.
+  
+
+src\components\under-construction\under-construction.tsx:1:8 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━
+
+  ! These imports are unused.
+  
+  > 1 │ import React, { type FC } from 'react';
+      │        ^^^^^
+    2 │ import { Text } from '@radix-ui/themes';
+    3 │ import { IconBarrierBlockOff } from '@tabler/icons-react';
+  
+  i Unused imports might be the result of an incomplete refactoring.
+  
+  i Unsafe fix: Remove the unused imports.
+  
+    1 │ import·React,·{·type·FC·}·from·'react';
+      │        -------                         
+
+src\hooks\useApiFetch.ts lint/style/useFilenamingConvention ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The filename should be in kebab-case.
+  
+  i The filename could be renamed to one of the following names:
+    use-api-fetch.ts
+  
+
+src\hooks\useFixtures.ts lint/style/useFilenamingConvention ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The filename should be in kebab-case.
+  
+  i The filename could be renamed to one of the following names:
+    use-fixtures.ts
+  
+
+src\hooks\useResults.ts lint/style/useFilenamingConvention ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The filename should be in kebab-case.
+  
+  i The filename could be renamed to one of the following names:
+    use-results.ts
+  
+
+src\hooks\useTrainingSchedules.ts lint/style/useFilenamingConvention ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The filename should be in kebab-case.
+  
+  i The filename could be renamed to one of the following names:
+    use-training-schedules.ts
+  
+
+src\lib\directus.ts:1:32 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Several of these imports are unused.
+  
+  > 1 │ import { createDirectus, rest, staticToken } from '@directus/sdk';
+      │                                ^^^^^^^^^^^
+    2 │ 
+    3 │ const directusUrl =
+  
+  i Unused imports might be the result of an incomplete refactoring.
+  
+  i Unsafe fix: Remove the unused imports.
+  
+    1 │ import·{·createDirectus,·rest,·staticToken·}·from·'@directus/sdk';
+      │                                ------------                       
+
+src\utils\nevobo-utils.ts:15:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Expected a statement but instead found '})'.
+  
+    13 │     return rows.slice(1, 16);
+    14 │ }
+  > 15 │ })
+       │ ^^
+    16 │ 
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  
+  i Expected a statement here.
+  
+    13 │     return rows.slice(1, 16);
+    14 │ }
+  > 15 │ })
+       │ ^^
+    16 │ 
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  
+
+src\utils\nevobo-utils.ts:18:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Illegal return statement outside of a function
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  > 18 │ return rows.slice(1, 16);
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^
+    19 │ }
+    20 │ 
+  
+
+src\utils\nevobo-utils.ts:19:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Expected a statement but instead found '}'.
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+    18 │ return rows.slice(1, 16);
+  > 19 │ }
+       │ ^
+    20 │ 
+  
+  i Expected a statement here.
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+    18 │ return rows.slice(1, 16);
+  > 19 │ }
+       │ ^
+    20 │ 
+  
+
+src\utils\nevobo-utils.ts:15:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Expected a statement but instead found '})'.
+  
+    13 │     return rows.slice(1, 16);
+    14 │ }
+  > 15 │ })
+       │ ^^
+    16 │ 
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  
+  i Expected a statement here.
+  
+    13 │     return rows.slice(1, 16);
+    14 │ }
+  > 15 │ })
+       │ ^^
+    16 │ 
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  
+
+src\utils\nevobo-utils.ts:18:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Illegal return statement outside of a function
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+  > 18 │ return rows.slice(1, 16);
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^
+    19 │ }
+    20 │ 
+  
+
+src\utils\nevobo-utils.ts:19:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Expected a statement but instead found '}'.
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+    18 │ return rows.slice(1, 16);
+  > 19 │ }
+       │ ^
+    20 │ 
+  
+  i Expected a statement here.
+  
+    17 │ // Skip header, take first 15 (most recent results / next fixtures)
+    18 │ return rows.slice(1, 16);
+  > 19 │ }
+       │ ^
+    20 │ 
+  
+
+src\utils\nevobo-utils.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  
+
+Checked 55 files in 35ms. No fixes applied.
+Found 7 errors.
+Found 9 warnings.
+Found 1 info.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
