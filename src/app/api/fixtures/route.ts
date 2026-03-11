@@ -1,11 +1,12 @@
-import { NEVOBO_BASE_URL } from '@constants/api';
+import { NEVOBO_BASE_URL, NEVOBO_CLUB_ID } from '@constants/api';
 import { parseNevoboExcel } from '@utils/nevobo-utils';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
     try {
         const response = await fetch(
-            `${NEVOBO_BASE_URL}vereniging/CKL7K23/programma.xlsx`,
+            `${NEVOBO_BASE_URL}vereniging/${NEVOBO_CLUB_ID}/programma.xlsx`,
+            { next: { revalidate: 3600 } }, // cache for 1 hour
         );
 
         if (!response.ok) {
@@ -18,7 +19,8 @@ export async function GET() {
         const fixtures = await parseNevoboExcel(response);
 
         return NextResponse.json(fixtures);
-    } catch {
+    } catch (e) {
+        console.error('Failed to parse fixtures:', e);
         return NextResponse.json(
             { error: 'An unexpected error occurred' },
             { status: 500 },
