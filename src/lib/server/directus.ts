@@ -1,8 +1,13 @@
 import { createDirectus, rest, staticToken } from '@directus/sdk';
 import type { TeamComposition } from '@interfaces/team-composition.interface';
+import type { ScheduleItem } from '@interfaces/training-schedule.interface';
 
 interface Schema {
     Team_Compositions: TeamComposition[];
+    Monday_Even_Schedule: ScheduleItem[];
+    Monday_Uneven_Schedule: ScheduleItem[];
+    Thursday_Even_Schedule: ScheduleItem[];
+    Thursday_Uneven_Schedule: ScheduleItem[];
 }
 
 const directusUrl = process.env.DIRECTUS_URL;
