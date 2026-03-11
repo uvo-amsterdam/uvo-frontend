@@ -2,6 +2,7 @@ import React, { type FC } from 'react';
 import { FORMS } from '@constants/forms';
 import { LOCATION } from '@constants/location';
 import { Link, Separator, Text } from '@radix-ui/themes';
+import NextLink from 'next/link';
 
 import css from './footer.module.scss';
 
@@ -58,8 +59,8 @@ export const Footer: FC = () => {
                         © COPYRIGHT {new Date().getFullYear()} UvO Amsterdam.
                     </Text>
                     <Text size="1">
-                        <Link href="/" highContrast>
-                            Algemene voorwaarden
+                        <Link asChild highContrast>
+                            <NextLink href="/">Algemene voorwaarden</NextLink>
                         </Link>{' '}
                         | Website made by itcommittee@uvo-amsterdam.nl
                     </Text>

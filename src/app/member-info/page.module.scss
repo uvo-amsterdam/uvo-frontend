@@ -1,4 +1,4 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
 
 
@@ -91,6 +91,11 @@
 
   &:hover {
     background: globals.$cream;
+  }
+
+  &:focus-visible {
+    outline: 3px solid globals.$primary-color;
+    outline-offset: -3px;
   }
 
   &[data-state='open'] .accordionChevron {

@@ -48,11 +48,11 @@ function parseResults(rows: unknown[][]): MatchResult[] {
         .filter(row => row.length > 0 && row[0] != null)
         .map(row => {
             const dateVal = row[0] as string | Date;
-            const home = (row[2] as string) ?? '';
-            const away = (row[3] as string) ?? '';
-            const score = (row[4] as string) ?? '';
-            const venue = (row[10] as string) ?? '';
-            const city = (row[11] as string) ?? '';
+            const home = String(row[2] ?? '');
+            const away = String(row[3] ?? '');
+            const score = String(row[4] ?? '');
+            const venue = String(row[10] ?? '');
+            const city = String(row[11] ?? '');
             const { uvoWin, uvoLoss } = determineWin(home, away, score);
 
             return {

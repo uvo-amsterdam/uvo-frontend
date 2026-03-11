@@ -385,7 +385,12 @@ const MemberInfoPage: FC = () => {
                         </Text>
                     </NextLink>
 
-                    <NextLink href="/member-info" className={css.docCard}>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css.docCard}
+                    >
                         <IconReceipt2
                             stroke={2.5}
                             size={44}
@@ -398,7 +403,7 @@ const MemberInfoPage: FC = () => {
                             Reimbursement form for expenses made on behalf of a
                             committee.
                         </Text>
-                    </NextLink>
+                    </a>
 
                     <NextLink href="/member-info" className={css.docCard}>
                         <IconShieldCheck
