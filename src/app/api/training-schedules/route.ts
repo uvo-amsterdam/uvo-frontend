@@ -2,10 +2,13 @@ import { readItems } from '@directus/sdk';
 import { NextResponse } from 'next/server';
 import { directus } from '../../../lib/directus';
 
-export const revalidate = 60; // Cache for 60 seconds
+export const dynamic = 'force-static';
 
 export async function GET() {
     try {
+        console.log(
+            '[Directus Fetch] Fetching fresh Training Schedules from Directus...',
+        );
         const [mondayEven, mondayUneven, thursdayEven, thursdayUneven] =
             await Promise.all([
                 directus.request(readItems('Monday_Even_Schedule')),
