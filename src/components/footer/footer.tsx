@@ -47,7 +47,7 @@ export const Footer: FC = () => {
                         rel="noopener noreferrer"
                         highContrast
                     >
-                        Sign up here →
+                        Sign up here
                     </Link>
                 </div>
             </div>

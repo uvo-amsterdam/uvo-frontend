@@ -35,7 +35,7 @@ const TicketsPage: FC = () => {
                         rel="noopener noreferrer"
                         className={css.fallbackLink}
                     >
-                        Open in a new tab →
+                        Open in a new tab
                     </a>
                 </div>
             </section>

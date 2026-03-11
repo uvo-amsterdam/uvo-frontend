@@ -60,7 +60,7 @@
   }
 
   &.activeNav {
-    color: globals.$accent-color !important;
+    color: globals.$accent-color;
   }
 }
 
@@ -75,11 +75,11 @@
   transition: color globals.$transition-fast;
 
   &[data-highlighted] {
-    background-color: transparent !important;
-    color: globals.$accent-color !important;
+    background-color: transparent;
+    color: globals.$accent-color;
   }
 
   &.activeDropdown {
-    color: globals.$accent-color !important;
+    color: globals.$accent-color;
   }
 }

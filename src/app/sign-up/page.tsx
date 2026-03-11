@@ -159,7 +159,7 @@ const SignUpPage: FC = () => {
                         rel="noopener noreferrer"
                         className={css.ctaButton}
                     >
-                        Sign up for tryouts →
+                        Sign up for tryouts
                     </a>
                 </div>
             </section>

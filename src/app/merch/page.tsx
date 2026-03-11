@@ -100,7 +100,7 @@ const MerchPage: FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Shop the Collection →
+                        Shop the Collection
                     </a>
                 </Button>
             </section>
