@@ -5,7 +5,8 @@ import { Heading, Text } from '@radix-ui/themes';
 import { IconUsersGroup } from '@tabler/icons-react';
 import { createSlug } from '@utils/string-utils';
 import type { Metadata } from 'next';
-import { directus } from '../../lib/directus';
+import { logger } from '../../lib/logger';
+import { directus } from '../../lib/server/directus';
 
 import css from './page.module.scss';
 
@@ -36,7 +37,7 @@ const TeamsPage = async () => {
         // Sort teams roughly logically if possible, or alphabetically
         teamsList = uniqueTeams.sort((a, b) => a.localeCompare(b));
     } catch (error) {
-        console.error('Error fetching Teams:', error);
+        logger.error({ error }, 'Error fetching Teams');
     }
 
     return (

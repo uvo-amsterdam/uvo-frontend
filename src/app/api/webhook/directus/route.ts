@@ -1,5 +1,6 @@
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
+import { logger } from '../../../../lib/logger';
 
 export async function POST(request: NextRequest) {
     // 1. Check for the secret token in the URL search params
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
         const { collection, keys, event } = body;
 
         // 3. Log the trigger
-        console.log(
+        logger.info(
             `[Directus Webhook] Triggered event '${event}' for collection: ${collection}, keys: ${keys}`,
         );
 
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
             { status: 200 },
         );
     } catch (err) {
-        console.error('[Directus Webhook] Error processing request:', err);
+        logger.error({ err }, '[Directus Webhook] Error processing request');
         return NextResponse.json(
             { error: 'Error processing webhook request' },
             { status: 500 },

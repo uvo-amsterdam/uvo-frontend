@@ -7,7 +7,8 @@ import { parseSlugToName } from '@utils/string-utils';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { directus } from '../../../lib/directus';
+import { logger } from '../../../lib/logger';
+import { directus } from '../../../lib/server/directus';
 
 import css from './page.module.scss';
 
@@ -44,7 +45,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                 item.Team && item.Team.toLowerCase() === teamName.toLowerCase(),
         );
     } catch (error) {
-        console.error('Error fetching Team Compositions:', error);
+        logger.error({ error }, 'Error fetching Team Compositions');
     }
 
     if (players.length === 0) {
