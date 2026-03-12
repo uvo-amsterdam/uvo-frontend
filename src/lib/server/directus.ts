@@ -1,3 +1,4 @@
+import 'server-only';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
 import type { TeamComposition } from '@interfaces/team-composition.interface';
 import type { ScheduleItem } from '@interfaces/training-schedule.interface';
