@@ -1,0 +1,38 @@
+Sinds enkele jaren is het voor gebruikers met een technische achtergrond mogelijk om via de website van de Nevobo competitiegegevens over te nemen op (bijvoorbeeld) de website van de eigen vereniging. Tegenwoordig zijn er betere technieken om hier invulling aan te geven, maar vanwege verschillende redenen kunnen we deze helaas nog niet ter beschikking stellen aan verenigingen.
+Ondersteuning
+
+Wij hebben niet de mogelijkheid om iedere webmaster te helpen bij het koppelen van de verenigingswebsite aan onze informatie. Er zijn op internet wel wat initiatieven te vinden, waarbij een plug-in of module voor bekende CMS’en gemaakt is. Dit zijn geen Nevobo-producten, wij kunnen hier dus ook geen aanpassingen aan doen, of helpen bij problemen hiermee. Als je van mening bent dat er fouten in de informatie zitten (zoals een wedstrijd op het verkeerde tijdstip), kan natuurlijk altijd contact opgenomen worden met de competitie-organisatie.
+
+De onderstaande mogelijkheden worden 'as is' aangeboden. We kunnen op dit moment de permanente beschikbaarheid helaas niet garanderen. We hebben de wens een stabiele API te ontwikkelen, maar er is op dit moment geen concrete planning om dat te realiseren.
+Mogelijkheden
+
+Informatie wordt, naast op de webpagina’s, op drie verschillende manieren ontsloten. Niet elke manier is altijd beschikbaar, omdat het bijvoorbeeld niet voor de hand ligt om een kalender met de stand te maken.
+De juiste URL’s zijn te vinden op de competitiepagina’s van www.volleybal.nl, achter de knop ‘exporteren’ (rechtsonder). Daarbij is het belangrijk om op te merken dat de exporteerfunctie van de stand alleen op de poulepagina beschikbaar is.
+RSS-feeds
+
+Van ieder type informatie (stand, programma, resultaten) is een RSS-feed beschikbaar. Sommige feeds zijn meer gestructureerd dan andere, hierin zullen we in de toekomst naar alle waarschijnlijkheid geen aanpassingen doen. Voor veel webmasters gelden de RSS-feeds als belangrijkste manier om te koppelen.
+iCalendar-feeds
+
+Van het programma is een iCalendar-feed beschikbaar. Deze zijn gericht op het opnemen van informatie in een eigen kalender. Zeker bij het koppelen van de feed (in plaats van downloaden en importeren) is het voordeel dat de agenda altijd up-to-date is.
+Excel-bestanden
+
+De Excelbestanden zijn voornamelijk bedoeld voor gebruik door bijvoorbeeld het wedstrijdsecretariaat en niet zozeer om koppelingen met andere systemen mogelijk te maken.
+
+https://api.nevobo.nl/export/poule/{regio}/{poule}/programma.{type}
+https://api.nevobo.nl/export/poule/{regio}/{poule}/resultaten.{type}
+https://api.nevobo.nl/export/poule/{regio}/{poule}/stand.{type}
+https://api.nevobo.nl/export/vereniging/{verenigingscode}/programma.{type}
+https://api.nevobo.nl/export/vereniging/{verenigingscode}/resultaten.{type}
+https://api.nevobo.nl/export/team/{verenigingscode}/{teamtype}/{volgnummer}/programma.{type}
+https://api.nevobo.nl/export/team/{verenigingscode}/{teamtype}/{volgnummer}/resultaten.{type}
+https://api.nevobo.nl/export/sporthal/{sporthal}/programma.{type}
+https://api.nevobo.nl/export/sporthal/{sporthal}/resultaten.{type}
+https://api.nevobo.nl/export/nieuws.{type}
+https://api.nevobo.nl/export/activiteiten.{type}
+https://api.nevobo.nl/export/toernooien.{type}
+
+{type} = ‘rss’, ‘xlsx’, ‘ics’ (niet alle types zijn altijd beschikbaar)
+{regio} = ‘regio-noord’, ‘regio-oost’, ‘regio-zuid’, ‘regio-west’, ‘nationale-competitie’, ‘kampioenschappen’
+{poule} = pouleafkorting
+{teamtype} = ‘dames-senioren’, ‘jongens-a’, etc.
+{sporthal} = sporthalcode (vijf letters)
