@@ -1,0 +1,32 @@
+@use '@styles/tokens' as globals;
+
+.skeletonWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.marginTop {
+    margin-top: 3rem;
+}
+
+.skeletonRow {
+    height: 48px;
+    background: linear-gradient(90deg,
+            globals.$gray-100 25%,
+            globals.$cream 50%,
+            globals.$gray-100 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
