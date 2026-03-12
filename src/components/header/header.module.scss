@@ -1,4 +1,4 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
 .root {
   box-sizing: border-box;
@@ -6,45 +6,85 @@
   flex-flow: row;
   background: linear-gradient(-20deg, globals.$primary-color 55%, globals.$white-color 55%);
   align-items: center;
+  justify-content: space-between;
   padding: 0 5%;
-  height: 100%;
-  max-height: 3.75rem;
-  box-shadow: var(--shadow-6);
+  height: 3.75rem;
   position: sticky;
   top: 0;
-  z-index: 5;
-  justify-content: space-between;
+  z-index: 10;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
   @media (max-width: globals.$breakpoint-sm) {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 5%;
     background: linear-gradient(-70deg, globals.$primary-color 55%, globals.$white-color 55%);
   }
 }
 
 .imageContainer {
   position: relative;
-  margin: .1rem;
+  margin: 0.1rem;
   aspect-ratio: 1 / 1;
-  min-height: 60px;
-  min-width: 60px;
+  min-height: 48px;
+  min-width: 48px;
   height: 100%;
   width: auto;
 }
 
 .navContainer {
   display: flex;
-  gap: 1rem;
+  gap: 0.15rem;
 
   @media (max-width: globals.$breakpoint-sm) {
     display: none; // Temporary until a nice side drawer is implemented
   }
 }
 
-.navLink {
-  color: globals.$black-color;
-  font-weight: bold;
+.navLink,
+.navButton {
+  color: globals.$white-color;
+  font-family: globals.$font-heading;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background globals.$transition-fast, color globals.$transition-fast;
+
+  &:hover {
+    background: rgb(255 255 255 / 20%);
+    color: globals.$white-color;
+  }
+
+  &:focus-visible {
+    outline: 2px solid globals.$accent-color;
+    outline-offset: 2px;
+  }
+
+  &.activeNav {
+    color: globals.$accent-color;
+  }
+}
+
+.dropdownLink {
+  text-decoration: none;
+  color: inherit;
+  font-family: globals.$font-heading;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  transition: color globals.$transition-fast;
+
+  &[data-highlighted] {
+    background-color: transparent;
+    color: globals.$accent-color;
+  }
+
+  &.activeDropdown {
+    color: globals.$accent-color;
+  }
 }

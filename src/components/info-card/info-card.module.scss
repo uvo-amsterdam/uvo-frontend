@@ -1,0 +1,46 @@
+@use '@styles/tokens' as globals;
+
+.root {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: globals.$cream;
+    border-radius: 8px;
+    border-left: 4px solid globals.$primary-color;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform globals.$transition-fast, border-color globals.$transition-fast;
+
+    &:hover {
+        transform: translateX(4px);
+        border-left-color: globals.$accent-color;
+    }
+}
+
+.icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.label {
+    font-family: globals.$font-heading;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: globals.$primary-color;
+}
+
+.value {
+    color: globals.$gray-800;
+}
+
+.detail {
+    color: globals.$gray-600;
+}

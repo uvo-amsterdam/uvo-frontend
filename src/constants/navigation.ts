@@ -7,14 +7,21 @@ export const NAVIGATION: Pages = [
         subtitle: 'Welcome to the UvO Amsterdam website!',
     },
     {
-        link: '/merch',
-        title: 'Merch',
-        subtitle: 'Buy our merchandise',
-    },
-    {
-        link: '/tickets',
-        title: 'Tickets',
-        subtitle: 'Get your tickets',
+        link: '#',
+        title: 'Shop',
+        subtitle: 'Get your merch and tickets',
+        subPages: [
+            {
+                link: '/merch',
+                title: 'Merch',
+                subtitle: 'Buy our merchandise',
+            },
+            {
+                link: '/tickets',
+                title: 'Tickets',
+                subtitle: 'Get your tickets',
+            },
+        ],
     },
     {
         link: '/sign-up',
@@ -25,11 +32,6 @@ export const NAVIGATION: Pages = [
         link: '/committees',
         title: 'Committees',
         subtitle: 'Discover our committees',
-    },
-    {
-        link: '/articles-of-association',
-        title: 'Articles of Association',
-        subtitle: 'Read our articles of association',
     },
     {
         link: '/member-info',
@@ -45,6 +47,11 @@ export const NAVIGATION: Pages = [
         link: '/training',
         title: 'Training',
         subtitle: 'Training schedule and info',
+    },
+    {
+        link: '/competition',
+        title: 'Competition',
+        subtitle: 'Upcoming match fixtures',
     },
     {
         link: '/contact',
