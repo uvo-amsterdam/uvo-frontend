@@ -1,0 +1,14 @@
+@use '@styles/tokens' as globals;
+
+
+
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Fixture Section ── */
+
+.fixtureSection {
+  @include globals.content-section;
+}
