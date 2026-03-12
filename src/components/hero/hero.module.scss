@@ -1,0 +1,126 @@
+@use '@styles/tokens' as globals;
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: globals.$off-white;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+}
+
+.image {
+  min-height: 420px;
+  padding: 5rem 8% 8rem;
+  z-index: 0;
+
+  &::after {
+    z-index: 3;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    min-height: 340px;
+    padding: 4rem 5% 6rem;
+  }
+}
+
+.solid {
+  padding: 5rem 8% 8rem;
+  background: globals.$primary-color;
+  color: globals.$white-color;
+
+  &::after {
+    z-index: 1;
+  }
+
+  // Decorative seam arc
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 55%;
+    height: 160%;
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 6%);
+    background: rgb(255 255 255 / 2%);
+    background-image:
+      linear-gradient(45deg, rgb(255 255 255 / 2%) 25%, transparent 25%),
+      linear-gradient(-45deg, rgb(255 255 255 / 2%) 25%, transparent 25%);
+    background-size: 18px 18px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: globals.$breakpoint-sm) {
+    padding: 4rem 5% 6rem;
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  color: globals.$white-color;
+}
+
+.heroBg {
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 0;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top,
+      rgb(67 66 255 / 92%) 0%,
+      rgb(67 66 255 / 70%) 40%,
+      rgb(67 66 255 / 45%) 100%);
+}
+
+.title {
+  @include globals.section-heading;
+
+  color: inherit;
+  margin-bottom: 1rem;
+}
+
+.image .title {
+  font-size: 4rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.6rem;
+  }
+}
+
+.solid .title {
+  font-size: 3.4rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.subtitle {
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 560px;
+  font-size: 1.15rem;
+}
+
+.heroIcon {
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+  display: flex;
+}
