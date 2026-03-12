@@ -24,7 +24,7 @@ const ORGANISING_COMMITTEES = [
             'Complete freedom to plan vibrant events like New Year’s dinner, UvOlympics, pool nights, or ice skating.',
     },
     {
-        title: 'PartyCo',
+        title: 'Party Committee',
         description:
             'The essential student committee! Responsible for our legendary theme parties throughout the year.',
     },
@@ -34,17 +34,17 @@ const ORGANISING_COMMITTEES = [
             'Organizes our chic annual evening—think dinners at fancy restaurants or parties on boats.',
     },
     {
-        title: 'UvO Band',
+        title: 'UvO Band Committee',
         description:
             'For the musically talented players. They perform at special events throughout the season.',
     },
     {
-        title: 'InToCo',
+        title: 'Internal Tournament Committee (InToCo)',
         description:
             'The Internal Tournament Committee manages our home-grown events like the Blacklight Tournament.',
     },
     {
-        title: 'EXTC',
+        title: 'External Tradition Committee (EXTC)',
         description:
             'Handles registration and travel for external traditions like Texel and HAJRAA.',
     },
@@ -64,12 +64,12 @@ const ORGANISING_COMMITTEES = [
             'Coordinates our participation in the Batavierenrace—the world’s largest relay race.',
     },
     {
-        title: 'PromoCie',
+        title: 'Promotions Committee (PromoCie)',
         description:
             'Focuses on the UvA intro markets, finding sponsors, and launching fresh UvO merchandise.',
     },
     {
-        title: 'Social Media (SMC)',
+        title: 'Social Media Committee (SMC)',
         description:
             'Our influencers! Capturing home games, creating reels, and managing the Instagram vibe.',
     },
@@ -131,7 +131,11 @@ const CommitteesPage: FC = () => {
                         href="mailto:bestuur@uvo-amsterdam.nl"
                         className={css.contactLink}
                     >
-                        <IconMail size={20} />
+                        <IconMail
+                            size={20}
+                            aria-hidden="true"
+                            focusable="false"
+                        />
                         Email the board to join a committee
                     </a>
                 </div>
