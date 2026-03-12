@@ -1,3 +1,56 @@
+@use '@styles/tokens' as globals;
+
+
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+.embedSection {
+  @include globals.content-section;
+}
+
+.embedContainer {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  background: globals.$white-color;
+  border: 1px solid globals.$gray-200;
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  min-height: 700px;
+  border: none;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    min-height: 500px;
+  }
+}
+
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+}
+
+.fallbackText {
+  color: globals.$gray-400;
+}
+
+.fallbackLink {
+  color: globals.$primary-color;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color globals.$transition-fast;
+
+  &:hover {
+    color: globals.$accent-color;
+    text-decoration: underline;
+  }
 }
