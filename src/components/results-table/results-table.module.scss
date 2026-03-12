@@ -1,0 +1,303 @@
+@use '@styles/tokens' as globals;
+
+
+
+.tableContainer {
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.tableTitle {
+  @include globals.section-heading;
+
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: globals.$accent-color;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+  }
+}
+
+/* ── Desktop Table ── */
+
+.tableWrap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  background: globals.$white-color;
+  border: 1px solid globals.$gray-200;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    display: none;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  thead {
+    background: globals.$gray-800;
+    color: globals.$white-color;
+  }
+
+  th {
+    font-family: globals.$font-heading;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    padding: 0.9rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .teamCol {
+    width: 18%;
+  }
+
+  td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid globals.$gray-100;
+    color: globals.$gray-800;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background globals.$transition-fast;
+
+    &:hover {
+      background: globals.$cream;
+    }
+
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.thIcon {
+  width: 36px;
+  padding-right: 0;
+}
+
+.iconCell {
+  width: 36px;
+  text-align: center;
+  padding-right: 0;
+}
+
+.scoreCell {
+  font-family: globals.$font-heading;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.winRow {
+  background: rgb(255 107 53 / 6%);
+  border-left: 4px solid globals.$accent-color;
+
+  .scoreCell {
+    color: globals.$accent-color;
+  }
+
+  &:hover {
+    background: rgb(255 107 53 / 10%);
+  }
+}
+
+.uvoRow {
+  background: rgb(67 66 255 / 4%);
+
+  &:hover {
+    background: rgb(67 66 255 / 8%);
+  }
+}
+
+.uvoTeam {
+  font-weight: 700;
+  color: globals.$primary-color;
+}
+
+.trophyIcon {
+  color: globals.$accent-color;
+  filter: drop-shadow(0 0 4px rgb(255 107 53 / 40%));
+  animation: trophy-pop 0.4s ease-out;
+}
+
+.trophyIconSmall {
+  color: globals.$accent-color;
+  margin-right: 0.3rem;
+  vertical-align: -2px;
+}
+
+@keyframes trophy-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Mobile Cards ── */
+
+.cardList {
+  display: none;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.card {
+  background: globals.$white-color;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+  border: 1px solid globals.$gray-200;
+  transition: transform globals.$transition-fast;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.winCard {
+  border-left: 4px solid globals.$accent-color;
+  background: rgb(255 107 53 / 4%);
+}
+
+.uvoCard {
+  border-left: 4px solid globals.$primary-color;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.cardDate {
+  font-family: globals.$font-heading;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: globals.$primary-color;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+}
+
+.cardMatchup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: globals.$gray-800;
+  flex-wrap: wrap;
+}
+
+.cardScore {
+  font-family: globals.$font-heading;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: globals.$gray-800;
+  padding: 0.15rem 0.5rem;
+  background: globals.$gray-100;
+  border-radius: 6px;
+
+  .winCard & {
+    color: globals.$accent-color;
+    background: rgb(255 107 53 / 10%);
+  }
+}
+
+.cardVenue {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: globals.$gray-600;
+}
+
+/* ── Loading Skeleton ── */
+
+.skeletonWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+
+.skeletonRow {
+  height: 48px;
+  background: linear-gradient(90deg,
+      globals.$gray-100 25%,
+      globals.$cream 50%,
+      globals.$gray-100 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Empty State ── */
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  margin-top: 3rem;
+  background: globals.$white-color;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  border: 1px solid globals.$gray-200;
+}
+
+.emptyText {
+  color: globals.$gray-600;
+  line-height: 1.6;
+}
+
+/* ── Show More ── */
+
+.showMoreWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.showMoreBtn {
+  font-family: globals.$font-heading;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 2rem;
+}
