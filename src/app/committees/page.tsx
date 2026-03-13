@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Hero } from '@components/hero/hero';
 import { Heading, Text } from '@radix-ui/themes';
 import { IconMail } from '@tabler/icons-react';
 import type { Metadata } from 'next';
@@ -102,21 +103,12 @@ const CommitteesPage: FC = () => {
     return (
         <div className={css.root}>
             {/* ── Hero Section ── */}
-            <section className={css.hero}>
-                <Image
-                    src="/images/homepage/team-photo.jpeg"
-                    alt="UvO members working together"
-                    fill
-                    priority
-                    className={css.heroBg}
-                />
-                <div className={css.heroScrim} />
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        Committees
-                    </Heading>
-                </div>
-            </section>
+            <Hero
+                title="Committees"
+                subtitle="Without volunteers, it's impossible to make all activities a great success. Our committees work throughout the season to organize fantastic events."
+                imageSrc="/images/homepage/team-photo.jpeg"
+                imageAlt="UvO members working together"
+            />
 
             {/* ── Intro Section ── */}
             <section className={css.introSection}>

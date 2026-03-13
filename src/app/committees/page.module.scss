@@ -1,34 +1,8 @@
-@use '@styles/globals';
-
-/* ═══════════════════════════════════
-   Committees Page
-   ═══════════════════════════════════ */
+@use '@styles/tokens' as globals;
 
 .root {
   display: flex;
   flex-direction: column;
-}
-
-/* ── Hero ── */
-
-.hero {
-  @include globals.hero-base(420px, 5rem 8% 6rem, 4rem 5% 4rem);
-}
-
-.heroBg {
-  @include globals.hero-bg;
-}
-
-.heroScrim {
-  @include globals.hero-scrim;
-}
-
-.heroContent {
-  @include globals.hero-content;
-}
-
-.title {
-  @include globals.hero-title;
 }
 
 /* ── Intro Section ── */

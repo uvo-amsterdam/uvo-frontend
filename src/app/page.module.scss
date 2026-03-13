@@ -1,11 +1,11 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
 .root {
   min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: globals.$off-white;
+  background: globals.$white-color;
   padding: 2rem;
 }
 
