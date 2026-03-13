@@ -1,0 +1,66 @@
+@use '@styles/tokens' as globals;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.hero {
+    @include globals.hero-solid(6rem, 4rem);
+}
+
+.heroContent {
+    @include globals.hero-content(800px);
+}
+
+.heroIcon {
+    @include globals.hero-icon;
+}
+
+.title {
+    @include globals.hero-title(5rem, 3.5rem);
+}
+
+.subtitle {
+    @include globals.hero-subtitle;
+
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gridSection {
+    @include globals.content-section(6rem, 3rem);
+
+    background-color: globals.$off-white;
+    flex-grow: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+
+    @media (min-width: globals.$breakpoint-sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: globals.$breakpoint-md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: globals.$breakpoint-lg) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.emptyText {
+    color: globals.$gray-600;
+}
