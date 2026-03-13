@@ -7,6 +7,8 @@
   flex-direction: column;
 }
 
+/* ── General Section Layouts ── */
+
 .infoSection {
   display: grid;
   grid-template-columns: 350px 1fr;
@@ -55,6 +57,8 @@
     margin: 0.75rem auto 0;
   }
 }
+
+/* ── Accordion (DWF) ── */
 
 .accordionRoot {
   display: flex;
@@ -153,6 +157,8 @@
   }
 }
 
+/* ── Step List Items ── */
+
 .step {
   @include globals.numbered-item;
 }
@@ -164,6 +170,8 @@
 .stepText {
   @include globals.numbered-item-text;
 }
+
+/* ── Text Content ── */
 
 .textContent {
   display: flex;
@@ -201,6 +209,7 @@
   }
 }
 
+/* ── Documents Section ── */
 
 .documentsSection {
   padding: 5rem 8%;

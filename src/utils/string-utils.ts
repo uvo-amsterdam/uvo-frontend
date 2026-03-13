@@ -1,6 +1,5 @@
 export function createSlug(text: string): string {
     return text
-        .trim()
         .toLowerCase()
         .normalize('NFD') // Remove accents
         .replace(/[\u0300-\u036f]/g, '')
