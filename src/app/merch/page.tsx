@@ -25,7 +25,7 @@ const MerchPage: FC = () => {
                 <div className={css.imageGrid}>
                     <div className={css.imageCard}>
                         <Image
-                            src="/images/merch/image1.jpeg"
+                            src="/images/merch/three-people-outfits.jpeg"
                             alt="UvO member wearing a custom jersey"
                             width={560}
                             height={560}
@@ -34,7 +34,7 @@ const MerchPage: FC = () => {
                     </div>
                     <div className={css.imageCard}>
                         <Image
-                            src="/images/merch/image2.jpeg"
+                            src="/images/merch/top-down-shirt.jpeg"
                             alt="UvO member wearing a track jacket"
                             width={560}
                             height={560}
@@ -43,7 +43,7 @@ const MerchPage: FC = () => {
                     </div>
                     <div className={css.imageCard}>
                         <Image
-                            src="/images/merch/image3.jpeg"
+                            src="/images/merch/two-people-field.jpeg"
                             alt="UvO members relaxing in custom apparel"
                             width={560}
                             height={560}

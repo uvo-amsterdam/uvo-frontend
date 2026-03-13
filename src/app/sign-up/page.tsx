@@ -132,7 +132,7 @@ const SignUpPage: FC = () => {
                 </div>
                 <div className={css.whyPhoto}>
                     <Image
-                        src="/images/merch/image2.jpeg"
+                        src="/images/merch/top-down-shirt.jpeg"
                         alt="UvO members posing in the sports hall"
                         width={520}
                         height={640}
