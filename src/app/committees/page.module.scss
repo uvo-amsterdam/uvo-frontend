@@ -1,3 +1,139 @@
+@use '@styles/globals';
+
+/* ═══════════════════════════════════
+   Committees Page
+   ═══════════════════════════════════ */
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+
+.hero {
+  @include globals.hero-base(420px, 5rem 8% 6rem, 4rem 5% 4rem);
+}
+
+.heroBg {
+  @include globals.hero-bg;
+}
+
+.heroScrim {
+  @include globals.hero-scrim;
+}
+
+.heroContent {
+  @include globals.hero-content;
+}
+
+.title {
+  @include globals.hero-title;
+}
+
+/* ── Intro Section ── */
+
+.introSection {
+  @include globals.content-section(4rem 8%, 3rem 5%);
+
+  text-align: center;
+}
+
+.introContent {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.introText {
+  line-height: 1.7;
+  color: globals.$gray-800;
+}
+
+.contactLink {
+  @include globals.cta-button;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  &:hover {
+    background: globals.$primary-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgb(0 0 0 / 10%);
+  }
+}
+
+/* ── Organizing Committees Grid ── */
+
+.gridSection {
+  @include globals.content-section(4rem 8%, 3rem 5%);
+}
+
+.altBgWrapper {
+  background: globals.$cream;
+  width: 100%;
+}
+
+.sectionHeader {
+  @include globals.section-title-accent(3rem, 2.2rem, 60px);
+
+  margin: 0 0 2rem;
+}
+
+.committeeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+
+  @media (max-width: globals.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.comCard {
+  background: globals.$white-color;
+  padding: 2rem;
+  border-radius: 12px;
+  border-bottom: 4px solid globals.$primary-color;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 5%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+  }
+
+  .comTitle {
+    color: globals.$primary-color;
+    font-family: globals.$font-heading;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+}
+
+/* ── Supporting Committees List ── */
+
+.supportList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.supportItem {
+  background: globals.$white-color;
+  padding: 2.5rem;
+  border-left: 5px solid globals.$primary-color;
+  border-radius: 4px 12px 12px 4px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
+
+  .comTitle {
+    margin-bottom: 0.5rem;
+    color: globals.$gray-800;
+  }
 }
