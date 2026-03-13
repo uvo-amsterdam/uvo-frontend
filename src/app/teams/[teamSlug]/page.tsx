@@ -37,13 +37,12 @@ const TeamPage = async ({ params }: TeamPageProps) => {
     let players: TeamComposition[] = [];
     try {
         const allCompositions = (await directus.request(
-            readItems('Team_Compositions', { limit: -1 }),
+            readItems('Team_Compositions'),
         )) as TeamComposition[];
 
         players = allCompositions.filter(
             (item: TeamComposition) =>
-                item.Team &&
-                item.Team.trim().toLowerCase() === teamName.toLowerCase(),
+                item.Team && item.Team.toLowerCase() === teamName.toLowerCase(),
         );
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');

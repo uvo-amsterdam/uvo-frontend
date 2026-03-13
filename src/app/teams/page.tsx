@@ -19,15 +19,15 @@ const TeamsPage = async () => {
 
     try {
         const compositions = (await directus.request(
-            readItems('Team_Compositions', { limit: -1 }),
+            readItems('Team_Compositions'),
         )) as TeamComposition[];
 
         // Extract unique team names, filtering out nulls
         const uniqueTeams = Array.from(
             new Set(
                 compositions
-                    .map((item: TeamComposition) => item.Team?.trim())
-                    .filter((team: string | null | undefined): team is string =>
+                    .map((item: TeamComposition) => item.Team)
+                    .filter((team: string | null): team is string =>
                         Boolean(team),
                     ),
             ),

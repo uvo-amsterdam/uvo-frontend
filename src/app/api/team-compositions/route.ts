@@ -10,9 +10,7 @@ export async function GET() {
         logger.info(
             '[Directus Fetch] Fetching fresh Team Compositions from Directus...',
         );
-        const teams = await directus.request(
-            readItems('Team_Compositions', { limit: -1 }),
-        );
+        const teams = await directus.request(readItems('Team_Compositions'));
 
         return NextResponse.json(teams);
     } catch (error) {

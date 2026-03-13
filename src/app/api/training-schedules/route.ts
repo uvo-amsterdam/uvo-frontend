@@ -12,18 +12,10 @@ export async function GET() {
         );
         const [mondayEven, mondayUneven, thursdayEven, thursdayUneven] =
             await Promise.all([
-                directus.request(
-                    readItems('Monday_Even_Schedule', { limit: -1 }),
-                ),
-                directus.request(
-                    readItems('Monday_Uneven_Schedule', { limit: -1 }),
-                ),
-                directus.request(
-                    readItems('Thursday_Even_Schedule', { limit: -1 }),
-                ),
-                directus.request(
-                    readItems('Thursday_Uneven_Schedule', { limit: -1 }),
-                ),
+                directus.request(readItems('Monday_Even_Schedule')),
+                directus.request(readItems('Monday_Uneven_Schedule')),
+                directus.request(readItems('Thursday_Even_Schedule')),
+                directus.request(readItems('Thursday_Uneven_Schedule')),
             ]);
 
         return NextResponse.json({

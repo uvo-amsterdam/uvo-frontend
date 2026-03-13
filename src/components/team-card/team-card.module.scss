@@ -10,7 +10,6 @@
     background-color: globals.$gray-800;
     box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
     border: 4px solid transparent;
-    container-type: inline-size;
 
     /* Reserve space for hover border */
     transition:
@@ -77,14 +76,13 @@
 
 .teamName {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(2rem, 12cqw, 2.75rem);
+    font-size: 2.5rem;
     font-weight: 800;
     text-transform: uppercase;
     line-height: 1;
     margin: 0;
     letter-spacing: 0.05em;
     text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-    overflow-wrap: break-word;
 }
 
 .actionPrompt {
