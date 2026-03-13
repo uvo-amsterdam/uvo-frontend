@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
 import { Heading, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
@@ -89,28 +90,13 @@ const SignUpPage: FC = () => {
 
     return (
         <div className={css.root}>
-            {/* ── Hero Section — full-bleed photo with gradient scrim ── */}
-            <section className={css.hero}>
-                <Image
-                    src="/images/homepage/team-photo.jpeg"
-                    alt="UvO Amsterdam team celebrating together"
-                    fill
-                    priority
-                    className={css.heroBg}
-                />
-                <div className={css.heroScrim} />
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        Sign Up
-                    </Heading>
-                    <Text as="p" size="4" className={css.subtitle}>
-                        Are you a student and ready to hit the court? Sign up
-                        for our tryouts and find out what UvO is all about!
-                    </Text>
-                </div>
-            </section>
+            <Hero
+                title="Sign Up"
+                subtitle="Are you a student and ready to hit the court? Sign up for our tryouts and find out what UvO is all about!"
+                imageSrc="/images/homepage/team-photo.jpeg"
+                imageAlt="UvO Amsterdam team celebrating together"
+            />
 
-            {/* ── Why UvO? — selling points + photo ── */}
             <section className={css.whySection}>
                 <div className={css.whyText}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -155,7 +141,6 @@ const SignUpPage: FC = () => {
                 </div>
             </section>
 
-            {/* ── Tryout Band — full-width diagonal slant ── */}
             <section className={css.tryoutBand}>
                 <div className={css.tryoutInner}>
                     <Heading as="h2" className={css.tryoutHeadline}>
@@ -174,12 +159,11 @@ const SignUpPage: FC = () => {
                         rel="noopener noreferrer"
                         className={css.ctaButton}
                     >
-                        Sign up for tryouts →
+                        Sign up for tryouts
                     </a>
                 </div>
             </section>
 
-            {/* ── Pricing Tables ── */}
             <section className={css.pricing}>
                 <div className={css.pricingHeader}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -187,7 +171,6 @@ const SignUpPage: FC = () => {
                     </Heading>
                 </div>
 
-                {/* Competition */}
                 <div className={css.tableBlock}>
                     <Heading as="h3" className={css.tableLabel}>
                         Competition
@@ -214,7 +197,6 @@ const SignUpPage: FC = () => {
                     </div>
                 </div>
 
-                {/* Training Only */}
                 <div className={css.tableBlock}>
                     <Heading as="h3" className={css.tableLabel}>
                         Training Only
@@ -241,7 +223,6 @@ const SignUpPage: FC = () => {
                     </div>
                 </div>
 
-                {/* Beginners */}
                 <div className={css.tableBlock}>
                     <Heading as="h3" className={css.tableLabel}>
                         Beginners

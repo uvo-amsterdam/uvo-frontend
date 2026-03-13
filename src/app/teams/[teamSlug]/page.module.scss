@@ -1,0 +1,112 @@
+@use '@styles/tokens' as globals;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.hero {
+    @include globals.hero-solid(6rem, 4rem);
+}
+
+.heroContent {
+    @include globals.hero-content(800px);
+}
+
+.title {
+    @include globals.hero-title(6rem, 4rem);
+}
+
+.subtitle {
+    @include globals.hero-subtitle;
+}
+
+.contentSection {
+    @include globals.content-section(4rem, 2rem);
+
+    background-color: globals.$off-white;
+}
+
+.magazineLayout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    width: 100%;
+
+    @media (min-width: globals.$breakpoint-md) {
+        grid-template-columns: 350px 1fr;
+        align-items: flex-start;
+    }
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.sectionIcon {
+    color: globals.$accent-color;
+}
+
+.sectionTitle {
+    @include globals.section-title-accent(2rem, 1.75rem, 40px);
+
+    margin-bottom: 0;
+}
+
+.rosterColumn {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.rosterList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.playerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid globals.$cream;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.playerName {
+    color: globals.$gray-800;
+}
+
+.playerPosition {
+    color: globals.$gray-600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    background: globals.$cream;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.teamImageWrapper {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.teamImage {
+    object-fit: cover;
+}

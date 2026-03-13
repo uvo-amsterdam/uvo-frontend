@@ -1,8 +1,6 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
-/* ═══════════════════════════════════
-   Fixture Table Component
-   ═══════════════════════════════════ */
+
 
 .tableContainer {
   width: 100%;
@@ -24,8 +22,6 @@
     border-radius: 2px;
   }
 }
-
-/* ── Desktop Table ── */
 
 .tableWrap {
   border-radius: 14px;
@@ -60,6 +56,10 @@
     white-space: nowrap;
   }
 
+  .teamCol {
+    width: 20%;
+  }
+
   td {
     padding: 0.8rem 1rem;
     border-bottom: 1px solid globals.$gray-100;
@@ -85,7 +85,7 @@
   border-left: 4px solid globals.$accent-color;
 
   &:hover {
-    background: rgb(67 66 255 / 8%) !important;
+    background: rgb(67 66 255 / 8%);
   }
 }
 
@@ -93,8 +93,6 @@
   font-weight: 700;
   color: globals.$primary-color;
 }
-
-/* ── Mobile Cards ── */
 
 .cardList {
   display: none;
@@ -169,8 +167,6 @@
   color: globals.$gray-600;
 }
 
-/* ── Loading Skeleton ── */
-
 .skeletonWrap {
   display: flex;
   flex-direction: column;
@@ -179,23 +175,24 @@
 
 .skeletonRow {
   height: 48px;
-  background: linear-gradient(
-    90deg,
-    globals.$gray-100 25%,
-    globals.$cream 50%,
-    globals.$gray-100 75%
-  );
+  background: linear-gradient(90deg,
+      globals.$gray-100 25%,
+      globals.$cream 50%,
+      globals.$gray-100 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+  0% {
+    background-position: 200% 0;
+  }
 
-/* ── Empty State ── */
+  100% {
+    background-position: -200% 0;
+  }
+}
 
 .empty {
   text-align: center;
@@ -209,4 +206,19 @@
 .emptyText {
   color: globals.$gray-600;
   line-height: 1.6;
+}
+
+.showMoreWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.showMoreBtn {
+  font-family: globals.$font-heading;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 2rem;
 }

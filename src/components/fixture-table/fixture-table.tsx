@@ -1,95 +1,33 @@
 'use client';
 
-import { type FC, useEffect, useState } from 'react';
-import { Heading, Text } from '@radix-ui/themes';
-import { formatDateFromSerial, formatTimeFromSerial } from '@utils/date-utils';
+import { type FC, useState } from 'react';
+import { TableEmptyState } from '@components/ui-states/table-empty-state';
+import { TableSkeleton } from '@components/ui-states/table-skeleton';
+import { useFixtures } from '@hooks/use-fixtures';
+import { Button, Heading } from '@radix-ui/themes';
 
 import css from './fixture-table.module.scss';
 
-interface Fixture {
-    date: string;
-    time: string;
-    home: string;
-    away: string;
-    venue: string;
-    city: string;
-    isUvo: boolean;
-}
-
-function parseFixtures(rows: unknown[][]): Fixture[] {
-    return rows
-        .filter(row => row.length > 0 && row[0] != null)
-        .map(row => {
-            const dateSerial = row[0] as number;
-            const timeSerial = row[1] as number;
-            const home = (row[2] as string) ?? '';
-            const away = (row[3] as string) ?? '';
-            const venue = (row[10] as string) ?? '';
-            const city = (row[11] as string) ?? '';
-
-            return {
-                date:
-                    typeof dateSerial === 'number'
-                        ? formatDateFromSerial(dateSerial)
-                        : String(dateSerial ?? ''),
-                time:
-                    typeof timeSerial === 'number'
-                        ? formatTimeFromSerial(timeSerial)
-                        : String(timeSerial ?? ''),
-                home,
-                away,
-                venue,
-                city,
-                isUvo:
-                    home.toLowerCase().includes('uvo') ||
-                    away.toLowerCase().includes('uvo'),
-            };
-        });
-}
-
 export const FixtureTable: FC = () => {
-    const [fixtures, setFixtures] = useState<Fixture[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const { data: fixtures, loading, error } = useFixtures();
+    const [showAll, setShowAll] = useState(false);
 
-    useEffect(() => {
-        fetch('/api/fixtures')
-            .then(res => {
-                if (!res.ok) throw new Error('API error');
-                return res.json();
-            })
-            .then((rows: unknown[][]) => {
-                setFixtures(parseFixtures(rows));
-                setLoading(false);
-            })
-            .catch(() => {
-                setError(true);
-                setLoading(false);
-            });
-    }, []);
+    const maxResults = 15;
+    const displayedFixtures = showAll
+        ? fixtures
+        : fixtures.slice(0, maxResults);
 
-    if (loading) {
-        return (
-            <div className={css.skeletonWrap}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <div
-                        key={`skeleton-${i.toString()}`}
-                        className={css.skeletonRow}
-                    />
-                ))}
-            </div>
-        );
-    }
+    if (loading) return <TableSkeleton />;
 
     if (error || fixtures.length === 0) {
         return (
-            <div className={css.empty}>
-                <Text size="4" className={css.emptyText}>
-                    {error
+            <TableEmptyState
+                message={
+                    error
                         ? "Couldn't load the fixtures right now — try again later!"
-                        : 'No upcoming matches at the moment. Check back soon!'}
-                </Text>
-            </div>
+                        : 'No upcoming matches at the moment. Check back soon!'
+                }
+            />
         );
     }
 
@@ -99,21 +37,20 @@ export const FixtureTable: FC = () => {
                 Upcoming Matches
             </Heading>
 
-            {/* ── Desktop table ── */}
             <div className={css.tableWrap}>
                 <table className={css.table}>
                     <thead>
                         <tr>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Home</th>
-                            <th>Away</th>
+                            <th className={css.teamCol}>Home</th>
+                            <th className={css.teamCol}>Away</th>
                             <th>Venue</th>
                             <th>City</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {fixtures.map((f, i) => (
+                        {displayedFixtures.map((f, i) => (
                             <tr
                                 key={`fixture-${i.toString()}`}
                                 className={f.isUvo ? css.uvoRow : undefined}
@@ -148,9 +85,8 @@ export const FixtureTable: FC = () => {
                 </table>
             </div>
 
-            {/* ── Mobile cards ── */}
             <div className={css.cardList}>
-                {fixtures.map((f, i) => (
+                {displayedFixtures.map((f, i) => (
                     <div
                         key={`card-${i.toString()}`}
                         className={`${css.card} ${f.isUvo ? css.uvoCard : ''}`}
@@ -190,6 +126,19 @@ export const FixtureTable: FC = () => {
                     </div>
                 ))}
             </div>
+
+            {fixtures.length > maxResults && !showAll && (
+                <div className={css.showMoreWrap}>
+                    <Button
+                        variant="soft"
+                        size="3"
+                        onClick={() => setShowAll(true)}
+                        className={css.showMoreBtn}
+                    >
+                        Show More Matches
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

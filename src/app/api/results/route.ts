@@ -1,12 +1,13 @@
+import { NEVOBO_BASE_URL, NEVOBO_CLUB_ID } from '@constants/api';
+import { parseNevoboExcel } from '@utils/nevobo-utils';
 import { NextResponse } from 'next/server';
-import * as XLSX from 'xlsx';
-
-const NEVOBO_URL =
-    'https://api.nevobo.nl/export/vereniging/CKL7K23/resultaten.xlsx';
 
 export async function GET() {
     try {
-        const response = await fetch(NEVOBO_URL);
+        const response = await fetch(
+            `${NEVOBO_BASE_URL}vereniging/${NEVOBO_CLUB_ID}/resultaten.xlsx`,
+            { next: { revalidate: 3600 } }, // cache for 1 hour
+        );
 
         if (!response.ok) {
             return NextResponse.json(
@@ -15,18 +16,11 @@ export async function GET() {
             );
         }
 
-        const buffer = await response.arrayBuffer();
-        const workbook = XLSX.read(new Uint8Array(buffer), { type: 'array' });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const rows: unknown[][] = XLSX.utils.sheet_to_json(sheet, {
-            header: 1,
-        });
-
-        // Skip header, take first 15 (most recent results)
-        const results = rows.slice(1, 16);
+        const results = await parseNevoboExcel(response);
 
         return NextResponse.json(results);
-    } catch {
+    } catch (e) {
+        console.error('Failed to parse results:', e);
         return NextResponse.json(
             { error: 'An unexpected error occurred' },
             { status: 500 },
