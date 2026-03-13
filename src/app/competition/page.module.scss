@@ -1,34 +1,10 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
 
 
 .root {
   display: flex;
   flex-direction: column;
-}
-
-/* ── Hero ── */
-
-.hero {
-  @include globals.hero-solid;
-}
-
-.heroContent {
-  @include globals.hero-content;
-}
-
-.heroIcon {
-  @include globals.hero-icon;
-}
-
-.title {
-  @include globals.hero-title(3.4rem, 2.2rem);
-}
-
-.subtitle {
-  @include globals.hero-subtitle;
-
-  opacity: 0.9;
 }
 
 /* ── Fixture Section ── */

@@ -28,7 +28,7 @@ export const SignupCta: FC = () => {
                     rel="noopener noreferrer"
                     className={css.button}
                 >
-                    Sign up now →
+                    Sign up now
                 </a>
             </div>
         </section>

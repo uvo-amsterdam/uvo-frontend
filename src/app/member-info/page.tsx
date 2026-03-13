@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Hero } from '@components/hero/hero';
 import * as Accordion from '@radix-ui/react-accordion';
 import { Heading, Text } from '@radix-ui/themes';
 import {
@@ -8,7 +9,6 @@ import {
     IconShieldCheck,
 } from '@tabler/icons-react';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import NextLink from 'next/link';
 
 import css from './page.module.scss';
@@ -22,24 +22,12 @@ export const metadata: Metadata = {
 const MemberInfoPage: FC = () => {
     return (
         <div className={css.root}>
-            {/* ── Hero Section ── */}
-            <section className={css.hero}>
-                <Image
-                    src="/images/homepage/team-photo.jpeg"
-                    alt="UvO Amsterdam members"
-                    fill
-                    priority
-                    className={css.heroBg}
-                />
-                <div className={css.heroScrim} />
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        Member Info
-                    </Heading>
-                </div>
-            </section>
+            <Hero
+                title="Member Info"
+                imageSrc="/images/homepage/team-photo.jpeg"
+                imageAlt="UvO Amsterdam members"
+            />
 
-            {/* ── DWF Duties Accordion ── */}
             <section className={css.infoSection}>
                 <div className={css.infoHeading}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -51,7 +39,6 @@ const MemberInfoPage: FC = () => {
                         type="multiple"
                         className={css.accordionRoot}
                     >
-                        {/* ── Captains ── */}
                         <Accordion.Item
                             value="captain"
                             className={css.accordionItem}
@@ -178,7 +165,6 @@ const MemberInfoPage: FC = () => {
                             </Accordion.Content>
                         </Accordion.Item>
 
-                        {/* ── Referees ── */}
                         <Accordion.Item
                             value="referee"
                             className={css.accordionItem}
@@ -319,7 +305,6 @@ const MemberInfoPage: FC = () => {
                 </div>
             </section>
 
-            {/* ── Confidential Person ── */}
             <section className={`${css.infoSection} ${css.altBackground}`}>
                 <div className={css.infoHeading}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -375,7 +360,6 @@ const MemberInfoPage: FC = () => {
                 </div>
             </section>
 
-            {/* ── Documents & Links ── */}
             <section className={`${css.documentsSection}`}>
                 <div className={css.headerCenter}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -401,7 +385,12 @@ const MemberInfoPage: FC = () => {
                         </Text>
                     </NextLink>
 
-                    <NextLink href="/member-info" className={css.docCard}>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css.docCard}
+                    >
                         <IconReceipt2
                             stroke={2.5}
                             size={44}
@@ -414,7 +403,7 @@ const MemberInfoPage: FC = () => {
                             Reimbursement form for expenses made on behalf of a
                             committee.
                         </Text>
-                    </NextLink>
+                    </a>
 
                     <NextLink href="/member-info" className={css.docCard}>
                         <IconShieldCheck

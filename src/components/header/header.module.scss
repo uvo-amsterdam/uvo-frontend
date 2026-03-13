@@ -1,4 +1,4 @@
-@use '@styles/globals';
+@use '@styles/tokens' as globals;
 
 .root {
   box-sizing: border-box;
@@ -38,7 +38,8 @@
   }
 }
 
-.navLink, .navButton {
+.navLink,
+.navButton {
   color: globals.$white-color;
   font-family: globals.$font-heading;
   font-weight: 700;
@@ -58,8 +59,13 @@
     color: globals.$white-color;
   }
 
+  &:focus-visible {
+    outline: 2px solid globals.$accent-color;
+    outline-offset: 2px;
+  }
+
   &.activeNav {
-    color: globals.$accent-color !important;
+    color: globals.$accent-color;
   }
 }
 
@@ -74,11 +80,11 @@
   transition: color globals.$transition-fast;
 
   &[data-highlighted] {
-    background-color: transparent !important;
-    color: globals.$accent-color !important;
+    background-color: transparent;
+    color: globals.$accent-color;
   }
 
   &.activeDropdown {
-    color: globals.$accent-color !important;
+    color: globals.$accent-color;
   }
 }

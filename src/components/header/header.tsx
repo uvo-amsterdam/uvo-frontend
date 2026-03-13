@@ -15,12 +15,14 @@ export const Header: FC = () => {
     return (
         <header className={css.root}>
             <div className={css.imageContainer}>
-                <Link href={'/'}>
-                    <Image
-                        src="/images/logo/uvo-logo.jpeg"
-                        alt="UvO logo"
-                        fill={true}
-                    />
+                <Link asChild>
+                    <NextLink href={'/'}>
+                        <Image
+                            src="/images/logo/uvo-logo.jpeg"
+                            alt="UvO logo"
+                            fill={true}
+                        />
+                    </NextLink>
                 </Link>
             </div>
             <div className={css.navContainer}>
@@ -31,13 +33,10 @@ export const Header: FC = () => {
                         );
                         return (
                             <DropdownMenu.Root key={navLink.title}>
-                                <DropdownMenu.Trigger>
-                                    <button
-                                        type="button"
-                                        className={`${css.navButton} ${isSubPageActive ? css.activeNav : ''}`}
-                                    >
-                                        {navLink.title} ▾
-                                    </button>
+                                <DropdownMenu.Trigger
+                                    className={`${css.navButton} ${isSubPageActive ? css.activeNav : ''}`}
+                                >
+                                    <span>{navLink.title} ▾</span>
                                 </DropdownMenu.Trigger>
                                 <DropdownMenu.Content
                                     variant="solid"
@@ -68,11 +67,13 @@ export const Header: FC = () => {
                     return (
                         <Link
                             key={navLink.link}
-                            href={navLink.link}
+                            asChild
                             underline="hover"
                             className={`${css.navLink} ${isActive ? css.activeNav : ''}`}
                         >
-                            {navLink.title}
+                            <NextLink href={navLink.link}>
+                                {navLink.title}
+                            </NextLink>
                         </Link>
                     );
                 })}
