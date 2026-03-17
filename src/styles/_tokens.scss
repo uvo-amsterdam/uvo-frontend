@@ -73,7 +73,7 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   }
 }
 
-// ─── Numbered Step / Point Pattern ───
+
 @mixin numbered-item {
   display: flex;
   align-items: flex-start;
@@ -115,7 +115,7 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   }
 }
 
-// ─── Content Section Container ───
+
 @mixin content-section($pad: 3rem 8% 4rem, $pad-sm: 2rem 4% 3rem) {
   padding: $pad;
   max-width: 1400px;
@@ -129,7 +129,7 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   }
 }
 
-// ─── CTA Button ───
+
 @mixin cta-button {
   display: inline-flex;
   align-items: center;
@@ -157,7 +157,7 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   }
 }
 
-// ─── Page Hero Patterns ───
+
 @mixin hero-solid($pad: 5rem 8% 8rem, $pad-sm: 4rem 5% 6rem) {
   padding: $pad;
   background: $primary-color;
@@ -203,4 +203,30 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   opacity: 0.85;
   margin-bottom: 0.75rem;
   display: flex;
+}
+
+// ─── Branding Graphics (Seam Arcs) ───
+
+/// @param $color [Color] - Primary color for the texture
+/// @param $opacity [Number] - Opacity for the texture stripes
+/// @param $size [Length] - Pattern repeat size
+@mixin volleyball-seam-texture($color: $primary-color, $opacity: 0.03, $size: 20px) {
+  background-image:
+    linear-gradient(45deg, rgba($color, $opacity) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba($color, $opacity) 25%, transparent 25%);
+  background-size: $size $size;
+}
+
+/// Base for decorative background arcs
+/// @param $width [Length]
+/// @param $height [Length]
+/// @param $border-radius [Length]
+@mixin decorative-arc($width, $height, $border-radius: 50%) {
+  content: '';
+  position: absolute;
+  width: $width;
+  height: $height;
+  border-radius: $border-radius;
+  pointer-events: none;
+  z-index: 0;
 }

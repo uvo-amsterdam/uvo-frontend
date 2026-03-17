@@ -8,40 +8,24 @@
 
     // Volleyball seam curve — sweeping from upper-right
     &::before {
-        content: '';
-        position: absolute;
+        @include tokens.decorative-arc(70%, 120%, 50% 0 50% 50%);
+
         top: -10%;
         right: -15%;
-        width: 70%;
-        height: 120%;
-        border-radius: 50% 0 50% 50%;
         background: rgb(67 66 255 / 4%);
 
-        // subtle crosshatch pattern inside the shape
-        background-image:
-            linear-gradient(45deg, rgb(67 66 255 / 3%) 25%, transparent 25%),
-            linear-gradient(-45deg, rgb(67 66 255 / 3%) 25%, transparent 25%);
-        background-size: 20px 20px;
-        pointer-events: none;
-        z-index: 0;
+        @include tokens.volleyball-seam-texture($opacity: 0.03);
     }
 
     // Second seam curve — sweeping from lower-left
     &::after {
-        content: '';
-        position: absolute;
+        @include tokens.decorative-arc(55%, 80%, 50% 50% 0);
+
         bottom: -20%;
         left: -10%;
-        width: 55%;
-        height: 80%;
-        border-radius: 50% 50% 0;
         background: rgb(110 109 255 / 3%);
-        background-image:
-            linear-gradient(45deg, rgb(67 66 255 / 2%) 25%, transparent 25%),
-            linear-gradient(-45deg, rgb(67 66 255 / 2%) 25%, transparent 25%);
-        background-size: 20px 20px;
-        pointer-events: none;
-        z-index: 0;
+
+        @include tokens.volleyball-seam-texture($opacity: 0.02);
     }
 
     @media (max-width: tokens.$breakpoint-sm) {
@@ -129,7 +113,7 @@
     }
 }
 
-// No more white cards — just big bold numbers on the background
+
 .statCard {
     display: flex;
     flex-direction: column;

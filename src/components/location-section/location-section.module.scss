@@ -8,20 +8,13 @@
 
     // Volleyball seam arc — upper left
     &::before {
-        content: '';
-        position: absolute;
+        @include tokens.decorative-arc(50%, 90%);
+
         top: -25%;
         left: -12%;
-        width: 50%;
-        height: 90%;
-        border-radius: 50%;
         background: rgb(67 66 255 / 3%);
-        background-image:
-            linear-gradient(45deg, rgb(67 66 255 / 2%) 25%, transparent 25%),
-            linear-gradient(-45deg, rgb(67 66 255 / 2%) 25%, transparent 25%);
-        background-size: 18px 18px;
-        pointer-events: none;
-        z-index: 0;
+
+        @include tokens.volleyball-seam-texture($opacity: 0.02, $size: 18px);
     }
 
     @media (max-width: tokens.$breakpoint-sm) {
