@@ -9,7 +9,7 @@ export default function ArticlesOfAssociation() {
             <iframe
                 title="AoA"
                 src="/statuten.pdf"
-                style={{ border: 0, width: '100%', height: '100vh' }}
+                className={css.pdfEmbed}
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

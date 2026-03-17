@@ -1,0 +1,164 @@
+@use '@styles/tokens';
+
+.root {
+    position: relative;
+    width: 100%;
+    height: 92vh;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.slidesTrack {
+    position: absolute;
+    inset: 0;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: slide-fade 15s infinite;
+    transform: scale(1.05);
+
+    &:first-child {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-fade {
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    8% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    38% {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg,
+            rgb(67 66 255 / 35%) 0%,
+            rgb(7 7 7 / 55%) 50%,
+            rgb(7 7 7 / 75%) 100%);
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+
+    // Offset for the sticky header (3.75rem) so content is visually centered
+    // in the visible viewport below the header
+    padding: 3.75rem 8% 0;
+    box-sizing: border-box;
+    color: tokens.$white-color;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        padding: 3.75rem 5% 0;
+    }
+}
+
+.title {
+    font-family: tokens.$font-heading;
+    font-size: 5.5rem;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+    max-width: 800px;
+    text-shadow: 0 3px 20px rgb(0 0 0 / 40%);
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        font-size: 3rem;
+    }
+}
+
+.highlight {
+    color: tokens.$accent-color;
+    -webkit-text-fill-color: tokens.$accent-color;
+    background: none;
+    background-clip: unset;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.65;
+    margin: 0 0 2.5rem;
+    max-width: 540px;
+    opacity: 0.92;
+    text-shadow: 0 1px 8px rgb(0 0 0 / 25%);
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        font-size: 1.05rem;
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.primaryBtn {
+    @include tokens.cta-button;
+
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 16px rgb(255 107 53 / 35%);
+
+    &:hover {
+        box-shadow: 0 6px 24px rgb(255 107 53 / 45%);
+    }
+}
+
+.secondaryBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: tokens.$white-color;
+    font-family: tokens.$font-heading;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity tokens.$transition-fast, transform tokens.$transition-fast;
+
+    &:hover {
+        opacity: 1;
+        transform: translateY(2px);
+    }
+}

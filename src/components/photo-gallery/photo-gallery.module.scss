@@ -1,0 +1,118 @@
+@use '@styles/tokens';
+
+.root {
+    padding: 5rem 4% 4.5rem;
+    background: tokens.$cream;
+    position: relative;
+    overflow: hidden;
+
+    // Sweeping wave curve top divider (volleyball seam inspired)
+    &::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: tokens.$off-white;
+        clip-path: ellipse(55% 100% at 50% 0%);
+        z-index: 1;
+    }
+
+    // Decorative seam arc — lower right
+    &::after {
+        @include tokens.decorative-arc(45%, 70%);
+
+        bottom: -15%;
+        right: -8%;
+        background: rgb(67 66 255 / 3%);
+
+        @include tokens.volleyball-seam-texture($opacity: 0.025, $size: 16px);
+    }
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        padding: 3.5rem 3%;
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    @include tokens.section-heading;
+
+    margin-bottom: 0.5rem;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        font-size: 2rem;
+    }
+}
+
+.subtitle {
+    @include tokens.section-subtitle;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: tokens.$breakpoint-md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cell {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+        transition: transform tokens.$transition-normal, filter tokens.$transition-normal;
+    }
+
+    &:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.85);
+    }
+
+    &:hover .caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wide {
+    grid-column: span 2;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        grid-column: span 1;
+    }
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
+    color: tokens.$white-color;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity tokens.$transition-fast, transform tokens.$transition-fast;
+}

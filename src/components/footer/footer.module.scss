@@ -1,31 +1,58 @@
-@use '@styles/globals';
+@use '@styles/tokens';
 
 .root {
-  background-color: globals.$primary-color;
-  display: grid;
-  gap: 1rem;
-  padding: 3.125rem;
-  height: auto;
+  background: tokens.$gray-800;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3rem 8%;
+  color: tokens.$white-color;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    padding: 2rem 5%;
+  }
 }
 
 .infoSection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .bottomSection {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+
+  span {
+    opacity: 0.75;
+    font-size: 0.85rem;
+  }
+
+  span:first-child {
+    opacity: 1;
+    font-family: tokens.$font-heading;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+  }
 }
 
-@media (max-width: globals.$breakpoint-sm) {
+@media (max-width: tokens.$breakpoint-sm) {
   .infoSection {
     grid-template-columns: 1fr;
   }

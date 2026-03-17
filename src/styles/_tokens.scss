@@ -1,0 +1,232 @@
+// ─── Color Tokens ───
+$primary-color: #4342FF;
+$primary-dark: #2a29cc;
+$primary-light: #6e6dff;
+$primary-bg: #eef0ff;
+$secondary-color: #3DDC97;
+$accent-color: #FF6B35;
+$accent-dark: #e55a28;
+$tertiary-color: #C03221;
+$black-color: #070707;
+$white-color: #fff;
+$off-white: #f5f3ef;
+$cream: #faf8f4;
+$gray-100: #f0ede8;
+$gray-200: #e0ddd6;
+$gray-400: #9ca3af;
+$gray-600: #4b5563;
+$gray-800: #1f2937;
+
+// ─── Breakpoints ───
+$breakpoint-sm: 48em;
+$breakpoint-md: 64em;
+$breakpoint-lg: 80em;
+
+// ─── Transitions ───
+$transition-fast: 0.2s ease;
+$transition-normal: 0.35s ease;
+$transition-slow: 0.6s ease;
+
+// ─── Typography ───
+$font-body: var(--font-inter), -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
+$font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-serif;
+
+// ─── Shared Section Mixins ───
+@mixin section-heading {
+  font-family: $font-heading;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: $gray-800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+@mixin section-subtitle {
+  font-size: 1.1rem;
+  color: $gray-600;
+  margin: 0;
+}
+
+
+// ─── Section Title with Accent Underline ───
+@mixin section-title-accent($size: 2.6rem, $size-sm: 2rem, $bar-width: 50px) {
+  @include section-heading;
+
+  font-size: $size;
+  color: $gray-800;
+
+  &::after {
+    content: '';
+    display: block;
+    width: $bar-width;
+    height: 4px;
+    background: $accent-color;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    font-size: $size-sm;
+  }
+}
+
+
+@mixin numbered-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    gap: 1rem;
+  }
+}
+
+@mixin numbered-item-number($size: 2.8rem, $min-w: 55px) {
+  font-family: $font-heading;
+  font-weight: 900;
+  font-size: $size;
+  line-height: 1;
+  color: $primary-color;
+  opacity: 0.15;
+  flex-shrink: 0;
+  min-width: $min-w;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+@mixin numbered-item-text {
+  color: $gray-800;
+  line-height: 1.6;
+  padding-top: 0.4rem;
+  max-width: 640px;
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+@mixin content-section($pad: 3rem 8% 4rem, $pad-sm: 2rem 4% 3rem) {
+  padding: $pad;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    padding: $pad-sm;
+  }
+}
+
+
+@mixin cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.8rem;
+  background: $accent-color;
+  color: $white-color;
+  font-family: $font-heading;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  text-decoration: none;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+
+  &:hover {
+    background: $accent-dark;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
+  }
+}
+
+
+@mixin hero-solid($pad: 5rem 8% 8rem, $pad-sm: 4rem 5% 6rem) {
+  padding: $pad;
+  background: $primary-color;
+  color: $white-color;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    padding: $pad-sm;
+  }
+}
+
+@mixin hero-content($max-w: 650px) {
+  position: relative;
+  z-index: 2;
+  max-width: $max-w;
+  color: inherit;
+}
+
+@mixin hero-title($size: 3.4rem, $size-sm: 2.2rem) {
+  @include section-heading;
+
+  display: block;
+  font-size: $size;
+  color: inherit;
+  margin-bottom: 1rem;
+
+  @media (max-width: $breakpoint-sm) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
+    font-size: $size-sm;
+  }
+}
+
+@mixin hero-subtitle {
+  line-height: 1.7;
+  opacity: 0.92;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+@mixin hero-icon {
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+  display: flex;
+}
+
+// ─── Branding Graphics (Seam Arcs) ───
+
+/// @param $color [Color] - Primary color for the texture
+/// @param $opacity [Number] - Opacity for the texture stripes
+/// @param $size [Length] - Pattern repeat size
+@mixin volleyball-seam-texture($color: $primary-color, $opacity: 0.03, $size: 20px) {
+  background-image:
+    linear-gradient(45deg, rgba($color, $opacity) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba($color, $opacity) 25%, transparent 25%);
+  background-size: $size $size;
+}
+
+/// Base for decorative background arcs
+/// @param $width [Length]
+/// @param $height [Length]
+/// @param $border-radius [Length]
+@mixin decorative-arc($width, $height, $border-radius: 50%) {
+  content: '';
+  position: absolute;
+  width: $width;
+  height: $height;
+  border-radius: $border-radius;
+  pointer-events: none;
+  z-index: 0;
+}

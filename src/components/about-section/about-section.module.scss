@@ -1,0 +1,156 @@
+@use '@styles/tokens';
+
+.root {
+    padding: 5rem 8% 6rem;
+    background: tokens.$off-white;
+    position: relative;
+    overflow: hidden;
+
+    // Volleyball seam curve — sweeping from upper-right
+    &::before {
+        @include tokens.decorative-arc(70%, 120%, 50% 0 50% 50%);
+
+        top: -10%;
+        right: -15%;
+        background: rgb(67 66 255 / 4%);
+
+        @include tokens.volleyball-seam-texture($opacity: 0.03);
+    }
+
+    // Second seam curve — sweeping from lower-left
+    &::after {
+        @include tokens.decorative-arc(55%, 80%, 50% 50% 0);
+
+        bottom: -20%;
+        left: -10%;
+        background: rgb(110 109 255 / 3%);
+
+        @include tokens.volleyball-seam-texture($opacity: 0.02);
+    }
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        padding: 3rem 5% 4rem;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: tokens.$breakpoint-md) {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+.textCol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.title {
+    @include tokens.section-heading;
+
+    margin-bottom: 1.25rem;
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: tokens.$accent-color;
+        margin-top: 0.75rem;
+        border-radius: 2px;
+    }
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        font-size: 2rem;
+    }
+}
+
+.body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: tokens.$gray-600;
+    margin: 0 0 0.8rem;
+}
+
+.contact {
+    font-size: 1rem;
+    color: tokens.$gray-600;
+    margin: 0.5rem 0 0;
+
+    a {
+        color: tokens.$primary-color;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color tokens.$transition-fast;
+
+        &:hover {
+            color: tokens.$accent-color;
+            text-decoration: underline;
+        }
+    }
+}
+
+.statsCol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1.5rem;
+
+    @media (max-width: tokens.$breakpoint-md) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+.statCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transition: transform tokens.$transition-fast;
+
+    &:hover {
+        transform: scale(1.06);
+    }
+}
+
+.statValue {
+    font-family: tokens.$font-heading;
+    font-size: 4rem;
+    font-weight: 900;
+    color: tokens.$primary-color;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        font-size: 3rem;
+    }
+}
+
+.statLabel {
+    font-family: tokens.$font-heading;
+    font-size: 1rem;
+    font-weight: 700;
+    color: tokens.$gray-600;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}

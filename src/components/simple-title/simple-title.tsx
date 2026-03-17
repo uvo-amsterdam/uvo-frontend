@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { Separator, Text } from '@radix-ui/themes';
 import type { textPropDefs } from '@radix-ui/themes/components/text.props';
 

@@ -1,0 +1,46 @@
+@use '@styles/tokens';
+
+.root {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: tokens.$cream;
+    border-radius: 8px;
+    border-left: 4px solid tokens.$primary-color;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform tokens.$transition-fast, border-color tokens.$transition-fast;
+
+    &:hover {
+        transform: translateX(4px);
+        border-left-color: tokens.$accent-color;
+    }
+}
+
+.icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.label {
+    font-family: tokens.$font-heading;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: tokens.$primary-color;
+}
+
+.value {
+    color: tokens.$gray-800;
+}
+
+.detail {
+    color: tokens.$gray-600;
+}
