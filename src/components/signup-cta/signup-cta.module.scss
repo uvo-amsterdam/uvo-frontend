@@ -80,25 +80,5 @@
 }
 
 .button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2.8rem;
-    background: tokens.$accent-color;
-    color: tokens.$white-color;
-    font-family: tokens.$font-heading;
-    font-weight: 800;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: transform tokens.$transition-fast, box-shadow tokens.$transition-fast, background tokens.$transition-fast;
-    box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
-
-    &:hover {
-        background: tokens.$accent-dark;
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
-    }
+    @include tokens.cta-button;
 }

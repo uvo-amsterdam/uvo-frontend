@@ -128,25 +128,14 @@
 }
 
 .primaryBtn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2.5rem;
-    background: tokens.$accent-color;
-    color: tokens.$white-color;
-    font-family: tokens.$font-heading;
+    @include tokens.cta-button;
+
     font-weight: 700;
     font-size: 1.15rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background tokens.$transition-fast, transform tokens.$transition-fast, box-shadow tokens.$transition-fast;
+    padding: 1rem 2.5rem;
     box-shadow: 0 4px 16px rgb(255 107 53 / 35%);
 
     &:hover {
-        background: tokens.$accent-dark;
-        transform: translateY(-2px) scale(1.02);
         box-shadow: 0 6px 24px rgb(255 107 53 / 45%);
     }
 }

@@ -48,7 +48,7 @@ export const LocationSection: FC = () => {
                 <div className={css.mapWrapper}>
                     <iframe
                         className={css.map}
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.2!2d4.9545!3d52.3545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c6090cde8e0e5d%3A0x5f9b5e5e5e5e5e5e!2sUSC%20Universum!5e0!3m2!1sen!2snl!4v1"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.8066067251257!2d4.954128913190311!3d52.3557927482561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x416539ba7d6c7dc7%3A0xc11838c18d279568!2sUvO%20Amsterdam!5e0!3m2!1sen!2snl!4v1773755135419!5m2!1sen!2snl"
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
