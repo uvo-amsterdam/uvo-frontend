@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
+import { Heading, Text } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -37,14 +38,14 @@ export const HeroSlideshow: FC = () => {
             <div className={css.overlay} />
 
             <div className={css.content}>
-                <h1 className={css.title}>
+                <Heading as="h1" className={css.title}>
                     Welcome to{' '}
                     <span className={css.highlight}>UvO Amsterdam</span>
-                </h1>
-                <p className={css.subtitle}>
+                </Heading>
+                <Text as="p" className={css.subtitle}>
                     Volleyball, borrels, tournaments & lifelong friendships —
                     since 1997
-                </p>
+                </Text>
                 <div className={css.actions}>
                     <Link href="/sign-up" className={css.primaryBtn}>
                         Join UvO

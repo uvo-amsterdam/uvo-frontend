@@ -1,8 +1,8 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
     padding: 5rem 4% 4.5rem;
-    background: globals.$cream;
+    background: tokens.$cream;
     position: relative;
     overflow: hidden;
 
@@ -14,7 +14,7 @@
         left: 0;
         right: 0;
         height: 80px;
-        background: globals.$off-white;
+        background: tokens.$off-white;
         clip-path: ellipse(55% 100% at 50% 0%);
         z-index: 1;
     }
@@ -37,7 +37,7 @@
         z-index: 0;
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         padding: 3.5rem 3%;
     }
 }
@@ -50,17 +50,17 @@
 }
 
 .title {
-    @include globals.section-heading;
+    @include tokens.section-heading;
 
     margin-bottom: 0.5rem;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         font-size: 2rem;
     }
 }
 
 .subtitle {
-    @include globals.section-subtitle;
+    @include tokens.section-subtitle;
 }
 
 .grid {
@@ -70,11 +70,11 @@
     position: relative;
     z-index: 1;
 
-    @media (max-width: globals.$breakpoint-md) {
+    @media (max-width: tokens.$breakpoint-md) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         grid-template-columns: 1fr;
     }
 }
@@ -87,7 +87,7 @@
     cursor: pointer;
 
     img {
-        transition: transform globals.$transition-normal, filter globals.$transition-normal;
+        transition: transform tokens.$transition-normal, filter tokens.$transition-normal;
     }
 
     &:hover img {
@@ -104,7 +104,7 @@
 .wide {
     grid-column: span 2;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         grid-column: span 1;
     }
 }
@@ -116,10 +116,10 @@
     right: 0;
     padding: 1.25rem 1rem;
     background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
-    color: globals.$white-color;
+    color: tokens.$white-color;
     font-size: 0.9rem;
     font-weight: 500;
     opacity: 0;
     transform: translateY(8px);
-    transition: opacity globals.$transition-fast, transform globals.$transition-fast;
+    transition: opacity tokens.$transition-fast, transform tokens.$transition-fast;
 }

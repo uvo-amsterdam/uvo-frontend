@@ -1,8 +1,8 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
     padding: 5rem 8% 6rem;
-    background: globals.$off-white;
+    background: tokens.$off-white;
     position: relative;
     overflow: hidden;
 
@@ -44,7 +44,7 @@
         z-index: 0;
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         padding: 3rem 5% 4rem;
     }
 }
@@ -57,7 +57,7 @@
     max-width: 1200px;
     margin: 0 auto;
 
-    @media (max-width: globals.$breakpoint-md) {
+    @media (max-width: tokens.$breakpoint-md) {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
@@ -70,7 +70,7 @@
 }
 
 .title {
-    @include globals.section-heading;
+    @include tokens.section-heading;
 
     margin-bottom: 1.25rem;
     position: relative;
@@ -80,12 +80,12 @@
         display: block;
         width: 60px;
         height: 4px;
-        background: globals.$accent-color;
+        background: tokens.$accent-color;
         margin-top: 0.75rem;
         border-radius: 2px;
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         font-size: 2rem;
     }
 }
@@ -93,23 +93,23 @@
 .body {
     font-size: 1.05rem;
     line-height: 1.8;
-    color: globals.$gray-600;
+    color: tokens.$gray-600;
     margin: 0 0 0.8rem;
 }
 
 .contact {
     font-size: 1rem;
-    color: globals.$gray-600;
+    color: tokens.$gray-600;
     margin: 0.5rem 0 0;
 
     a {
-        color: globals.$primary-color;
+        color: tokens.$primary-color;
         text-decoration: none;
         font-weight: 600;
-        transition: color globals.$transition-fast;
+        transition: color tokens.$transition-fast;
 
         &:hover {
-            color: globals.$accent-color;
+            color: tokens.$accent-color;
             text-decoration: underline;
         }
     }
@@ -120,11 +120,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 2rem 1.5rem;
 
-    @media (max-width: globals.$breakpoint-md) {
+    @media (max-width: tokens.$breakpoint-md) {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         grid-template-columns: 1fr 1fr;
     }
 }
@@ -140,7 +140,7 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    transition: transform globals.$transition-fast;
+    transition: transform tokens.$transition-fast;
 
     &:hover {
         transform: scale(1.06);
@@ -148,24 +148,24 @@
 }
 
 .statValue {
-    font-family: globals.$font-heading;
+    font-family: tokens.$font-heading;
     font-size: 4rem;
     font-weight: 900;
-    color: globals.$primary-color;
+    color: tokens.$primary-color;
     letter-spacing: -0.02em;
     line-height: 1;
     text-transform: uppercase;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         font-size: 3rem;
     }
 }
 
 .statLabel {
-    font-family: globals.$font-heading;
+    font-family: tokens.$font-heading;
     font-size: 1rem;
     font-weight: 700;
-    color: globals.$gray-600;
+    color: tokens.$gray-600;
     margin-top: 0.3rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;

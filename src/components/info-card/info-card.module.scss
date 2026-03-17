@@ -1,20 +1,20 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
     display: flex;
     gap: 1rem;
     padding: 1.25rem;
-    background: globals.$cream;
+    background: tokens.$cream;
     border-radius: 8px;
-    border-left: 4px solid globals.$primary-color;
+    border-left: 4px solid tokens.$primary-color;
     margin-bottom: 0.75rem;
     text-decoration: none;
     color: inherit;
-    transition: transform globals.$transition-fast, border-color globals.$transition-fast;
+    transition: transform tokens.$transition-fast, border-color tokens.$transition-fast;
 
     &:hover {
         transform: translateX(4px);
-        border-left-color: globals.$accent-color;
+        border-left-color: tokens.$accent-color;
     }
 }
 
@@ -31,16 +31,16 @@
 }
 
 .label {
-    font-family: globals.$font-heading;
+    font-family: tokens.$font-heading;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: globals.$primary-color;
+    color: tokens.$primary-color;
 }
 
 .value {
-    color: globals.$gray-800;
+    color: tokens.$gray-800;
 }
 
 .detail {
-    color: globals.$gray-600;
+    color: tokens.$gray-600;
 }

@@ -1,8 +1,8 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
     padding: 5rem 8%;
-    background: globals.$off-white;
+    background: tokens.$off-white;
     position: relative;
     overflow: hidden;
 
@@ -24,7 +24,7 @@
         z-index: 0;
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         padding: 3rem 5%;
     }
 }
@@ -37,7 +37,7 @@
     margin: 0 auto;
     align-items: start;
 
-    @media (max-width: globals.$breakpoint-md) {
+    @media (max-width: tokens.$breakpoint-md) {
         grid-template-columns: 1fr;
     }
 }
@@ -49,15 +49,15 @@
 }
 
 .title {
-    @include globals.section-heading;
+    @include tokens.section-heading;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         font-size: 2rem;
     }
 }
 
 .subtitle {
-    @include globals.section-subtitle;
+    @include tokens.section-subtitle;
 
     margin-bottom: 1.5rem;
 }
@@ -66,7 +66,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
-    border: 2px solid globals.$gray-200;
+    border: 2px solid tokens.$gray-200;
 }
 
 .map {
@@ -75,7 +75,7 @@
     height: 400px;
     border: none;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         height: 300px;
     }
 }

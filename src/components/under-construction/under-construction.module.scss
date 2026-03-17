@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
   display: flex;
@@ -10,5 +10,5 @@
 }
 
 .icon {
-  color: globals.$primary-color;
+  color: tokens.$primary-color;
 }

@@ -1,8 +1,8 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
     padding: 5.5rem 8% 5rem;
-    background: globals.$primary-color;
+    background: tokens.$primary-color;
     position: relative;
     overflow: hidden;
 
@@ -14,7 +14,7 @@
         left: 0;
         right: 0;
         height: 80px;
-        background: globals.$off-white;
+        background: tokens.$off-white;
         clip-path: ellipse(55% 100% at 45% 0%);
         z-index: 1;
     }
@@ -38,7 +38,7 @@
         z-index: 0;
     }
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         padding: 4rem 5%;
     }
 }
@@ -49,7 +49,7 @@
     text-align: center;
     max-width: 650px;
     margin: 0 auto;
-    color: globals.$white-color;
+    color: tokens.$white-color;
 }
 
 .icon {
@@ -59,7 +59,7 @@
 }
 
 .title {
-    @include globals.section-heading;
+    @include tokens.section-heading;
 
     font-size: 3rem;
     font-weight: 900;
@@ -67,7 +67,7 @@
     margin-bottom: 1rem;
     letter-spacing: 0.02em;
 
-    @media (max-width: globals.$breakpoint-sm) {
+    @media (max-width: tokens.$breakpoint-sm) {
         font-size: 2rem;
     }
 }
@@ -84,20 +84,20 @@
     align-items: center;
     gap: 0.5rem;
     padding: 1rem 2.8rem;
-    background: globals.$accent-color;
-    color: globals.$white-color;
-    font-family: globals.$font-heading;
+    background: tokens.$accent-color;
+    color: tokens.$white-color;
+    font-family: tokens.$font-heading;
     font-weight: 800;
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     border-radius: 6px;
     text-decoration: none;
-    transition: transform globals.$transition-fast, box-shadow globals.$transition-fast, background globals.$transition-fast;
+    transition: transform tokens.$transition-fast, box-shadow tokens.$transition-fast, background tokens.$transition-fast;
     box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
 
     &:hover {
-        background: globals.$accent-dark;
+        background: tokens.$accent-dark;
         transform: translateY(-3px) scale(1.02);
         box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
     }
