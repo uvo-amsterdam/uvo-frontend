@@ -106,24 +106,5 @@
 }
 
 .ctaButton {
-  background-color: tokens.$accent-color;
-  font-family: tokens.$font-heading;
-  font-size: 1.15rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 1.2rem 2.5rem;
-  height: auto;
-  border-radius: 6px;
-  transition:
-    background-color tokens.$transition-fast,
-    transform tokens.$transition-fast,
-    box-shadow tokens.$transition-fast;
-  cursor: pointer;
-
-  &:hover {
-    background-color: tokens.$accent-dark;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgb(0 0 0 / 15%);
-  }
+  @include tokens.cta-button;
 }
