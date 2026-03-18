@@ -72,7 +72,7 @@ export default function MerchPage() {
                             className={css.gcIcon}
                         />
                         <Text size="3" weight="medium">
-                            Sizes run small — we recommend sizing up!
+                            Sizes run small - we recommend sizing up!
                         </Text>
                     </div>
                     <div className={css.gcBullet}>
