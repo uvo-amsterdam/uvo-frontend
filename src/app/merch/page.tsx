@@ -11,6 +11,20 @@ import css from './page.module.scss';
 
 const MERCH_LINK =
     'https://clubs.deventrade.com/nl/uvo-amsterdam/clubcollectie';
+const IMAGES = [
+    {
+        src: '/images/merch/three-people-outfits.jpeg',
+        alt: 'UvO member wearing a custom jersey',
+    },
+    {
+        src: '/images/merch/top-down-shirt.jpeg',
+        alt: 'UvO member wearing a track jacket',
+    },
+    {
+        src: '/images/merch/two-people-field.jpeg',
+        alt: 'UvO members relaxing in custom apparel',
+    },
+];
 
 export default function MerchPage() {
     return (
@@ -19,39 +33,21 @@ export default function MerchPage() {
                 title="UvO Merch"
                 subtitle="Gear up with the official UvO Amsterdam collection — custom-printed apparel for every volleyball lover. Plus, UvO receives 10% cashback on every purchase, so your merch also helps the association!"
             />
-
             <section className={css.showcase}>
                 <div className={css.imageGrid}>
-                    <div className={css.imageCard}>
-                        <Image
-                            src="/images/merch/three-people-outfits.jpeg"
-                            alt="UvO member wearing a custom jersey"
-                            width={560}
-                            height={560}
-                            className={css.productImage}
-                        />
-                    </div>
-                    <div className={css.imageCard}>
-                        <Image
-                            src="/images/merch/top-down-shirt.jpeg"
-                            alt="UvO member wearing a track jacket"
-                            width={560}
-                            height={560}
-                            className={css.productImage}
-                        />
-                    </div>
-                    <div className={css.imageCard}>
-                        <Image
-                            src="/images/merch/two-people-field.jpeg"
-                            alt="UvO members relaxing in custom apparel"
-                            width={560}
-                            height={560}
-                            className={css.productImage}
-                        />
-                    </div>
+                    {IMAGES.map(({ src, alt }) => (
+                        <div key={src} className={css.imageCard}>
+                            <Image
+                                src={src}
+                                alt={alt}
+                                width={560}
+                                height={560}
+                                className={css.productImage}
+                            />
+                        </div>
+                    ))}
                 </div>
             </section>
-
             <section className={css.gearAndCare}>
                 <div className={css.gcHeader}>
                     <Heading as="h2" className={css.gcTitle}>
@@ -91,7 +87,6 @@ export default function MerchPage() {
                     </div>
                 </div>
             </section>
-
             <section className={css.cta}>
                 <Button size="4" className={css.ctaButton} asChild>
                     <a
