@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { Button, Heading, Text } from '@radix-ui/themes';
 import {
@@ -13,7 +12,7 @@ import css from './page.module.scss';
 const MERCH_LINK =
     'https://clubs.deventrade.com/nl/uvo-amsterdam/clubcollectie';
 
-const MerchPage: FC = () => {
+export default function MerchPage() {
     return (
         <div className={css.root}>
             <Hero
@@ -106,6 +105,4 @@ const MerchPage: FC = () => {
             </section>
         </div>
     );
-};
-
-export default MerchPage;
+}

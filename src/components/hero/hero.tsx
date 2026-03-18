@@ -12,6 +12,7 @@ export interface HeroProps {
     imageSrc?: string;
     imageAlt?: string;
     className?: string;
+    priority?: boolean;
 }
 
 export const Hero: FC<HeroProps> = ({
@@ -21,8 +22,8 @@ export const Hero: FC<HeroProps> = ({
     imageSrc,
     imageAlt,
     className,
+    priority = false,
 }) => {
-    // If no image is provided, default to a solid color variant.
     const isSolid = !imageSrc;
 
     return (
@@ -39,7 +40,8 @@ export const Hero: FC<HeroProps> = ({
                         src={imageSrc}
                         alt={imageAlt || title}
                         fill
-                        priority
+                        priority={priority}
+                        sizes="100vw"
                         className={css.heroBg}
                     />
                     <div className={css.heroScrim} />
