@@ -31,7 +31,9 @@ export default function MerchPage() {
         <div className={css.root}>
             <Hero
                 title="UvO Merch"
-                subtitle="Gear up with the official UvO Amsterdam collection — custom-printed apparel for every volleyball lover. Plus, UvO receives 10% cashback on every purchase, so your merch also helps the association!"
+                subtitle="Gear up with the official UvO Amsterdam collection - custom-printed apparel for every
+                volleyball lover. Plus, UvO receives 10% cashback on every purchase, so your merch also helps the
+                association!"
             />
             <section className={css.showcase}>
                 <div className={css.imageGrid}>
