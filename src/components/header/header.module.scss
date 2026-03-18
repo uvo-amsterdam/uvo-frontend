@@ -1,10 +1,10 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .root {
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
-  background: linear-gradient(-20deg, globals.$primary-color 55%, globals.$white-color 55%);
+  background: linear-gradient(-20deg, tokens.$primary-color 55%, tokens.$white-color 55%);
   align-items: center;
   justify-content: space-between;
   padding: 0 5%;
@@ -14,8 +14,8 @@
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
-  @media (max-width: globals.$breakpoint-sm) {
-    background: linear-gradient(-70deg, globals.$primary-color 55%, globals.$white-color 55%);
+  @media (max-width: tokens.$breakpoint-sm) {
+    background: linear-gradient(-70deg, tokens.$primary-color 55%, tokens.$white-color 55%);
   }
 }
 
@@ -33,15 +33,15 @@
   display: flex;
   gap: 0.15rem;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     display: none; // Temporary until a nice side drawer is implemented
   }
 }
 
 .navLink,
 .navButton {
-  color: globals.$white-color;
-  font-family: globals.$font-heading;
+  color: tokens.$white-color;
+  font-family: tokens.$font-heading;
   font-weight: 700;
   font-size: 0.95rem;
   text-decoration: none;
@@ -52,39 +52,39 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: background globals.$transition-fast, color globals.$transition-fast;
+  transition: background tokens.$transition-fast, color tokens.$transition-fast;
 
   &:hover {
     background: rgb(255 255 255 / 20%);
-    color: globals.$white-color;
+    color: tokens.$white-color;
   }
 
   &:focus-visible {
-    outline: 2px solid globals.$accent-color;
+    outline: 2px solid tokens.$accent-color;
     outline-offset: 2px;
   }
 
   &.activeNav {
-    color: globals.$accent-color;
+    color: tokens.$accent-color;
   }
 }
 
 .dropdownLink {
   text-decoration: none;
   color: inherit;
-  font-family: globals.$font-heading;
+  font-family: tokens.$font-heading;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   display: block;
-  transition: color globals.$transition-fast;
+  transition: color tokens.$transition-fast;
 
   &[data-highlighted] {
     background-color: transparent;
-    color: globals.$accent-color;
+    color: tokens.$accent-color;
   }
 
   &.activeDropdown {
-    color: globals.$accent-color;
+    color: tokens.$accent-color;
   }
 }

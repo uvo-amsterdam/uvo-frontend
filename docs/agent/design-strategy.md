@@ -185,24 +185,23 @@ Maintaining clean, DRY, SOLID code is just as important as visual consistency. E
 
 ### 9.1 Shared SCSS Mixins
 
-The file `src/styles/globals.scss` contains shared mixins that capture repeated visual patterns. **Always use these mixins** instead of writing the same CSS from scratch:
+The file `src/styles/_tokens.scss` contains shared mixins and theme variables. **Import them via `@use '@styles/tokens' as tokens`** and always use these mixins instead of writing the same CSS from scratch:
 
-| Mixin | Purpose | Usage |
+| Mixin | Purpose | Context / Notes |
 | --- | --- | --- |
-| `hero-base($min-h, $pad, $pad-sm)` | Full-bleed hero with photo bg & elliptical bottom mask | Photo hero pages (sign-up, member-info) |
 | `hero-solid($pad, $pad-sm)` | Solid-color brand hero with decorative seam arc | Color hero pages (competition, tickets) |
-| `hero-bg` | Cover-fit background image | `next/image` inside a photo hero |
-| `hero-scrim` | Blue gradient overlay on photo heroes | Semi-transparent scrim div |
 | `hero-content($max-w)` | Positioned content container inside heroes | Title + subtitle wrapper |
-| `hero-title($size, $size-sm)` | Hero heading typography | `<Heading as="h1">` inside heroes |
-| `hero-subtitle` | Hero subtitle typography | `<Text>` subtitle inside heroes |
+| `hero-title($size, $size-sm)` | Hero heading typography | Applied to the heading inside heroes |
+| `hero-subtitle` | Hero subtitle typography | Applied to the text subtitle inside heroes |
 | `hero-icon` | Hero decorative icon styling | Tabler icon in solid-color heroes |
+| `section-heading` | Base heading typography | Large bold uppercase condensed font |
+| `section-subtitle` | Base subtitle typography | Muted color and base font size |
 | `section-title-accent($size, $size-sm, $bar-width)` | Section heading with orange accent underline | Any `<h2>` section heading |
 | `numbered-item` / `numbered-item-number` / `numbered-item-text` | Numbered step / point list pattern | Instructional steps, selling points |
-| `content-section($pad, $pad-sm)` | Constrained content area (max‑width 1400px, 8% padding) | Any content section below a hero |
+| `content-section($pad, $pad-sm)` | Constrained content area (max-width 1400px, 8% padding) | Any content section below a hero |
 | `cta-button` | Accent-colored call-to-action button | Primary action links |
 
-**Rule:** If you're writing more than 5 lines of hero-related CSS in a page stylesheet, you should be using one of these mixins.
+**Rule:** If you're writing more than 5 lines of hero-related CSS in a page stylesheet, you should be using one of these mixins from the `tokens` namespace.
 
 ### 9.2 Utility Extraction
 
@@ -220,7 +219,7 @@ Current utilities:
 - **Single Responsibility:** Components should do one thing. Separate data fetching/parsing logic from rendering where possible.
 - **Open for Extension:** Prefer props and composition over copy-pasting component code. If two pages share a similar section, extract a shared component with configurable props.
 - **Consistent Naming:** Default-exported page components must be named after their route (e.g., the `/training` page exports `Training`, not `MemberInfo`).
-- **No Unnecessary Global Imports:** Don't import `@styles/globals.scss` in page components — it's applied via the root layout.
+- **No Unnecessary Global Imports:** Don't import `src/styles/globals.scss` in page modules — it's applied via the root layout. For theme tokens or mixins, always use `@use '@styles/tokens'`.
 
 ## 10. Library Usage Guidelines
 
