@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .hero {
   position: relative;
@@ -13,7 +13,7 @@
     left: 0;
     right: 0;
     height: 70px;
-    background: globals.$off-white;
+    background: tokens.$off-white;
     clip-path: ellipse(55% 100% at 50% 100%);
   }
 }
@@ -27,14 +27,14 @@
     z-index: 3;
   }
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     min-height: 340px;
     padding: 4rem 5% 6rem;
   }
 }
 
 .solid {
-  @include globals.hero-solid;
+  @include tokens.hero-solid;
 
   &::after {
     z-index: 1;
@@ -45,7 +45,7 @@
   position: relative;
   z-index: 2;
   max-width: 650px;
-  color: globals.$white-color;
+  color: tokens.$white-color;
 }
 
 .heroBg {
@@ -65,7 +65,7 @@
 }
 
 .title {
-  @include globals.section-heading;
+  @include tokens.section-heading;
 
   color: inherit;
   margin-bottom: 1rem;
@@ -74,7 +74,7 @@
 .image .title {
   font-size: 4rem;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     font-size: 2.6rem;
   }
 }
@@ -82,7 +82,7 @@
 .solid .title {
   font-size: 3.4rem;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     font-size: 2.2rem;
   }
 }
