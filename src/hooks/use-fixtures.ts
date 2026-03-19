@@ -37,5 +37,9 @@ function parseFixtures(rows: unknown[][]): Fixture[] {
 }
 
 export function useFixtures() {
-    return useApiFetch<unknown[][], Fixture[]>('/api/fixtures', parseFixtures);
+    return useApiFetch<unknown[][], Fixture[]>(
+        '/api/fixtures',
+        parseFixtures,
+        [],
+    );
 }
