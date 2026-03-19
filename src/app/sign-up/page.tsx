@@ -177,11 +177,14 @@ const SignUpPage: FC = () => {
                     </Heading>
                     <div className={css.tableWrapper}>
                         <table className={css.feeTable}>
+                            <caption className={css.visuallyHidden}>
+                                Membership fees for Competition teams
+                            </caption>
                             <thead>
                                 <tr>
-                                    <th>Period</th>
-                                    <th>Student</th>
-                                    <th>Non-student</th>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Student</th>
+                                    <th scope="col">Non-student</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -203,11 +206,14 @@ const SignUpPage: FC = () => {
                     </Heading>
                     <div className={css.tableWrapper}>
                         <table className={css.feeTable}>
+                            <caption className={css.visuallyHidden}>
+                                Membership fees for Training only
+                            </caption>
                             <thead>
                                 <tr>
-                                    <th>Period</th>
-                                    <th>Student</th>
-                                    <th>Non-student</th>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Student</th>
+                                    <th scope="col">Non-student</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -229,11 +235,14 @@ const SignUpPage: FC = () => {
                     </Heading>
                     <div className={css.tableWrapper}>
                         <table className={css.feeTable}>
+                            <caption className={css.visuallyHidden}>
+                                Membership fees for Beginners course
+                            </caption>
                             <thead>
                                 <tr>
-                                    <th>Period</th>
-                                    <th>Student</th>
-                                    <th>Non-student</th>
+                                    <th scope="col">Period</th>
+                                    <th scope="col">Student</th>
+                                    <th scope="col">Non-student</th>
                                 </tr>
                             </thead>
                             <tbody>
