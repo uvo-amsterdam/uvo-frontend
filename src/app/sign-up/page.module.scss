@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 
 
@@ -20,12 +20,12 @@
   box-sizing: border-box;
   align-items: center;
 
-  @media (max-width: globals.$breakpoint-md) {
+  @media (max-width: tokens.$breakpoint-md) {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     padding: 3rem 5%;
   }
 }
@@ -39,7 +39,7 @@
   display: flex;
   justify-content: center;
 
-  @media (max-width: globals.$breakpoint-md) {
+  @media (max-width: tokens.$breakpoint-md) {
     order: -1;
   }
 }
@@ -55,7 +55,7 @@
 }
 
 .sectionTitle {
-  @include globals.section-title-accent(3rem, 2.2rem, 60px);
+  @include tokens.section-title-accent(3rem, 2.2rem, 60px);
 }
 
 .sellingPoints {
@@ -66,20 +66,20 @@
 }
 
 .point {
-  @include globals.numbered-item;
+  @include tokens.numbered-item;
 }
 
 .pointNumber {
-  @include globals.numbered-item-number(4rem, 80px);
+  @include tokens.numbered-item-number(4rem, 80px);
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     font-size: 3rem;
     min-width: 52px;
   }
 }
 
 .pointText {
-  @include globals.numbered-item-text;
+  @include tokens.numbered-item-text;
 
   line-height: 1.7;
   padding-top: 0.7rem;
@@ -89,8 +89,8 @@
 
 .tryoutBand {
   position: relative;
-  background: globals.$primary-color;
-  color: globals.$white-color;
+  background: tokens.$primary-color;
+  color: tokens.$white-color;
   padding: 5rem 8% 4rem;
   margin-top: 2rem;
   overflow: hidden;
@@ -103,7 +103,7 @@
     left: 0;
     right: 0;
     height: 60px;
-    background: globals.$off-white;
+    background: tokens.$off-white;
     transform: skewY(-3deg);
     transform-origin: top left;
     z-index: 1;
@@ -128,7 +128,7 @@
     z-index: 0;
   }
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     padding: 4rem 5% 3rem;
   }
 }
@@ -141,13 +141,13 @@
 }
 
 .tryoutHeadline {
-  @include globals.section-heading;
+  @include tokens.section-heading;
 
   font-size: 3.4rem;
   color: inherit;
   margin-bottom: 1.25rem;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     font-size: 2.2rem;
   }
 }
@@ -161,13 +161,13 @@
 }
 
 .ctaButton {
-  @include globals.cta-button;
+  @include tokens.cta-button;
 }
 
 /* ── Pricing Tables ── */
 
 .pricing {
-  @include globals.content-section(4rem 8% 5rem, 3rem 5% 4rem);
+  @include tokens.content-section(4rem 8% 5rem, 3rem 5% 4rem);
 }
 
 .pricingHeader {
@@ -179,10 +179,10 @@
 }
 
 .tableLabel {
-  @include globals.section-heading;
+  @include tokens.section-heading;
 
   font-size: 1.6rem;
-  color: globals.$gray-800;
+  color: tokens.$gray-800;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
@@ -197,20 +197,20 @@
 .feeTable {
   width: 100%;
   border-collapse: collapse;
-  font-family: globals.$font-body;
+  font-family: tokens.$font-body;
   font-size: 0.95rem;
-  background: globals.$white-color;
+  background: tokens.$white-color;
   min-width: 420px;
 
   thead tr {
-    background: globals.$primary-color;
-    color: globals.$white-color;
+    background: tokens.$primary-color;
+    color: tokens.$white-color;
   }
 
   th {
     padding: 0.9rem 1.2rem;
     text-align: left;
-    font-family: globals.$font-heading;
+    font-family: tokens.$font-heading;
     font-weight: 700;
     font-size: 0.95rem;
     text-transform: uppercase;
@@ -219,12 +219,12 @@
 
   td {
     padding: 0.85rem 1.2rem;
-    color: globals.$gray-800;
+    color: tokens.$gray-800;
     border-bottom: 1px solid rgb(0 0 0 / 6%);
   }
 
   tbody tr:nth-child(even) {
-    background: globals.$cream;
+    background: tokens.$cream;
   }
 
   tbody tr:last-child td {
@@ -243,13 +243,13 @@
   align-items: flex-start;
   gap: 0.6rem;
   margin-top: 1.5rem;
-  color: globals.$gray-600;
+  color: tokens.$gray-600;
 }
 
 .noteIcon {
   flex-shrink: 0;
   margin-top: 1px;
-  color: globals.$gray-600;
+  color: tokens.$gray-600;
 }
 
 .noteText {
