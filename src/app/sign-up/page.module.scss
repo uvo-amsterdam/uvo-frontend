@@ -219,8 +219,7 @@
     border-bottom: none;
   }
 
-  // subtle italic for surcharge row
-  tbody tr:last-child {
+  .surcharge {
     font-style: italic;
     opacity: 0.85;
   }
