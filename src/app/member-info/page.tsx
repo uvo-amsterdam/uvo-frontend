@@ -1,6 +1,12 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
-import * as Accordion from '@radix-ui/react-accordion';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionHeader,
+    AccordionItem,
+    AccordionTrigger,
+} from '@radix-ui/react-accordion';
 import { Heading, Text } from '@radix-ui/themes';
 import {
     IconChevronDown,
@@ -14,7 +20,7 @@ import NextLink from 'next/link';
 import css from './page.module.scss';
 
 export const metadata: Metadata = {
-    title: 'Member Info — UvO Amsterdam',
+    title: 'Member Info - UvO Amsterdam',
     description:
         'Information and resources for UvO Amsterdam members including DWF guidelines, confidential persons, and important documents.',
 };
@@ -35,16 +41,13 @@ const MemberInfoPage: FC = () => {
                     </Heading>
                 </div>
                 <div className={css.infoContent}>
-                    <Accordion.Root
-                        type="multiple"
-                        className={css.accordionRoot}
-                    >
-                        <Accordion.Item
+                    <Accordion type="multiple" className={css.accordionRoot}>
+                        <AccordionItem
                             value="captain"
                             className={css.accordionItem}
                         >
-                            <Accordion.Header className={css.accordionHeader}>
-                                <Accordion.Trigger
+                            <AccordionHeader className={css.accordionHeader}>
+                                <AccordionTrigger
                                     className={css.accordionTrigger}
                                 >
                                     <Heading
@@ -59,9 +62,9 @@ const MemberInfoPage: FC = () => {
                                         className={css.accordionChevron}
                                         aria-hidden
                                     />
-                                </Accordion.Trigger>
-                            </Accordion.Header>
-                            <Accordion.Content className={css.accordionContent}>
+                                </AccordionTrigger>
+                            </AccordionHeader>
+                            <AccordionContent className={css.accordionContent}>
                                 <div className={css.stepList}>
                                     <div className={css.step}>
                                         <span className={css.stepNumber}>
@@ -162,15 +165,14 @@ const MemberInfoPage: FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </Accordion.Content>
-                        </Accordion.Item>
-
-                        <Accordion.Item
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem
                             value="referee"
                             className={css.accordionItem}
                         >
-                            <Accordion.Header className={css.accordionHeader}>
-                                <Accordion.Trigger
+                            <AccordionHeader className={css.accordionHeader}>
+                                <AccordionTrigger
                                     className={css.accordionTrigger}
                                 >
                                     <Heading
@@ -185,9 +187,9 @@ const MemberInfoPage: FC = () => {
                                         className={css.accordionChevron}
                                         aria-hidden
                                     />
-                                </Accordion.Trigger>
-                            </Accordion.Header>
-                            <Accordion.Content className={css.accordionContent}>
+                                </AccordionTrigger>
+                            </AccordionHeader>
+                            <AccordionContent className={css.accordionContent}>
                                 <div className={css.stepList}>
                                     <div className={css.step}>
                                         <span className={css.stepNumber}>
@@ -299,12 +301,11 @@ const MemberInfoPage: FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion.Root>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </div>
             </section>
-
             <section className={`${css.infoSection} ${css.altBackground}`}>
                 <div className={css.infoHeading}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -359,7 +360,6 @@ const MemberInfoPage: FC = () => {
                     </div>
                 </div>
             </section>
-
             <section className={`${css.documentsSection}`}>
                 <div className={css.headerCenter}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -384,7 +384,6 @@ const MemberInfoPage: FC = () => {
                             association.
                         </Text>
                     </NextLink>
-
                     <a
                         href="https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link"
                         target="_blank"
@@ -404,7 +403,6 @@ const MemberInfoPage: FC = () => {
                             committee.
                         </Text>
                     </a>
-
                     <NextLink href="/member-info" className={css.docCard}>
                         <IconShieldCheck
                             stroke={2.5}
