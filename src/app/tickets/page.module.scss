@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 
 
@@ -8,15 +8,15 @@
 }
 
 .embedSection {
-  @include globals.content-section;
+  @include tokens.content-section;
 }
 
 .embedContainer {
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
-  background: globals.$white-color;
-  border: 1px solid globals.$gray-200;
+  background: tokens.$white-color;
+  border: 1px solid tokens.$gray-200;
 }
 
 .iframe {
@@ -25,7 +25,7 @@
   min-height: 700px;
   border: none;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     min-height: 500px;
   }
 }
@@ -39,18 +39,18 @@
 }
 
 .fallbackText {
-  color: globals.$gray-400;
+  color: tokens.$gray-400;
 }
 
 .fallbackLink {
-  color: globals.$primary-color;
+  color: tokens.$primary-color;
   font-weight: 600;
   font-size: 0.875rem;
   text-decoration: none;
-  transition: color globals.$transition-fast;
+  transition: color tokens.$transition-fast;
 
   &:hover {
-    color: globals.$accent-color;
+    color: tokens.$accent-color;
     text-decoration: underline;
   }
 }
