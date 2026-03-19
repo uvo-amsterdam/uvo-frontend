@@ -23,6 +23,8 @@ const TicketsPage: FC = () => {
                         title="UvO Amsterdam — WeTicket"
                         className={css.iframe}
                         allow="payment"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
                     />
                 </div>
                 <div className={css.fallback}>
