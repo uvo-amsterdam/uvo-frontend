@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 
 
@@ -7,7 +7,7 @@
 }
 
 .tableTitle {
-  @include globals.section-heading;
+  @include tokens.section-heading;
 
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
@@ -17,7 +17,7 @@
     display: block;
     width: 60px;
     height: 4px;
-    background: globals.$accent-color;
+    background: tokens.$accent-color;
     margin-top: 0.5rem;
     border-radius: 2px;
   }
@@ -27,10 +27,10 @@
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
-  background: globals.$white-color;
-  border: 1px solid globals.$gray-200;
+  background: tokens.$white-color;
+  border: 1px solid tokens.$gray-200;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     display: none;
   }
 }
@@ -41,12 +41,12 @@
   font-size: 0.95rem;
 
   thead {
-    background: globals.$primary-color;
-    color: globals.$white-color;
+    background: tokens.$primary-color;
+    color: tokens.$white-color;
   }
 
   th {
-    font-family: globals.$font-heading;
+    font-family: tokens.$font-heading;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -62,16 +62,16 @@
 
   td {
     padding: 0.8rem 1rem;
-    border-bottom: 1px solid globals.$gray-100;
-    color: globals.$gray-800;
+    border-bottom: 1px solid tokens.$gray-100;
+    color: tokens.$gray-800;
     vertical-align: middle;
   }
 
   tbody tr {
-    transition: background globals.$transition-fast;
+    transition: background tokens.$transition-fast;
 
     &:hover {
-      background: globals.$cream;
+      background: tokens.$cream;
     }
 
     &:last-child td {
@@ -82,7 +82,7 @@
 
 .uvoRow {
   background: rgb(67 66 255 / 4%);
-  border-left: 4px solid globals.$accent-color;
+  border-left: 4px solid tokens.$accent-color;
 
   &:hover {
     background: rgb(67 66 255 / 8%);
@@ -91,13 +91,13 @@
 
 .uvoTeam {
   font-weight: 700;
-  color: globals.$primary-color;
+  color: tokens.$primary-color;
 }
 
 .cardList {
   display: none;
 
-  @media (max-width: globals.$breakpoint-sm) {
+  @media (max-width: tokens.$breakpoint-sm) {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -105,12 +105,12 @@
 }
 
 .card {
-  background: globals.$white-color;
+  background: tokens.$white-color;
   border-radius: 12px;
   padding: 1rem 1.1rem;
   box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
-  border: 1px solid globals.$gray-200;
-  transition: transform globals.$transition-fast;
+  border: 1px solid tokens.$gray-200;
+  transition: transform tokens.$transition-fast;
 
   &:active {
     transform: scale(0.99);
@@ -118,7 +118,7 @@
 }
 
 .uvoCard {
-  border-left: 4px solid globals.$accent-color;
+  border-left: 4px solid tokens.$accent-color;
 }
 
 .cardHeader {
@@ -129,18 +129,18 @@
 }
 
 .cardDate {
-  font-family: globals.$font-heading;
+  font-family: tokens.$font-heading;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.85rem;
-  color: globals.$primary-color;
+  color: tokens.$primary-color;
   letter-spacing: 0.02em;
 }
 
 .cardTime {
   font-size: 0.85rem;
   font-weight: 600;
-  color: globals.$gray-600;
+  color: tokens.$gray-600;
 }
 
 .cardMatchup {
@@ -149,76 +149,22 @@
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 500;
-  color: globals.$gray-800;
+  color: tokens.$gray-800;
   flex-wrap: wrap;
 }
 
 .vs {
-  font-family: globals.$font-heading;
+  font-family: tokens.$font-heading;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 0.75rem;
-  color: globals.$accent-color;
+  color: tokens.$accent-color;
 }
 
 .cardVenue {
   margin-top: 0.5rem;
   font-size: 0.82rem;
-  color: globals.$gray-600;
+  color: tokens.$gray-600;
 }
 
-.skeletonWrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.skeletonRow {
-  height: 48px;
-  background: linear-gradient(90deg,
-      globals.$gray-100 25%,
-      globals.$cream 50%,
-      globals.$gray-100 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: globals.$white-color;
-  border-radius: 14px;
-  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
-  border: 1px solid globals.$gray-200;
-}
-
-.emptyText {
-  color: globals.$gray-600;
-  line-height: 1.6;
-}
-
-.showMoreWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  width: 100%;
-}
-
-.showMoreBtn {
-  font-family: globals.$font-heading;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0 2rem;
-}
+

@@ -1,10 +1,11 @@
 'use client';
 
 import { type FC, useState } from 'react';
+import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useFilteredResults } from '@hooks/use-results';
-import { Button, Heading } from '@radix-ui/themes';
+import { Heading } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 
 import css from './results-table.module.scss';
@@ -158,18 +159,11 @@ export const ResultsTable: FC<{
                 ))}
             </div>
 
-            {rawResults.length > maxResults && !showAll && (
-                <div className={css.showMoreWrap}>
-                    <Button
-                        variant="soft"
-                        size="3"
-                        onClick={() => setShowAll(true)}
-                        className={css.showMoreBtn}
-                    >
-                        Show More Results
-                    </Button>
-                </div>
-            )}
+            <ShowMoreButton
+                visible={rawResults.length > maxResults && !showAll}
+                label="Show More Results"
+                onClick={() => setShowAll(true)}
+            />
         </div>
     );
 };
