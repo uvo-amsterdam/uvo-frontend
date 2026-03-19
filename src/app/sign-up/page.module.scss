@@ -81,8 +81,6 @@
   padding-top: 0.7rem;
 }
 
-/* ── Tryout Band — full-width with diagonal slat ── */
-
 .tryoutBand {
   position: relative;
   background: tokens.$primary-color;
@@ -151,8 +149,6 @@
 .ctaButton {
   @include tokens.cta-button;
 }
-
-/* ── Pricing Tables ── */
 
 .pricing {
   @include tokens.content-section(4rem 8% 5rem, 3rem 5% 4rem);

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
-import { Heading, Text } from '@radix-ui/themes';
+import { Heading, Table, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -87,10 +87,59 @@ const BEGINNERS_ROWS = [
     { period: 'Half year (Jan–Jun)', student: '€ 70,-', nonStudent: '€ 140,-' },
 ];
 
-const SignUpPage: FC = () => {
-    const tryoutMonth = getNextTryoutMonth();
+const PricingTable: FC<{
+    heading: string;
+    caption: string;
+    rows: { period: string; student: string; nonStudent: string }[];
+}> = ({ heading, caption, rows }) => {
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
+
+    return (
+        <div className={css.tableBlock}>
+            <Heading as="h3" className={css.tableLabel}>
+                {heading}
+            </Heading>
+            <div className={css.tableWrapper}>
+                <Table.Root className={css.feeTable}>
+                    <caption className={css.visuallyHidden}>{caption}</caption>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.ColumnHeaderCell scope="col">
+                                Period
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell scope="col">
+                                Student
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell scope="col">
+                                Non-student
+                            </Table.ColumnHeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {rows.map(r => (
+                            <Table.Row
+                                key={r.period}
+                                className={
+                                    isSurcharge(r.period)
+                                        ? css.surcharge
+                                        : undefined
+                                }
+                            >
+                                <Table.Cell>{r.period}</Table.Cell>
+                                <Table.Cell>{r.student}</Table.Cell>
+                                <Table.Cell>{r.nonStudent}</Table.Cell>
+                            </Table.Row>
+                        ))}
+                    </Table.Body>
+                </Table.Root>
+            </div>
+        </div>
+    );
+};
+
+const SignUpPage: FC = () => {
+    const tryoutMonth = getNextTryoutMonth();
 
     return (
         <div className={css.root}>
@@ -175,113 +224,23 @@ const SignUpPage: FC = () => {
                     </Heading>
                 </div>
 
-                <div className={css.tableBlock}>
-                    <Heading as="h3" className={css.tableLabel}>
-                        Competition
-                    </Heading>
-                    <div className={css.tableWrapper}>
-                        <table className={css.feeTable}>
-                            <caption className={css.visuallyHidden}>
-                                Membership fees for Competition teams
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Period</th>
-                                    <th scope="col">Student</th>
-                                    <th scope="col">Non-student</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {COMPETITION_ROWS.map(r => (
-                                    <tr
-                                        key={r.period}
-                                        className={
-                                            isSurcharge(r.period)
-                                                ? css.surcharge
-                                                : undefined
-                                        }
-                                    >
-                                        <td>{r.period}</td>
-                                        <td>{r.student}</td>
-                                        <td>{r.nonStudent}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <PricingTable
+                    heading="Competition"
+                    caption="Membership fees for Competition teams"
+                    rows={COMPETITION_ROWS}
+                />
 
-                <div className={css.tableBlock}>
-                    <Heading as="h3" className={css.tableLabel}>
-                        Training Only
-                    </Heading>
-                    <div className={css.tableWrapper}>
-                        <table className={css.feeTable}>
-                            <caption className={css.visuallyHidden}>
-                                Membership fees for Training only
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Period</th>
-                                    <th scope="col">Student</th>
-                                    <th scope="col">Non-student</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {TRAINING_ONLY_ROWS.map(r => (
-                                    <tr
-                                        key={r.period}
-                                        className={
-                                            isSurcharge(r.period)
-                                                ? css.surcharge
-                                                : undefined
-                                        }
-                                    >
-                                        <td>{r.period}</td>
-                                        <td>{r.student}</td>
-                                        <td>{r.nonStudent}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <PricingTable
+                    heading="Training Only"
+                    caption="Membership fees for Training only"
+                    rows={TRAINING_ONLY_ROWS}
+                />
 
-                <div className={css.tableBlock}>
-                    <Heading as="h3" className={css.tableLabel}>
-                        Beginners
-                    </Heading>
-                    <div className={css.tableWrapper}>
-                        <table className={css.feeTable}>
-                            <caption className={css.visuallyHidden}>
-                                Membership fees for Beginners course
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Period</th>
-                                    <th scope="col">Student</th>
-                                    <th scope="col">Non-student</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {BEGINNERS_ROWS.map(r => (
-                                    <tr
-                                        key={r.period}
-                                        className={
-                                            isSurcharge(r.period)
-                                                ? css.surcharge
-                                                : undefined
-                                        }
-                                    >
-                                        <td>{r.period}</td>
-                                        <td>{r.student}</td>
-                                        <td>{r.nonStudent}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <PricingTable
+                    heading="Beginners"
+                    caption="Membership fees for Beginners course"
+                    rows={BEGINNERS_ROWS}
+                />
 
                 <div className={css.pricingNote}>
                     <IconInfoCircle
