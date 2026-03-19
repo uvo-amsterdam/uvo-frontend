@@ -28,6 +28,15 @@
   }
 }
 
+.infoHeading {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoContent {
+  min-width: 0; // Prevents grid blowout from long content
+}
+
 .altBackground {
   background: tokens.$cream;
   max-width: 100%;
