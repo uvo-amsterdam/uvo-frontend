@@ -14,6 +14,8 @@ export const metadata: Metadata = {
         'Join UvO Amsterdam! Sign up for volleyball tryouts, find your team, and become part of our 250+ member student community.',
 };
 
+export const revalidate = 86400; // 1 day
+
 /**
  * Returns the upcoming tryout period label based on the current date.
  *  - After Jan 8  → "May"
@@ -87,6 +89,8 @@ const BEGINNERS_ROWS = [
 
 const SignUpPage: FC = () => {
     const tryoutMonth = getNextTryoutMonth();
+    const isSurcharge = (period: string) =>
+        period.toLowerCase().includes('surcharge');
 
     return (
         <div className={css.root}>
@@ -189,7 +193,14 @@ const SignUpPage: FC = () => {
                             </thead>
                             <tbody>
                                 {COMPETITION_ROWS.map(r => (
-                                    <tr key={r.period}>
+                                    <tr
+                                        key={r.period}
+                                        className={
+                                            isSurcharge(r.period)
+                                                ? css.surcharge
+                                                : undefined
+                                        }
+                                    >
                                         <td>{r.period}</td>
                                         <td>{r.student}</td>
                                         <td>{r.nonStudent}</td>
@@ -218,7 +229,14 @@ const SignUpPage: FC = () => {
                             </thead>
                             <tbody>
                                 {TRAINING_ONLY_ROWS.map(r => (
-                                    <tr key={r.period}>
+                                    <tr
+                                        key={r.period}
+                                        className={
+                                            isSurcharge(r.period)
+                                                ? css.surcharge
+                                                : undefined
+                                        }
+                                    >
                                         <td>{r.period}</td>
                                         <td>{r.student}</td>
                                         <td>{r.nonStudent}</td>
@@ -247,7 +265,14 @@ const SignUpPage: FC = () => {
                             </thead>
                             <tbody>
                                 {BEGINNERS_ROWS.map(r => (
-                                    <tr key={r.period}>
+                                    <tr
+                                        key={r.period}
+                                        className={
+                                            isSurcharge(r.period)
+                                                ? css.surcharge
+                                                : undefined
+                                        }
+                                    >
                                         <td>{r.period}</td>
                                         <td>{r.student}</td>
                                         <td>{r.nonStudent}</td>
