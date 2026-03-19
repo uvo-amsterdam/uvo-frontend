@@ -1,4 +1,4 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 
 
@@ -10,5 +10,5 @@
 /* ── Fixture Section ── */
 
 .fixtureSection {
-  @include globals.content-section;
+  @include tokens.content-section;
 }
