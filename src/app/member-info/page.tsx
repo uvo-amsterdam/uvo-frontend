@@ -30,7 +30,17 @@ const accordionData = [
         value: 'captain',
         title: 'Match Duties as Captain',
         steps: [
-            'Go to dwf.volleybal.nl or use Nevobo’s "Mijn Competitie" app.',
+            <span key="link">
+                Go to{' '}
+                <NextLink
+                    href="https://dwf.volleybal.nl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    dwf.volleybal.nl
+                </NextLink>{' '}
+                or use Nevobo’s "Mijn Competitie" app.
+            </span>,
             'Log in with your Nevobo account (linked to your player code). If you need your code, ask the board or during the DWF course.',
             'Select your game and click "standaardteam ophalen" to import your team. Use "spelers beheren" to remove absent players or add substitutes by searching their name or code. Best done in advance!',
             'Verify the captain, libero, and that shirt numbers are correct. Edit via double-clicking in "spelers beheren".',
@@ -123,7 +133,9 @@ const MemberInfoPage: FC = () => {
                                     <div className={css.stepList}>
                                         {item.steps.map((step, index) => (
                                             <div
-                                                key={step}
+                                                key={step
+                                                    .toString()
+                                                    .slice(0, 20)}
                                                 className={css.step}
                                             >
                                                 <span
