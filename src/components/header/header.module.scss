@@ -70,6 +70,7 @@
 }
 
 .dropdownLink {
+  align-content: center;
   text-decoration: none;
   color: inherit;
   font-family: tokens.$font-heading;
@@ -80,7 +81,7 @@
   transition: color tokens.$transition-fast;
 
   &[data-highlighted] {
-    background-color: transparent;
+    background-color: tokens.$gray-100;
     color: tokens.$accent-color;
   }
 
