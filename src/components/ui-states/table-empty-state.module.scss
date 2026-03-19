@@ -1,12 +1,12 @@
-@use '@styles/tokens' as globals;
+@use '@styles/tokens';
 
 .empty {
     text-align: center;
     padding: 3rem 1rem;
-    background: globals.$white-color;
+    background: tokens.$white-color;
     border-radius: 14px;
     box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
-    border: 1px solid globals.$gray-200;
+    border: 1px solid tokens.$gray-200;
 }
 
 .marginTop {
@@ -14,6 +14,6 @@
 }
 
 .emptyText {
-    color: globals.$gray-600;
+    color: tokens.$gray-600;
     line-height: 1.6;
 }
