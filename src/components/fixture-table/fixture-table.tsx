@@ -1,10 +1,11 @@
 'use client';
 
 import { type FC, useState } from 'react';
+import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useFixtures } from '@hooks/use-fixtures';
-import { Button, Heading } from '@radix-ui/themes';
+import { Heading } from '@radix-ui/themes';
 
 import css from './fixture-table.module.scss';
 
@@ -127,18 +128,11 @@ export const FixtureTable: FC = () => {
                 ))}
             </div>
 
-            {fixtures.length > maxResults && !showAll && (
-                <div className={css.showMoreWrap}>
-                    <Button
-                        variant="soft"
-                        size="3"
-                        onClick={() => setShowAll(true)}
-                        className={css.showMoreBtn}
-                    >
-                        Show More Matches
-                    </Button>
-                </div>
-            )}
+            <ShowMoreButton
+                visible={fixtures.length > maxResults && !showAll}
+                label="Show More Matches"
+                onClick={() => setShowAll(true)}
+            />
         </div>
     );
 };

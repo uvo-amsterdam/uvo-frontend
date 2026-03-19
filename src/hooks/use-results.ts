@@ -77,13 +77,14 @@ export function useResults() {
     return useApiFetch<unknown[][], MatchResult[]>(
         '/api/results',
         parseResults,
+        [],
     );
 }
 
 export function useFilteredResults(teamFilter?: string) {
     const { data: rawResults, loading, error } = useResults();
 
-    const filteredResults = [];
+    const filteredResults: MatchResult[] = [];
 
     if (!teamFilter) {
         filteredResults.push(...rawResults);
@@ -124,23 +125,27 @@ export function useFilteredResults(teamFilter?: string) {
         }
 
         const thresholdTimestamp = thresholdDate.getTime();
+        const teamRegex = nevoboSuffix
+            ? new RegExp(`${nevoboSuffix}(?!\\d)`)
+            : null;
 
         filteredResults.push(
             ...rawResults.filter(r => {
                 if (r.timestamp < thresholdTimestamp) return false;
 
-                if (!nevoboSuffix) {
+                if (!teamRegex) {
                     return (
                         r.home.toLowerCase().includes(lowerFilter) ||
                         r.away.toLowerCase().includes(lowerFilter)
                     );
                 }
 
-                const regex = new RegExp(`${nevoboSuffix}(?!\\d)`);
                 const homeMatches =
-                    r.home.toLowerCase().includes('uvo') && regex.test(r.home);
+                    r.home.toLowerCase().includes('uvo') &&
+                    teamRegex.test(r.home);
                 const awayMatches =
-                    r.away.toLowerCase().includes('uvo') && regex.test(r.away);
+                    r.away.toLowerCase().includes('uvo') &&
+                    teamRegex.test(r.away);
                 return homeMatches || awayMatches;
             }),
         );
