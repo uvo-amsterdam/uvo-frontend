@@ -50,6 +50,30 @@ const accordionData = [
     },
 ];
 
+const documentsData = [
+    {
+        href: '/articles-of-association',
+        icon: IconFileText,
+        title: 'Articles of Association',
+        description:
+            'Read the foundational rules and statutes of our association.',
+    },
+    {
+        href: 'https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link',
+        icon: IconReceipt2,
+        title: 'Declaration Form',
+        description:
+            'Reimbursement form for expenses made on behalf of a committee.',
+        external: true,
+    },
+    {
+        href: '/member-info',
+        icon: IconShieldCheck,
+        title: 'House Rules (HR)',
+        description: 'Our Huishoudelijk Reglement covering club guidelines.',
+    },
+];
+
 const MemberInfoPage: FC = () => {
     return (
         <div className={css.root}>
@@ -189,56 +213,55 @@ const MemberInfoPage: FC = () => {
                     </Heading>
                 </div>
                 <div className={css.docGrid}>
-                    <NextLink
-                        href="/articles-of-association"
-                        className={css.docCard}
-                    >
-                        <IconFileText
-                            stroke={2.5}
-                            size={44}
-                            className={css.docIcon}
-                        />
-                        <Heading as="h3" size="4" className={css.docTitle}>
-                            Articles of Association
-                        </Heading>
-                        <Text size="2" className={css.docDesc}>
-                            Read the foundational rules and statutes of our
-                            association.
-                        </Text>
-                    </NextLink>
-                    <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={css.docCard}
-                    >
-                        <IconReceipt2
-                            stroke={2.5}
-                            size={44}
-                            className={css.docIcon}
-                        />
-                        <Heading as="h3" size="4" className={css.docTitle}>
-                            Declaration Form
-                        </Heading>
-                        <Text size="2" className={css.docDesc}>
-                            Reimbursement form for expenses made on behalf of a
-                            committee.
-                        </Text>
-                    </a>
-                    <NextLink href="/member-info" className={css.docCard}>
-                        <IconShieldCheck
-                            stroke={2.5}
-                            size={44}
-                            className={css.docIcon}
-                        />
-                        <Heading as="h3" size="4" className={css.docTitle}>
-                            House Rules (HR)
-                        </Heading>
-                        <Text size="2" className={css.docDesc}>
-                            Our Huishoudelijk Reglement covering club
-                            guidelines.
-                        </Text>
-                    </NextLink>
+                    {documentsData.map(doc =>
+                        doc.external ? (
+                            <a
+                                key={doc.title}
+                                href={doc.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={css.docCard}
+                            >
+                                <doc.icon
+                                    stroke={2.5}
+                                    size={44}
+                                    className={css.docIcon}
+                                />
+                                <Heading
+                                    as="h3"
+                                    size="4"
+                                    className={css.docTitle}
+                                >
+                                    {doc.title}
+                                </Heading>
+                                <Text size="2" className={css.docDesc}>
+                                    {doc.description}
+                                </Text>
+                            </a>
+                        ) : (
+                            <NextLink
+                                key={doc.title}
+                                href={doc.href}
+                                className={css.docCard}
+                            >
+                                <doc.icon
+                                    stroke={2.5}
+                                    size={44}
+                                    className={css.docIcon}
+                                />
+                                <Heading
+                                    as="h3"
+                                    size="4"
+                                    className={css.docTitle}
+                                >
+                                    {doc.title}
+                                </Heading>
+                                <Text size="2" className={css.docDesc}>
+                                    {doc.description}
+                                </Text>
+                            </NextLink>
+                        ),
+                    )}
                 </div>
             </section>
         </div>
