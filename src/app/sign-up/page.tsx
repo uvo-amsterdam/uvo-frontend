@@ -9,7 +9,7 @@ import Image from 'next/image';
 import css from './page.module.scss';
 
 export const metadata: Metadata = {
-    title: 'Sign Up — UvO Amsterdam',
+    title: 'Sign Up - UvO Amsterdam',
     description:
         'Join UvO Amsterdam! Sign up for volleyball tryouts, find your team, and become part of our 250+ member student community.',
 };
@@ -18,24 +18,24 @@ export const revalidate = 86400; // 1 day
 
 /**
  * Returns the upcoming tryout period label based on the current date.
- *  - After Jan 8  → "May"
- *  - After May 15 → "August/September"
- *  - After Sep 15 → "January"
+ *  - After Jan 8  -> "May"
+ *  - After May 15 -> "August/September"
+ *  - After Sep 15 -> "January"
  */
 function getNextTryoutMonth(): string {
     const now = new Date();
     const month = now.getMonth(); // 0-indexed
     const day = now.getDate();
 
-    // Sep 16 – Jan 8  → January
+    // Sep 16 - Jan 8  -> January
     if (month > 8 || (month === 8 && day > 15) || (month === 0 && day <= 8)) {
         return 'January';
     }
-    // Jan 9 – May 15  → May
+    // Jan 9 - May 15  -> May
     if (month < 4 || (month === 4 && day <= 15)) {
         return 'May';
     }
-    // May 16 – Sep 15 → August/September
+    // May 16 - Sep 15 -> August/September
     return 'August/September';
 }
 
@@ -112,7 +112,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     Love volleyball but haven&apos;t found your
-                                    people yet? We have teams at every level —
+                                    people yet? We have teams at every level -
                                     from first-timers to seasoned players
                                     who&apos;ve been spiking since they could
                                     walk.
@@ -124,7 +124,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     With 250+ members across 15 teams, UvO
-                                    isn&apos;t just a volleyball club —
+                                    isn&apos;t just a volleyball club -
                                     it&apos;s one of the most international
                                     student communities in Amsterdam. Think
                                     parties, tournaments, weekends away, and two
@@ -154,7 +154,7 @@ const SignUpPage: FC = () => {
                         Interested? Fill in the sign-up form and our Technical
                         Committee will reach out to you with all the details.
                         Keep in mind that you need to be a student to apply, and
-                        signing up doesn&apos;t guarantee a spot — it depends on
+                        signing up doesn&apos;t guarantee a spot - it depends on
                         the total number of applicants.
                     </Text>
                     <a
