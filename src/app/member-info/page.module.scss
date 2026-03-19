@@ -1,7 +1,5 @@
 @use '@styles/tokens';
 
-
-
 .root {
   display: flex;
   flex-direction: column;
@@ -133,9 +131,8 @@
   }
 
   .stepList {
-    padding: 0 2rem 2rem;
     border-top: 1px solid rgb(0 0 0 / 4%);
-    padding-top: 1.5rem;
+    padding: 1.5rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
