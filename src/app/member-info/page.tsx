@@ -133,9 +133,7 @@ const MemberInfoPage: FC = () => {
                                     <div className={css.stepList}>
                                         {item.steps.map((step, index) => (
                                             <div
-                                                key={step
-                                                    .toString()
-                                                    .slice(0, 20)}
+                                                key={`${item.value}-step-${index}`}
                                                 className={css.step}
                                             >
                                                 <span
