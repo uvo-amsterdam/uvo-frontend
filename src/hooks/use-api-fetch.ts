@@ -10,11 +10,11 @@ export function useApiFetch<T, R>(
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        const controller = new AbortController();
-        const { signal } = controller;
-
         setLoading(true);
         setError(null);
+
+        const controller = new AbortController();
+        const { signal } = controller;
 
         fetch(url, { signal })
             .then(async res => {
@@ -22,7 +22,7 @@ export function useApiFetch<T, R>(
                     const text = await res.text().catch(() => '');
                     throw new Error(
                         `API Error: ${res.status} ${res.statusText} at ${url}${
-                            text ? ` — ${text}` : ''
+                            text ? ` - ${text}` : ''
                         }`,
                     );
                 }
