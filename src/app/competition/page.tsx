@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import css from './page.module.scss';
 
 export const metadata: Metadata = {
-    title: 'Competition — UvO Amsterdam',
+    title: 'Competition - UvO Amsterdam',
     description:
         'Upcoming match fixtures and recent results for all UvO Amsterdam volleyball teams, updated live from Nevobo.',
 };
