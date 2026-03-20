@@ -6,5 +6,6 @@ export interface NevoboMatch {
     location: string;
     field: string;
     poule: string;
+    city: string;
     matchStatus: string;
 }
