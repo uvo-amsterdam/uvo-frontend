@@ -77,9 +77,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
 }
 
 @mixin numbered-item-number($size: 2.8rem, $min-w: 55px) {
-  display: flex;
-  align-self: center;
-  justify-content: center;
   font-family: $font-heading;
   font-weight: 900;
   font-size: $size;
