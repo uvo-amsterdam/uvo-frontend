@@ -11,6 +11,7 @@ const NEVOBO_SCHEMA: Schema<NevoboMatch> = {
     awayTeam: { column: 'Team uit', type: String },
     location: { column: 'Locatie', type: String },
     field: { column: 'Veld', type: String },
+    city: { column: 'Plaats', type: String },
     poule: { column: 'Poule', type: String },
     matchStatus: { column: 'Wedstrijd status', type: String },
 };

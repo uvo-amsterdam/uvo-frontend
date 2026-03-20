@@ -1,3 +1,4 @@
+import type { NevoboMatch } from '@interfaces/nevobo-match';
 import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './use-api-fetch';
 
@@ -8,36 +9,25 @@ export interface Fixture {
     away: string;
     venue: string;
     city: string;
-    isUvo: boolean;
+    isHomeGame: boolean;
 }
 
-function parseFixtures(rows: unknown[][]): Fixture[] {
-    return rows
-        .filter(row => row.length > 0 && row[0] != null)
-        .map(row => {
-            const dateVal = row[0] as string | Date;
-            const timeVal = row[1] as string | Date;
-            const home = String(row[2] ?? '');
-            const away = String(row[3] ?? '');
-            const venue = String(row[10] ?? '');
-            const city = String(row[11] ?? '');
-
-            return {
-                date: formatDateStr(dateVal),
-                time: timeVal ? formatTimeStr(timeVal) : 'TBD',
-                home,
-                away,
-                venue,
-                city,
-                isUvo:
-                    home.toLowerCase().includes('uvo') ||
-                    away.toLowerCase().includes('uvo'),
-            };
-        });
+function parseFixtures(rows: NevoboMatch[]): Fixture[] {
+    return rows.map(row => {
+        return {
+            date: formatDateStr(row.date),
+            time: row.time ? formatTimeStr(row.time) : 'TBD',
+            home: row.homeTeam,
+            away: row.awayTeam,
+            venue: row.location,
+            city: row.city,
+            isHomeGame: row.homeTeam.toLowerCase().includes('uvo'),
+        };
+    });
 }
 
 export function useFixtures() {
-    return useApiFetch<unknown[][], Fixture[]>(
+    return useApiFetch<NevoboMatch[], Fixture[]>(
         '/api/fixtures',
         parseFixtures,
         [],
