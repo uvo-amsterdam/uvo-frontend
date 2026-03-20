@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { FixtureTable } from '@components/fixture-table/fixture-table';
 import { Hero } from '@components/hero/hero';
 import { ResultsTable } from '@components/results-table/results-table';
+import { Box, Tabs } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 
@@ -22,10 +23,23 @@ const CompetitionPage: FC = () => {
                 icon={<IconTrophy size={44} stroke={1.5} />}
             />
 
-            <section className={css.fixtureSection}>
-                <FixtureTable />
-                <ResultsTable />
-            </section>
+            <Tabs.Root defaultValue="fixtures">
+                <Tabs.List className={css.selector} color={'orange'}>
+                    <Tabs.Trigger value="fixtures">
+                        Upcoming Matches
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="results">Recent results</Tabs.Trigger>
+                </Tabs.List>
+
+                <Box className={css.fixtureSection}>
+                    <Tabs.Content value="fixtures">
+                        <FixtureTable />
+                    </Tabs.Content>
+                    <Tabs.Content value="results">
+                        <ResultsTable />
+                    </Tabs.Content>
+                </Box>
+            </Tabs.Root>
         </div>
     );
 };
