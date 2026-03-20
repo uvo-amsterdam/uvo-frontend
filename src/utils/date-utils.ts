@@ -3,7 +3,10 @@
  */
 
 /** Format an ISO date string or Date object as e.g. "Mon 3 Feb". */
-export function formatDateStr(dateInput: string | Date | number): string {
+export function formatDateStr(
+    dateInput: string | Date | number | null,
+): string {
+    if (dateInput == null) return '';
     const date = new Date(dateInput);
     if (Number.isNaN(date.getTime())) {
         return String(dateInput);
