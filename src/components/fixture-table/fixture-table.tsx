@@ -5,7 +5,7 @@ import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useFixtures } from '@hooks/use-fixtures';
-import { Heading } from '@radix-ui/themes';
+import { Heading, Table } from '@radix-ui/themes';
 
 import css from './fixture-table.module.scss';
 
@@ -25,7 +25,7 @@ export const FixtureTable: FC = () => {
             <TableEmptyState
                 message={
                     error
-                        ? "Couldn't load the fixtures right now — try again later!"
+                        ? "Couldn't load the fixtures right now - try again later!"
                         : 'No upcoming matches at the moment. Check back soon!'
                 }
             />
@@ -37,93 +37,100 @@ export const FixtureTable: FC = () => {
             <Heading as="h2" className={css.tableTitle}>
                 Upcoming Matches
             </Heading>
-
             <div className={css.tableWrap}>
-                <table className={css.table}>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th className={css.teamCol}>Home</th>
-                            <th className={css.teamCol}>Away</th>
-                            <th>Venue</th>
-                            <th>City</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {displayedFixtures.map((f, i) => (
-                            <tr
+                <Table.Root className={css.table}>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.ColumnHeaderCell>
+                                Date
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>
+                                Time
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell className={css.teamCol}>
+                                Home
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell className={css.teamCol}>
+                                Away
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>
+                                Venue
+                            </Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>
+                                City
+                            </Table.ColumnHeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {displayedFixtures.map((fixture, i) => (
+                            <Table.Row
                                 key={`fixture-${i.toString()}`}
                                 className={
-                                    f.isHomeGame ? css.uvoRow : undefined
+                                    fixture.isHomeGame ? css.uvoRow : undefined
                                 }
                             >
-                                <td>{f.date}</td>
-                                <td>{f.time}</td>
-                                <td
+                                <Table.Cell>{fixture.date}</Table.Cell>
+                                <Table.Cell>{fixture.time}</Table.Cell>
+                                <Table.Cell
                                     className={
-                                        f.isHomeGame &&
-                                        f.home.toLowerCase().includes('uvo')
+                                        fixture.isHomeGame
                                             ? css.uvoTeam
                                             : undefined
                                     }
                                 >
-                                    {f.home}
-                                </td>
-                                <td
+                                    {fixture.home}
+                                </Table.Cell>
+                                <Table.Cell
                                     className={
-                                        f.isHomeGame &&
-                                        f.away.toLowerCase().includes('uvo')
+                                        !fixture.isHomeGame
                                             ? css.uvoTeam
                                             : undefined
                                     }
                                 >
-                                    {f.away}
-                                </td>
-                                <td>{f.venue}</td>
-                                <td>{f.city}</td>
-                            </tr>
+                                    {fixture.away}
+                                </Table.Cell>
+                                <Table.Cell>{fixture.venue}</Table.Cell>
+                                <Table.Cell>{fixture.city}</Table.Cell>
+                            </Table.Row>
                         ))}
-                    </tbody>
-                </table>
+                    </Table.Body>
+                </Table.Root>
             </div>
 
             <div className={css.cardList}>
-                {displayedFixtures.map((f, i) => (
+                {displayedFixtures.map((fixture, i) => (
                     <div
                         key={`card-${i.toString()}`}
-                        className={`${css.card} ${f.isHomeGame ? css.uvoCard : ''}`}
+                        className={`${css.card} ${fixture.isHomeGame ? css.uvoCard : ''}`}
                     >
                         <div className={css.cardHeader}>
-                            <span className={css.cardDate}>{f.date}</span>
-                            <span className={css.cardTime}>{f.time}</span>
+                            <span className={css.cardDate}>{fixture.date}</span>
+                            <span className={css.cardTime}>{fixture.time}</span>
                         </div>
                         <div className={css.cardMatchup}>
                             <span
                                 className={
-                                    f.home.toLowerCase().includes('uvo')
-                                        ? css.uvoTeam
-                                        : undefined
+                                    fixture.isHomeGame ? css.uvoTeam : undefined
                                 }
                             >
-                                {f.home}
+                                {fixture.home}
                             </span>
                             <span className={css.vs}>vs</span>
                             <span
                                 className={
-                                    f.away.toLowerCase().includes('uvo')
+                                    !fixture.isHomeGame
                                         ? css.uvoTeam
                                         : undefined
                                 }
                             >
-                                {f.away}
+                                {fixture.away}
                             </span>
                         </div>
-                        {(f.venue || f.city) && (
+                        {(fixture.venue || fixture.city) && (
                             <div className={css.cardVenue}>
-                                {f.venue}
-                                {f.venue && f.city ? ' — ' : ''}
-                                {f.city}
+                                {fixture.venue}
+                                {fixture.venue && fixture.city ? ' - ' : ''}
+                                {fixture.city}
                             </div>
                         )}
                     </div>
