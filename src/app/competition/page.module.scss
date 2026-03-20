@@ -8,3 +8,7 @@
 .fixtureSection {
   @include tokens.content-section;
 }
+
+.selector {
+  color: tokens.$accent-color;
+}
