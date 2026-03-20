@@ -54,13 +54,15 @@ export const FixtureTable: FC = () => {
                         {displayedFixtures.map((f, i) => (
                             <tr
                                 key={`fixture-${i.toString()}`}
-                                className={f.isUvo ? css.uvoRow : undefined}
+                                className={
+                                    f.isHomeGame ? css.uvoRow : undefined
+                                }
                             >
                                 <td>{f.date}</td>
                                 <td>{f.time}</td>
                                 <td
                                     className={
-                                        f.isUvo &&
+                                        f.isHomeGame &&
                                         f.home.toLowerCase().includes('uvo')
                                             ? css.uvoTeam
                                             : undefined
@@ -70,7 +72,7 @@ export const FixtureTable: FC = () => {
                                 </td>
                                 <td
                                     className={
-                                        f.isUvo &&
+                                        f.isHomeGame &&
                                         f.away.toLowerCase().includes('uvo')
                                             ? css.uvoTeam
                                             : undefined
@@ -90,7 +92,7 @@ export const FixtureTable: FC = () => {
                 {displayedFixtures.map((f, i) => (
                     <div
                         key={`card-${i.toString()}`}
-                        className={`${css.card} ${f.isUvo ? css.uvoCard : ''}`}
+                        className={`${css.card} ${f.isHomeGame ? css.uvoCard : ''}`}
                     >
                         <div className={css.cardHeader}>
                             <span className={css.cardDate}>{f.date}</span>
