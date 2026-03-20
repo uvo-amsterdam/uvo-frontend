@@ -1,6 +1,9 @@
 import { NEVOBO_BASE_URL, NEVOBO_CLUB_ID } from '@constants/api';
-import { parseNevoboExcel } from '@utils/nevobo-utils';
+import { parseNevoboExcel } from '@utils/parse-nevobo-excel';
 import { NextResponse } from 'next/server';
+import pino from 'pino';
+
+const logger = pino();
 
 export async function GET() {
     try {
@@ -20,7 +23,7 @@ export async function GET() {
 
         return NextResponse.json(fixtures);
     } catch (e) {
-        console.error('Failed to parse fixtures:', e);
+        logger.error({ err: e }, 'Failed to parse fixtures');
         return NextResponse.json(
             { error: 'An unexpected error occurred' },
             { status: 500 },
