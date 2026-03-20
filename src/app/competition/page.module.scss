@@ -1,13 +1,9 @@
 @use '@styles/tokens';
 
-
-
 .root {
   display: flex;
   flex-direction: column;
 }
-
-/* ── Fixture Section ── */
 
 .fixtureSection {
   @include tokens.content-section;
