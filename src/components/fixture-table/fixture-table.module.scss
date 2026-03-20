@@ -48,10 +48,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    font-size: 0.85rem;
-    padding: 0.9rem 1rem;
-    text-align: left;
     white-space: nowrap;
+    color: tokens.$white-color;
   }
 
   .teamCol {
@@ -80,7 +78,21 @@
 
 .uvoRow {
   background: rgb(67 66 255 / 4%);
-  border-left: 4px solid tokens.$accent-color;
+  position: relative;
+
+  td:first-child {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: tokens.$accent-color;
+    }
+  }
 
   &:hover {
     background: rgb(67 66 255 / 8%);
@@ -117,6 +129,7 @@
 
 .uvoCard {
   border-left: 4px solid tokens.$accent-color;
+  padding-left: 4px; /* Adjust spacing to compensate for border */
 }
 
 .cardHeader {
