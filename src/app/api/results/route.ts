@@ -6,7 +6,7 @@ export async function GET() {
     try {
         const response = await fetch(
             `${NEVOBO_BASE_URL}vereniging/${NEVOBO_CLUB_ID}/resultaten.xlsx`,
-            { next: { revalidate: 3600 } }, // cache for 1 hour
+            { next: { revalidate: 3600 } },
         );
 
         if (!response.ok) {
