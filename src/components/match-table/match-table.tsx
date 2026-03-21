@@ -5,22 +5,28 @@ import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useFixtures } from '@hooks/use-fixtures';
+import { useResults } from '@hooks/use-results';
 import { Heading, Table } from '@radix-ui/themes';
 
-import css from './fixture-table.module.scss';
+import css from './match-table.module.scss';
 
-export const FixtureTable: FC = () => {
-    const { data: fixtures, loading, error } = useFixtures();
+export interface MatchTableProps {
+    type?: 'fixtures' | 'results';
+}
+
+export const MatchTable: FC<MatchTableProps> = ({ type = 'fixtures' }) => {
+    const fixtures = useFixtures();
+    const results = useResults();
+
+    const { data, loading, error } = type === 'fixtures' ? fixtures : results;
     const [showAll, setShowAll] = useState(false);
 
     const maxResults = 15;
-    const displayedFixtures = showAll
-        ? fixtures
-        : fixtures.slice(0, maxResults);
+    const displayedFixtures = showAll ? data : data.slice(0, maxResults);
 
     if (loading) return <TableSkeleton />;
 
-    if (error || fixtures.length === 0) {
+    if (error || data.length === 0) {
         return (
             <TableEmptyState
                 message={
@@ -35,7 +41,7 @@ export const FixtureTable: FC = () => {
     return (
         <div className={css.tableContainer}>
             <Heading as="h2" className={css.tableTitle}>
-                Upcoming Matches
+                {type === 'fixtures' ? 'Upcoming Matches' : 'Recent Results'}
             </Heading>
             <div className={css.tableWrap}>
                 <Table.Root className={css.table}>
@@ -138,7 +144,7 @@ export const FixtureTable: FC = () => {
             </div>
 
             <ShowMoreButton
-                visible={fixtures.length > maxResults && !showAll}
+                visible={data.length > maxResults && !showAll}
                 label="Show More Matches"
                 onClick={() => setShowAll(true)}
             />
