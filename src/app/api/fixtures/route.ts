@@ -19,7 +19,7 @@ export async function GET() {
             );
         }
 
-        const fixtures = await parseNevoboExcel(response);
+        const fixtures = await parseNevoboExcel(response, 'fixtures');
 
         return NextResponse.json(fixtures);
     } catch (e) {

@@ -1,4 +1,4 @@
-export interface NevoboMatch {
+export interface NevoboFixture {
     date: Date | null;
     time: string;
     homeTeam: string;

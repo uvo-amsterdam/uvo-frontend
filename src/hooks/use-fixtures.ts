@@ -1,4 +1,4 @@
-import type { NevoboMatch } from '@interfaces/nevobo-match';
+import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './use-api-fetch';
 
@@ -12,7 +12,7 @@ export interface Fixture {
     isHomeGame: boolean;
 }
 
-function parseFixtures(rows: NevoboMatch[]): Fixture[] {
+function parseFixtures(rows: NevoboFixture[]): Fixture[] {
     return rows.map(row => {
         return {
             date: formatDateStr(row.date),
@@ -27,7 +27,7 @@ function parseFixtures(rows: NevoboMatch[]): Fixture[] {
 }
 
 export function useFixtures() {
-    return useApiFetch<NevoboMatch[], Fixture[]>(
+    return useApiFetch<NevoboFixture[], Fixture[]>(
         '/api/fixtures',
         parseFixtures,
         [],
