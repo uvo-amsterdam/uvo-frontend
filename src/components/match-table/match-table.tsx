@@ -4,7 +4,9 @@ import { type FC, useState } from 'react';
 import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
+import type { Fixture } from '@hooks/use-fixtures';
 import { useFixtures } from '@hooks/use-fixtures';
+import type { MatchResult } from '@hooks/use-results';
 import { useResults } from '@hooks/use-results';
 import { Heading, Table } from '@radix-ui/themes';
 
@@ -14,15 +16,120 @@ export interface MatchTableProps {
     type?: 'fixtures' | 'results';
 }
 
+const FIXTURE_COLUMNS = [
+    'Date',
+    'Time',
+    'Home',
+    'Away',
+    'Venue',
+    'City',
+] as const;
+const RESULT_COLUMNS = [
+    'Date',
+    'Time',
+    'Home',
+    'Away',
+    'Result',
+    'Venue',
+    'City',
+] as const;
+
+const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
+    <Table.Row className={fixture.isHomeGame ? css.uvoRow : undefined}>
+        <Table.Cell>{fixture.date}</Table.Cell>
+        <Table.Cell>{fixture.time}</Table.Cell>
+        <Table.Cell className={fixture.isHomeGame ? css.uvoTeam : undefined}>
+            {fixture.home}
+        </Table.Cell>
+        <Table.Cell className={!fixture.isHomeGame ? css.uvoTeam : undefined}>
+            {fixture.away}
+        </Table.Cell>
+        <Table.Cell>{fixture.venue}</Table.Cell>
+        <Table.Cell>{fixture.city}</Table.Cell>
+    </Table.Row>
+);
+
+const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
+    <Table.Row className={result.isHomeGame ? css.uvoRow : undefined}>
+        <Table.Cell>{result.date}</Table.Cell>
+        <Table.Cell>{result.time}</Table.Cell>
+        <Table.Cell className={result.isHomeGame ? css.uvoTeam : undefined}>
+            {result.home}
+        </Table.Cell>
+        <Table.Cell className={!result.isHomeGame ? css.uvoTeam : undefined}>
+            {result.away}
+        </Table.Cell>
+        <Table.Cell>{result.result}</Table.Cell>
+        {/*<Table.Cell>{result.setScores}</Table.Cell>*/}
+        <Table.Cell>{result.venue}</Table.Cell>
+        <Table.Cell>{result.city}</Table.Cell>
+    </Table.Row>
+);
+
+const FixtureCard: FC<{ fixture: Fixture }> = ({ fixture }) => (
+    <div className={`${css.card} ${fixture.isHomeGame ? css.uvoCard : ''}`}>
+        <div className={css.cardHeader}>
+            <span className={css.cardDate}>{fixture.date}</span>
+            <span className={css.cardTime}>{fixture.time}</span>
+        </div>
+        <div className={css.cardMatchup}>
+            <span className={fixture.isHomeGame ? css.uvoTeam : undefined}>
+                {fixture.home}
+            </span>
+            <span className={css.vs}>vs</span>
+            <span className={!fixture.isHomeGame ? css.uvoTeam : undefined}>
+                {fixture.away}
+            </span>
+        </div>
+        {(fixture.venue || fixture.city) && (
+            <div className={css.cardVenue}>
+                {fixture.venue}
+                {fixture.venue && fixture.city ? ' - ' : ''}
+                {fixture.city}
+            </div>
+        )}
+    </div>
+);
+
+const ResultCard: FC<{ result: MatchResult }> = ({ result }) => (
+    <div className={`${css.card} ${result.isHomeGame ? css.uvoCard : ''}`}>
+        <div className={css.cardHeader}>
+            <span className={css.cardDate}>{result.date}</span>
+            <span className={css.cardTime}>{result.time}</span>
+        </div>
+        <div className={css.cardMatchup}>
+            <span className={result.isHomeGame ? css.uvoTeam : undefined}>
+                {result.home}
+            </span>
+            <span className={css.vs}>{result.result || 'vs'}</span>
+            <span className={!result.isHomeGame ? css.uvoTeam : undefined}>
+                {result.away}
+            </span>
+        </div>
+        {result.setScores && (
+            <div className={css.cardSets}>{result.setScores}</div>
+        )}
+        {(result.venue || result.city) && (
+            <div className={css.cardVenue}>
+                {result.venue}
+                {result.venue && result.city ? ' - ' : ''}
+                {result.city}
+            </div>
+        )}
+    </div>
+);
+
 export const MatchTable: FC<MatchTableProps> = ({ type = 'fixtures' }) => {
     const fixtures = useFixtures();
     const results = useResults();
 
-    const { data, loading, error } = type === 'fixtures' ? fixtures : results;
+    const isFixtures = type === 'fixtures';
+    const { data, loading, error } = isFixtures ? fixtures : results;
+    const columns = isFixtures ? FIXTURE_COLUMNS : RESULT_COLUMNS;
     const [showAll, setShowAll] = useState(false);
 
     const maxResults = 15;
-    const displayedFixtures = showAll ? data : data.slice(0, maxResults);
+    const displayedData = showAll ? data : data.slice(0, maxResults);
 
     if (loading) return <TableSkeleton />;
 
@@ -41,106 +148,58 @@ export const MatchTable: FC<MatchTableProps> = ({ type = 'fixtures' }) => {
     return (
         <div className={css.tableContainer}>
             <Heading as="h2" className={css.tableTitle}>
-                {type === 'fixtures' ? 'Upcoming Matches' : 'Recent Results'}
+                {isFixtures ? 'Upcoming Matches' : 'Recent Results'}
             </Heading>
             <div className={css.tableWrap}>
                 <Table.Root className={css.table}>
                     <Table.Header>
                         <Table.Row>
-                            <Table.ColumnHeaderCell>
-                                Date
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>
-                                Time
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell className={css.teamCol}>
-                                Home
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell className={css.teamCol}>
-                                Away
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>
-                                Venue
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>
-                                City
-                            </Table.ColumnHeaderCell>
+                            {columns.map(col => (
+                                <Table.ColumnHeaderCell
+                                    key={col}
+                                    className={
+                                        col === 'Home' || col === 'Away'
+                                            ? css.teamCol
+                                            : undefined
+                                    }
+                                >
+                                    {col}
+                                </Table.ColumnHeaderCell>
+                            ))}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {displayedFixtures.map((fixture, i) => (
-                            <Table.Row
-                                key={`fixture-${i.toString()}`}
-                                className={
-                                    fixture.isHomeGame ? css.uvoRow : undefined
-                                }
-                            >
-                                <Table.Cell>{fixture.date}</Table.Cell>
-                                <Table.Cell>{fixture.time}</Table.Cell>
-                                <Table.Cell
-                                    className={
-                                        fixture.isHomeGame
-                                            ? css.uvoTeam
-                                            : undefined
-                                    }
-                                >
-                                    {fixture.home}
-                                </Table.Cell>
-                                <Table.Cell
-                                    className={
-                                        !fixture.isHomeGame
-                                            ? css.uvoTeam
-                                            : undefined
-                                    }
-                                >
-                                    {fixture.away}
-                                </Table.Cell>
-                                <Table.Cell>{fixture.venue}</Table.Cell>
-                                <Table.Cell>{fixture.city}</Table.Cell>
-                            </Table.Row>
-                        ))}
+                        {displayedData.map((item, i) =>
+                            isFixtures ? (
+                                <FixtureRow
+                                    key={`fixture-${i.toString()}`}
+                                    fixture={item as Fixture}
+                                />
+                            ) : (
+                                <ResultRow
+                                    key={`result-${i.toString()}`}
+                                    result={item as MatchResult}
+                                />
+                            ),
+                        )}
                     </Table.Body>
                 </Table.Root>
             </div>
 
             <div className={css.cardList}>
-                {displayedFixtures.map((fixture, i) => (
-                    <div
-                        key={`card-${i.toString()}`}
-                        className={`${css.card} ${fixture.isHomeGame ? css.uvoCard : ''}`}
-                    >
-                        <div className={css.cardHeader}>
-                            <span className={css.cardDate}>{fixture.date}</span>
-                            <span className={css.cardTime}>{fixture.time}</span>
-                        </div>
-                        <div className={css.cardMatchup}>
-                            <span
-                                className={
-                                    fixture.isHomeGame ? css.uvoTeam : undefined
-                                }
-                            >
-                                {fixture.home}
-                            </span>
-                            <span className={css.vs}>vs</span>
-                            <span
-                                className={
-                                    !fixture.isHomeGame
-                                        ? css.uvoTeam
-                                        : undefined
-                                }
-                            >
-                                {fixture.away}
-                            </span>
-                        </div>
-                        {(fixture.venue || fixture.city) && (
-                            <div className={css.cardVenue}>
-                                {fixture.venue}
-                                {fixture.venue && fixture.city ? ' - ' : ''}
-                                {fixture.city}
-                            </div>
-                        )}
-                    </div>
-                ))}
+                {displayedData.map((item, i) =>
+                    isFixtures ? (
+                        <FixtureCard
+                            key={`card-${i.toString()}`}
+                            fixture={item as Fixture}
+                        />
+                    ) : (
+                        <ResultCard
+                            key={`card-${i.toString()}`}
+                            result={item as MatchResult}
+                        />
+                    ),
+                )}
             </div>
 
             <ShowMoreButton
