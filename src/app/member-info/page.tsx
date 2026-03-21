@@ -1,12 +1,6 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
-import {
-    Accordion,
-    AccordionContent,
-    AccordionHeader,
-    AccordionItem,
-    AccordionTrigger,
-} from '@radix-ui/react-accordion';
+import * as Accordion from '@radix-ui/react-accordion';
 import { Heading, Text } from '@radix-ui/themes';
 import {
     IconChevronDown,
@@ -20,69 +14,10 @@ import NextLink from 'next/link';
 import css from './page.module.scss';
 
 export const metadata: Metadata = {
-    title: 'Member Info - UvO Amsterdam',
+    title: 'Member Info — UvO Amsterdam',
     description:
         'Information and resources for UvO Amsterdam members including DWF guidelines, confidential persons, and important documents.',
 };
-
-const accordionData = [
-    {
-        value: 'captain',
-        title: 'Match Duties as Captain',
-        steps: [
-            <span key="link">
-                Go to{' '}
-                <NextLink
-                    href="https://dwf.volleybal.nl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    dwf.volleybal.nl
-                </NextLink>{' '}
-                or use Nevobo’s "Mijn Competitie" app.
-            </span>,
-            'Log in with your Nevobo account (linked to your player code). If you need your code, ask the board or during the DWF course.',
-            'Select your game and click "standaardteam ophalen" to import your team. Use "spelers beheren" to remove absent players or add substitutes by searching their name or code. Best done in advance!',
-            'Verify the captain, libero, and that shirt numbers are correct. Edit via double-clicking in "spelers beheren".',
-            'Immediately after the game, verify results and players with the referee and opposing captain. Check the box at the bottom to OK it. Mistakes? Notify the wedstrijdsecretariaat immediately!',
-        ],
-    },
-    {
-        value: 'referee',
-        title: 'Match Duties as Referee',
-        steps: [
-            'Select the game on the DWF platform. Under "Officials van deze wedstrijd", add yourself as "1e scheidsrechter". Be sure to tick "Niet alle officials voor deze wedstrijd zijn aanwezig" to allow the game to start.',
-            'Verify all players, coaches, and the captain with the team captain. Check IDs for all players. Tick "ID Akkoord" and ensure shirt numbers match the form.',
-            'Once confident, click "Resultaat invoeren" to start. Do NOT use "Live bijhouden". You cannot alter information later, so be thorough.',
-            'During the match, the home team keeps the scoreboard. You note the formation, shirt numbers of all players who play, and set scores. Immediately after the game, enter the set scores and indicate who played.',
-            'Verify all data with both captains, then check your OK box. Click "verzenden" to submit immediately to avoid auto-logout timeouts. Check our DWF Demo to practice!',
-        ],
-    },
-];
-
-const documentsData = [
-    {
-        href: '/articles-of-association',
-        icon: IconFileText,
-        title: 'Articles of Association',
-        description:
-            'Read the foundational rules and statutes of our association.',
-    },
-    {
-        href: 'https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link',
-        icon: IconReceipt2,
-        title: 'Declaration Form',
-        description:
-            'Reimbursement form for expenses made on behalf of a committee.',
-        external: true,
-    },
-    {
-        href: '/member-info',
-        icon: IconShieldCheck,
-        title: 'House Rules (HR)',
-        description: 'Our Huishoudelijk Reglement covering club guidelines.',
-    },
-];
 
 const MemberInfoPage: FC = () => {
     return (
@@ -100,68 +35,276 @@ const MemberInfoPage: FC = () => {
                     </Heading>
                 </div>
                 <div className={css.infoContent}>
-                    <Accordion type="multiple" className={css.accordionRoot}>
-                        {accordionData.map(item => (
-                            <AccordionItem
-                                key={item.value}
-                                value={item.value}
-                                className={css.accordionItem}
-                            >
-                                <AccordionHeader
-                                    className={css.accordionHeader}
+                    <Accordion.Root
+                        type="multiple"
+                        className={css.accordionRoot}
+                    >
+                        <Accordion.Item
+                            value="captain"
+                            className={css.accordionItem}
+                        >
+                            <Accordion.Header className={css.accordionHeader}>
+                                <Accordion.Trigger
+                                    className={css.accordionTrigger}
                                 >
-                                    <AccordionTrigger
-                                        className={css.accordionTrigger}
+                                    <Heading
+                                        as="h3"
+                                        size="5"
+                                        className={css.accordionTriggerText}
                                     >
-                                        <Heading
-                                            as="h3"
-                                            size="5"
-                                            className={css.accordionTriggerText}
-                                        >
-                                            {item.title}
-                                        </Heading>
-                                        <IconChevronDown
-                                            size={24}
-                                            className={css.accordionChevron}
-                                            aria-hidden
-                                        />
-                                    </AccordionTrigger>
-                                </AccordionHeader>
-                                <AccordionContent
-                                    className={css.accordionContent}
-                                >
-                                    <div className={css.stepList}>
-                                        {item.steps.map((step, index) => (
-                                            <div
-                                                key={`${item.value}-step}`}
-                                                className={css.step}
+                                        Match Duties as Captain
+                                    </Heading>
+                                    <IconChevronDown
+                                        size={24}
+                                        className={css.accordionChevron}
+                                        aria-hidden
+                                    />
+                                </Accordion.Trigger>
+                            </Accordion.Header>
+                            <Accordion.Content className={css.accordionContent}>
+                                <div className={css.stepList}>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            01
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
                                             >
-                                                <span
-                                                    className={css.stepNumber}
+                                                Go to{' '}
+                                                <a
+                                                    href="https://dwf.volleybal.nl"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                 >
-                                                    {String(index + 1).padStart(
-                                                        2,
-                                                        '0',
-                                                    )}
-                                                </span>
-                                                <div className={css.stepText}>
-                                                    <Text
-                                                        as="p"
-                                                        size="3"
-                                                        weight="medium"
-                                                    >
-                                                        {step}
-                                                    </Text>
-                                                </div>
-                                            </div>
-                                        ))}
+                                                    dwf.volleybal.nl
+                                                </a>{' '}
+                                                or use Nevobo&apos;s &quot;Mijn
+                                                Competitie&quot; app.
+                                            </Text>
+                                        </div>
                                     </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
-                    </Accordion>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            02
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Log in with your Nevobo account
+                                                (linked to your player code). If
+                                                you need your code, ask the
+                                                board or during the DWF course.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            03
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Select your game and click
+                                                &quot;standaardteam
+                                                ophalen&quot; to import your
+                                                team. Use &quot;spelers
+                                                beheren&quot; to remove absent
+                                                players or add substitutes by
+                                                searching their name or code.
+                                                Best done in advance!
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            04
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Verify the captain, libero, and
+                                                that shirt numbers are correct.
+                                                Edit via double-clicking in
+                                                &quot;spelers beheren&quot;.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            05
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Immediately after the game,
+                                                verify results and players with
+                                                the referee and opposing
+                                                captain. Check the box at the
+                                                bottom to OK it. Mistakes?
+                                                Notify the wedstrijdsecretariaat
+                                                immediately!
+                                            </Text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Accordion.Content>
+                        </Accordion.Item>
+
+                        <Accordion.Item
+                            value="referee"
+                            className={css.accordionItem}
+                        >
+                            <Accordion.Header className={css.accordionHeader}>
+                                <Accordion.Trigger
+                                    className={css.accordionTrigger}
+                                >
+                                    <Heading
+                                        as="h3"
+                                        size="5"
+                                        className={css.accordionTriggerText}
+                                    >
+                                        Match Duties as Referee
+                                    </Heading>
+                                    <IconChevronDown
+                                        size={24}
+                                        className={css.accordionChevron}
+                                        aria-hidden
+                                    />
+                                </Accordion.Trigger>
+                            </Accordion.Header>
+                            <Accordion.Content className={css.accordionContent}>
+                                <div className={css.stepList}>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            01
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Select the game on the DWF
+                                                platform. Under &quot;Officials
+                                                van deze wedstrijd&quot;, add
+                                                yourself as &quot;1e
+                                                scheidsrechter&quot;. Be sure to
+                                                tick &quot;Niet alle officials
+                                                voor deze wedstrijd zijn
+                                                aanwezig&quot; to allow the game
+                                                to start.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            02
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Verify all players, coaches, and
+                                                the captain with the team
+                                                captain. Check IDs for all
+                                                players. Tick &quot;ID
+                                                Akkoord&quot; and ensure shirt
+                                                numbers match the form.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            03
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Once confident, click
+                                                &quot;Resultaat invoeren&quot;
+                                                to start.{' '}
+                                                <strong>
+                                                    Do NOT use &quot;Live
+                                                    bijhouden&quot;.
+                                                </strong>{' '}
+                                                You cannot alter information
+                                                later, so be thorough.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            04
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                During the match, the home team
+                                                keeps the scoreboard. You note
+                                                the formation, shirt numbers of
+                                                all players who play, and set
+                                                scores. Immediately after the
+                                                game, enter the set scores and
+                                                indicate who played.
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className={css.step}>
+                                        <span className={css.stepNumber}>
+                                            05
+                                        </span>
+                                        <div className={css.stepText}>
+                                            <Text
+                                                as="p"
+                                                size="3"
+                                                weight="medium"
+                                            >
+                                                Verify all data with both
+                                                captains, then check your OK
+                                                box. Click &quot;verzenden&quot;
+                                                to submit immediately to avoid
+                                                auto-logout timeouts. Check our{' '}
+                                                <a
+                                                    href="https://dwf-demo.volleybal.nl"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    DWF Demo
+                                                </a>{' '}
+                                                to practice!
+                                            </Text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion.Root>
                 </div>
             </section>
+
             <section className={`${css.infoSection} ${css.altBackground}`}>
                 <div className={css.infoHeading}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -216,6 +359,7 @@ const MemberInfoPage: FC = () => {
                     </div>
                 </div>
             </section>
+
             <section className={`${css.documentsSection}`}>
                 <div className={css.headerCenter}>
                     <Heading as="h2" className={css.sectionTitle}>
@@ -223,55 +367,58 @@ const MemberInfoPage: FC = () => {
                     </Heading>
                 </div>
                 <div className={css.docGrid}>
-                    {documentsData.map(doc =>
-                        doc.external ? (
-                            <a
-                                key={doc.title}
-                                href={doc.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={css.docCard}
-                            >
-                                <doc.icon
-                                    stroke={2.5}
-                                    size={44}
-                                    className={css.docIcon}
-                                />
-                                <Heading
-                                    as="h3"
-                                    size="4"
-                                    className={css.docTitle}
-                                >
-                                    {doc.title}
-                                </Heading>
-                                <Text size="2" className={css.docDesc}>
-                                    {doc.description}
-                                </Text>
-                            </a>
-                        ) : (
-                            <NextLink
-                                key={doc.title}
-                                href={doc.href}
-                                className={css.docCard}
-                            >
-                                <doc.icon
-                                    stroke={2.5}
-                                    size={44}
-                                    className={css.docIcon}
-                                />
-                                <Heading
-                                    as="h3"
-                                    size="4"
-                                    className={css.docTitle}
-                                >
-                                    {doc.title}
-                                </Heading>
-                                <Text size="2" className={css.docDesc}>
-                                    {doc.description}
-                                </Text>
-                            </NextLink>
-                        ),
-                    )}
+                    <NextLink
+                        href="/articles-of-association"
+                        className={css.docCard}
+                    >
+                        <IconFileText
+                            stroke={2.5}
+                            size={44}
+                            className={css.docIcon}
+                        />
+                        <Heading as="h3" size="4" className={css.docTitle}>
+                            Articles of Association
+                        </Heading>
+                        <Text size="2" className={css.docDesc}>
+                            Read the foundational rules and statutes of our
+                            association.
+                        </Text>
+                    </NextLink>
+
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScDU7Rovd8xiiHdCBmLbwREpqx8S-HQpyQxTiKQjydlHBfQqA/viewform?usp=sf_link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css.docCard}
+                    >
+                        <IconReceipt2
+                            stroke={2.5}
+                            size={44}
+                            className={css.docIcon}
+                        />
+                        <Heading as="h3" size="4" className={css.docTitle}>
+                            Declaration Form
+                        </Heading>
+                        <Text size="2" className={css.docDesc}>
+                            Reimbursement form for expenses made on behalf of a
+                            committee.
+                        </Text>
+                    </a>
+
+                    <NextLink href="/member-info" className={css.docCard}>
+                        <IconShieldCheck
+                            stroke={2.5}
+                            size={44}
+                            className={css.docIcon}
+                        />
+                        <Heading as="h3" size="4" className={css.docTitle}>
+                            House Rules (HR)
+                        </Heading>
+                        <Text size="2" className={css.docDesc}>
+                            Our Huishoudelijk Reglement covering club
+                            guidelines.
+                        </Text>
+                    </NextLink>
                 </div>
             </section>
         </div>
