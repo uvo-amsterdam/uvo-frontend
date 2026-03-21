@@ -1,17 +1,24 @@
-import { formatDateStr } from '@utils/date-utils';
+import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
+import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './use-api-fetch';
 
 export interface MatchResult {
     date: string;
+    time: string;
     home: string;
     away: string;
-    score: string;
+    result: string;
+    setScores: string;
+    region: string;
+    poule: string;
+    code: string;
+    roomCode: string;
     venue: string;
     city: string;
     uvoWin: boolean;
-    uvoLoss: boolean;
-    isUvo: boolean;
+    isHomeGame: boolean;
     timestamp: number;
+    matchStatus: string;
 }
 
 function determineWin(
@@ -19,6 +26,9 @@ function determineWin(
     away: string,
     score: string,
 ): { uvoWin: boolean; uvoLoss: boolean } {
+    if (!score) {
+        return { uvoWin: false, uvoLoss: false };
+    }
     const isHomeUvo = home.toLowerCase().includes('uvo');
     const isAwayUvo = away.toLowerCase().includes('uvo');
 
@@ -44,37 +54,31 @@ function determineWin(
     return { uvoWin: awayScore > homeScore, uvoLoss: awayScore < homeScore };
 }
 
-function parseResults(rows: unknown[][]): MatchResult[] {
-    return rows
-        .filter(row => row.length > 0 && row[0] != null)
-        .map(row => {
-            const dateVal = row[0] as string | Date | number;
-            const home = String(row[2] ?? '');
-            const away = String(row[3] ?? '');
-            const score = String(row[4] ?? '');
-            const venue = String(row[10] ?? '');
-            const city = String(row[11] ?? '');
-            const { uvoWin, uvoLoss } = determineWin(home, away, score);
-
-            return {
-                date: formatDateStr(dateVal),
-                home,
-                away,
-                score,
-                venue,
-                city,
-                uvoWin,
-                uvoLoss,
-                isUvo:
-                    home.toLowerCase().includes('uvo') ||
-                    away.toLowerCase().includes('uvo'),
-                timestamp: new Date(dateVal).getTime() || 0,
-            };
-        });
+function parseResults(rows: NevoboMatchResult[]): MatchResult[] {
+    return rows.map(row => {
+        return {
+            date: formatDateStr(row.date),
+            time: row.time ? formatTimeStr(row.time) : 'TBD',
+            home: row.homeTeam,
+            away: row.awayTeam,
+            result: row.result,
+            setScores: row.setScores,
+            region: row.region,
+            poule: row.poule,
+            code: row.code,
+            roomCode: row.roomCode,
+            matchStatus: row.matchStatus,
+            timestamp: new Date(row.date).getTime() || 0,
+            ...determineWin(row.homeTeam, row.awayTeam, row.result),
+            venue: row.location,
+            city: row.city,
+            isHomeGame: row.homeTeam.toLowerCase().includes('uvo'),
+        };
+    });
 }
 
 export function useResults() {
-    return useApiFetch<unknown[][], MatchResult[]>(
+    return useApiFetch<NevoboMatchResult[], MatchResult[]>(
         '/api/results',
         parseResults,
         [],

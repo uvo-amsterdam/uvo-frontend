@@ -67,7 +67,7 @@ export const ResultsTable: FC<{
                                 className={
                                     r.uvoWin
                                         ? css.winRow
-                                        : r.isUvo
+                                        : r.isHomeGame
                                           ? css.uvoRow
                                           : undefined
                                 }
@@ -91,7 +91,7 @@ export const ResultsTable: FC<{
                                 >
                                     {r.home}
                                 </td>
-                                <td className={css.scoreCell}>{r.score}</td>
+                                <td className={css.scoreCell}>{r.result}</td>
                                 <td
                                     className={
                                         r.away.toLowerCase().includes('uvo')
@@ -113,7 +113,7 @@ export const ResultsTable: FC<{
                 {displayedResults.map((r, i) => (
                     <div
                         key={`card-${i.toString()}`}
-                        className={`${css.card} ${r.uvoWin ? css.winCard : r.isUvo ? css.uvoCard : ''}`}
+                        className={`${css.card} ${r.uvoWin ? css.winCard : r.isHomeGame ? css.uvoCard : ''}`}
                     >
                         <div className={css.cardHeader}>
                             <span className={css.cardDate}>
@@ -137,7 +137,7 @@ export const ResultsTable: FC<{
                             >
                                 {r.home}
                             </span>
-                            <span className={css.cardScore}>{r.score}</span>
+                            <span className={css.cardScore}>{r.result}</span>
                             <span
                                 className={
                                     r.away.toLowerCase().includes('uvo')

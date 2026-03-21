@@ -1,5 +1,5 @@
 import { NEVOBO_BASE_URL, NEVOBO_CLUB_ID } from '@constants/api';
-import { parseNevoboExcel } from '@utils/nevobo-utils';
+import { parseNevoboExcel } from '@utils/parse-nevobo-excel';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -16,7 +16,7 @@ export async function GET() {
             );
         }
 
-        const results = await parseNevoboExcel(response);
+        const results = await parseNevoboExcel(response, 'results');
 
         return NextResponse.json(results);
     } catch (e) {
