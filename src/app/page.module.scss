@@ -1,5 +1,99 @@
+@use '@styles/tokens';
+
 .root {
   display: flex;
   flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: tokens.$off-white;
+  padding: 2rem;
+}
+
+.content {
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.iconWrapper {
+  position: relative;
+  margin-bottom: 1rem;
+
+  .ballIcon {
+    color: tokens.$primary-color;
+    animation: bounce 2s infinite ease-in-out;
+  }
+}
+
+.errorCode {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: tokens.$primary-color;
+  letter-spacing: 0.5rem;
+  opacity: 0.5;
+  margin-bottom: -1rem;
+}
+
+.title {
+  @include tokens.section-heading;
+
+  color: tokens.$gray-800;
+  margin: 0;
+}
+
+.description {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.linkGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   width: 100%;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.navCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  background: tokens.$white-color;
+  border-radius: 12px;
+  text-decoration: none;
+  color: tokens.$primary-color;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: tokens.$primary-color;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: tokens.$gray-800;
+  }
+}
+
+.simpleLink {
+  display: flex;
+  margin-top: 2rem;
+  color: tokens.$gray-600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  justify-content: center;
+
+  &:hover {
+    color: tokens.$primary-color;
+    text-decoration: underline;
+  }
 }
