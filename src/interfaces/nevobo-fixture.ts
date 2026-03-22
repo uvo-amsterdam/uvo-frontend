@@ -1,5 +1,5 @@
 export interface NevoboFixture {
-    date: Date | null;
+    date: string | null;
     time: string;
     homeTeam: string;
     awayTeam: string;

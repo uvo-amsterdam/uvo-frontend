@@ -7,7 +7,7 @@ const logger = pino();
 
 const NEVOBO_FIXTURE_SCHEMA: Schema<NevoboFixture> = {
     date: { column: 'Datum', type: Date },
-    time: { column: 'Tijd', type: String },
+    time: { column: 'Tijd', type: Date },
     homeTeam: { column: 'Team thuis', type: String },
     awayTeam: { column: 'Team uit', type: String },
     location: { column: 'Locatie', type: String },
@@ -19,7 +19,7 @@ const NEVOBO_FIXTURE_SCHEMA: Schema<NevoboFixture> = {
 
 const NEVOBO_RESULTS_SCHEMA: Schema<NevoboMatchResult> = {
     date: { column: 'Datum', type: Date },
-    time: { column: 'Tijd', type: String },
+    time: { column: 'Tijd', type: Date },
     homeTeam: { column: 'Team thuis', type: String },
     awayTeam: { column: 'Team uit', type: String },
     result: { column: 'Uitslag', type: String },
