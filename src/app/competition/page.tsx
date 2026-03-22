@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { MatchTable } from '@components/match-table/match-table';
-import { ResultsTable } from '@components/results-table/results-table';
 import { Box, Tabs } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 import type { Metadata } from 'next';
@@ -37,7 +36,6 @@ const CompetitionPage: FC = () => {
                     </Tabs.Content>
                     <Tabs.Content value="results">
                         <MatchTable type={'results'} />
-                        <ResultsTable />
                     </Tabs.Content>
                 </Box>
             </Tabs.Root>

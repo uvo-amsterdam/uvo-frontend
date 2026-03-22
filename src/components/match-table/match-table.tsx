@@ -9,6 +9,7 @@ import { useFixtures } from '@hooks/use-fixtures';
 import type { MatchResult } from '@hooks/use-results';
 import { useResults } from '@hooks/use-results';
 import { Heading, Table } from '@radix-ui/themes';
+import { IconTrophy } from '@tabler/icons-react';
 
 import css from './match-table.module.scss';
 
@@ -25,11 +26,12 @@ const FIXTURE_COLUMNS = [
     'City',
 ] as const;
 const RESULT_COLUMNS = [
+    '',
     'Date',
     'Time',
     'Home',
-    'Away',
     'Result',
+    'Away',
     'Venue',
     'City',
 ] as const;
@@ -51,15 +53,25 @@ const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
 
 const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
     <Table.Row className={result.isHomeGame ? css.uvoRow : undefined}>
+        <Table.Cell>
+            {result.uvoWin && (
+                <IconTrophy size={20} stroke={1.8} className={css.trophyIcon} />
+            )}
+        </Table.Cell>
         <Table.Cell>{result.date}</Table.Cell>
         <Table.Cell>{result.time}</Table.Cell>
         <Table.Cell className={result.isHomeGame ? css.uvoTeam : undefined}>
             {result.home}
         </Table.Cell>
+        <Table.Cell
+            className={`${css.scoreCell} ${result.uvoWin ? css.scoreWin : ''}`}
+        >
+            {result.result}
+        </Table.Cell>
         <Table.Cell className={!result.isHomeGame ? css.uvoTeam : undefined}>
             {result.away}
         </Table.Cell>
-        <Table.Cell>{result.result}</Table.Cell>
+        {/*//TODO Handle set scores*/}
         {/*<Table.Cell>{result.setScores}</Table.Cell>*/}
         <Table.Cell>{result.venue}</Table.Cell>
         <Table.Cell>{result.city}</Table.Cell>
