@@ -35,6 +35,14 @@ const NEVOBO_RESULTS_SCHEMA: Schema<NevoboMatchResult> = {
 
 export async function parseNevoboExcel(
     response: Response,
+    type: 'fixtures',
+): Promise<NevoboFixture[]>;
+export async function parseNevoboExcel(
+    response: Response,
+    type: 'results',
+): Promise<NevoboMatchResult[]>;
+export async function parseNevoboExcel(
+    response: Response,
     type: 'fixtures' | 'results',
 ): Promise<NevoboFixture[] | NevoboMatchResult[]> {
     try {

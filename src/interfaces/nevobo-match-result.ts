@@ -1,6 +1,6 @@
 export interface NevoboMatchResult {
     date: Date;
-    time: string;
+    time: Date;
     homeTeam: string;
     awayTeam: string;
     result: string;
