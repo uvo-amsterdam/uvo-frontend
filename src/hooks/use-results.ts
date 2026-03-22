@@ -25,14 +25,14 @@ function determineWin(
     home: string,
     away: string,
     score: string,
-): { uvoWin: boolean; uvoLoss: boolean } {
+): { uvoWin: boolean } {
     if (!score) {
-        return { uvoWin: false, uvoLoss: false };
+        return { uvoWin: false };
     }
     const isHomeUvo = home.toLowerCase().includes('uvo');
     const isAwayUvo = away.toLowerCase().includes('uvo');
 
-    if (!isHomeUvo && !isAwayUvo) return { uvoWin: false, uvoLoss: false };
+    if (!isHomeUvo && !isAwayUvo) return { uvoWin: false };
 
     const parts = score.split('-').map(s => Number.parseInt(s.trim(), 10));
     if (
@@ -40,7 +40,7 @@ function determineWin(
         Number.isNaN(parts[0]) ||
         Number.isNaN(parts[1])
     ) {
-        return { uvoWin: false, uvoLoss: false };
+        return { uvoWin: false };
     }
 
     const [homeScore, awayScore] = parts;
@@ -48,13 +48,12 @@ function determineWin(
     if (isHomeUvo) {
         return {
             uvoWin: homeScore > awayScore,
-            uvoLoss: homeScore < awayScore,
         };
     }
-    return { uvoWin: awayScore > homeScore, uvoLoss: awayScore < homeScore };
+    return { uvoWin: awayScore > homeScore };
 }
 
-function parseResults(rows: NevoboMatchResult[]): MatchResult[] {
+export function parseResults(rows: NevoboMatchResult[]): MatchResult[] {
     return rows.map(row => {
         return {
             date: formatDateStr(row.date),
