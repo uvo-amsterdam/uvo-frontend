@@ -1,9 +1,7 @@
-import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { Heading, Text } from '@radix-ui/themes';
 import { IconMail } from '@tabler/icons-react';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 
 import css from './page.module.scss';
 
