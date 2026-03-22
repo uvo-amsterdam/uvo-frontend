@@ -4,10 +4,9 @@ import { type FC, useState } from 'react';
 import { ShowMoreButton } from '@components/ui-states/show-more-button';
 import { TableEmptyState } from '@components/ui-states/table-empty-state';
 import { TableSkeleton } from '@components/ui-states/table-skeleton';
-import type { Fixture } from '@hooks/use-fixtures';
-import { useFixtures } from '@hooks/use-fixtures';
-import type { MatchResult } from '@hooks/use-results';
-import { useResults } from '@hooks/use-results';
+import { useMatchData } from '@hooks/use-match-data';
+import type { Fixture } from '@interfaces/fixture';
+import type { MatchResult } from '@interfaces/match-result';
 import { Heading, Table } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 
@@ -132,11 +131,8 @@ const ResultCard: FC<{ result: MatchResult }> = ({ result }) => (
 );
 
 export const MatchTable: FC<MatchTableProps> = ({ type = 'fixtures' }) => {
-    const fixtures = useFixtures();
-    const results = useResults();
-
     const isFixtures = type === 'fixtures';
-    const { data, loading, error } = isFixtures ? fixtures : results;
+    const { data, loading, error } = useMatchData(type);
     const columns = isFixtures ? FIXTURE_COLUMNS : RESULT_COLUMNS;
     const [showAll, setShowAll] = useState(false);
 

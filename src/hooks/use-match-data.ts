@@ -1,24 +1,80 @@
+import type { Fixture } from '@interfaces/fixture';
+import type { MatchResult } from '@interfaces/match-result';
+import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './use-api-fetch';
 
-export interface MatchResult {
-    date: string;
-    time: string;
-    home: string;
-    away: string;
-    result: string;
-    setScores: string;
-    region: string;
-    poule: string;
-    code: string;
-    roomCode: string;
-    venue: string;
-    city: string;
-    uvoWin: boolean;
-    isHomeGame: boolean;
-    timestamp: number;
-    matchStatus: string;
+type MatchType = 'fixtures' | 'results';
+
+interface UseMatchDataReturn<R> {
+    data: R;
+    loading: boolean;
+    error: boolean;
+}
+
+export function useMatchData(type: 'fixtures'): UseMatchDataReturn<Fixture[]>;
+export function useMatchData(
+    type: 'results',
+): UseMatchDataReturn<MatchResult[]>;
+export function useMatchData(
+    type: MatchType,
+): UseMatchDataReturn<Fixture[] | MatchResult[]>;
+export function useMatchData(
+    type: MatchType,
+): UseMatchDataReturn<Fixture[] | MatchResult[]> {
+    const url = type === 'fixtures' ? '/api/fixtures' : '/api/results';
+    const parser = type === 'fixtures' ? parseFixtures : parseResults;
+
+    const { data, loading, error } = useApiFetch<
+        NevoboFixture[] | NevoboMatchResult[],
+        Fixture[] | MatchResult[]
+    >(
+        url,
+        parser as (
+            raw: NevoboFixture[] | NevoboMatchResult[],
+        ) => Fixture[] | MatchResult[],
+        [],
+    );
+
+    return { data, loading, error: !!error };
+}
+
+function parseResults(rows: NevoboMatchResult[]): MatchResult[] {
+    return rows.map(row => {
+        return {
+            date: formatDateStr(row.date),
+            time: row.time ? formatTimeStr(row.time) : 'TBD',
+            home: row.homeTeam,
+            away: row.awayTeam,
+            result: row.result,
+            setScores: row.setScores,
+            region: row.region,
+            poule: row.poule,
+            code: row.code,
+            roomCode: row.roomCode,
+            matchStatus: row.matchStatus,
+            timestamp: new Date(row.date).getTime() || 0,
+            ...determineWin(row.homeTeam, row.awayTeam, row.result),
+            venue: row.location,
+            city: row.city,
+            isHomeGame: row.homeTeam.toLowerCase().includes('uvo'),
+        };
+    });
+}
+
+function parseFixtures(rows: NevoboFixture[]): Fixture[] {
+    return rows.map(row => {
+        return {
+            date: formatDateStr(row.date),
+            time: row.time ? formatTimeStr(row.time) : 'TBD',
+            home: row.homeTeam,
+            away: row.awayTeam,
+            venue: row.location,
+            city: row.city,
+            isHomeGame: row.homeTeam.toLowerCase().includes('uvo'),
+        };
+    });
 }
 
 function determineWin(
@@ -53,39 +109,8 @@ function determineWin(
     return { uvoWin: awayScore > homeScore };
 }
 
-export function parseResults(rows: NevoboMatchResult[]): MatchResult[] {
-    return rows.map(row => {
-        return {
-            date: formatDateStr(row.date),
-            time: row.time ? formatTimeStr(row.time) : 'TBD',
-            home: row.homeTeam,
-            away: row.awayTeam,
-            result: row.result,
-            setScores: row.setScores,
-            region: row.region,
-            poule: row.poule,
-            code: row.code,
-            roomCode: row.roomCode,
-            matchStatus: row.matchStatus,
-            timestamp: new Date(row.date).getTime() || 0,
-            ...determineWin(row.homeTeam, row.awayTeam, row.result),
-            venue: row.location,
-            city: row.city,
-            isHomeGame: row.homeTeam.toLowerCase().includes('uvo'),
-        };
-    });
-}
-
-export function useResults() {
-    return useApiFetch<NevoboMatchResult[], MatchResult[]>(
-        '/api/results',
-        parseResults,
-        [],
-    );
-}
-
 export function useFilteredResults(teamFilter?: string) {
-    const { data: rawResults, loading, error } = useResults();
+    const { data: rawResults, loading, error } = useMatchData('results');
 
     const filteredResults: MatchResult[] = [];
 
