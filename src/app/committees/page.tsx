@@ -97,7 +97,7 @@ const SUPPORTING_COMMITTEES = [
     },
 ];
 
-export default function MemberInfo() {
+export default function Committees() {
     return (
         <div className={css.root}>
             <Hero title={'Committees'} />

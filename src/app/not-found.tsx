@@ -9,7 +9,7 @@ import {
 import type { Metadata } from 'next';
 import NextLink from 'next/link';
 
-import css from './page.module.scss';
+import css from '@styles/not-found.module.scss';
 
 export const metadata: Metadata = {
     title: '404 - Out of Bounds — UvO Amsterdam',
