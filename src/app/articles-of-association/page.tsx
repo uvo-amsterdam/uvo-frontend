@@ -1,11 +1,11 @@
-import { Heading } from '@radix-ui/themes';
+import { Hero } from '@components/hero/hero';
 
 import css from './page.module.scss';
 
 export default function ArticlesOfAssociation() {
     return (
         <div className={css.root}>
-            <Heading>Articles of association</Heading>
+            <Hero title={'Articles of association'} />
             <iframe
                 title="AoA"
                 src="/statuten.pdf"
