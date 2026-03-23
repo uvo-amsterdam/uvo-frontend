@@ -1,0 +1,14 @@
+@use '@styles/tokens';
+
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.fixtureSection {
+  @include tokens.content-section;
+}
+
+.selector {
+  color: tokens.$accent-color;
+}
