@@ -38,6 +38,10 @@
   display: flex;
   justify-content: center;
   z-index: 1;
+
+  @media (max-width: tokens.$breakpoint-md) {
+    display: none;
+  }
 }
 
 .menuList {
