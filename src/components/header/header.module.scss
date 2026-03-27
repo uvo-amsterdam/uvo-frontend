@@ -36,8 +36,7 @@
 .base {
   position: relative;
   display: flex;
-  justify-content: flex-end;
-  width: 100vw;
+  justify-content: center;
   z-index: 1;
 }
 
@@ -92,7 +91,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: auto;
+  min-width: 200px;
   animation-duration: 250ms;
   animation-timing-function: ease;
 
@@ -110,10 +110,6 @@
 
   &[data-motion="to-end"] {
     animation-name: exit-to-right;
-  }
-
-  @media only screen and (width >= 600px) {
-    width: auto;
   }
 }
 
@@ -140,16 +136,15 @@
   position: relative;
   transform-origin: top center;
   margin-top: 10px;
-  width: 100%;
+  width: var(--radix-navigation-menu-viewport-width);
   background-color: white;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
   hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
   height: var(--radix-navigation-menu-viewport-height);
-  transition: width,
-  height,
-  300ms ease;
+  transition: width 300ms ease,
+  height 300ms ease;
 
   &[data-state="open"] {
     animation: scale-in 200ms ease;
@@ -157,10 +152,6 @@
 
   &[data-state="closed"] {
     animation: scale-out 200ms ease;
-  }
-
-  @media only screen and (width >= 600px) {
-    width: var(--radix-navigation-menu-viewport-width);
   }
 }
 
@@ -211,7 +202,6 @@
   position: absolute;
   display: flex;
   justify-content: center;
-  width: 100%;
   top: 100%;
   left: 0;
   perspective: 2000px;
@@ -219,7 +209,7 @@
 
 .caretDown {
   position: relative;
-  color: var(--violet-10);
+  color: tokens.$primary-color;
   top: 1px;
   transition: transform 250ms ease;
 
