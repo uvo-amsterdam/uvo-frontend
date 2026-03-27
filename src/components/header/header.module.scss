@@ -29,63 +29,303 @@
   width: auto;
 }
 
-.navContainer {
-  display: flex;
-  gap: 0.15rem;
-
-  @media (max-width: tokens.$breakpoint-sm) {
-    display: none; // Temporary until a nice side drawer is implemented
-  }
+.activeNav {
+  color: tokens.$accent-color !important;
 }
 
-.navLink,
-.navButton {
-  color: tokens.$white-color;
-  font-family: tokens.$font-heading;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.65rem;
+.base {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100vw;
+  z-index: 1;
+}
+
+.menuList {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 4px;
+  border-radius: 6px;
+  list-style: none;
+  box-shadow: 0 2px 10px var(--black-a7);
+  margin: 0;
+  gap: var(--space-1);
+}
+
+.trigger,
+.link {
+  all: unset;
+  padding: 8px 12px;
+  outline: none;
+  user-select: none;
+  font-weight: 500;
+  line-height: 1;
   border-radius: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: background tokens.$transition-fast, color tokens.$transition-fast;
+  font-size: 15px;
+  color: tokens.$primary-color;
+
+  &:focus {
+    box-shadow: 0 0 0 2px tokens.$accent-color;
+  }
 
   &:hover {
-    background: rgb(255 255 255 / 20%);
-    color: tokens.$white-color;
-  }
-
-  &:focus-visible {
-    outline: 2px solid tokens.$accent-color;
-    outline-offset: 2px;
-  }
-
-  &.activeNav {
-    color: tokens.$accent-color;
+    background-color: tokens.$off-white;
   }
 }
 
-.dropdownLink {
-  align-content: center;
-  text-decoration: none;
-  color: inherit;
-  font-family: tokens.$font-heading;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  display: block;
-  transition: color tokens.$transition-fast;
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+}
 
-  &[data-highlighted] {
-    background-color: tokens.$gray-100;
-    color: tokens.$accent-color;
+.link {
+  display: block;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+
+  &[data-motion="from-start"] {
+    animation-name: enter-from-left;
   }
 
-  &.activeDropdown {
-    color: tokens.$accent-color;
+  &[data-motion="from-end"] {
+    animation-name: enter-from-right;
+  }
+
+  &[data-motion="to-start"] {
+    animation-name: exit-to-left;
+  }
+
+  &[data-motion="to-end"] {
+    animation-name: exit-to-right;
+  }
+
+  @media only screen and (width >= 600px) {
+    width: auto;
+  }
+}
+
+.indicator {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 10px;
+  top: 100%;
+  overflow: hidden;
+  z-index: 1;
+  transition: width, transform 250ms ease;
+
+  &[data-state="visible"] {
+    animation: fade-in 200ms ease;
+  }
+
+  &[data-state="hidden"] {
+    animation: fade-out 200ms ease;
+  }
+}
+
+.viewport {
+  position: relative;
+  transform-origin: top center;
+  margin-top: 10px;
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
+  hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
+  height: var(--radix-navigation-menu-viewport-height);
+  transition: width,
+  height,
+  300ms ease;
+
+  &[data-state="open"] {
+    animation: scale-in 200ms ease;
+  }
+
+  &[data-state="closed"] {
+    animation: scale-out 200ms ease;
+  }
+
+  @media only screen and (width >= 600px) {
+    width: var(--radix-navigation-menu-viewport-width);
+  }
+}
+
+.list {
+  display: grid;
+  padding: var(--space-2);
+  margin: 0;
+  column-gap: 10px;
+  list-style: none;
+}
+
+.listItemLink {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1;
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--violet-7);
+  }
+
+  &:hover {
+    background-color: var(--mauve-3);
+  }
+}
+
+.listItemHeading {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  color: var(--violet-12);
+}
+
+.listItemText {
+  all: unset;
+  color: var(--mauve-11);
+  line-height: 1.4;
+  font-weight: initial;
+}
+
+.viewportPosition {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  perspective: 2000px;
+}
+
+.caretDown {
+  position: relative;
+  color: var(--violet-10);
+  top: 1px;
+  transition: transform 250ms ease;
+
+  [data-state="open"] > & {
+    transform: rotate(-180deg);
+  }
+}
+
+.arrow {
+  position: relative;
+  top: 70%;
+  background-color: white;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-top-left-radius: 2px;
+}
+
+@keyframes enter-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enter-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exit-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+
+@keyframes exit-to-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
