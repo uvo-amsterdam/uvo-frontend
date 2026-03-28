@@ -27,7 +27,7 @@ export function formatDateStr(
         'Nov',
         'Dec',
     ];
-    return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}`;
+    return `${days[date.getUTCDay()]} ${date.getUTCDate()} ${months[date.getUTCMonth()]}`;
 }
 
 /** Format a time string or Date object as e.g. "19:30", or "TBD" when unavailable. */
@@ -45,10 +45,10 @@ export function formatTimeStr(timeInput: string | Date | number): string {
         return String(timeInput);
     }
 
-    // read-excel-file extracts times as valid Date objects with 1899-12-30 or similar dummy dates
-    // but the local hour/minute is preserved
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
+    // read-excel-file stores times as UTC dates with a dummy date (e.g. 1899-12-30),
+    // so we must use UTC methods to avoid local timezone offset shifting the hour.
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
 
     if (hours === 0 && Number.parseInt(minutes, 10) === 0) return 'TBD';
     return `${hours}:${minutes}`;
