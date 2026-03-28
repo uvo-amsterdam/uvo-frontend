@@ -1,4 +1,5 @@
 import '@styles/globals.scss';
+import { Hero } from '@components/hero/hero';
 import { BOARD } from '@constants/board';
 import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';
@@ -10,6 +11,7 @@ import css from './page.module.scss';
 export default function Contact() {
     return (
         <div className={css.root}>
+            <Hero title="Contact" />
             {/*
             TODO: I think this text doesn't belong here, for now I'll leave it but either can be removed or moved to a more appropriate place
             */}
