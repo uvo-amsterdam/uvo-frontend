@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
-import { Heading, Text } from '@radix-ui/themes';
+import { Callout, Heading, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -112,7 +112,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     Love volleyball but haven&apos;t found your
-                                    people yet? We have teams at every level —
+                                    people yet? We have teams at every level -
                                     from first-timers to seasoned players
                                     who&apos;ve been spiking since they could
                                     walk.
@@ -124,7 +124,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     With 250+ members across 15 teams, UvO
-                                    isn&apos;t just a volleyball club —
+                                    isn&apos;t just a volleyball club -
                                     it&apos;s one of the most international
                                     student communities in Amsterdam. Think
                                     parties, tournaments, weekends away, and two
@@ -154,7 +154,7 @@ const SignUpPage: FC = () => {
                         Interested? Fill in the sign-up form and our Technical
                         Committee will reach out to you with all the details.
                         Keep in mind that you need to be a student to apply, and
-                        signing up doesn&apos;t guarantee a spot — it depends on
+                        signing up doesn&apos;t guarantee a spot - it depends on
                         the total number of applicants.
                     </Text>
                     <a
@@ -282,18 +282,19 @@ const SignUpPage: FC = () => {
                         </table>
                     </div>
                 </div>
-
-                <div className={css.pricingNote}>
-                    <IconInfoCircle
-                        size={20}
-                        stroke={1.5}
-                        className={css.noteIcon}
-                    />
-                    <Text size="2" className={css.noteText}>
+                <Callout.Root className={css.pricingNote}>
+                    <Callout.Icon>
+                        <IconInfoCircle
+                            size={20}
+                            stroke={1.5}
+                            className={css.noteIcon}
+                        />
+                    </Callout.Icon>
+                    <Callout.Text className={css.noteText}>
                         Non-student rates only apply to members who were still a
                         student at the time of their original registration.
-                    </Text>
-                </div>
+                    </Callout.Text>
+                </Callout.Root>
             </section>
         </div>
     );
