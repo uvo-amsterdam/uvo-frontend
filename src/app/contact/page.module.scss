@@ -8,7 +8,8 @@
 
 .info {
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
+  margin: 1rem 3rem;
 
   @media (max-width: tokens.$breakpoint-sm) {
     flex-flow: column;
@@ -20,4 +21,19 @@
     height: 450px;
     width: 600px;
   }
+}
+
+.heroLink {
+  color: tokens.$accent-color;
+}
+
+.sectionHeader {
+  @include tokens.section-title-accent(3rem, 2.2rem, 60px);
+
+  margin: 0 0 2rem;
+}
+
+.sectionContent {
+  display: flex;
+  flex-flow: row;
 }

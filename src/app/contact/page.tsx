@@ -1,81 +1,82 @@
 import '@styles/globals.scss';
 import { Hero } from '@components/hero/hero';
+import { LocationSection } from '@components/location-section/location-section';
 import { BOARD } from '@constants/board';
 import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';
-import { LOCATION } from '@constants/location';
-import { Link, Strong, Text } from '@radix-ui/themes';
+import { Heading, Link, Strong, Text } from '@radix-ui/themes';
 
 import css from './page.module.scss';
+
+const HERO_SUBTITLE = (
+    <>
+        Are you a student, do you love playing volleyball, but are you still in
+        search of people to play with? Join UvO!
+        <br />
+        At the end of August / beginning of September there will be try-out
+        training sessions again. Do you want to join one or multiple training
+        sessions with UvO?
+        <br />
+        You can register now by filling in{' '}
+        <Link href={FORMS.SIGN_UP} className={css.heroLink}>
+            this form
+        </Link>
+        .
+    </>
+);
 
 export default function Contact() {
     return (
         <div className={css.root}>
-            <Hero title="Contact" />
-            {/*
-            TODO: I think this text doesn't belong here, for now I'll leave it but either can be removed or moved to a more appropriate place
-            */}
-            <Text>
-                Are you a student, do you love playing volleyball, but are you
-                still in search of people to play with? Join UvO!
-                <br />
-                At the end of August / beginning of September there will be
-                try-out training sessions again. Do you want to join one or
-                multiple training sessions with UvO?
-                <br />
-                You can register now by filling in{' '}
-                <Link href={FORMS.SIGN_UP}>this form</Link>.
-            </Text>
+            <Hero title="Contact" subtitle={HERO_SUBTITLE} />
             <section className={css.info}>
-                <div>
-                    <Text>
-                        <Strong>Location:</Strong>
-                        <br />
-                        <address>
-                            {Object.values(LOCATION).map(value => (
-                                <div key={value}>{value}</div>
-                            ))}
-                        </address>
-                    </Text>
-                    <Text>
+                <div className={css.sectionHeader}>
+                    <Heading as="h2" size="7">
+                        Board 28 + General Contact Info
+                    </Heading>
+                </div>
+                <div className={css.sectionContent}>
+                    <Text size="3" weight="medium">
                         <Strong>Board 28:</Strong>
                         <br />
                         {BOARD.map(member => (
-                            <div key={member.email}>
-                                {member.role +
-                                    ': ' +
-                                    member.firstName +
-                                    ' ' +
-                                    member.lastName +
-                                    ' (' +
-                                    member.email +
-                                    (member.altEmail
-                                        ? ` or ${member.altEmail}`
-                                        : '') +
-                                    ')'}
-                            </div>
+                            <Text key={member.email}>
+                                {member.role}: {member.firstName}{' '}
+                                {member.lastName} (
+                                <Link href={`mailto:${member.email}`}>
+                                    {member.email}
+                                </Link>
+                                {member.altEmail && (
+                                    <>
+                                        {' '}
+                                        or{' '}
+                                        <Link
+                                            href={`mailto:${member.altEmail}`}
+                                        >
+                                            {member.altEmail}
+                                        </Link>
+                                    </>
+                                )}
+                                )
+                                <br />
+                            </Text>
                         ))}
                     </Text>
-                    <Text>
+                    <Text as="p" size="3" weight="medium">
                         <Strong>Other important contact channels:</Strong>
                         <br />
                         {GENERAL_CONTACT.map(entry => (
                             <div key={entry.email}>
-                                {`${entry.name}: ${entry.email}`}
+                                {entry.name}:{' '}
+                                <Link href={`mailto:${entry.email}`}>
+                                    {entry.email}
+                                </Link>
                             </div>
                         ))}
                     </Text>
                 </div>
-                <iframe
-                    title="UvO location on Google Maps"
-                    className={css.googleMaps}
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.806787372473!2d4.954134276587808!3d52.355789472018515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x416539ba7d6c7dc7%3A0xc11838c18d279568!2sUvO%20Amsterdam!5e0!3m2!1sen!2snl!4v1772303582085!5m2!1sen!2snl"
-                    style={{ border: 0 }}
-                    allowFullScreen={true}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                />
             </section>
+            <LocationSection />
         </div>
     );
 }
