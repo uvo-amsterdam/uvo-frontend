@@ -62,7 +62,7 @@ export default function Contact() {
                             </Text>
                         ))}
                     </Text>
-                    <Text as="p" size="3" weight="medium">
+                    <Text size="3" weight="medium">
                         <Strong>Other important contact channels:</Strong>
                         <br />
                         {GENERAL_CONTACT.map(entry => (
