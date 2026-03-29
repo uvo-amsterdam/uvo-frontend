@@ -61,10 +61,20 @@ export const Header: FC = () => {
                 <NavigationMenu.List className={css.menuList}>
                     {NAVIGATION.map(navLink => {
                         if (navLink.subPages) {
+                            const isSubPageActive = navLink.subPages.some(
+                                subPage => pathname === subPage.link,
+                            );
+
                             return (
                                 <NavigationMenu.Item key={navLink.title}>
                                     <NavigationMenu.Trigger
-                                        className={css.trigger}
+                                        className={clsx(
+                                            css.trigger,
+                                            isSubPageActive && css.activeNav,
+                                        )}
+                                        aria-current={
+                                            isSubPageActive ? 'page' : undefined
+                                        }
                                     >
                                         {navLink.title}{' '}
                                         <IconCaretDownFilled
@@ -125,23 +135,28 @@ export const Header: FC = () => {
                 </div>
             </NavigationMenu.Root>
 
-            <IconMenu2
+            <Button
                 className={css.burgerIcon}
-                size={24}
+                variant="ghost"
                 onClick={() => setSidebarOpen(true)}
                 aria-label="Open menu"
-            />
+            >
+                <IconMenu2 className={css.burgerIcon} size={24} />
+            </Button>
 
             <div
                 className={clsx(css.overlay, sidebarOpen && css.overlayOpen)}
                 onClick={closeSidebar}
                 onKeyDown={e => e.key === 'Escape' && closeSidebar()}
-                role="dialog"
+                tabIndex={-1}
+                aria-hidden={true}
             />
 
             <nav
                 className={clsx(css.sidebar, sidebarOpen && css.sidebarOpen)}
                 aria-label="Mobile navigation"
+                aria-modal={true}
+                role="dialog"
             >
                 <div className={css.sidebarHeader}>
                     <Image
@@ -247,22 +262,24 @@ export const Header: FC = () => {
 };
 
 interface ListItemProps extends ComponentPropsWithoutRef<'a'> {
+    href: string;
     title: string;
     active?: boolean;
 }
 
 const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
-    ({ className, children, title, active, ...props }, forwardedRef) => (
+    ({ className, children, title, active, href, ...props }, forwardedRef) => (
         <li>
             <NavigationMenu.Link asChild active={active}>
-                <a
+                <NextLink
+                    href={href}
                     className={clsx(css.listItemLink, className)}
                     {...props}
                     ref={forwardedRef}
                 >
                     <div className={css.listItemHeading}>{title}</div>
                     <p className={css.listItemText}>{children}</p>
-                </a>
+                </NextLink>
             </NavigationMenu.Link>
         </li>
     ),
