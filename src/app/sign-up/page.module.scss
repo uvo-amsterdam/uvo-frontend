@@ -1,3 +1,256 @@
+@use '@styles/tokens';
+
 .root {
   display: flex;
+  flex-direction: column;
+}
+
+.whySection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+
+  @media (max-width: tokens.$breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    padding: 3rem 5%;
+  }
+}
+
+.whyText {
+  display: flex;
+  flex-direction: column;
+}
+
+.whyPhoto {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: tokens.$breakpoint-md) {
+    order: -1;
+  }
+}
+
+.whyImage {
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+  border-radius: 14px;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 10%);
+}
+
+.sectionTitle {
+  @include tokens.section-title-accent(3rem, 2.2rem, 60px);
+}
+
+.sellingPoints {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.point {
+  @include tokens.numbered-item;
+}
+
+.pointNumber {
+  @include tokens.numbered-item-number(4rem, 80px);
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    font-size: 3rem;
+    min-width: 52px;
+  }
+}
+
+.pointText {
+  @include tokens.numbered-item-text;
+
+  line-height: 1.7;
+  padding-top: 0.7rem;
+}
+
+/* ── Tryout Band — full-width with diagonal slat ── */
+
+.tryoutBand {
+  position: relative;
+  background: tokens.$primary-color;
+  color: tokens.$white-color;
+  padding: 5rem 8% 4rem;
+  margin-top: 2rem;
+  overflow: hidden;
+
+  // diagonal slant top edge
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: tokens.$off-white;
+    transform: skewY(-3deg);
+    transform-origin: top left;
+    z-index: 1;
+  }
+
+  // decorative volleyball seam arc
+  &::after {
+    @include tokens.decorative-arc(55%, 140%);
+    @include tokens.volleyball-seam-texture(tokens.$white-color, 0.02, 18px);
+
+    top: -20%;
+    left: 55%;
+    border: 2px solid rgb(255 255 255 / 5%);
+    background-color: rgb(255 255 255 / 2%);
+  }
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    padding: 4rem 5% 3rem;
+  }
+}
+
+.tryoutInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tryoutHeadline {
+  @include tokens.section-heading;
+
+  font-size: 3.4rem;
+  color: inherit;
+  margin-bottom: 1.25rem;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    font-size: 2.2rem;
+  }
+}
+
+.tryoutBody {
+  line-height: 1.7;
+  opacity: 0.92;
+  max-width: 640px;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.ctaButton {
+  @include tokens.cta-button;
+}
+
+/* ── Pricing Tables ── */
+
+.pricing {
+  @include tokens.content-section(4rem 8% 5rem, 3rem 5% 4rem);
+}
+
+.pricingHeader {
+  margin-bottom: 2.5rem;
+}
+
+.tableBlock {
+  margin-bottom: 2.5rem;
+}
+
+.tableLabel {
+  @include tokens.section-heading;
+
+  font-size: 1.6rem;
+  color: tokens.$gray-800;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+}
+
+.feeTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: tokens.$font-body;
+  font-size: 0.95rem;
+  background: tokens.$white-color;
+  min-width: 420px;
+
+  thead tr {
+    background: tokens.$primary-color;
+    color: tokens.$white-color;
+  }
+
+  th {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-family: tokens.$font-heading;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 0.85rem 1.2rem;
+    color: tokens.$gray-800;
+    border-bottom: 1px solid rgb(0 0 0 / 6%);
+  }
+
+  tbody tr:nth-child(even) {
+    background: tokens.$cream;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .surcharge {
+    font-style: italic;
+    opacity: 0.85;
+  }
+}
+
+.pricingNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  color: tokens.$gray-600;
+}
+
+.noteIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: tokens.$gray-600;
+}
+
+.noteText {
+  line-height: 1.6;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

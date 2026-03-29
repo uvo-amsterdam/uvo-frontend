@@ -1,0 +1,16 @@
+@use '@styles/tokens';
+
+.showMoreWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.showMoreBtn {
+    font-family: tokens.$font-heading;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 2rem;
+}

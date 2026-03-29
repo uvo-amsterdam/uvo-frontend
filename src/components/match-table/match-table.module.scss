@@ -1,0 +1,195 @@
+@use '@styles/tokens';
+
+.tableContainer {
+  width: 100%;
+}
+
+.tableTitle {
+  @include tokens.section-heading;
+
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: tokens.$accent-color;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+  }
+}
+
+.tableWrap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  background: tokens.$white-color;
+  border: 1px solid tokens.$gray-200;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    display: none;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  thead {
+    background: tokens.$primary-color;
+    color: tokens.$white-color;
+  }
+
+  th {
+    font-family: tokens.$font-heading;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    color: tokens.$white-color;
+  }
+
+  .teamCol {
+    width: 20%;
+  }
+
+  td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid tokens.$gray-100;
+    color: tokens.$gray-800;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background tokens.$transition-fast;
+
+    &:hover {
+      background: tokens.$cream;
+    }
+
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.uvoRow {
+  background: rgb(67 66 255 / 4%);
+  position: relative;
+
+  td:first-child {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: tokens.$accent-color;
+    }
+  }
+
+  &:hover {
+    background: rgb(67 66 255 / 8%);
+  }
+}
+
+.uvoTeam {
+  font-weight: 700;
+  color: tokens.$primary-color;
+}
+
+.cardList {
+  display: none;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.card {
+  background: tokens.$white-color;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+  border: 1px solid tokens.$gray-200;
+  transition: transform tokens.$transition-fast;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.uvoCard {
+  border-left: 4px solid tokens.$accent-color;
+  padding-left: 4px; /* Adjust spacing to compensate for border */
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.cardDate {
+  font-family: tokens.$font-heading;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: tokens.$primary-color;
+  letter-spacing: 0.02em;
+}
+
+.cardTime {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: tokens.$gray-600;
+}
+
+.cardMatchup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: tokens.$gray-800;
+  flex-wrap: wrap;
+}
+
+.vs {
+  font-family: tokens.$font-heading;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: tokens.$accent-color;
+}
+
+.cardVenue {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: tokens.$gray-600;
+}
+
+.scoreCell {
+  font-family: tokens.$font-heading;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.scoreWin {
+  color: tokens.$accent-color !important;
+}
+
+.trophyIcon {
+  color: tokens.$accent-color;
+  filter: drop-shadow(0 0 4px rgb(255 107 53 / 40%));
+}
