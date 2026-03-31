@@ -4,56 +4,125 @@
   background: tokens.$gray-800;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 3rem 8%;
+  padding: 4rem 8% 2rem;
   color: tokens.$white-color;
 
   @media (max-width: tokens.$breakpoint-sm) {
-    padding: 2rem 5%;
+    padding: 3rem 5% 2rem;
   }
 }
 
 .infoSection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  position: relative;
-  z-index: 1;
-}
-
-.bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  position: relative;
-  z-index: 1;
+  gap: 3rem;
+  margin-bottom: 2rem;
 }
 
 .bottomSection {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
 
   span {
-    opacity: 0.75;
-    font-size: 0.85rem;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
-  span:first-child {
+  .sectionTitle {
     opacity: 1;
     font-family: tokens.$font-heading;
     font-weight: 700;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    color: tokens.$white-color;
   }
 }
 
-@media (max-width: tokens.$breakpoint-sm) {
-  .infoSection {
-    grid-template-columns: 1fr;
+.signUpLink {
+  color: tokens.$white-color;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    color: tokens.$white-color;
+    opacity: 0.5;
+  }
+}
+
+.separator {
+  opacity: 0.1;
+  background-color: tokens.$white-color;
+}
+
+.sponsorsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.sponsorsTitle {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.sponsorsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    gap: 2rem;
+  }
+}
+
+.sponsorLink {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  filter: invert(100%) brightness(100%);
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.sponsorLogo {
+  object-fit: contain;
+  width: auto;
+  max-height: 45px;
+  display: block;
+}
+
+.itLink {
+  color: inherit;
+  text-decoration: underline;
+  transition: color 0.2s;
+
+  &:hover {
+    color: tokens.$white-color;
+    opacity: 0.5;
+  }
+}
+
+.bottom {
+  margin-top: 1rem;
+  text-align: center;
+  
+  .legalSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0.6;
   }
 }
