@@ -19,40 +19,15 @@
   margin-bottom: 2rem;
 }
 
-.bottomSection {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  span {
-    opacity: 0.8;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .sectionTitle {
-    opacity: 1;
-    font-family: tokens.$font-heading;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-    color: tokens.$white-color;
-  }
-}
-
-.signUpLink {
-  color: tokens.$white-color;
+.sectionTitle {
+  opacity: 1;
+  font-family: tokens.$font-heading;
   font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  transition: color 0.2s ease, opacity 0.2s ease;
-
-  &:hover {
-    color: tokens.$white-color;
-    opacity: 0.5;
-  }
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: tokens.$white-color;
 }
 
 .separator {
@@ -60,30 +35,15 @@
   background-color: tokens.$white-color;
 }
 
-.sponsorsWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
-}
+.footerLink {
+  color: tokens.$white-color !important;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s ease;
 
-.sponsorsTitle {
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  opacity: 0.5;
-  font-weight: 600;
-}
-
-.sponsorsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-
-  @media (max-width: tokens.$breakpoint-sm) {
-    gap: 2rem;
+  &:hover {
+    opacity: 0.6;
   }
 }
 
@@ -104,25 +64,11 @@
   display: block;
 }
 
-.itLink {
-  color: inherit;
-  text-decoration: underline;
-  transition: color 0.2s;
-
-  &:hover {
-    color: tokens.$white-color;
-    opacity: 0.5;
-  }
-}
-
 .bottom {
   margin-top: 1rem;
   text-align: center;
-  
+
   .legalSection {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
     opacity: 0.6;
   }
 }

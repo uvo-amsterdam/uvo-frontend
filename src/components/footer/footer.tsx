@@ -9,8 +9,10 @@ import css from './footer.module.scss';
 
 const FOOTER_SECTIONS = [
     {
-        title: 'Over UvO Amsterdam',
-        contents: ['Een volleybal vereniging vol gezelligheid!'],
+        title: 'About UvO Amsterdam',
+        contents: [
+            'The most fun & most international student volleybal associaton in Amsterdam!',
+        ],
     },
     {
         title: 'Address',
@@ -53,12 +55,7 @@ export const Footer: FC = () => {
         <footer className={css.root}>
             <div className={css.infoSection}>
                 {FOOTER_SECTIONS.map(section => (
-                    <Flex
-                        key={section.title}
-                        direction="column"
-                        gap="2"
-                        className={css.bottomSection}
-                    >
+                    <Flex key={section.title} direction="column" gap="2">
                         <Text className={css.sectionTitle}>
                             {section.title}
                         </Text>
@@ -75,12 +72,12 @@ export const Footer: FC = () => {
                                     ) : (
                                         <>
                                             {content.label}:{' '}
-                                            <a
+                                            <Link
                                                 href={`mailto:${content.email}`}
-                                                className={css.itLink}
+                                                className={css.footerLink}
                                             >
                                                 {content.email}
-                                            </a>
+                                            </Link>
                                         </>
                                     )}
                                 </Text>
@@ -89,14 +86,14 @@ export const Footer: FC = () => {
                     </Flex>
                 ))}
 
-                <Flex direction="column" gap="2" className={css.bottomSection}>
+                <Flex direction="column" gap="2">
                     <Text className={css.sectionTitle}>Join UvO</Text>
                     <Text size="2">Want to play volleyball with us?</Text>
                     <Link
                         href={FORMS.SIGN_UP}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={css.signUpLink}
+                        className={css.footerLink}
                     >
                         Sign up here →
                     </Link>
@@ -105,24 +102,11 @@ export const Footer: FC = () => {
 
             <Separator my="4" size="4" className={css.separator} />
 
-            <Flex
-                direction="column"
-                align="center"
-                gap="4"
-                className={css.sponsorsWrapper}
-            >
-                <Text size="1" className={css.sponsorsTitle}>
-                    Our Partners
-                </Text>
-                <Flex
-                    wrap="wrap"
-                    justify="center"
-                    align="center"
-                    gap="6"
-                    className={css.sponsorsGrid}
-                >
+            <Flex direction="column" align="center" gap="4">
+                <Text size="1">Our Partners</Text>
+                <Flex wrap="wrap" justify="center" align="center" gap="6">
                     {SPONSORS.map(sponsor => (
-                        <a
+                        <Link
                             key={sponsor.name}
                             href={sponsor.href}
                             target="_blank"
@@ -136,7 +120,7 @@ export const Footer: FC = () => {
                                 height={60}
                                 className={css.sponsorLogo}
                             />
-                        </a>
+                        </Link>
                     ))}
                 </Flex>
             </Flex>
@@ -149,21 +133,21 @@ export const Footer: FC = () => {
                 gap="2"
                 className={css.bottom}
             >
-                <Text size="1" className={css.copyright}>
+                <Text size="1" className={css.legalSection}>
                     © COPYRIGHT {currentYear} UvO Amsterdam.
                 </Text>
-                <Text size="1" className={css.credits}>
-                    <Link asChild highContrast>
+                <Text size="1">
+                    <Link asChild highContrast className={css.footerLink}>
                         <NextLink href="/terms">Algemene voorwaarden</NextLink>
                     </Link>
                     {' | '}
                     Website made by{' '}
-                    <a
+                    <Link
                         href="mailto:itcommittee@uvo-amsterdam.nl"
-                        className={css.itLink}
+                        className={css.footerLink}
                     >
                         itcommittee@uvo-amsterdam.nl
-                    </a>
+                    </Link>
                 </Text>
             </Flex>
         </footer>
