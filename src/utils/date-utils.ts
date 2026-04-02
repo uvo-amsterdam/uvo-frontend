@@ -2,7 +2,7 @@
  * Shared date utilities for parsing dates and times directly.
  */
 
-/** Format an ISO date string or Date object as e.g. "Mon 3 Feb". */
+/** Format an ISO date string or Date object as e.g. "Mon 3 Feb" based on the UTC date. */
 export function formatDateStr(
     dateInput: string | Date | number | null,
 ): string {
