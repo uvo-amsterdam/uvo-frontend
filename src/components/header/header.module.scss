@@ -241,11 +241,11 @@
 .menuList {
   display: flex;
   justify-content: center;
-  background-color: white;
+  background-color: transparent;
   padding: 4px;
   border-radius: 6px;
   list-style: none;
-  box-shadow: 0 2px 10px var(--black-a7);
+  box-shadow: none;
   margin: 0;
   gap: var(--space-1);
 
@@ -269,14 +269,14 @@
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: tokens.$primary-color;
+  color: tokens.$white-color;
 
   &:focus {
     box-shadow: 0 0 0 2px tokens.$accent-color;
   }
 
   &:hover {
-    background-color: tokens.$off-white;
+    background-color: rgba(tokens.$gray-200, 0.15);
   }
 }
 
@@ -420,7 +420,7 @@
 
 .caretDown {
   position: relative;
-  color: tokens.$primary-color;
+  color: tokens.$white-color;
   top: 1px;
   transition: transform 250ms ease;
 
