@@ -1,20 +1,13 @@
 'use client';
 
-import React, {
-    type ComponentPropsWithoutRef,
-    type FC,
-    useCallback,
-    useEffect,
-    useState,
-} from 'react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 import { NAVIGATION } from '@constants/navigation';
-import { Button, Link } from '@radix-ui/themes';
+import { Button, DropdownMenu, Link } from '@radix-ui/themes';
 import { IconCaretDownFilled, IconMenu2, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NavigationMenu } from 'radix-ui';
 
 import css from './header.module.scss';
 
@@ -48,7 +41,7 @@ export const Header: FC = () => {
         <header className={css.root}>
             <div className={css.imageContainer}>
                 <Link asChild>
-                    <NextLink href="/">
+                    <NextLink href={'/'}>
                         <Image
                             src="/images/logo/uvo-logo.jpeg"
                             alt="UvO logo"
@@ -57,83 +50,70 @@ export const Header: FC = () => {
                     </NextLink>
                 </Link>
             </div>
-            <NavigationMenu.Root className={css.base}>
-                <NavigationMenu.List className={css.menuList}>
-                    {NAVIGATION.map(navLink => {
-                        if (navLink.subPages) {
-                            const isSubPageActive = navLink.subPages.some(
-                                subPage => pathname === subPage.link,
-                            );
 
-                            return (
-                                <NavigationMenu.Item key={navLink.title}>
-                                    <NavigationMenu.Trigger
-                                        className={clsx(
-                                            css.trigger,
-                                            isSubPageActive && css.activeNav,
-                                        )}
-                                        aria-current={
-                                            isSubPageActive ? 'page' : undefined
-                                        }
-                                    >
-                                        {navLink.title}{' '}
-                                        <IconCaretDownFilled
-                                            className={css.caretDown}
-                                            aria-hidden
-                                            size="16"
-                                        />
-                                    </NavigationMenu.Trigger>
-                                    <NavigationMenu.Content
-                                        className={css.content}
-                                    >
-                                        <ul className={css.list}>
-                                            {navLink.subPages.map(subPage => (
-                                                <ListItem
-                                                    key={subPage.link}
-                                                    href={subPage.link}
-                                                    title={subPage.title}
-                                                    active={
-                                                        pathname ===
-                                                        subPage.link
-                                                    }
-                                                >
-                                                    {subPage.subtitle}
-                                                </ListItem>
-                                            ))}
-                                        </ul>
-                                    </NavigationMenu.Content>
-                                </NavigationMenu.Item>
-                            );
-                        }
-
-                        const isActive = pathname === navLink.link;
-
+            <nav className={css.navContainer}>
+                {NAVIGATION.map(navLink => {
+                    if (navLink.subPages) {
+                        const isSubPageActive = navLink.subPages.some(
+                            subPage => pathname === subPage.link,
+                        );
                         return (
-                            <NavigationMenu.Item key={navLink.link}>
-                                <NavigationMenu.Link
-                                    asChild
+                            <DropdownMenu.Root key={navLink.title}>
+                                <DropdownMenu.Trigger
                                     className={clsx(
-                                        css.link,
-                                        isActive && css.activeNav,
+                                        css.navButton,
+                                        isSubPageActive && css.activeNav,
                                     )}
                                 >
-                                    <NextLink href={navLink.link}>
-                                        {navLink.title}
-                                    </NextLink>
-                                </NavigationMenu.Link>
-                            </NavigationMenu.Item>
+                                    <span>{navLink.title} ▾</span>
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content
+                                    variant="solid"
+                                    color="gray"
+                                >
+                                    {navLink.subPages.map(subPage => {
+                                        const isActive =
+                                            pathname === subPage.link;
+                                        return (
+                                            <DropdownMenu.Item
+                                                key={subPage.link}
+                                                asChild
+                                            >
+                                                <NextLink
+                                                    href={subPage.link}
+                                                    className={clsx(
+                                                        css.dropdownLink,
+                                                        isActive &&
+                                                            css.activeDropdown,
+                                                    )}
+                                                >
+                                                    {subPage.title}
+                                                </NextLink>
+                                            </DropdownMenu.Item>
+                                        );
+                                    })}
+                                </DropdownMenu.Content>
+                            </DropdownMenu.Root>
                         );
-                    })}
-
-                    <NavigationMenu.Indicator className={css.indicator}>
-                        <div className={css.arrow} />
-                    </NavigationMenu.Indicator>
-                </NavigationMenu.List>
-
-                <div className={css.viewportPosition}>
-                    <NavigationMenu.Viewport className={css.viewport} />
-                </div>
-            </NavigationMenu.Root>
+                    }
+                    const isActive = pathname === navLink.link;
+                    return (
+                        <Link
+                            key={navLink.link}
+                            asChild
+                            underline="hover"
+                            className={clsx(
+                                css.navLink,
+                                isActive && css.activeNav,
+                            )}
+                        >
+                            <NextLink href={navLink.link}>
+                                {navLink.title}
+                            </NextLink>
+                        </Link>
+                    );
+                })}
+            </nav>
 
             <Button
                 className={css.burgerIcon}
@@ -260,29 +240,3 @@ export const Header: FC = () => {
         </header>
     );
 };
-
-interface ListItemProps extends ComponentPropsWithoutRef<'a'> {
-    href: string;
-    title: string;
-    active?: boolean;
-}
-
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
-    ({ className, children, title, active, href, ...props }, forwardedRef) => (
-        <li>
-            <NavigationMenu.Link asChild active={active}>
-                <NextLink
-                    href={href}
-                    className={clsx(css.listItemLink, className)}
-                    {...props}
-                    ref={forwardedRef}
-                >
-                    <div className={css.listItemHeading}>{title}</div>
-                    <p className={css.listItemText}>{children}</p>
-                </NextLink>
-            </NavigationMenu.Link>
-        </li>
-    ),
-);
-
-ListItem.displayName = 'ListItem';
