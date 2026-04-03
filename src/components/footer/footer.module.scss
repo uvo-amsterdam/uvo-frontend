@@ -4,56 +4,71 @@
   background: tokens.$gray-800;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 3rem 8%;
+  padding: 4rem 8% 2rem;
   color: tokens.$white-color;
 
   @media (max-width: tokens.$breakpoint-sm) {
-    padding: 2rem 5%;
+    padding: 3rem 5% 2rem;
   }
 }
 
 .infoSection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  position: relative;
-  z-index: 1;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  opacity: 1;
+  font-family: tokens.$font-heading;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: tokens.$white-color;
+}
+
+.separator {
+  opacity: 0.1;
+  background-color: tokens.$white-color;
+}
+
+.footerLink {
+  color: tokens.$white-color !important;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.sponsorLink {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  filter: invert(100%) brightness(100%);
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.sponsorLogo {
+  object-fit: contain;
+  width: auto;
+  max-height: 45px;
+  display: block;
 }
 
 .bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  position: relative;
-  z-index: 1;
-}
+  margin-top: 1rem;
+  text-align: center;
 
-.bottomSection {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-
-  span {
-    opacity: 0.75;
-    font-size: 0.85rem;
-  }
-
-  span:first-child {
-    opacity: 1;
-    font-family: tokens.$font-heading;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.25rem;
-  }
-}
-
-@media (max-width: tokens.$breakpoint-sm) {
-  .infoSection {
-    grid-template-columns: 1fr;
+  .legalSection {
+    opacity: 0.6;
   }
 }
