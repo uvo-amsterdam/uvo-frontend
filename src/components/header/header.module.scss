@@ -4,7 +4,7 @@
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
-  background: linear-gradient(-20deg, tokens.$primary-color 55%, tokens.$white-color 55%);
+  background: linear-gradient(-20deg, tokens.$primary-color 75%, tokens.$white-color 75%);
   align-items: center;
   justify-content: space-between;
   padding: 0 5%;
@@ -14,8 +14,8 @@
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
-  @media (max-width: tokens.$breakpoint-sm) {
-    background: linear-gradient(-70deg, tokens.$primary-color 55%, tokens.$white-color 55%);
+  @media (max-width: tokens.$breakpoint-md) {
+    background: linear-gradient(-70deg, tokens.$primary-color 65%, tokens.$white-color 65%);
   }
 }
 
