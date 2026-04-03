@@ -1,27 +1,26 @@
 import '@styles/globals.scss';
+import { CopyableEmail } from '@components/copyable-email/copyable-email';
 import { Hero } from '@components/hero/hero';
 import { LocationSection } from '@components/location-section/location-section';
 import { BOARD } from '@constants/board';
-import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';
-import { Heading, Link, Strong, Text } from '@radix-ui/themes';
+import { Heading, Link, Text } from '@radix-ui/themes';
 
 import css from './page.module.scss';
 
 const HERO_SUBTITLE = (
     <>
-        Are you a student, do you love playing volleyball, but are you still in
-        search of people to play with? Join UvO!
+        Need to reach the board or a specific committee? Find all our contact
+        details below.
         <br />
-        At the end of August / beginning of September there will be try-out
-        training sessions again. Do you want to join one or multiple training
-        sessions with UvO?
         <br />
-        You can register now by filling in{' '}
-        <Link href={FORMS.SIGN_UP} className={css.heroLink}>
-            this form
+        Looking to join the association?{' '}
+        <Link
+            href="/sign-up"
+            style={{ color: 'inherit', textDecoration: 'underline' }}
+        >
+            Head over to our Sign-Up page.
         </Link>
-        .
     </>
 );
 
@@ -29,53 +28,69 @@ export default function Contact() {
     return (
         <div className={css.root}>
             <Hero title="Contact" subtitle={HERO_SUBTITLE} />
+
             <section className={css.info}>
-                <div className={css.sectionHeader}>
-                    <Heading as="h2" size="7">
-                        Board 28 + General Contact Info
+                {/* Board subsection */}
+                <div className={css.subsection}>
+                    <Heading as="h2" className={css.sectionHeader}>
+                        Board 28
                     </Heading>
-                </div>
-                <div className={css.sectionContent}>
-                    <Text size="3" weight="medium">
-                        <Strong>Board 28:</Strong>
-                        <br />
+                    <div className={css.contactBlock}>
                         {BOARD.map(member => (
-                            <Text key={member.email}>
-                                {member.role}: {member.firstName}{' '}
-                                {member.lastName} (
-                                <Link href={`mailto:${member.email}`}>
-                                    {member.email}
-                                </Link>
-                                {member.altEmail && (
-                                    <>
-                                        {' '}
-                                        or{' '}
-                                        <Link
-                                            href={`mailto:${member.altEmail}`}
-                                        >
-                                            {member.altEmail}
-                                        </Link>
-                                    </>
-                                )}
-                                )
-                                <br />
-                            </Text>
-                        ))}
-                    </Text>
-                    <Text size="3" weight="medium">
-                        <Strong>Other important contact channels:</Strong>
-                        <br />
-                        {GENERAL_CONTACT.map(entry => (
-                            <div key={entry.email}>
-                                {entry.name}:{' '}
-                                <Link href={`mailto:${entry.email}`}>
-                                    {entry.email}
-                                </Link>
+                            <div key={member.email} className={css.contactRow}>
+                                <div className={css.contactRowLeft}>
+                                    <Text
+                                        size="2"
+                                        weight="bold"
+                                        className={css.rowRole}
+                                    >
+                                        {member.role}
+                                    </Text>
+                                    {member.firstName && (
+                                        <Text size="3" className={css.rowName}>
+                                            {member.firstName} {member.lastName}
+                                        </Text>
+                                    )}
+                                </div>
+                                <div className={css.contactRowRight}>
+                                    <CopyableEmail email={member.email} />
+                                    {member.altEmail && (
+                                        <CopyableEmail
+                                            email={member.altEmail}
+                                        />
+                                    )}
+                                </div>
                             </div>
                         ))}
-                    </Text>
+                    </div>
+                </div>
+
+                {/* General contact subsection */}
+                <div className={css.subsection}>
+                    <Heading as="h2" className={css.sectionHeader}>
+                        Other Contact Channels
+                    </Heading>
+                    <div className={css.contactBlock}>
+                        {GENERAL_CONTACT.map(entry => (
+                            <div key={entry.email} className={css.contactRow}>
+                                <div className={css.contactRowLeft}>
+                                    <Text
+                                        size="2"
+                                        weight="bold"
+                                        className={css.rowRole}
+                                    >
+                                        {entry.name}
+                                    </Text>
+                                </div>
+                                <div className={css.contactRowRight}>
+                                    <CopyableEmail email={entry.email} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
+
             <LocationSection />
         </div>
     );
