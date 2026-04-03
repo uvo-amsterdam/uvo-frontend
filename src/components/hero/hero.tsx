@@ -7,7 +7,7 @@ import css from './hero.module.scss';
 
 export interface HeroProps {
     title: string;
-    subtitle?: string;
+    subtitle?: ReactNode;
     icon?: ReactNode;
     imageSrc?: string;
     imageAlt?: string;

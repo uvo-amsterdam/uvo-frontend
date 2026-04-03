@@ -41,7 +41,7 @@ export const HeroSlideshow: FC = () => {
                     <span className={css.highlight}>UvO Amsterdam</span>
                 </Heading>
                 <Text as="p" className={css.subtitle}>
-                    Volleyball, borrels, tournaments & lifelong friendships —
+                    Volleyball, borrels, tournaments & lifelong friendships -
                     since 1997
                 </Text>
                 <div className={css.actions}>
