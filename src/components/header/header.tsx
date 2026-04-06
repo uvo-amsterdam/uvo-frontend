@@ -21,6 +21,7 @@ export const Header: FC = () => {
                             src="/images/logo/uvo-logo.jpeg"
                             alt="UvO logo"
                             fill={true}
+                            sizes="auto"
                         />
                     </NextLink>
                 </Link>

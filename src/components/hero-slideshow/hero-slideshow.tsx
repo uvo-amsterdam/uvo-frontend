@@ -7,8 +7,8 @@ import css from './hero-slideshow.module.scss';
 
 const SLIDES = [
     { src: '/images/homepage/team-photo.jpeg', alt: 'UvO team photo' },
-    { src: '/images/homepage/team-photo.jpeg', alt: 'UvO activities' },
-    { src: '/images/homepage/team-photo.jpeg', alt: 'UvO volleyball' },
+    { src: '/images/homepage/uvo-outing.jpeg', alt: 'UvO activities' },
+    { src: '/images/homepage/uvo-ski-outing.jpeg', alt: 'UvO Ski outing' },
 ];
 
 export const HeroSlideshow: FC = () => {
