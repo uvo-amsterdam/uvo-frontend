@@ -11,7 +11,7 @@ export async function GET() {
             '[Directus Fetch] Fetching fresh Team Compositions from Directus...',
         );
         const teams = await directus.request(
-            readItems('Team_Compositions', { limit: -1 }),
+            readItems('team_compositions', { limit: -1 }),
         );
 
         return NextResponse.json(teams);
