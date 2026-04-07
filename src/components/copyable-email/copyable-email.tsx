@@ -85,7 +85,15 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
                 </span>
             </button>
 
-            {copied && <output className={css.toast}>Copied!</output>}
+            {copied && (
+                <output
+                    className={css.toast}
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                    Copied!
+                </output>
+            )}
         </span>
     );
 }

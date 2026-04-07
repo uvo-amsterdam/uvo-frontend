@@ -1,4 +1,3 @@
-import '@styles/globals.scss';
 import { CopyableEmail } from '@components/copyable-email/copyable-email';
 import { Hero } from '@components/hero/hero';
 import { LocationSection } from '@components/location-section/location-section';
