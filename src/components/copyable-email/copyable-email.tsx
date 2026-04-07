@@ -1,5 +1,6 @@
 'use client';
 
+import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { IconCheck, IconMail } from '@tabler/icons-react';
 
@@ -17,7 +18,6 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
     const handleCopy = async (e: React.MouseEvent) => {
         e.preventDefault();
 
-        // Clear any existing timeout to prevent race conditions
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
@@ -38,7 +38,7 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
             document.body.appendChild(el);
             el.select();
 
-            let success = false;
+            let success: boolean;
             try {
                 success = document.execCommand('copy');
             } catch {
