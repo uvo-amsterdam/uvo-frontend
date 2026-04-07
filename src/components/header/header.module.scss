@@ -1,7 +1,5 @@
 @use '@styles/tokens';
 
-
-
 .root {
   box-sizing: border-box;
   display: flex;
@@ -15,31 +13,19 @@
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
-  // 1. The Fluid Range Setup
   $max-width: 120rem;
   $min-width: 80rem;
   $width-range: $max-width - $min-width;
 
-  // 2. The Multiplier (0 to 1)
   --t-wide: clamp(0, calc((100vw - #{$min-width}) / #{$width-range}), 1);
-
-  // 3. The Fluid Percentage
   --gradient-stop: calc(75% - (25% * var(--t-wide)));
-
-  // 4. NEW: The Fluid Angle
-  // Starts at -20deg. As the screen widens, we add up to 10deg to make it steeper 
-  // (Moving towards 0deg makes the line more vertical. Adjust the 10deg to your liking!)
   --gradient-angle: calc(-35deg + (10deg * var(--t-wide)));
 
-  // 5. Apply both dynamic variables to the background
   background: linear-gradient(var(--gradient-angle),
       tokens.$primary-color var(--gradient-stop),
       tokens.$white-color 0);
 
-  // 6. Mobile Override
   @media (max-width: tokens.$breakpoint-md) {
-    // When the nav disappears, lock the angle and percentage 
-    // to whatever looks best for the mobile view.
     --gradient-angle: -35deg;
     --gradient-stop: 50%;
   }

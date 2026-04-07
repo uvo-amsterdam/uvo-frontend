@@ -24,7 +24,6 @@ $transition-slow: 0.6s ease;
 $font-body: var(--font-inter), -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, sans-serif;
 $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-serif;
 
-
 @mixin section-heading {
   font-family: $font-heading;
   font-size: 2.8rem;
@@ -41,7 +40,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   color: $gray-600;
   margin: 0;
 }
-
 
 @mixin section-title-accent($size: 2.6rem, $size-sm: 2rem, $bar-width: 50px) {
   @include section-heading;
@@ -64,7 +62,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
     font-size: $size-sm;
   }
 }
-
 
 @mixin numbered-item {
   display: flex;
@@ -110,7 +107,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
   }
 }
 
-
 @mixin content-section($pad: 3rem 8% 4rem, $pad-sm: 2rem 4% 3rem) {
   padding: $pad;
   max-width: 1400px;
@@ -123,7 +119,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
     padding: $pad-sm;
   }
 }
-
 
 @mixin cta-button {
   display: inline-flex;
@@ -151,7 +146,6 @@ $font-heading: var(--font-barlow-condensed), 'Impact', 'Arial Narrow', sans-seri
     box-shadow: 0 8px 28px rgb(0 0 0 / 30%);
   }
 }
-
 
 @mixin hero-solid($pad: 5rem 8% 8rem, $pad-sm: 4rem 5% 6rem) {
   padding: $pad;
