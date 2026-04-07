@@ -164,15 +164,16 @@ const SignUpPage: FC = () => {
                     </Heading>
                     {tryoutMonth === 'May' ? (
                         <Text as="p" size="3" className={css.tryoutBody}>
-                            During May we have closed tryouts, however we do
-                            allow new 1st class players and above to join!
+                            We're currently mid-season! Our May tryouts are
+                            reserved for <b>existing members</b>, but we are
+                            always looking for top-tier talent. If you are a{' '}
+                            <b>1st Class player or above</b>, we'd love to have
+                            you join us!
                             {tcEmail && (
                                 <>
-                                    {' '}
-                                    If this is you, email the technical
-                                    committee at:
                                     <br />
-                                    <br />
+                                    Please reach out to the technical committee
+                                    at:
                                     <CopyableEmail
                                         email={tcEmail}
                                         className={css.emailSelector}
@@ -181,8 +182,9 @@ const SignUpPage: FC = () => {
                             )}
                             <br />
                             <br />
-                            For other players, we will have open tryouts once
-                            again in August and September!
+                            <b>Not there yet? No problem!</b> We'll be hosting
+                            open tryouts for all players again in{' '}
+                            <b>August and September</b>. See you then!
                         </Text>
                     ) : (
                         <Text as="p" size="3" className={css.tryoutBody}>
