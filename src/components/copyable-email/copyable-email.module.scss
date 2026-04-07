@@ -1,0 +1,101 @@
+@use '@styles/tokens';
+
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: tokens.$font-body;
+  font-size: 0.9rem;
+  color: tokens.$gray-600;
+  text-align: left;
+  word-break: break-all;
+  transition: color tokens.$transition-fast;
+
+  &:hover {
+    color: tokens.$primary-color;
+
+    .icon {
+      opacity: 1;
+    }
+  }
+}
+
+.emailText {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: text-decoration-color tokens.$transition-fast;
+
+  .button:hover & {
+    text-decoration-color: tokens.$primary-color;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.45;
+  transition: opacity tokens.$transition-fast, color tokens.$transition-fast;
+  color: inherit;
+}
+
+.toast {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: tokens.$gray-800;
+  color: tokens.$white-color;
+  font-family: tokens.$font-body;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.28rem 0.65rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fade-in-out 2s ease forwards;
+  z-index: 10;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: tokens.$gray-800;
+  }
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-3px);
+  }
+}

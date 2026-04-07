@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
-import { Heading, Text } from '@radix-ui/themes';
+import { Callout, Heading, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -18,40 +18,40 @@ export const revalidate = 86400; // 1 day
 
 /**
  * Returns the upcoming tryout period label based on the current date.
- *  - After Jan 8  → "May"
- *  - After May 15 → "August/September"
- *  - After Sep 15 → "January"
+ *  - After Jan 8  -> "May"
+ *  - After May 15 -> "August/September"
+ *  - After Sep 15 -> "January"
  */
 function getNextTryoutMonth(): string {
     const now = new Date();
     const month = now.getMonth(); // 0-indexed
     const day = now.getDate();
 
-    // Sep 16 – Jan 8  → January
+    // Sep 16 - Jan 8  -> January
     if (month > 8 || (month === 8 && day > 15) || (month === 0 && day <= 8)) {
         return 'January';
     }
-    // Jan 9 – May 15  → May
+    // Jan 9 - May 15  -> May
     if (month < 4 || (month === 4 && day <= 15)) {
         return 'May';
     }
-    // May 16 – Sep 15 → August/September
+    // May 16 - Sep 15 -> August/September
     return 'August/September';
 }
 
 const COMPETITION_ROWS = [
     {
-        period: 'Whole year (Sep–Jun)',
+        period: 'Whole year (Sep-Jun)',
         student: '€ 235,-',
         nonStudent: '€ 355,-',
     },
     {
-        period: 'Half year (Sep–Dec)',
+        period: 'Half year (Sep-Dec)',
         student: '€ 105,-',
         nonStudent: '€ 157,50',
     },
     {
-        period: 'Half year (Jan–Jun)',
+        period: 'Half year (Jan-Jun)',
         student: '€ 155,-',
         nonStudent: '€ 240,-',
     },
@@ -64,12 +64,12 @@ const COMPETITION_ROWS = [
 
 const TRAINING_ONLY_ROWS = [
     {
-        period: 'Whole year (Sep–Jun)',
+        period: 'Whole year (Sep-Jun)',
         student: '€ 145,-',
         nonStudent: '€ 220,-',
     },
-    { period: 'Half year (Sep–Dec)', student: '€ 62,50', nonStudent: '€ 95,-' },
-    { period: 'Half year (Jan–Jun)', student: '€ 95,-', nonStudent: '€ 140,-' },
+    { period: 'Half year (Sep-Dec)', student: '€ 62,50', nonStudent: '€ 95,-' },
+    { period: 'Half year (Jan-Jun)', student: '€ 95,-', nonStudent: '€ 140,-' },
     {
         period: 'Third Division surcharge',
         student: '€ 15,-',
@@ -79,12 +79,12 @@ const TRAINING_ONLY_ROWS = [
 
 const BEGINNERS_ROWS = [
     {
-        period: 'Whole year (Sep–Jun)',
+        period: 'Whole year (Sep-Jun)',
         student: '€ 110,-',
         nonStudent: '€ 160,-',
     },
-    { period: 'Half year (Sep–Jan)', student: '€ 47,50', nonStudent: '€ 75,-' },
-    { period: 'Half year (Jan–Jun)', student: '€ 70,-', nonStudent: '€ 140,-' },
+    { period: 'Half year (Sep-Jan)', student: '€ 47,50', nonStudent: '€ 75,-' },
+    { period: 'Half year (Jan-Jun)', student: '€ 70,-', nonStudent: '€ 140,-' },
 ];
 
 const SignUpPage: FC = () => {
@@ -112,7 +112,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     Love volleyball but haven&apos;t found your
-                                    people yet? We have teams at every level —
+                                    people yet? We have teams at every level -
                                     from first-timers to seasoned players
                                     who&apos;ve been spiking since they could
                                     walk.
@@ -124,7 +124,7 @@ const SignUpPage: FC = () => {
                             <div className={css.pointText}>
                                 <Text as="p" size="3" weight="medium">
                                     With 250+ members across 15 teams, UvO
-                                    isn&apos;t just a volleyball club —
+                                    isn&apos;t just a volleyball club -
                                     it&apos;s one of the most international
                                     student communities in Amsterdam. Think
                                     parties, tournaments, weekends away, and two
@@ -154,7 +154,7 @@ const SignUpPage: FC = () => {
                         Interested? Fill in the sign-up form and our Technical
                         Committee will reach out to you with all the details.
                         Keep in mind that you need to be a student to apply, and
-                        signing up doesn&apos;t guarantee a spot — it depends on
+                        signing up doesn&apos;t guarantee a spot - it depends on
                         the total number of applicants.
                     </Text>
                     <a
@@ -171,7 +171,7 @@ const SignUpPage: FC = () => {
             <section className={css.pricing}>
                 <div className={css.pricingHeader}>
                     <Heading as="h2" className={css.sectionTitle}>
-                        Membership Fees 2025–2026
+                        Membership Fees 2025-2026
                     </Heading>
                 </div>
 
@@ -282,18 +282,19 @@ const SignUpPage: FC = () => {
                         </table>
                     </div>
                 </div>
-
-                <div className={css.pricingNote}>
-                    <IconInfoCircle
-                        size={20}
-                        stroke={1.5}
-                        className={css.noteIcon}
-                    />
-                    <Text size="2" className={css.noteText}>
+                <Callout.Root className={css.pricingNote}>
+                    <Callout.Icon>
+                        <IconInfoCircle
+                            size={20}
+                            stroke={1.5}
+                            className={css.noteIcon}
+                        />
+                    </Callout.Icon>
+                    <Callout.Text className={css.noteText}>
                         Non-student rates only apply to members who were still a
                         student at the time of their original registration.
-                    </Text>
-                </div>
+                    </Callout.Text>
+                </Callout.Root>
             </section>
         </div>
     );

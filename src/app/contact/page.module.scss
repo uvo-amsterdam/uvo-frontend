@@ -1,6 +1,85 @@
+@use '@styles/tokens';
+
 .root {
   display: flex;
   flex-flow: column;
-  margin: 1rem 3rem;
+}
+
+
+
+.info {
+  display: flex;
+  flex-flow: column;
+  gap: 3rem;
+  max-width: 900px;
+  width: 100%;
+  margin: 1.5rem auto 3rem;
+  padding: 0 5%;
+  box-sizing: border-box;
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    margin: 1rem auto 2rem;
+    gap: 2rem;
+  }
+}
+
+.subsection {
+  display: flex;
+  flex-flow: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  @include tokens.section-title-accent(3rem, 2.2rem, 60px);
+
+  margin: 0 0 0 -2.0rem;
+}
+
+
+.contactBlock {
+  background: tokens.$cream;
+  border: 1px solid tokens.$gray-200;
+  border-radius: 12px;
+}
+
+.contactRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid tokens.$gray-200;
+  }
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.9rem 1.1rem;
+  }
+}
+
+.contactRowLeft {
+  display: flex;
+  flex-flow: column;
+  gap: 0.15rem;
+}
+
+.contactRowRight {
+  display: flex;
+  flex-flow: column;
+  gap: 0.2rem;
+}
+
+.rowRole {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem !important;
+  color: tokens.$primary-color !important;
+}
+
+.rowName {
+  color: tokens.$gray-800;
+  font-size: 0.95rem;
 }

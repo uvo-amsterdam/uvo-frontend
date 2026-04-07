@@ -1,61 +1,96 @@
-import '@styles/globals.scss';
+import { CopyableEmail } from '@components/copyable-email/copyable-email';
+import { Hero } from '@components/hero/hero';
+import { LocationSection } from '@components/location-section/location-section';
 import { BOARD } from '@constants/board';
-import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';
-import { LOCATION } from '@constants/location';
-import { Link, Strong, Text } from '@radix-ui/themes';
+import { Heading, Link, Text } from '@radix-ui/themes';
 
 import css from './page.module.scss';
+
+const HERO_SUBTITLE = (
+    <>
+        Need to reach the board or a specific committee? Find all our contact
+        details below.
+        <br />
+        <br />
+        Looking to join the association?{' '}
+        <Link
+            href="/sign-up"
+            style={{ color: 'inherit', textDecoration: 'underline' }}
+        >
+            Head over to our Sign-Up page.
+        </Link>
+    </>
+);
 
 export default function Contact() {
     return (
         <div className={css.root}>
-            <Text>
-                Are you a student, do you love playing volleyball, but are you
-                still in search of people to play with? Join UvO!
-                <br />
-                At the end of August / beginning of September there will be
-                try-out training sessions again. Do you want to join one or
-                multiple training sessions with UvO?
-                <br />
-                You can register now by filling in{' '}
-                <Link href={FORMS.SIGN_UP}>this form</Link>.
-            </Text>
-            <Text>
-                <Strong>Location:</Strong>
-                <br />
-                <address>
-                    {Object.values(LOCATION).map(value => (
-                        <div key={value}>{value}</div>
-                    ))}
-                </address>
-            </Text>
-            <Text>
-                <Strong>Board 28:</Strong>
-                <br />
-                {BOARD.map(member => (
-                    <div key={member.email}>
-                        {member.role +
-                            ': ' +
-                            member.firstName +
-                            ' ' +
-                            member.lastName +
-                            ' (' +
-                            member.email +
-                            (member.altEmail ? ` or ${member.altEmail}` : '') +
-                            ')'}
+            <Hero title="Contact" subtitle={HERO_SUBTITLE} />
+
+            <section className={css.info}>
+                {/* Board subsection */}
+                <div className={css.subsection}>
+                    <Heading as="h2" className={css.sectionHeader}>
+                        Board 28
+                    </Heading>
+                    <div className={css.contactBlock}>
+                        {BOARD.map(member => (
+                            <div key={member.email} className={css.contactRow}>
+                                <div className={css.contactRowLeft}>
+                                    <Text
+                                        size="2"
+                                        weight="bold"
+                                        className={css.rowRole}
+                                    >
+                                        {member.role}
+                                    </Text>
+                                    {member.firstName && (
+                                        <Text size="3" className={css.rowName}>
+                                            {member.firstName} {member.lastName}
+                                        </Text>
+                                    )}
+                                </div>
+                                <div className={css.contactRowRight}>
+                                    <CopyableEmail email={member.email} />
+                                    {member.altEmail && (
+                                        <CopyableEmail
+                                            email={member.altEmail}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </Text>
-            <Text>
-                <Strong>Other important contact channels:</Strong>
-                <br />
-                {GENERAL_CONTACT.map(entry => (
-                    <div key={entry.email}>
-                        {`${entry.name}: ${entry.email}`}
+                </div>
+
+                {/* General contact subsection */}
+                <div className={css.subsection}>
+                    <Heading as="h2" className={css.sectionHeader}>
+                        Other Contact Channels
+                    </Heading>
+                    <div className={css.contactBlock}>
+                        {GENERAL_CONTACT.map(entry => (
+                            <div key={entry.email} className={css.contactRow}>
+                                <div className={css.contactRowLeft}>
+                                    <Text
+                                        size="2"
+                                        weight="bold"
+                                        className={css.rowRole}
+                                    >
+                                        {entry.name}
+                                    </Text>
+                                </div>
+                                <div className={css.contactRowRight}>
+                                    <CopyableEmail email={entry.email} />
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </Text>
+                </div>
+            </section>
+
+            <LocationSection />
         </div>
     );
 }
