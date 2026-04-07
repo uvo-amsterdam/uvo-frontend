@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IconCheck, IconMail } from '@tabler/icons-react';
 
 import css from './copyable-email.module.scss';
@@ -12,13 +12,23 @@ interface CopyableEmailProps {
 
 export function CopyableEmail({ email, className }: CopyableEmailProps) {
     const [copied, setCopied] = useState(false);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleCopy = async (e: React.MouseEvent) => {
         e.preventDefault();
+
+        // Clear any existing timeout to prevent race conditions
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
         try {
             await navigator.clipboard.writeText(email);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            timeoutRef.current = setTimeout(() => {
+                setCopied(false);
+                timeoutRef.current = null;
+            }, 2000);
         } catch {
             // Fallback for environments where clipboard API is unavailable
             const el = document.createElement('textarea');
@@ -30,9 +40,21 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
             document.execCommand('copy');
             document.body.removeChild(el);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            timeoutRef.current = setTimeout(() => {
+                setCopied(false);
+                timeoutRef.current = null;
+            }, 2000);
         }
     };
+
+    // Clean up timeout on unmount to prevent memory leaks
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return (
         <span className={`${css.root} ${className ?? ''}`}>
