@@ -172,6 +172,7 @@ const SignUpPage: FC = () => {
                                     If this is you, email the technical
                                     committee at:
                                     <br />
+                                    <br />
                                     <CopyableEmail
                                         email={tcEmail}
                                         className={css.emailSelector}
@@ -193,14 +194,16 @@ const SignUpPage: FC = () => {
                             applicants.
                         </Text>
                     )}
-                    <a
-                        href={FORMS.SIGN_UP}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={css.ctaButton}
-                    >
-                        Sign up for tryouts
-                    </a>
+                    {tryoutMonth !== 'May' && (
+                        <a
+                            href={FORMS.SIGN_UP}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={css.ctaButton}
+                        >
+                            Sign up for tryouts
+                        </a>
+                    )}
                 </div>
             </section>
 
