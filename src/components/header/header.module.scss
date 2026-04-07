@@ -1,10 +1,11 @@
 @use '@styles/tokens';
 
+
+
 .root {
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
-  background: linear-gradient(-20deg, tokens.$primary-color 75%, tokens.$white-color 75%);
   align-items: center;
   justify-content: space-between;
   padding: 0 5%;
@@ -14,8 +15,33 @@
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
+  // 1. The Fluid Range Setup
+  $max-width: 120rem;
+  $min-width: 80rem;
+  $width-range: $max-width - $min-width;
+
+  // 2. The Multiplier (0 to 1)
+  --t-wide: clamp(0, calc((100vw - #{$min-width}) / #{$width-range}), 1);
+
+  // 3. The Fluid Percentage
+  --gradient-stop: calc(75% - (25% * var(--t-wide)));
+
+  // 4. NEW: The Fluid Angle
+  // Starts at -20deg. As the screen widens, we add up to 10deg to make it steeper 
+  // (Moving towards 0deg makes the line more vertical. Adjust the 10deg to your liking!)
+  --gradient-angle: calc(-35deg + (10deg * var(--t-wide)));
+
+  // 5. Apply both dynamic variables to the background
+  background: linear-gradient(var(--gradient-angle),
+      tokens.$primary-color var(--gradient-stop),
+      tokens.$white-color 0);
+
+  // 6. Mobile Override
   @media (max-width: tokens.$breakpoint-md) {
-    background: linear-gradient(-70deg, tokens.$primary-color 65%, tokens.$white-color 65%);
+    // When the nav disappears, lock the angle and percentage 
+    // to whatever looks best for the mobile view.
+    --gradient-angle: -35deg;
+    --gradient-stop: 50%;
   }
 }
 
@@ -258,7 +284,9 @@
 .trigger,
 .link {
   all: unset;
-  padding: 8px 12px;
+
+  // Padding fluidly scales from 4px (at 64rem) to 16px (at 80rem)
+  padding: 8px clamp(0.25rem, -2.75rem + 4.6875vw, 1rem);
   outline: none;
   user-select: none;
   line-height: 1;
@@ -348,10 +376,10 @@
   border-radius: 6px;
   overflow: hidden;
   box-shadow: hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
-  hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
+    hsl(206deg 22% 7% / 20%) 0 10px 20px -15px;
   height: var(--radix-navigation-menu-viewport-height);
   transition: width 300ms ease,
-  height 300ms ease;
+    height 300ms ease;
 
   &[data-state="open"] {
     animation: scale-in 200ms ease;
@@ -424,7 +452,7 @@
   top: 1px;
   transition: transform 250ms ease;
 
-  [data-state="open"] > & {
+  [data-state="open"]>& {
     transform: rotate(-180deg);
   }
 }
