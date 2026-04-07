@@ -37,13 +37,23 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
             el.style.opacity = '0';
             document.body.appendChild(el);
             el.select();
-            document.execCommand('copy');
+
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch {
+                success = false;
+            }
+
             document.body.removeChild(el);
-            setCopied(true);
-            timeoutRef.current = setTimeout(() => {
-                setCopied(false);
-                timeoutRef.current = null;
-            }, 2000);
+
+            if (success) {
+                setCopied(true);
+                timeoutRef.current = setTimeout(() => {
+                    setCopied(false);
+                    timeoutRef.current = null;
+                }, 2000);
+            }
         }
     };
 
