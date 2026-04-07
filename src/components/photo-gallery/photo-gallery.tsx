@@ -40,11 +40,6 @@ const PHOTOS = [
         alt: 'Cool merch',
         span: 'normal',
     },
-    {
-        src: '/images/gallery/uvo-party.jpeg',
-        alt: 'UvO Party',
-        span: 'wide',
-    },
 ];
 
 export const PhotoGallery: FC = () => {
