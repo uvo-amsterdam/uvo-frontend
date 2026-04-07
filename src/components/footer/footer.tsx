@@ -1,71 +1,155 @@
 import type { FC } from 'react';
 import { FORMS } from '@constants/forms';
 import { LOCATION } from '@constants/location';
-import { Link, Separator, Text } from '@radix-ui/themes';
+import { Flex, Link, Separator, Text } from '@radix-ui/themes';
+import Image from 'next/image';
 import NextLink from 'next/link';
 
 import css from './footer.module.scss';
 
+const FOOTER_SECTIONS = [
+    {
+        title: 'About UvO Amsterdam',
+        contents: [
+            'The most fun & most international student volleybal associaton in Amsterdam!',
+        ],
+    },
+    {
+        title: 'Address',
+        contents: Object.values(LOCATION),
+    },
+    {
+        title: 'Contact',
+        contents: [
+            { label: 'Bestuur', email: 'bestuur@uvo-amsterdam.nl' },
+            {
+                label: 'Technische Commissie (TC)',
+                email: 'tc@uvo-amsterdam.nl',
+            },
+        ],
+    },
+];
+
+const SPONSORS = [
+    {
+        name: 'Studentensport Amsterdam',
+        href: 'https://www.studentensport.amsterdam/',
+        logo: '/images/sponsors/ssa.png',
+    },
+    {
+        name: 'Sportcentrum VU',
+        href: 'https://sportcentrumvu.nl/',
+        logo: '/images/sponsors/vu.png',
+    },
+    {
+        name: 'USC Sport',
+        href: 'https://www.uscsport.nl/',
+        logo: '/images/sponsors/usc.png',
+    },
+];
+
 export const Footer: FC = () => {
-    /**
-     * TODO: Move info to constants file! (for translations etc.) & add sponsors
-     * Change Algemene voorwaarden link to actual page
-     */
-    const footerInfo = [
-        {
-            title: 'Over UvO Amsterdam',
-            contents: ['Een volleybal vereniging vol gezelligheid!'],
-        },
-        {
-            title: 'Address',
-            contents: Object.values(LOCATION),
-        },
-        {
-            title: 'Contact',
-            contents: [
-                'Bestuur: bestuur@uvo-amsterdam.nl',
-                'Technische Commissie (TC): tc@uvo-amsterdam.nl',
-            ],
-        },
-    ];
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className={css.root}>
             <div className={css.infoSection}>
-                {footerInfo.map(info => (
-                    <div key={info.title} className={css.bottomSection}>
-                        <Text>{info.title}</Text>
-                        {info.contents.map(content => (
-                            <Text key={content}>{content}</Text>
-                        ))}
-                    </div>
+                {FOOTER_SECTIONS.map(section => (
+                    <Flex key={section.title} direction="column" gap="2">
+                        <Text className={css.sectionTitle}>
+                            {section.title}
+                        </Text>
+                        {section.contents.map(content => {
+                            const uniqueKey =
+                                typeof content === 'string'
+                                    ? content
+                                    : content.label;
+
+                            return (
+                                <Text key={uniqueKey} size="2">
+                                    {typeof content === 'string' ? (
+                                        content
+                                    ) : (
+                                        <>
+                                            {content.label}:{' '}
+                                            <Link
+                                                href={`mailto:${content.email}`}
+                                                className={css.footerLink}
+                                            >
+                                                {content.email}
+                                            </Link>
+                                        </>
+                                    )}
+                                </Text>
+                            );
+                        })}
+                    </Flex>
                 ))}
-                <div className={css.bottomSection}>
-                    <Text>Join UvO</Text>
-                    <Text>Want to play volleyball with us?</Text>
+
+                <Flex direction="column" gap="2">
+                    <Text className={css.sectionTitle}>Join UvO</Text>
+                    <Text size="2">Want to play volleyball with us?</Text>
                     <Link
                         href={FORMS.SIGN_UP}
                         target="_blank"
                         rel="noopener noreferrer"
-                        highContrast
+                        className={css.footerLink}
                     >
-                        Sign up here
+                        Sign up here →
                     </Link>
-                </div>
+                </Flex>
             </div>
-            <Separator my="3" size="4" />
-            <div className={css.bottom}>
-                <div className={css.bottomSection}>
-                    <Text size="1">
-                        © COPYRIGHT {new Date().getFullYear()} UvO Amsterdam.
-                    </Text>
-                    <Text size="1">
-                        <Link asChild highContrast>
-                            <NextLink href="/">Algemene voorwaarden</NextLink>
-                        </Link>{' '}
-                        | Website made by itcommittee@uvo-amsterdam.nl
-                    </Text>
-                </div>
-            </div>
+
+            <Separator my="4" size="4" className={css.separator} />
+
+            <Flex direction="column" align="center" gap="4">
+                <Text size="1">Our Partners</Text>
+                <Flex wrap="wrap" justify="center" align="center" gap="6">
+                    {SPONSORS.map(sponsor => (
+                        <Link
+                            key={sponsor.name}
+                            href={sponsor.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={css.sponsorLink}
+                        >
+                            <Image
+                                src={sponsor.logo}
+                                alt={sponsor.name}
+                                width={140}
+                                height={60}
+                                className={css.sponsorLogo}
+                            />
+                        </Link>
+                    ))}
+                </Flex>
+            </Flex>
+
+            <Separator my="4" size="4" className={css.separator} />
+
+            <Flex
+                direction="column"
+                align="center"
+                gap="2"
+                className={css.bottom}
+            >
+                <Text size="1" className={css.legalSection}>
+                    © COPYRIGHT {currentYear} UvO Amsterdam.
+                </Text>
+                <Text size="1">
+                    <Link asChild highContrast className={css.footerLink}>
+                        <NextLink href="/terms">Algemene voorwaarden</NextLink>
+                    </Link>
+                    {' | '}
+                    Website made by{' '}
+                    <Link
+                        href="mailto:itcommittee@uvo-amsterdam.nl"
+                        className={css.footerLink}
+                    >
+                        itcommittee@uvo-amsterdam.nl
+                    </Link>
+                </Text>
+            </Flex>
         </footer>
     );
 };
