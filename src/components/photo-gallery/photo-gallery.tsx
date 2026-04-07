@@ -6,34 +6,39 @@ import css from './photo-gallery.module.scss';
 
 const PHOTOS = [
     {
-        src: '/images/homepage/team-photo.jpeg',
-        alt: 'Team at a tournament',
+        src: '/images/homepage/uvo-beer-impression.jpeg',
+        alt: 'Beers with the team',
         span: 'wide',
     },
     {
-        src: '/images/homepage/team-photo.jpeg',
+        src: '/images/homepage/uvo-party-impression.jpeg',
         alt: 'UvO party night',
         span: 'normal',
     },
     {
-        src: '/images/homepage/team-photo.jpeg',
-        alt: 'Training session',
+        src: '/images/homepage/uvo-ski-outing.jpeg',
+        alt: 'Ski trip with UvO',
         span: 'normal',
     },
     {
-        src: '/images/homepage/team-photo.jpeg',
-        alt: 'Beach volleyball trip',
+        src: '/images/gallery/super-saturday-set-2026.jpeg',
+        alt: 'Super saturday - Setting skills',
         span: 'normal',
     },
     {
-        src: '/images/homepage/team-photo.jpeg',
-        alt: 'Committee activity',
+        src: '/images/gallery/champions.jpeg',
+        alt: 'Champions',
         span: 'normal',
     },
     {
-        src: '/images/homepage/team-photo.jpeg',
-        alt: 'Match day',
-        span: 'wide',
+        src: '/images/gallery/super-saturday-2026.jpeg',
+        alt: 'Super saturday - Team cheer',
+        span: 'normal',
+    },
+    {
+        src: '/images/merch/top-down-shirt.jpeg',
+        alt: 'Cool merch',
+        span: 'normal',
     },
 ];
 
@@ -60,6 +65,7 @@ export const PhotoGallery: FC = () => {
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
                             style={{ objectFit: 'cover' }}
+                            loading={'eager'}
                         />
                         <div className={css.caption}>
                             <Text size="2">{photo.alt}</Text>
