@@ -1,7 +1,7 @@
 import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import pino from 'pino';
-import readXlsxFile, { type Schema } from 'read-excel-file/node';
+import { parseData, readSheet, type Schema } from 'read-excel-file/node';
 
 const logger = pino();
 
@@ -48,23 +48,31 @@ export async function parseNevoboExcel(
     try {
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
+        const data = await readSheet(buffer);
 
         if (type === 'fixtures') {
-            const { rows, errors } = await readXlsxFile(buffer, {
-                schema: NEVOBO_FIXTURE_SCHEMA,
-            });
-            if (errors.length > 0) {
-                logger.debug(errors, 'Minor parsing issues:');
+            const result = parseData(data, NEVOBO_FIXTURE_SCHEMA);
+            const rows: NevoboFixture[] = [];
+            for (const item of result) {
+                if (item.errors) {
+                    logger.debug(item.errors, 'Minor parsing issues:');
+                }
+                if (item.object) {
+                    rows.push(item.object);
+                }
             }
             return rows;
         } else {
-            const { rows, errors } = await readXlsxFile(buffer, {
-                schema: NEVOBO_RESULTS_SCHEMA,
-            });
-            if (errors.length > 0) {
-                logger.debug(errors, 'Minor parsing issues:');
+            const result = parseData(data, NEVOBO_RESULTS_SCHEMA);
+            const rows: NevoboMatchResult[] = [];
+            for (const item of result) {
+                if (item.errors) {
+                    logger.debug(item.errors, 'Minor parsing issues:');
+                }
+                if (item.object) {
+                    rows.push(item.object);
+                }
             }
-
             return rows;
         }
     } catch (error) {
