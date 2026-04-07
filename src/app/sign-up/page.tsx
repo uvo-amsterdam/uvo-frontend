@@ -94,9 +94,15 @@ const SignUpPage: FC = () => {
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
 
-    const tcEmail =
-        GENERAL_CONTACT.find(c => c.name === 'Technical Committee (TC)')
-            ?.email || '';
+    const tcEmail = GENERAL_CONTACT.find(
+        c => c.name === 'Technical Committee (TC)',
+    )?.email;
+
+    if (!tcEmail) {
+        throw new Error(
+            'Missing "Technical Committee (TC)" email in src/constants/general-contact.ts. This is required for the Sign-Up page.',
+        );
+    }
 
     return (
         <div className={css.root}>
@@ -159,13 +165,19 @@ const SignUpPage: FC = () => {
                     {tryoutMonth === 'May' ? (
                         <Text as="p" size="3" className={css.tryoutBody}>
                             During May we have closed tryouts, however we do
-                            allow new 1st class players and above to join! If
-                            this is you, email the technical committee at:
-                            <br />
-                            <CopyableEmail
-                                email={tcEmail}
-                                className={css.emailSelector}
-                            />
+                            allow new 1st class players and above to join!
+                            {tcEmail && (
+                                <>
+                                    {' '}
+                                    If this is you, email the technical
+                                    committee at:
+                                    <br />
+                                    <CopyableEmail
+                                        email={tcEmail}
+                                        className={css.emailSelector}
+                                    />
+                                </>
+                            )}
                             <br />
                             <br />
                             For other players, we will have open tryouts once
