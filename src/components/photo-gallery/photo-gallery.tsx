@@ -21,8 +21,18 @@ const PHOTOS = [
         span: 'normal',
     },
     {
+        src: '/images/gallery/super-saturday-set-2026.jpeg',
+        alt: 'Super saturday - Setting skills',
+        span: 'normal',
+    },
+    {
         src: '/images/gallery/champions.jpeg',
         alt: 'Champions',
+        span: 'normal',
+    },
+    {
+        src: '/images/gallery/super-saturday-2026.jpeg',
+        alt: 'Super saturday - Team cheer',
         span: 'normal',
     },
     {
@@ -60,6 +70,7 @@ export const PhotoGallery: FC = () => {
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
                             style={{ objectFit: 'cover' }}
+                            loading={'eager'}
                         />
                         <div className={css.caption}>
                             <Text size="2">{photo.alt}</Text>

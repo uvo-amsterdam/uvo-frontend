@@ -7,6 +7,8 @@ import css from './hero-slideshow.module.scss';
 
 const SLIDES = [
     { src: '/images/homepage/team-photo.jpeg', alt: 'UvO team photo' },
+    { src: '/images/homepage/wintruvo-2025.jpeg', alt: 'WintrUvO 2025' },
+    { src: '/images/homepage/intruvo-group-2025.jpeg', alt: 'IntrUvO 2025' },
     { src: '/images/homepage/uvo-outing.jpeg', alt: 'UvO activities' },
     { src: '/images/homepage/uvo-ski-outing.jpeg', alt: 'UvO Ski outing' },
 ];
