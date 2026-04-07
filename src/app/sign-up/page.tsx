@@ -1,6 +1,8 @@
 import type { FC } from 'react';
+import { CopyableEmail } from '@components/copyable-email/copyable-email';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
+import { GENERAL_CONTACT } from '@constants/general-contact';
 import { Callout, Heading, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
@@ -92,6 +94,10 @@ const SignUpPage: FC = () => {
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
 
+    const tcEmail =
+        GENERAL_CONTACT.find(c => c.name === 'Technical Committee (TC)')
+            ?.email || '';
+
     return (
         <div className={css.root}>
             <Hero
@@ -150,13 +156,31 @@ const SignUpPage: FC = () => {
                     <Heading as="h2" className={css.tryoutHeadline}>
                         Next tryouts: {tryoutMonth}
                     </Heading>
-                    <Text as="p" size="3" className={css.tryoutBody}>
-                        Interested? Fill in the sign-up form and our Technical
-                        Committee will reach out to you with all the details.
-                        Keep in mind that you need to be a student to apply, and
-                        signing up doesn&apos;t guarantee a spot - it depends on
-                        the total number of applicants.
-                    </Text>
+                    {tryoutMonth === 'May' ? (
+                        <Text as="p" size="3" className={css.tryoutBody}>
+                            During May we have closed tryouts, however we do
+                            allow new 1st class players and above to join! If
+                            this is you, email the technical committee at:
+                            <br />
+                            <CopyableEmail
+                                email={tcEmail}
+                                className={css.emailSelector}
+                            />
+                            <br />
+                            <br />
+                            For other players, we will have open tryouts once
+                            again in August and September!
+                        </Text>
+                    ) : (
+                        <Text as="p" size="3" className={css.tryoutBody}>
+                            Interested? Fill in the sign-up form and our
+                            Technical Committee will reach out to you with all
+                            the details. Keep in mind that you need to be a
+                            student to apply, and signing up doesn&apos;t
+                            guarantee a spot - it depends on the total number of
+                            applicants.
+                        </Text>
+                    )}
                     <a
                         href={FORMS.SIGN_UP}
                         target="_blank"

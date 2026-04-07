@@ -143,9 +143,30 @@
 .tryoutBody {
   line-height: 1.7;
   opacity: 0.92;
-  max-width: 640px;
+  max-width: 680px;
   margin-bottom: 2rem;
   font-size: 1.05rem;
+}
+
+.emailSelector {
+  display: inline-flex;
+  vertical-align: baseline;
+  margin-left: 0.2rem;
+
+  button {
+    color: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+
+    &:hover {
+      color: inherit;
+      opacity: 0.8;
+    }
+  }
 }
 
 .ctaButton {
