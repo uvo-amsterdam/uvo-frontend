@@ -123,6 +123,10 @@ Required variables:
 | `DIRECTUS_URL` | Yes | Base URL of your Directus instance used by server-side API routes. |
 | `DIRECTUS_TOKEN` | Yes | Static token used to authenticate requests to Directus. |
 
+Security note:
+- `DIRECTUS_TOKEN` is a secret and must stay server-side only (never expose it via `NEXT_PUBLIC_*`).
+- Use a least-privileged, read-only token scoped only to the collections this app needs.
+
 For CI/deployments, configure the same variables in the environment so builds and runtime fetches do not fail.
 
 ### 3.3 Running the Development Server
