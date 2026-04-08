@@ -1,6 +1,9 @@
 @use '@styles/tokens';
 
 .root {
+  --header-gradient-angle: -25deg;
+  --header-gradient-stop: 50%;
+
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
@@ -12,22 +15,35 @@
   top: 0;
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+  background-color: tokens.$primary-color;
+  background-image: linear-gradient(var(--header-gradient-angle),
+      tokens.$primary-color 0%,
+      tokens.$primary-color var(--header-gradient-stop),
+      tokens.$white-color var(--header-gradient-stop),
+      tokens.$white-color 100%);
 
-  $max-width: 120rem;
-  $min-width: 80rem;
-  $width-range: $max-width - $min-width;
+  @media (min-width: tokens.$breakpoint-sm) {
+    --header-gradient-angle: -33deg;
+  }
 
-  --t-wide: clamp(0, calc((100vw - #{$min-width}) / #{$width-range}), 1);
-  --gradient-stop: calc(75% - (25% * var(--t-wide)));
-  --gradient-angle: calc(-35deg + (10deg * var(--t-wide)));
+  @media (min-width: tokens.$breakpoint-md) {
+    --header-gradient-angle: -30deg;
+    --header-gradient-stop: 70%;
+  }
 
-  background: linear-gradient(var(--gradient-angle),
-      tokens.$primary-color var(--gradient-stop),
-      tokens.$white-color 0);
+  @media (min-width: tokens.$breakpoint-lg) {
+    --header-gradient-angle: -29deg;
+    --header-gradient-stop: 70%;
+  }
 
-  @media (max-width: tokens.$breakpoint-md) {
-    --gradient-angle: -35deg;
-    --gradient-stop: 50%;
+  @media (min-width: tokens.$breakpoint-xl) {
+    --header-gradient-angle: -27deg;
+    --header-gradient-stop: 60%;
+  }
+
+  @media (min-width: tokens.$breakpoint-2xl) {
+    --header-gradient-angle: -25deg;
+    --header-gradient-stop: 50%;
   }
 }
 
