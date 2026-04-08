@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';
 
-export const dynamic = 'force-static';
+export const revalidate = 300;
 
 export async function GET() {
     try {
