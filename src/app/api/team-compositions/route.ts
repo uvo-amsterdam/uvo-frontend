@@ -1,4 +1,8 @@
 import { readItems } from '@directus/sdk';
+import type {
+    DirectusTeamComposition,
+    TeamComposition,
+} from '@interfaces/team-composition.interface';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';
@@ -14,7 +18,7 @@ export async function GET() {
             readItems('team_compositions', { limit: -1 }),
         );
 
-        return NextResponse.json(teams);
+        return NextResponse.json(normalizeTeamCompositions(teams));
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Team Compositions');
         return NextResponse.json(
@@ -22,4 +26,15 @@ export async function GET() {
             { status: 500 },
         );
     }
+}
+
+function normalizeTeamCompositions(
+    items: DirectusTeamComposition[],
+): TeamComposition[] {
+    return items.map(item => ({
+        id: item.id,
+        team: item.Team,
+        name: item.Name,
+        position: item.Position,
+    }));
 }

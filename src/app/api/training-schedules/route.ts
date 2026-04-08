@@ -1,4 +1,8 @@
 import { readItems } from '@directus/sdk';
+import type {
+    DirectusScheduleItem,
+    ScheduleItem,
+} from '@interfaces/training-schedule.interface';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';
@@ -27,10 +31,10 @@ export async function GET() {
             ]);
 
         return NextResponse.json({
-            mondayEven,
-            mondayUneven,
-            thursdayEven,
-            thursdayUneven,
+            mondayEven: normalizeScheduleItems(mondayEven),
+            mondayUneven: normalizeScheduleItems(mondayUneven),
+            thursdayEven: normalizeScheduleItems(thursdayEven),
+            thursdayUneven: normalizeScheduleItems(thursdayUneven),
         });
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Training Schedules');
@@ -39,4 +43,15 @@ export async function GET() {
             { status: 500 },
         );
     }
+}
+
+function normalizeScheduleItems(items: DirectusScheduleItem[]): ScheduleItem[] {
+    return items.map(item => ({
+        id: item.id,
+        time: item.Time,
+        field1: item.Field_1,
+        field2: item.Field_2,
+        field3: item.Field_3,
+        field4: item.Field_4,
+    }));
 }

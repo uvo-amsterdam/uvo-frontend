@@ -1,4 +1,4 @@
-export interface TeamComposition {
+export interface DirectusTeamComposition {
     id: number;
     user_created: string | null;
     user_updated: string | null;
@@ -6,4 +6,11 @@ export interface TeamComposition {
     Team: string;
     Name: string;
     Position: string;
+}
+
+export interface TeamComposition {
+    id: number;
+    team: string;
+    name: string;
+    position: string;
 }
