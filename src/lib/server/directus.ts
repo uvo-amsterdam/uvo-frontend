@@ -12,7 +12,7 @@ interface Schema {
 }
 
 const directusUrl = process.env.DIRECTUS_URL;
-const token = process.env.DIRECTUS_TOKEN as string;
+const token = process.env.DIRECTUS_TOKEN;
 
 if (!directusUrl) {
     throw new Error(
