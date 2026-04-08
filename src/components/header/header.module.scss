@@ -1,6 +1,9 @@
 @use '@styles/tokens';
 
 .root {
+  --header-gradient-angle: -25deg;
+  --header-gradient-stop: 50%;
+
   box-sizing: border-box;
   display: flex;
   flex-flow: row;
@@ -12,53 +15,35 @@
   top: 0;
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
-
-  
   background-color: tokens.$primary-color;
-  background-image: linear-gradient(-35deg,
+  background-image: linear-gradient(var(--header-gradient-angle),
       tokens.$primary-color 0%,
-      tokens.$primary-color 50%,
-      tokens.$white-color 50%,
+      tokens.$primary-color var(--header-gradient-stop),
+      tokens.$white-color var(--header-gradient-stop),
       tokens.$white-color 100%);
 
   @media (min-width: tokens.$breakpoint-sm) {
-    background-image: linear-gradient(-33deg,
-        tokens.$primary-color 0%,
-        tokens.$primary-color 50%,
-        tokens.$white-color 50%,
-        tokens.$white-color 100%);
+    --header-gradient-angle: -33deg;
   }
 
   @media (min-width: tokens.$breakpoint-md) {
-    background-image: linear-gradient(-30deg,
-        tokens.$primary-color 0%,
-        tokens.$primary-color 70%,
-        tokens.$white-color 70%,
-        tokens.$white-color 100%);
+    --header-gradient-angle: -30deg;
+    --header-gradient-stop: 70%;
   }
 
   @media (min-width: tokens.$breakpoint-lg) {
-    background-image: linear-gradient(-29deg,
-        tokens.$primary-color 0%,
-        tokens.$primary-color 65%,
-        tokens.$white-color 65%,
-        tokens.$white-color 100%);
+    --header-gradient-angle: -29deg;
+    --header-gradient-stop: 70%;
   }
 
   @media (min-width: tokens.$breakpoint-xl) {
-    background-image: linear-gradient(-27deg,
-        tokens.$primary-color 0%,
-        tokens.$primary-color 60%,
-        tokens.$white-color 60%,
-        tokens.$white-color 100%);
+    --header-gradient-angle: -27deg;
+    --header-gradient-stop: 60%;
   }
 
   @media (min-width: tokens.$breakpoint-2xl) {
-    background-image: linear-gradient(-25deg,
-        tokens.$primary-color 0%,
-        tokens.$primary-color 50%,
-        tokens.$white-color 50%,
-        tokens.$white-color 100%);
+    --header-gradient-angle: -25deg;
+    --header-gradient-stop: 50%;
   }
 }
 
