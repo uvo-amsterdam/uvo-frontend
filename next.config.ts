@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
                     },
                     {
                         key: 'Clear-Site-Data',
-                        value: '"cache"',
+                        value: 'cache',
                     },
                 ],
             },
