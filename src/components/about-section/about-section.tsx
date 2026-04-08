@@ -20,7 +20,7 @@ export const AboutSection: FC = () => {
                     </Heading>
                     <Text as="p" size="3" className={css.body}>
                         Welcome to UvO, the <Strong>most international</Strong>{' '}
-                        & the <Strong>most fun</Strong> student volleyball
+                        & the <Strong>most fun</Strong>{' '} student volleyball
                         association in Amsterdam! UvO has been around for over
                         25 years. We play with eight women&apos;s teams and five
                         men&apos;s teams in the Nevobo competition and also have
