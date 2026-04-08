@@ -16,7 +16,7 @@ export async function GET() {
 
         return NextResponse.json(teams);
     } catch (error) {
-        logger.error({ error }, 'Error fetching Team Compositions');
+        logger.error({ err: error }, 'Error fetching Team Compositions');
         return NextResponse.json(
             { error: 'Failed to fetch Team Compositions' },
             { status: 500 },

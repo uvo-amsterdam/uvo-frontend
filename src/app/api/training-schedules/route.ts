@@ -25,7 +25,7 @@ export async function GET() {
             thursdayUneven,
         });
     } catch (error) {
-        logger.error({ error }, 'Error fetching Training Schedules');
+        logger.error({ err: error }, 'Error fetching Training Schedules');
         return NextResponse.json(
             { error: 'Failed to fetch Training Schedules' },
             { status: 500 },
