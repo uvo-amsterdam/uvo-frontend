@@ -13,21 +13,52 @@
   z-index: 10;
   box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
 
-  $max-width: 120rem;
-  $min-width: 80rem;
-  $width-range: $max-width - $min-width;
+  
+  background-color: tokens.$primary-color;
+  background-image: linear-gradient(-35deg,
+      tokens.$primary-color 0%,
+      tokens.$primary-color 50%,
+      tokens.$white-color 50%,
+      tokens.$white-color 100%);
 
-  --t-wide: clamp(0, calc((100vw - #{$min-width}) / #{$width-range}), 1);
-  --gradient-stop: calc(75% - (25% * var(--t-wide)));
-  --gradient-angle: calc(-35deg + (10deg * var(--t-wide)));
+  @media (min-width: tokens.$breakpoint-sm) {
+    background-image: linear-gradient(-33deg,
+        tokens.$primary-color 0%,
+        tokens.$primary-color 50%,
+        tokens.$white-color 50%,
+        tokens.$white-color 100%);
+  }
 
-  background: linear-gradient(var(--gradient-angle),
-      tokens.$primary-color var(--gradient-stop),
-      tokens.$white-color 0);
+  @media (min-width: tokens.$breakpoint-md) {
+    background-image: linear-gradient(-30deg,
+        tokens.$primary-color 0%,
+        tokens.$primary-color 70%,
+        tokens.$white-color 70%,
+        tokens.$white-color 100%);
+  }
 
-  @media (max-width: tokens.$breakpoint-md) {
-    --gradient-angle: -35deg;
-    --gradient-stop: 50%;
+  @media (min-width: tokens.$breakpoint-lg) {
+    background-image: linear-gradient(-29deg,
+        tokens.$primary-color 0%,
+        tokens.$primary-color 65%,
+        tokens.$white-color 65%,
+        tokens.$white-color 100%);
+  }
+
+  @media (min-width: tokens.$breakpoint-xl) {
+    background-image: linear-gradient(-27deg,
+        tokens.$primary-color 0%,
+        tokens.$primary-color 60%,
+        tokens.$white-color 60%,
+        tokens.$white-color 100%);
+  }
+
+  @media (min-width: tokens.$breakpoint-2xl) {
+    background-image: linear-gradient(-25deg,
+        tokens.$primary-color 0%,
+        tokens.$primary-color 50%,
+        tokens.$white-color 50%,
+        tokens.$white-color 100%);
   }
 }
 
