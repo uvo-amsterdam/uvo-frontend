@@ -2,7 +2,7 @@ import { readItems } from '@directus/sdk';
 import type {
     DirectusTeamComposition,
     TeamComposition,
-} from '@interfaces/team-composition.interface';
+} from '@interfaces/team-composition';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';

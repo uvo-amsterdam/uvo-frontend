@@ -1,7 +1,7 @@
 import 'server-only';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
-import type { DirectusTeamComposition } from '@interfaces/team-composition.interface';
-import type { DirectusScheduleItem } from '@interfaces/training-schedule.interface';
+import type { DirectusTeamComposition } from '@interfaces/team-composition';
+import type { DirectusScheduleItem } from '@interfaces/training-schedule';
 
 interface Schema {
     team_compositions: DirectusTeamComposition[];

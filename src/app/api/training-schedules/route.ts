@@ -2,7 +2,7 @@ import { readItems } from '@directus/sdk';
 import type {
     DirectusScheduleItem,
     ScheduleItem,
-} from '@interfaces/training-schedule.interface';
+} from '@interfaces/training-schedule';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';

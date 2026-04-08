@@ -1,4 +1,4 @@
-import type { TrainingSchedules } from '@interfaces/training-schedule.interface';
+import type { TrainingSchedules } from '@interfaces/training-schedule';
 import { useApiFetch } from './use-api-fetch';
 
 export const useTrainingSchedules = () => {
