@@ -15,11 +15,7 @@ const nextConfig: NextConfig = {
                 headers: [
                     {
                         key: 'Cache-Control',
-                        value: 'no-store',
-                    },
-                    {
-                        key: 'Clear-Site-Data',
-                        value: 'cache',
+                        value: 'no-cache',
                     },
                 ],
             },
