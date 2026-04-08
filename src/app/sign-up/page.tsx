@@ -91,6 +91,7 @@ const BEGINNERS_ROWS = [
 
 const SignUpPage: FC = () => {
     const tryoutMonth = getNextTryoutMonth();
+    const isMayTryoutPeriod = tryoutMonth === 'May';
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
 
@@ -162,24 +163,19 @@ const SignUpPage: FC = () => {
                     <Heading as="h2" className={css.tryoutHeadline}>
                         Next tryouts: {tryoutMonth}
                     </Heading>
-                    {tryoutMonth === 'May' ? (
+                    {isMayTryoutPeriod ? (
                         <Text as="p" size="3" className={css.tryoutBody}>
                             We're currently mid-season! Our May tryouts are
                             reserved for <b>existing members</b>, but we are
                             always looking for top-tier talent. If you are a{' '}
                             <b>1st Class player or above</b>, we'd love to have
                             you join us!
-                            {tcEmail && (
-                                <>
-                                    <br />
-                                    Please reach out to the technical committee
-                                    at:
-                                    <CopyableEmail
-                                        email={tcEmail}
-                                        className={css.emailSelector}
-                                    />
-                                </>
-                            )}
+                            <br />
+                            Please reach out to the technical committee at:
+                            <CopyableEmail
+                                email={tcEmail}
+                                className={css.emailSelector}
+                            />
                             <br />
                             <br />
                             <b>Not there yet? No problem!</b> We'll be hosting
@@ -196,7 +192,7 @@ const SignUpPage: FC = () => {
                             applicants.
                         </Text>
                     )}
-                    {tryoutMonth !== 'May' && (
+                    {!isMayTryoutPeriod && (
                         <a
                             href={FORMS.SIGN_UP}
                             target="_blank"
