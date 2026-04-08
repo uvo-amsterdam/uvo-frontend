@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
     async headers() {
         return [
             {
-                source: '/:path*',
+                source: '/',
                 has: [
                     {
                         type: 'header',
