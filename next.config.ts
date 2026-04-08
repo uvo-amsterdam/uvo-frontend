@@ -15,7 +15,19 @@ const nextConfig: NextConfig = {
                 headers: [
                     {
                         key: 'Cache-Control',
-                        value: 'no-cache, max-age=0, must-revalidate',
+                        value: 'private, no-store, max-age=0, must-revalidate',
+                    },
+                    {
+                        key: 'Clear-Site-Data',
+                        value: '"cache"',
+                    },
+                    {
+                        key: 'Pragma',
+                        value: 'no-cache',
+                    },
+                    {
+                        key: 'Expires',
+                        value: '0',
                     },
                 ],
             },
