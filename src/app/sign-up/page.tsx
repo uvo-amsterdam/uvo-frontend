@@ -1,7 +1,9 @@
 import type { FC } from 'react';
+import { CopyableEmail } from '@components/copyable-email/copyable-email';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
-import { Callout, Heading, Text } from '@radix-ui/themes';
+import { GENERAL_CONTACT } from '@constants/general-contact';
+import { Callout, Heading, Link, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -89,6 +91,7 @@ const BEGINNERS_ROWS = [
 
 const SignUpPage: FC = () => {
     const tryoutMonth = getNextTryoutMonth();
+    const isMayTryoutPeriod = tryoutMonth === 'May';
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
 
@@ -150,21 +153,46 @@ const SignUpPage: FC = () => {
                     <Heading as="h2" className={css.tryoutHeadline}>
                         Next tryouts: {tryoutMonth}
                     </Heading>
-                    <Text as="p" size="3" className={css.tryoutBody}>
-                        Interested? Fill in the sign-up form and our Technical
-                        Committee will reach out to you with all the details.
-                        Keep in mind that you need to be a student to apply, and
-                        signing up doesn&apos;t guarantee a spot - it depends on
-                        the total number of applicants.
-                    </Text>
-                    <a
-                        href={FORMS.SIGN_UP}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={css.ctaButton}
-                    >
-                        Sign up for tryouts
-                    </a>
+                    {isMayTryoutPeriod ? (
+                        <Text as="p" size="3" className={css.tryoutBody}>
+                            We're currently mid-season! Our May tryouts are
+                            reserved for <b>existing members</b>, but we are
+                            always looking for top-tier talent. If you are a{' '}
+                            <b>1st Class player or above</b>, we'd love to have
+                            you join us!
+                            <br />
+                            Please reach out to the {GENERAL_CONTACT.TC.name}{' '}
+                            at:
+                            <CopyableEmail
+                                email={GENERAL_CONTACT.TC.email}
+                                className={css.emailSelector}
+                            />
+                            <br />
+                            <br />
+                            <b>Not there yet? No problem!</b> We'll be hosting
+                            open tryouts for all players again in{' '}
+                            <b>August and September</b>. See you then!
+                        </Text>
+                    ) : (
+                        <Text as="p" size="3" className={css.tryoutBody}>
+                            Interested? Fill in the sign-up form and our
+                            Technical Committee will reach out to you with all
+                            the details. Keep in mind that you need to be a
+                            student to apply, and signing up doesn&apos;t
+                            guarantee a spot - it depends on the total number of
+                            applicants.
+                        </Text>
+                    )}
+                    {!isMayTryoutPeriod && (
+                        <Link
+                            href={FORMS.SIGN_UP}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={css.ctaButton}
+                        >
+                            Sign up for tryouts
+                        </Link>
+                    )}
                 </div>
             </section>
 
