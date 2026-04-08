@@ -27,9 +27,7 @@ export default function Contact() {
     return (
         <div className={css.root}>
             <Hero title="Contact" subtitle={HERO_SUBTITLE} />
-
             <section className={css.info}>
-                {/* Board subsection */}
                 <div className={css.subsection}>
                     <Heading as="h2" className={css.sectionHeader}>
                         Board 28
@@ -63,33 +61,30 @@ export default function Contact() {
                         ))}
                     </div>
                 </div>
-
-                {/* General contact subsection */}
                 <div className={css.subsection}>
                     <Heading as="h2" className={css.sectionHeader}>
                         Other Contact Channels
                     </Heading>
                     <div className={css.contactBlock}>
-                        {GENERAL_CONTACT.map(entry => (
-                            <div key={entry.email} className={css.contactRow}>
+                        {Object.entries(GENERAL_CONTACT).map(([key, value]) => (
+                            <div key={key} className={css.contactRow}>
                                 <div className={css.contactRowLeft}>
                                     <Text
                                         size="2"
                                         weight="bold"
                                         className={css.rowRole}
                                     >
-                                        {entry.name}
+                                        {value.name}
                                     </Text>
                                 </div>
                                 <div className={css.contactRowRight}>
-                                    <CopyableEmail email={entry.email} />
+                                    <CopyableEmail email={value.email} />
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
-
             <LocationSection />
         </div>
     );

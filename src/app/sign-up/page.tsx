@@ -3,7 +3,7 @@ import { CopyableEmail } from '@components/copyable-email/copyable-email';
 import { Hero } from '@components/hero/hero';
 import { FORMS } from '@constants/forms';
 import { GENERAL_CONTACT } from '@constants/general-contact';
-import { Callout, Heading, Text } from '@radix-ui/themes';
+import { Callout, Heading, Link, Text } from '@radix-ui/themes';
 import { IconInfoCircle } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -95,16 +95,6 @@ const SignUpPage: FC = () => {
     const isSurcharge = (period: string) =>
         period.toLowerCase().includes('surcharge');
 
-    const tcEmail = GENERAL_CONTACT.find(
-        c => c.name === 'Technical Committee (TC)',
-    )?.email;
-
-    if (!tcEmail) {
-        throw new Error(
-            'Missing "Technical Committee (TC)" email in src/constants/general-contact.ts. This is required for the Sign-Up page.',
-        );
-    }
-
     return (
         <div className={css.root}>
             <Hero
@@ -171,9 +161,10 @@ const SignUpPage: FC = () => {
                             <b>1st Class player or above</b>, we'd love to have
                             you join us!
                             <br />
-                            Please reach out to the technical committee at:
+                            Please reach out to the {GENERAL_CONTACT.TC.name}{' '}
+                            at:
                             <CopyableEmail
-                                email={tcEmail}
+                                email={GENERAL_CONTACT.TC.email}
                                 className={css.emailSelector}
                             />
                             <br />
@@ -193,14 +184,14 @@ const SignUpPage: FC = () => {
                         </Text>
                     )}
                     {!isMayTryoutPeriod && (
-                        <a
+                        <Link
                             href={FORMS.SIGN_UP}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={css.ctaButton}
                         >
                             Sign up for tryouts
-                        </a>
+                        </Link>
                     )}
                 </div>
             </section>
