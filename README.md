@@ -106,6 +106,25 @@ From within the cloned repository:
 pnpm install
 ```
 
+### 3.2.1 Environment Variables
+
+This project uses Directus as a headless CMS. It allows non-technical users to update website content without changing code.
+
+Create a local env file from the example:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+Required variables:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `DIRECTUS_URL` | Yes | Base URL of your Directus instance used by server-side API routes. |
+| `DIRECTUS_TOKEN` | Yes | Static token used to authenticate requests to Directus. |
+
+For CI/deployments, configure the same variables in the environment so builds and runtime fetches do not fail.
+
 ### 3.3 Running the Development Server
 
 Once dependencies are installed, run:
