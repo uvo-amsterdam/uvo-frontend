@@ -19,12 +19,12 @@ export const AboutSection: FC = () => {
                         UvO in a few words
                     </Heading>
                     <Text as="p" size="3" className={css.body}>
-                        Welcome to UvO, the <Strong>most international</Strong>{' '}
-                        & the <Strong>most fun</Strong>{' '} student volleyball
-                        association in Amsterdam! UvO has been around for over
-                        25 years. We play with eight women&apos;s teams and five
-                        men&apos;s teams in the Nevobo competition and also have
-                        two beginner training-only teams.
+                        Welcome to UvO, the <Strong>most international</Strong>
+                        &nbsp; & the <Strong>most fun</Strong>&nbsp;student
+                        volleyball association in Amsterdam! UvO has been around
+                        for over 25 years. We play with eight women&apos;s teams
+                        and five men&apos;s teams in the Nevobo competition and
+                        also have two beginner training-only teams.
                     </Text>
                     <Text as="p" size="3" className={css.body}>
                         The training evenings are every Monday and Thursday at
@@ -41,7 +41,7 @@ export const AboutSection: FC = () => {
                         members, we have a great time all year round.
                     </Text>
                     <Text as="p" size="2" className={css.contact}>
-                        Would you like to know more?{' '}
+                        Would you like to know more?&nbsp;
                         <Link href="mailto:bestuur@uvo-amsterdam.nl">
                             bestuur@uvo-amsterdam.nl
                         </Link>
