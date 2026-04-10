@@ -10,7 +10,12 @@ import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
 
-let cachedTrainingSchedules: TrainingSchedules | null = null;
+const MAX_STALE_AGE = 1000 * 60 * 60 * 24 * 30 * 6; // ~6 months
+
+let cache: {
+    data: TrainingSchedules;
+    timestamp: number;
+} | null = null;
 
 export async function GET() {
     try {
@@ -37,16 +42,21 @@ export async function GET() {
             thursdayUneven: normalizeScheduleItems(thursdayUneven),
         };
 
-        cachedTrainingSchedules = payload;
+        cache = {
+            data: payload,
+            timestamp: Date.now(),
+        };
+
         return NextResponse.json(payload);
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Training Schedules');
 
-        if (cachedTrainingSchedules) {
+        const now = Date.now();
+        if (cache && now - cache.timestamp < MAX_STALE_AGE) {
             logger.warn(
                 'Returning stale Training Schedules data due to fetch failure',
             );
-            return NextResponse.json(cachedTrainingSchedules, {
+            return NextResponse.json(cache.data, {
                 status: 200,
                 headers: { 'x-data-stale': 'true' },
             });

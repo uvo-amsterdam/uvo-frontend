@@ -9,10 +9,6 @@ on:
 
 jobs:
   build:
-    env:
-      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
-      DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
-
     permissions:
       contents: read
 
@@ -45,3 +41,6 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Build
         run: pnpm run build
+        env:
+          DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+          DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}

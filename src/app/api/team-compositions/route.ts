@@ -9,7 +9,12 @@ import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
 
-let cachedTeamCompositions: TeamComposition[] | null = null;
+const MAX_STALE_AGE = 1000 * 60 * 60 * 24 * 30 * 6; // ~6 months
+
+let cache: {
+    data: TeamComposition[];
+    timestamp: number;
+} | null = null;
 
 export async function GET() {
     try {
@@ -18,17 +23,21 @@ export async function GET() {
         );
 
         const payload = normalizeTeamCompositions(teams);
-        cachedTeamCompositions = payload;
+        cache = {
+            data: payload,
+            timestamp: Date.now(),
+        };
 
         return NextResponse.json(payload);
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Team Compositions');
 
-        if (cachedTeamCompositions) {
+        const now = Date.now();
+        if (cache && now - cache.timestamp < MAX_STALE_AGE) {
             logger.warn(
                 'Returning stale Team Compositions data due to fetch failure',
             );
-            return NextResponse.json(cachedTeamCompositions, {
+            return NextResponse.json(cache.data, {
                 status: 200,
                 headers: { 'x-data-stale': 'true' },
             });
