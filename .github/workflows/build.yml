@@ -9,6 +9,9 @@ on:
 
 jobs:
   build:
+    env:
+      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+      DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
 
     permissions:
       contents: read

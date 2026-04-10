@@ -3,9 +3,9 @@ import type {
     DirectusTeamComposition,
     TeamComposition,
 } from '@interfaces/team-composition';
+import { logger } from '@lib/logger';
+import { directus } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
-import { logger } from '../../../lib/logger';
-import { directus } from '../../../lib/server/directus';
 
 export const revalidate = 300;
 
@@ -13,10 +13,7 @@ let cachedTeamCompositions: TeamComposition[] | null = null;
 
 export async function GET() {
     try {
-        logger.info(
-            '[Directus Fetch] Fetching fresh Team Compositions from Directus...',
-        );
-        const teams = await directus.request(
+        const teams = await directus.request<DirectusTeamComposition[]>(
             readItems('team_compositions', { limit: -1 }),
         );
 

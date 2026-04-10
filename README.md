@@ -21,6 +21,7 @@ If you have any questions, please reach out to the maintainers(Listed in the COD
   * [3. Running Locally](#3-running-locally)
     * [3.1 Clone Repository](#31-clone-repository)
     * [3.2 Initial Setup](#32-initial-setup)
+    * [3.2.1 Environment Variables](#321-environment-variables)
     * [3.3 Running the Development Server](#33-running-the-development-server)
   * [4. Libraries](#4-libraries)
     * [4.1 Radix](#41-radix)
@@ -118,10 +119,10 @@ Copy-Item .env.example .env.local
 
 Required variables:
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `DIRECTUS_URL` | Yes | Base URL of your Directus instance used by server-side API routes. |
-| `DIRECTUS_TOKEN` | Yes | Static token used to authenticate requests to Directus. |
+| Variable         | Required | Purpose                                                            |
+|------------------|----------|--------------------------------------------------------------------|
+| `DIRECTUS_URL`   | Yes      | Base URL of your Directus instance used by server-side API routes. |
+| `DIRECTUS_TOKEN` | Yes      | Static token used to authenticate requests to Directus.            |
 
 Security note:
 - `DIRECTUS_TOKEN` is a secret and must stay server-side only (never expose it via `NEXT_PUBLIC_*`).
@@ -137,7 +138,7 @@ Once dependencies are installed, run:
 pnpm dev
 ```
 
-This spins up the local development enviroment.
+This spins up the local development environment.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ---

@@ -4,9 +4,9 @@ import type {
     ScheduleItem,
     TrainingSchedules,
 } from '@interfaces/training-schedule';
+import { logger } from '@lib/logger';
+import { directus } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
-import { logger } from '../../../lib/logger';
-import { directus } from '../../../lib/server/directus';
 
 export const revalidate = 300;
 
@@ -14,21 +14,18 @@ let cachedTrainingSchedules: TrainingSchedules | null = null;
 
 export async function GET() {
     try {
-        logger.info(
-            '[Directus Fetch] Fetching fresh Training Schedules from Directus...',
-        );
         const [mondayEven, mondayUneven, thursdayEven, thursdayUneven] =
             await Promise.all([
-                directus.request(
+                directus.request<DirectusScheduleItem[]>(
                     readItems('monday_even_schedule', { limit: -1 }),
                 ),
-                directus.request(
+                directus.request<DirectusScheduleItem[]>(
                     readItems('monday_uneven_schedule', { limit: -1 }),
                 ),
-                directus.request(
+                directus.request<DirectusScheduleItem[]>(
                     readItems('thursday_even_schedule', { limit: -1 }),
                 ),
-                directus.request(
+                directus.request<DirectusScheduleItem[]>(
                     readItems('thursday_uneven_schedule', { limit: -1 }),
                 ),
             ]);
