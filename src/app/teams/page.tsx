@@ -1,14 +1,7 @@
 import { TeamCard } from '@components/team-card/team-card';
-import { readItems } from '@directus/sdk';
-import type {
-    DirectusTeamComposition,
-    TeamComposition,
-} from '@interfaces/team-composition';
+import { TEAMS } from '@constants/teams';
 import { Heading, Text } from '@radix-ui/themes';
-import { createSlug } from '@utils/string-utils';
 import type { Metadata } from 'next';
-import { logger } from '../../lib/logger';
-import { directus } from '../../lib/server/directus';
 
 import css from './page.module.scss';
 
@@ -17,44 +10,7 @@ export const metadata: Metadata = {
     description: 'Explore all 15 teams representing UvO Amsterdam.',
 };
 
-function normalizeTeamCompositions(
-    items: DirectusTeamComposition[],
-): TeamComposition[] {
-    return items.map(item => ({
-        id: item.id,
-        team: item.Team,
-        name: item.Name,
-        position: item.Position,
-    }));
-}
-
-const TeamsPage = async () => {
-    let teamsList: string[] = [];
-
-    try {
-        const rawTeams = await directus.request<DirectusTeamComposition[]>(
-            readItems('team_compositions', { limit: -1 }),
-        );
-
-        const compositions = normalizeTeamCompositions(rawTeams);
-
-        // Extract unique team names, filtering out nulls
-        const uniqueTeams = Array.from(
-            new Set(
-                compositions
-                    .map((item: TeamComposition) => item.team)
-                    .filter((team: string | null): team is string =>
-                        Boolean(team),
-                    ),
-            ),
-        );
-
-        // Sort teams roughly logically if possible, or alphabetically
-        teamsList = uniqueTeams.sort((a, b) => a.localeCompare(b));
-    } catch (error) {
-        logger.error({ error }, 'Error fetching Teams');
-    }
-
+const TeamsPage = () => {
     return (
         <div className={css.root}>
             <section className={css.hero}>
@@ -70,24 +26,16 @@ const TeamsPage = async () => {
             </section>
 
             <section className={css.gridSection}>
-                {teamsList.length > 0 ? (
-                    <div className={css.grid}>
-                        {teamsList.map(teamName => (
-                            <TeamCard
-                                key={teamName}
-                                teamName={teamName}
-                                slug={createSlug(teamName)}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <div className={css.empty}>
-                        <Text size="4" className={css.emptyText}>
-                            No teams found at the moment. Please check back
-                            later.
-                        </Text>
-                    </div>
-                )}
+                <div className={css.grid}>
+                    {TEAMS.map(team => (
+                        <TeamCard
+                            key={team.id}
+                            teamName={team.site_display_name}
+                            slug={team.id}
+                            imageUrl={team.team_image_url}
+                        />
+                    ))}
+                </div>
             </section>
         </div>
     );

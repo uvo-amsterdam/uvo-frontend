@@ -1,12 +1,12 @@
-import { ResultsTable } from '@components/results-table/results-table';
+import { MatchTable } from '@components/match-table/match-table';
+import { TEAMS } from '@constants/teams';
 import { readItems } from '@directus/sdk';
 import type {
     DirectusTeamComposition,
     TeamComposition,
 } from '@interfaces/team-composition';
-import { Heading, Text } from '@radix-ui/themes';
+import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
 import { IconBallVolleyball, IconUserScan } from '@tabler/icons-react';
-import { parseSlugToName } from '@utils/string-utils';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -25,10 +25,17 @@ export async function generateMetadata({
     params,
 }: TeamPageProps): Promise<Metadata> {
     const { teamSlug } = await params;
-    const teamName = parseSlugToName(teamSlug);
+    const team = TEAMS.find(t => t.id === teamSlug);
+
+    if (!team) {
+        return {
+            title: 'Team Not Found — UvO Amsterdam',
+        };
+    }
+
     return {
-        title: `${teamName} — UvO Amsterdam`,
-        description: `Meet the roster and see recent match results for ${teamName}.`,
+        title: `${team.site_display_name} — UvO Amsterdam`,
+        description: `Meet the roster and see recent match results for ${team.site_display_name}.`,
     };
 }
 
@@ -45,9 +52,13 @@ function normalizeTeamCompositions(
 
 const TeamPage = async ({ params }: TeamPageProps) => {
     const { teamSlug } = await params;
-    const teamName = parseSlugToName(teamSlug);
+    const team = TEAMS.find(t => t.id === teamSlug);
 
-    // Fetch team compositions and filter for the specific team
+    if (!team) {
+        notFound();
+    }
+
+    // Fetch team compositions and filter for the specific team using its aliases
     let players: TeamComposition[] = [];
     try {
         const rawTeams = await directus.request<DirectusTeamComposition[]>(
@@ -56,24 +67,26 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
         const allCompositions = normalizeTeamCompositions(rawTeams);
 
-        players = allCompositions.filter(
-            (item: TeamComposition) =>
-                item.team && item.team.toLowerCase() === teamName.toLowerCase(),
-        );
+        players = allCompositions.filter((item: TeamComposition) => {
+            if (!item.team) return false;
+            const lowerTeam = item.team.toLowerCase();
+            return team.possible_aliases.some(alias =>
+                lowerTeam.includes(alias.toLowerCase()),
+            );
+        });
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');
     }
 
-    if (players.length === 0) {
-        notFound();
-    }
+    // Note: We don't 404 here if players.length === 0 because the team itself is valid (exists in TEAMS)
+    // and might just not have its roster filled out in Directus yet.
 
     return (
         <div className={css.root}>
             <section className={css.hero}>
                 <div className={css.heroContent}>
                     <Heading as="h1" className={css.title}>
-                        {teamName}
+                        {team.site_display_name}
                     </Heading>
                     <Text as="p" size="5" className={css.subtitle}>
                         {players.length} players strong this season.
@@ -94,32 +107,44 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                             </Heading>
                         </div>
 
-                        <div className={css.rosterList}>
-                            {players.map(player => (
-                                <div key={player.id} className={css.playerRow}>
-                                    <Text
-                                        size="4"
-                                        weight="bold"
-                                        className={css.playerName}
+                        {players.length > 0 ? (
+                            <div className={css.rosterList}>
+                                {players.map(player => (
+                                    <div
+                                        key={player.id}
+                                        className={css.playerRow}
                                     >
-                                        {player.name}
-                                    </Text>
-                                    <Text
-                                        size="2"
-                                        className={css.playerPosition}
-                                    >
-                                        {player.position}
-                                    </Text>
-                                </div>
-                            ))}
-                        </div>
+                                        <Text
+                                            size="4"
+                                            weight="bold"
+                                            className={css.playerName}
+                                        >
+                                            {player.name}
+                                        </Text>
+                                        <Text
+                                            size="2"
+                                            className={css.playerPosition}
+                                        >
+                                            {player.position}
+                                        </Text>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <Text color="gray">
+                                <i>
+                                    Roster information not available for this
+                                    team yet.
+                                </i>
+                            </Text>
+                        )}
                     </div>
 
                     <div>
                         <div className={css.teamImageWrapper}>
                             <Image
-                                src="/images/homepage/team-photo.jpeg"
-                                alt={`${teamName} team photo`}
+                                src={team.team_image_url}
+                                alt={`${team.site_display_name} team photo`}
                                 fill
                                 sizes="(max-width: 64em) 100vw, 60vw"
                                 className={css.teamImage}
@@ -127,20 +152,57 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                             />
                         </div>
 
-                        <div className={css.sectionHeader}>
-                            <IconBallVolleyball
-                                size={32}
-                                className={css.sectionIcon}
-                            />
-                            <Heading as="h2" className={css.sectionTitle}>
-                                Recent Results
-                            </Heading>
-                        </div>
+                        <Tabs.Root defaultValue="results">
+                            <Tabs.List
+                                color={'orange'}
+                                style={{ marginBottom: '1.5rem' }}
+                            >
+                                <Tabs.Trigger value="fixtures">
+                                    Upcoming Matches
+                                </Tabs.Trigger>
+                                <Tabs.Trigger value="results">
+                                    Recent results
+                                </Tabs.Trigger>
+                            </Tabs.List>
 
-                        <ResultsTable
-                            teamFilter={teamName}
-                            hideLocation={true}
-                        />
+                            <Box>
+                                <Tabs.Content value="fixtures">
+                                    <div className={css.sectionHeader}>
+                                        <IconBallVolleyball
+                                            size={32}
+                                            className={css.sectionIcon}
+                                        />
+                                        <Heading
+                                            as="h2"
+                                            className={css.sectionTitle}
+                                        >
+                                            Upcoming Matches
+                                        </Heading>
+                                    </div>
+                                    <MatchTable
+                                        nevoboTeamName={team.nevobo_team_name}
+                                    />
+                                </Tabs.Content>
+                                <Tabs.Content value="results">
+                                    <div className={css.sectionHeader}>
+                                        <IconBallVolleyball
+                                            size={32}
+                                            className={css.sectionIcon}
+                                        />
+                                        <Heading
+                                            as="h2"
+                                            className={css.sectionTitle}
+                                        >
+                                            Recent Results
+                                        </Heading>
+                                    </div>
+                                    <MatchTable
+                                        type="results"
+                                        nevoboTeamName={team.nevobo_team_name}
+                                    />
+                                </Tabs.Content>
+                            </Box>
+                        </Tabs.Root>
                     </div>
                 </div>
             </section>
