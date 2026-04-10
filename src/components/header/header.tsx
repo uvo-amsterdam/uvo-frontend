@@ -29,9 +29,10 @@ export const Header: FC = () => {
         setOpenGroup(null);
     }, []);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is an intentional trigger to close mobile nav on route changes
     useEffect(() => {
         closeSidebar();
-    }, [closeSidebar]);
+    }, [pathname, closeSidebar]);
 
     useEffect(() => {
         document.body.style.overflow = sidebarOpen ? 'hidden' : '';
