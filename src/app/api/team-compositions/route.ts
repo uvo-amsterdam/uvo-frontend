@@ -9,6 +9,8 @@ import { directus } from '../../../lib/server/directus';
 
 export const revalidate = 300;
 
+let cachedTeamCompositions: TeamComposition[] | null = null;
+
 export async function GET() {
     try {
         logger.info(
@@ -18,12 +20,26 @@ export async function GET() {
             readItems('team_compositions', { limit: -1 }),
         );
 
-        return NextResponse.json(normalizeTeamCompositions(teams));
+        const payload = normalizeTeamCompositions(teams);
+        cachedTeamCompositions = payload;
+
+        return NextResponse.json(payload);
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Team Compositions');
+
+        if (cachedTeamCompositions) {
+            logger.warn(
+                'Returning stale Team Compositions data due to fetch failure',
+            );
+            return NextResponse.json(cachedTeamCompositions, {
+                status: 200,
+                headers: { 'x-data-stale': 'true' },
+            });
+        }
+
         return NextResponse.json(
             { error: 'Failed to fetch Team Compositions' },
-            { status: 500 },
+            { status: 503 },
         );
     }
 }

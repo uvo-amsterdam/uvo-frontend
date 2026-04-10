@@ -1,6 +1,6 @@
 export interface DirectusScheduleItem {
     id: number;
-    Time: string;
+    Time: string | null;
     Field_1: string | null;
     Field_2: string | null;
     Field_3: string | null;
@@ -9,7 +9,7 @@ export interface DirectusScheduleItem {
 
 export interface ScheduleItem {
     id: number;
-    time: string;
+    time: string | null;
     field1: string | null;
     field2: string | null;
     field3: string | null;

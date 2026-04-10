@@ -2,12 +2,15 @@ import { readItems } from '@directus/sdk';
 import type {
     DirectusScheduleItem,
     ScheduleItem,
+    TrainingSchedules,
 } from '@interfaces/training-schedule';
 import { NextResponse } from 'next/server';
 import { logger } from '../../../lib/logger';
 import { directus } from '../../../lib/server/directus';
 
 export const revalidate = 300;
+
+let cachedTrainingSchedules: TrainingSchedules | null = null;
 
 export async function GET() {
     try {
@@ -30,17 +33,31 @@ export async function GET() {
                 ),
             ]);
 
-        return NextResponse.json({
+        const payload: TrainingSchedules = {
             mondayEven: normalizeScheduleItems(mondayEven),
             mondayUneven: normalizeScheduleItems(mondayUneven),
             thursdayEven: normalizeScheduleItems(thursdayEven),
             thursdayUneven: normalizeScheduleItems(thursdayUneven),
-        });
+        };
+
+        cachedTrainingSchedules = payload;
+        return NextResponse.json(payload);
     } catch (error) {
         logger.error({ err: error }, 'Error fetching Training Schedules');
+
+        if (cachedTrainingSchedules) {
+            logger.warn(
+                'Returning stale Training Schedules data due to fetch failure',
+            );
+            return NextResponse.json(cachedTrainingSchedules, {
+                status: 200,
+                headers: { 'x-data-stale': 'true' },
+            });
+        }
+
         return NextResponse.json(
             { error: 'Failed to fetch Training Schedules' },
-            { status: 500 },
+            { status: 503 },
         );
     }
 }
