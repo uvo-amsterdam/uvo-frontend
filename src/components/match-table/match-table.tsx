@@ -169,7 +169,7 @@ export const MatchTable: FC<MatchTableProps> = ({
                 {showTitle && (
                     <div className={css.sectionHeader}>
                         <div className={css.sectionIcon}>
-                            <IconBallVolleyball size={32} />
+                            <IconBallVolleyball size={32} aria-hidden="true" />
                         </div>
                         <Heading as="h2" className={css.sectionTitle}>
                             {title || defaultTitle}
@@ -196,7 +196,7 @@ export const MatchTable: FC<MatchTableProps> = ({
             {showTitle && (
                 <div className={css.sectionHeader}>
                     <div className={css.sectionIcon}>
-                        <IconBallVolleyball size={32} />
+                        <IconBallVolleyball size={32} aria-hidden="true" />
                     </div>
                     <Heading as="h2" className={css.sectionTitle}>
                         {title || defaultTitle}
