@@ -32,7 +32,7 @@ export const getAmsterdamDate = (date: Date): Date => {
     }
 
     // Intl sometimes returns 24:00:00 for midnight
-    const hour = values.hour === 24 ? 0 : values.hour;
+    const hour = values.hour;
 
     return new Date(
         Date.UTC(
