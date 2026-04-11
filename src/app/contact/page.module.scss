@@ -31,8 +31,6 @@
 
 .sectionHeader {
   @include tokens.section-title-accent(3rem, 2.2rem, 60px);
-
-  margin: 0 0 0 -2.0rem;
 }
 
 
