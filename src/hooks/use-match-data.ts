@@ -115,44 +115,16 @@ function determineWin(
  * @param nevoboTeamName The Nevobo identifier to filter by (e.g., 'HS 1' or 'DS 5').
  */
 export function useFilteredMatchData(
-    type: 'fixtures',
-    nevoboTeamName?: string,
-): UseMatchDataReturn<Fixture[]>;
-export function useFilteredMatchData(
-    type: 'results',
-    nevoboTeamName?: string,
-): UseMatchDataReturn<MatchResult[]>;
-export function useFilteredMatchData(
-    type: MatchType,
-    nevoboTeamName?: string,
-): UseMatchDataReturn<Fixture[] | MatchResult[]>;
-export function useFilteredMatchData(
     type: MatchType,
     nevoboTeamName?: string,
 ): UseMatchDataReturn<Fixture[] | MatchResult[]> {
     const { data: rawData, loading, error } = useMatchData(type);
 
-    const filteredData = (rawData as (Fixture | MatchResult)[]).filter(item => {
-        if (!nevoboTeamName) return true;
+    const matchesTeam = (home: string, away: string, searchTeam: string) => {
+        const searchStr = searchTeam.toLowerCase();
+        const homeLower = home.toLowerCase();
+        const awayLower = away.toLowerCase();
 
-        // Date filter logic for results only
-        if (type === 'results') {
-            const resultItem = item as MatchResult;
-            const now = new Date();
-            const currentYear = now.getFullYear();
-            const isAfterAugust1st = now.getMonth() >= 7;
-            const thresholdDate = isAfterAugust1st
-                ? new Date(currentYear, 7, 1)
-                : new Date(currentYear - 1, 7, 1);
-            if (resultItem.timestamp < thresholdDate.getTime()) return false;
-        }
-
-        const searchStr = nevoboTeamName.toLowerCase();
-        const home = item.home.toLowerCase();
-        const away = item.away.toLowerCase();
-
-        // Use a boundary-aware regex to prevent 'HS 1' matching 'HS 10'
-        // We escape searchStr to be safe, though Nevobo names are usually simple (e.g. 'HS 1')
         const escapedSearchStr = searchStr.replace(
             /[.*+?^${}()|[\]\\]/g,
             '\\$&',
@@ -160,10 +132,34 @@ export function useFilteredMatchData(
         const boundaryRegex = new RegExp(`\\b${escapedSearchStr}\\b`, 'i');
 
         return (
-            (home.includes('uvo') && boundaryRegex.test(home)) ||
-            (away.includes('uvo') && boundaryRegex.test(away))
+            (homeLower.includes('uvo') && boundaryRegex.test(homeLower)) ||
+            (awayLower.includes('uvo') && boundaryRegex.test(awayLower))
         );
-    });
+    };
+
+    let filteredData: Fixture[] | MatchResult[];
+
+    if (type === 'results') {
+        const results = rawData as MatchResult[];
+        const now = new Date();
+        const currentYear = now.getUTCFullYear();
+        const isAfterAugust1st = now.getUTCMonth() >= 7;
+        const thresholdDate = isAfterAugust1st
+            ? Date.UTC(currentYear, 7, 1)
+            : Date.UTC(currentYear - 1, 7, 1);
+
+        filteredData = results.filter(item => {
+            if (!nevoboTeamName) return true;
+            if (item.timestamp < thresholdDate) return false;
+            return matchesTeam(item.home, item.away, nevoboTeamName);
+        });
+    } else {
+        const fixtures = rawData as Fixture[];
+        filteredData = fixtures.filter(item => {
+            if (!nevoboTeamName) return true;
+            return matchesTeam(item.home, item.away, nevoboTeamName);
+        });
+    }
 
     return { data: filteredData, loading, error: !!error };
 }
