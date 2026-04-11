@@ -6,7 +6,7 @@ import type {
     TeamComposition,
 } from '@interfaces/team-composition';
 import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
-import { IconBallVolleyball, IconUserScan } from '@tabler/icons-react';
+import { IconUserScan } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -167,35 +167,11 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
                             <Box>
                                 <Tabs.Content value="fixtures">
-                                    <div className={css.sectionHeader}>
-                                        <IconBallVolleyball
-                                            size={32}
-                                            className={css.sectionIcon}
-                                        />
-                                        <Heading
-                                            as="h2"
-                                            className={css.sectionTitle}
-                                        >
-                                            Upcoming Matches
-                                        </Heading>
-                                    </div>
                                     <MatchTable
                                         nevoboTeamName={team.nevobo_team_name}
                                     />
                                 </Tabs.Content>
                                 <Tabs.Content value="results">
-                                    <div className={css.sectionHeader}>
-                                        <IconBallVolleyball
-                                            size={32}
-                                            className={css.sectionIcon}
-                                        />
-                                        <Heading
-                                            as="h2"
-                                            className={css.sectionTitle}
-                                        >
-                                            Recent Results
-                                        </Heading>
-                                    </div>
                                     <MatchTable
                                         type="results"
                                         nevoboTeamName={team.nevobo_team_name}

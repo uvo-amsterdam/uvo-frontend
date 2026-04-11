@@ -7,8 +7,8 @@ import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { type MatchType, useFilteredMatchData } from '@hooks/use-match-data';
 import type { Fixture } from '@interfaces/fixture';
 import type { MatchResult } from '@interfaces/match-result';
-import { Table } from '@radix-ui/themes';
-import { IconTrophy } from '@tabler/icons-react';
+import { Heading, Table } from '@radix-ui/themes';
+import { IconBallVolleyball, IconTrophy } from '@tabler/icons-react';
 import clsx from 'clsx';
 
 import css from './match-table.module.scss';
@@ -16,6 +16,8 @@ import css from './match-table.module.scss';
 export interface MatchTableProps {
     type?: 'fixtures' | 'results';
     nevoboTeamName?: string;
+    showTitle?: boolean;
+    title?: string;
 }
 
 const FIXTURE_COLUMNS = [
@@ -165,6 +167,8 @@ const ResultCard: FC<{ result: MatchResult }> = ({ result }) => (
 export const MatchTable: FC<MatchTableProps> = ({
     type = 'fixtures',
     nevoboTeamName,
+    showTitle = true,
+    title,
 }) => {
     const isFixtures = type === 'fixtures';
     const { data, loading, error } = useFilteredMatchData(
@@ -179,20 +183,44 @@ export const MatchTable: FC<MatchTableProps> = ({
 
     if (loading) return <TableSkeleton />;
 
+    const defaultTitle = isFixtures ? 'Upcoming Matches' : 'Recent Results';
+
     if (error || data.length === 0) {
         return (
-            <TableEmptyState
-                message={
-                    error
-                        ? `Couldn't load the ${type} right now - try again later!`
-                        : `No upcoming ${type} available at the moment. Check back soon!`
-                }
-            />
+            <div className={css.tableContainer}>
+                {showTitle && (
+                    <div className={css.sectionHeader}>
+                        <div className={css.sectionIcon}>
+                            <IconBallVolleyball size={32} />
+                        </div>
+                        <Heading as="h2" className={css.sectionTitle}>
+                            {title || defaultTitle}
+                        </Heading>
+                    </div>
+                )}
+                <TableEmptyState
+                    message={
+                        error
+                            ? `Couldn't load the ${type} right now - try again later!`
+                            : `No upcoming ${type} available at the moment. Check back soon!`
+                    }
+                />
+            </div>
         );
     }
 
     return (
         <div className={css.tableContainer}>
+            {showTitle && (
+                <div className={css.sectionHeader}>
+                    <div className={css.sectionIcon}>
+                        <IconBallVolleyball size={32} />
+                    </div>
+                    <Heading as="h2" className={css.sectionTitle}>
+                        {title || defaultTitle}
+                    </Heading>
+                </div>
+            )}
             <div className={css.tableWrap}>
                 <Table.Root className={css.table}>
                     <Table.Header>

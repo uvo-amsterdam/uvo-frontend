@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Hero } from '@components/hero/hero';
 import { MatchTable } from '@components/match-table/match-table';
-import { Box, Heading, Tabs } from '@radix-ui/themes';
+import { Box, Tabs } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 
@@ -32,15 +32,9 @@ const CompetitionPage: FC = () => {
 
                 <Box className={css.fixtureSection}>
                     <Tabs.Content value="fixtures">
-                        <Heading as="h2" className={css.tableTitle}>
-                            Upcoming Matches
-                        </Heading>
                         <MatchTable />
                     </Tabs.Content>
                     <Tabs.Content value="results">
-                        <Heading as="h2" className={css.tableTitle}>
-                            Recent Results
-                        </Heading>
                         <MatchTable type={'results'} />
                     </Tabs.Content>
                 </Box>
