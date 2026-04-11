@@ -151,9 +151,17 @@ export function useFilteredMatchData(
         const home = item.home.toLowerCase();
         const away = item.away.toLowerCase();
 
+        // Use a boundary-aware regex to prevent 'HS 1' matching 'HS 10'
+        // We escape searchStr to be safe, though Nevobo names are usually simple (e.g. 'HS 1')
+        const escapedSearchStr = searchStr.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            '\\$&',
+        );
+        const boundaryRegex = new RegExp(`\\b${escapedSearchStr}\\b`, 'i');
+
         return (
-            (home.includes('uvo') && home.includes(searchStr)) ||
-            (away.includes('uvo') && away.includes(searchStr))
+            (home.includes('uvo') && boundaryRegex.test(home)) ||
+            (away.includes('uvo') && boundaryRegex.test(away))
         );
     });
 

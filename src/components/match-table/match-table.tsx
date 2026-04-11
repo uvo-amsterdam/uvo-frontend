@@ -179,8 +179,12 @@ export const MatchTable: FC<MatchTableProps> = ({
                 <TableEmptyState
                     message={
                         error
-                            ? `Couldn't load the ${type} right now - try again later!`
-                            : `No upcoming ${type} available at the moment. Check back soon!`
+                            ? isFixtures
+                                ? "Couldn't load the fixtures right now - try again later!"
+                                : "Couldn't load the results right now - try again later!"
+                            : isFixtures
+                              ? 'No upcoming matches at the moment. Check back soon!'
+                              : 'No recent results available at the moment. Check back soon!'
                     }
                 />
             </div>
