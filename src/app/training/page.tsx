@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import css from './page.module.scss';
 
 export const metadata: Metadata = {
-    title: 'Training Schedule | UvO Amsterdam',
+    title: 'Training Schedule - UvO Amsterdam',
     description: 'Check the upcoming training schedule for all UvO teams!',
 };
 

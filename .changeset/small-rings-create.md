@@ -2,4 +2,4 @@
 "uvo-frontend": minor
 ---
 
-Implemented Trainings page based on data from Directus API
+Implemented Training page based on data from Directus API

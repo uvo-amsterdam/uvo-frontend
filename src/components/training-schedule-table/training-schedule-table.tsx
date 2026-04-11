@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import type { ScheduleItem } from '@interfaces/training-schedule';
 import { Heading } from '@radix-ui/themes';
 import { IconCalendarEvent, IconClock } from '@tabler/icons-react';
+import { createSlug } from '@utils/string-utils';
 import clsx from 'clsx';
 
 import css from './training-schedule-table.module.scss';
@@ -20,10 +21,7 @@ export const TrainingScheduleTable: FC<TrainingScheduleTableProps> = ({
     if (!data || data.length === 0) return null;
 
     return (
-        <div
-            className={css.tableContainer}
-            id={title.replace(/\s+/g, '-').toLowerCase()}
-        >
+        <div className={css.tableContainer} id={createSlug(title)}>
             <Heading
                 as="h2"
                 className={clsx(css.tableTitle, {
@@ -65,12 +63,12 @@ export const TrainingScheduleTable: FC<TrainingScheduleTableProps> = ({
                             // biome-ignore lint/suspicious/noArrayIndexKey: Index is needed because backend IDs may not be unique across collections or due to data entry errors
                             <tr key={`${row.id}-${index}`}>
                                 <td className={css.timeCol}>
-                                    {row.time || '-'}
+                                    {row.time || 'Available'}
                                 </td>
-                                <td>{row.field1 || '-'}</td>
-                                <td>{row.field2 || '-'}</td>
-                                <td>{row.field3 || '-'}</td>
-                                <td>{row.field4 || '-'}</td>
+                                <td>{row.field1 || 'Available'}</td>
+                                <td>{row.field2 || 'Available'}</td>
+                                <td>{row.field3 || 'Available'}</td>
+                                <td>{row.field4 || 'Available'}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -97,7 +95,7 @@ export const TrainingScheduleTable: FC<TrainingScheduleTableProps> = ({
                                         marginRight: '4px',
                                     }}
                                 />
-                                {row.time || '-'}
+                                {row.time || 'Available'}
                             </span>
                         </div>
                         <div className={css.cardFields}>
