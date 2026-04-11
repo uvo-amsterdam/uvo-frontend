@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useMemo } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { TrainingScheduleTable } from '@components/training-schedule-table/training-schedule-table';
 import { useTrainingSchedules } from '@hooks/use-training-schedules';
 import type { ScheduleItem } from '@interfaces/training-schedule';
@@ -11,9 +11,17 @@ import css from './training-schedule-list.module.scss';
 export const TrainingScheduleList: FC = () => {
     const { data, loading, error } = useTrainingSchedules();
 
-    // Determine the next schedule type based on the current time
-    const nextScheduleType = useMemo(() => {
-        return getNextScheduleType(); // Uses current Date
+    // Determine the next schedule type based on the current time, and keep it updated
+    const [nextScheduleType, setNextScheduleType] =
+        useState<ScheduleType>(getNextScheduleType);
+
+    useEffect(() => {
+        // Update periodically to stay accurate if the user keeps the tab open across a cutoff
+        const intervalId = setInterval(() => {
+            setNextScheduleType(getNextScheduleType());
+        }, 1000 * 60);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     if (loading) {
