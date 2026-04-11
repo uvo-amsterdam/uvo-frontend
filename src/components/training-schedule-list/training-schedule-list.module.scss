@@ -1,0 +1,63 @@
+@use '@styles/tokens';
+
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.loadingState,
+.errorState {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    background: tokens.$white-color;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+    border: 1px solid tokens.$gray-200;
+}
+
+.errorState {
+    color: tokens.$accent-color;
+    font-weight: 500;
+}
+
+/* ── Loading Skeleton ── */
+.skeletonWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.skeletonTitle {
+    height: 32px;
+    width: 200px;
+    background: tokens.$gray-200;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.skeletonRow {
+    height: 48px;
+    background: linear-gradient(90deg,
+            tokens.$gray-100 25%,
+            tokens.$cream 50%,
+            tokens.$gray-100 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

@@ -1,0 +1,202 @@
+@use '@styles/tokens';
+
+.tableContainer {
+    width: 100%;
+    margin-bottom: 2rem;
+    scroll-margin-top: 100px;
+
+    /* For anchor linking if needed */
+}
+
+/* Base title style */
+.tableTitle {
+    @include tokens.section-heading;
+
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: tokens.$accent-color;
+        margin-top: 0.5rem;
+        border-radius: 2px;
+    }
+}
+
+/* Modifier class for the highlighted "Next" schedule */
+.highlightedTitle {
+    color: tokens.$accent-color;
+
+    &::after {
+        background: tokens.$primary-color;
+    }
+}
+
+/* ── Desktop Table ── */
+
+.tableWrap {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+    background: tokens.$white-color;
+    border: 1px solid tokens.$gray-200;
+    transition: box-shadow tokens.$transition-fast, transform tokens.$transition-fast;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        display: none;
+    }
+}
+
+.tableWrapHighlighted {
+    border: 2px solid tokens.$accent-color;
+    box-shadow: 0 8px 32px rgb(255 107 53 / 15%);
+    transform: translateY(-2px);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    table-layout: fixed;
+
+    thead {
+        background: tokens.$primary-color;
+        color: tokens.$white-color;
+    }
+
+    /* Highlighted table header variant */
+    .theadHighlighted {
+        background: tokens.$accent-color;
+    }
+
+    th {
+        font-family: tokens.$font-heading;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 0.85rem;
+        padding: 0.9rem 1rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid tokens.$gray-100;
+        color: tokens.$gray-800;
+        vertical-align: middle;
+    }
+
+    tbody tr {
+        transition: background tokens.$transition-fast;
+
+        &:hover {
+            background: tokens.$cream;
+        }
+
+        &:last-child td {
+            border-bottom: none;
+        }
+    }
+}
+
+.timeCol {
+    font-weight: 600;
+    white-space: nowrap;
+    color: tokens.$primary-color;
+}
+
+/* ── Mobile Cards ── */
+
+.cardList {
+    display: none;
+
+    @media (max-width: tokens.$breakpoint-sm) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+.card {
+    background: tokens.$white-color;
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+    border: 1px solid tokens.$gray-200;
+    transition: transform tokens.$transition-fast, border-color tokens.$transition-fast;
+
+    &:active {
+        transform: scale(0.99);
+    }
+}
+
+.cardHighlighted {
+    border: 2px solid tokens.$accent-color;
+    border-left: 4px solid tokens.$accent-color;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid tokens.$gray-100;
+    padding-bottom: 0.5rem;
+}
+
+.cardTime {
+    font-family: tokens.$font-heading;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: tokens.$primary-color;
+    letter-spacing: 0.02em;
+}
+
+.cardFields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: tokens.$gray-800;
+}
+
+.fieldRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fieldLabel {
+    font-size: 0.82rem;
+    color: tokens.$gray-600;
+    font-weight: 500;
+}
+
+.fieldValue {
+    font-weight: 500;
+}
+
+.emptyField {
+    color: tokens.$gray-400;
+    font-style: italic;
+}
+
+.visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+}
