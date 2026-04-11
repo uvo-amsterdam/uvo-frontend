@@ -39,32 +39,10 @@ const RESULT_COLUMNS = [
     'City',
 ] as const;
 
-const getColClass = (col: string) => {
-    switch (col) {
-        case 'Date':
-            return css.dateCol;
-        case 'Time':
-            return css.timeCol;
-        case 'Home':
-        case 'Away':
-            return css.teamCol;
-        case 'Result':
-            return css.scoreCol;
-        case 'Venue':
-            return css.venueCol;
-        case 'City':
-            return css.cityCol;
-        case '':
-            return css.iconCol;
-        default:
-            return undefined;
-    }
-};
-
 const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
     <Table.Row className={fixture.isHomeGame ? css.uvoRow : undefined}>
-        <Table.Cell className={css.dateCol}>{fixture.date}</Table.Cell>
-        <Table.Cell className={css.timeCol}>{fixture.time}</Table.Cell>
+        <Table.Cell>{fixture.date}</Table.Cell>
+        <Table.Cell>{fixture.time}</Table.Cell>
         <Table.Cell
             className={clsx(css.teamCol, fixture.isHomeGame && css.uvoTeam)}
         >
@@ -75,27 +53,27 @@ const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
         >
             {fixture.away}
         </Table.Cell>
-        <Table.Cell className={css.venueCol}>{fixture.venue}</Table.Cell>
-        <Table.Cell className={css.cityCol}>{fixture.city}</Table.Cell>
+        <Table.Cell>{fixture.venue}</Table.Cell>
+        <Table.Cell>{fixture.city}</Table.Cell>
     </Table.Row>
 );
 
 const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
     <Table.Row className={result.isHomeGame ? css.uvoRow : undefined}>
-        <Table.Cell className={css.iconCol}>
+        <Table.Cell>
             {result.uvoWin && (
                 <IconTrophy size={20} stroke={1.8} className={css.trophyIcon} />
             )}
         </Table.Cell>
-        <Table.Cell className={css.dateCol}>{result.date}</Table.Cell>
-        <Table.Cell className={css.timeCol}>{result.time}</Table.Cell>
+        <Table.Cell>{result.date}</Table.Cell>
+        <Table.Cell>{result.time}</Table.Cell>
         <Table.Cell
             className={clsx(css.teamCol, result.isHomeGame && css.uvoTeam)}
         >
             {result.home}
         </Table.Cell>
         <Table.Cell
-            className={clsx(css.scoreCol, css.scoreCell, {
+            className={clsx(css.scoreCell, {
                 [css.scoreWin]: result.uvoWin,
             })}
         >
@@ -106,8 +84,8 @@ const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
         >
             {result.away}
         </Table.Cell>
-        <Table.Cell className={css.venueCol}>{result.venue}</Table.Cell>
-        <Table.Cell className={css.cityCol}>{result.city}</Table.Cell>
+        <Table.Cell>{result.venue}</Table.Cell>
+        <Table.Cell>{result.city}</Table.Cell>
     </Table.Row>
 );
 
@@ -228,7 +206,11 @@ export const MatchTable: FC<MatchTableProps> = ({
                             {columns.map(col => (
                                 <Table.ColumnHeaderCell
                                     key={col}
-                                    className={getColClass(col)}
+                                    className={
+                                        col === 'Home' || col === 'Away'
+                                            ? css.teamCol
+                                            : undefined
+                                    }
                                 >
                                     {col}
                                 </Table.ColumnHeaderCell>
