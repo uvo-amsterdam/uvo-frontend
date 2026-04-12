@@ -58,7 +58,6 @@ export type ScheduleType =
 export const getNextScheduleType = (
     currentDate: Date = new Date(),
 ): ScheduleType => {
-    // Determine the equivalent time in Amsterdam
     const amsDate = getAmsterdamDate(currentDate);
 
     // Cutoffs and week parity are calculated using the Amsterdam-shifted UTC values.

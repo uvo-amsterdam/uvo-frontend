@@ -50,7 +50,6 @@ export const TrainingScheduleList: FC = () => {
         );
     }
 
-    // Define the list of schedules to render
     const schedules: {
         type: ScheduleType;
         title: string;

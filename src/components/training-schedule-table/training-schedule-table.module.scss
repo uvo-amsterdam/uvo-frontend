@@ -5,10 +5,8 @@
     margin-bottom: 2rem;
     scroll-margin-top: 100px;
 
-    /* For anchor linking if needed */
 }
 
-/* Base title style */
 .tableTitle {
     @include tokens.section-heading;
 
@@ -29,7 +27,6 @@
     }
 }
 
-/* Modifier class for the highlighted "Next" schedule */
 .highlightedTitle {
     color: tokens.$accent-color;
 
@@ -38,7 +35,6 @@
     }
 }
 
-/* ── Desktop Table ── */
 
 .tableWrap {
     border-radius: 14px;
@@ -70,7 +66,6 @@
         color: tokens.$white-color;
     }
 
-    /* Highlighted table header variant */
     .theadHighlighted {
         background: tokens.$accent-color;
     }
@@ -112,7 +107,6 @@
     color: tokens.$primary-color;
 }
 
-/* ── Mobile Cards ── */
 
 .cardList {
     display: none;
