@@ -1,9 +1,11 @@
 import 'server-only';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
 import type { DirectusTeamComposition } from '@interfaces/team-composition';
+import type { DirectusTeamMapping } from '@interfaces/team-mapping';
 import type { DirectusScheduleItem } from '@interfaces/training-schedule';
 
 interface Schema {
+    teams: DirectusTeamMapping[];
     team_compositions: DirectusTeamComposition[];
     monday_even_schedule: DirectusScheduleItem[];
     monday_uneven_schedule: DirectusScheduleItem[];
