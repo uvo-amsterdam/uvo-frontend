@@ -35,7 +35,8 @@
             "@mocks/*": ["./src/__mocks__/*"],
             "@openapi/*": ["./src/openapi/*"],
             "@styles/*": ["./src/styles/*"],
-            "@utils/*": ["./src/utils/*"]
+            "@utils/*": ["./src/utils/*"],
+            "@lib/*": ["./src/lib/*"]
         }
     },
     "include": [

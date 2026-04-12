@@ -5,7 +5,7 @@ import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import { formatDateStr, formatTimeStr } from '@utils/date-utils';
 import { useApiFetch } from './use-api-fetch';
 
-type MatchType = 'fixtures' | 'results';
+export type MatchType = 'fixtures' | 'results';
 
 interface UseMatchDataReturn<R> {
     data: R;
@@ -109,75 +109,57 @@ function determineWin(
     return { uvoWin: awayScore > homeScore };
 }
 
-export function useFilteredResults(teamFilter?: string) {
-    const { data: rawResults, loading, error } = useMatchData('results');
+/**
+ * Hook to filter match data (fixtures or results) by a specific team's Nevobo identifier (e.g., 'HS 1').
+ * @param type The type of match data to fetch ('fixtures' or 'results').
+ * @param nevoboTeamName The Nevobo identifier to filter by (e.g., 'HS 1' or 'DS 5').
+ */
+export function useFilteredMatchData(
+    type: MatchType,
+    nevoboTeamName?: string,
+): UseMatchDataReturn<Fixture[] | MatchResult[]> {
+    const { data: rawData, loading, error } = useMatchData(type);
 
-    const filteredResults: MatchResult[] = [];
+    const matchesTeam = (home: string, away: string, searchTeam: string) => {
+        const searchStr = searchTeam.toLowerCase();
+        const homeLower = home.toLowerCase();
+        const awayLower = away.toLowerCase();
 
-    if (!teamFilter) {
-        filteredResults.push(...rawResults);
-    } else {
-        const lowerFilter = teamFilter.toLowerCase();
-        const isGents =
-            lowerFilter.includes('gents') || lowerFilter.includes('heren');
-        const isLadies =
-            lowerFilter.includes('ladies') || lowerFilter.includes('dames');
-
-        const numberMatch = teamFilter.match(/\d+/);
-        const number = numberMatch ? numberMatch[0] : '';
-
-        let nevoboSuffix = '';
-        if (isGents && number) nevoboSuffix = `HS ${number}`;
-        if (isLadies && number) nevoboSuffix = `DS ${number}`;
-
-        // Date filter logic
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        const isAfterAugust1st = now.getMonth() >= 7; // 0-indexed month, 7 = August
-
-        const topTeams = ['gents 1', 'gents 2', 'ladies 1', 'ladies 2'];
-        const isTopTeam = topTeams.includes(lowerFilter);
-
-        let thresholdDate: Date;
-        if (isTopTeam) {
-            const seasonStartYear = isAfterAugust1st
-                ? currentYear
-                : currentYear - 1;
-            thresholdDate = new Date(seasonStartYear, 7, 1); // August 1st
-        } else {
-            if (isAfterAugust1st) {
-                thresholdDate = new Date(currentYear, 7, 1); // August 1st
-            } else {
-                thresholdDate = new Date(currentYear, 0, 1); // January 1st
-            }
-        }
-
-        const thresholdTimestamp = thresholdDate.getTime();
-        const teamRegex = nevoboSuffix
-            ? new RegExp(`${nevoboSuffix}(?!\\d)`)
-            : null;
-
-        filteredResults.push(
-            ...rawResults.filter(r => {
-                if (r.timestamp < thresholdTimestamp) return false;
-
-                if (!teamRegex) {
-                    return (
-                        r.home.toLowerCase().includes(lowerFilter) ||
-                        r.away.toLowerCase().includes(lowerFilter)
-                    );
-                }
-
-                const homeMatches =
-                    r.home.toLowerCase().includes('uvo') &&
-                    teamRegex.test(r.home);
-                const awayMatches =
-                    r.away.toLowerCase().includes('uvo') &&
-                    teamRegex.test(r.away);
-                return homeMatches || awayMatches;
-            }),
+        const escapedSearchStr = searchStr.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            '\\$&',
         );
+        const boundaryRegex = new RegExp(`\\b${escapedSearchStr}\\b`, 'i');
+
+        return (
+            (homeLower.includes('uvo') && boundaryRegex.test(homeLower)) ||
+            (awayLower.includes('uvo') && boundaryRegex.test(awayLower))
+        );
+    };
+
+    let filteredData: Fixture[] | MatchResult[];
+
+    if (type === 'results') {
+        const results = rawData as MatchResult[];
+        const now = new Date();
+        const currentYear = now.getUTCFullYear();
+        const isAfterAugust1st = now.getUTCMonth() >= 7;
+        const thresholdDate = isAfterAugust1st
+            ? Date.UTC(currentYear, 7, 1)
+            : Date.UTC(currentYear - 1, 7, 1);
+
+        filteredData = results.filter(item => {
+            if (!nevoboTeamName) return true;
+            if (item.timestamp < thresholdDate) return false;
+            return matchesTeam(item.home, item.away, nevoboTeamName);
+        });
+    } else {
+        const fixtures = rawData as Fixture[];
+        filteredData = fixtures.filter(item => {
+            if (!nevoboTeamName) return true;
+            return matchesTeam(item.home, item.away, nevoboTeamName);
+        });
     }
 
-    return { results: filteredResults, loading, error };
+    return { data: filteredData, loading, error: !!error };
 }

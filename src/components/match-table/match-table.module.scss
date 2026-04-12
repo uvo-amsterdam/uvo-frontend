@@ -4,21 +4,22 @@
   width: 100%;
 }
 
-.tableTitle {
-  @include tokens.section-heading;
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
 
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+.sectionIcon {
+  color: tokens.$accent-color;
+  display: flex;
+}
 
-  &::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: tokens.$accent-color;
-    margin-top: 0.5rem;
-    border-radius: 2px;
-  }
+.sectionTitle {
+  @include tokens.section-title-accent(2rem, 1.75rem, 40px);
+
+  margin-bottom: 0;
 }
 
 .tableWrap {
@@ -50,6 +51,8 @@
     letter-spacing: 0.04em;
     white-space: nowrap;
     color: tokens.$white-color;
+    padding: 0.8rem 1rem;
+    text-align: left;
   }
 
   .teamCol {
