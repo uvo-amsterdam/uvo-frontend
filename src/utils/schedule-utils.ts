@@ -21,18 +21,18 @@ export const getAmsterdamDate = (date: Date): Date => {
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
-        hour12: false,
+        hourCycle: 'h23',
     }).formatToParts(date);
 
     const values: Record<string, number> = {};
     for (const part of parts) {
         if (part.type !== 'literal') {
-            values[part.type] = parseInt(part.value, 10);
+            values[part.type] = Number.parseInt(part.value, 10);
         }
     }
 
-    // Intl sometimes returns 24:00:00 for midnight
-    const hour = values.hour;
+    // Intl sometimes returns 24:00:00 for midnight (though hourCycle: 'h23' should prevent this)
+    const hour = values.hour === 24 ? 0 : values.hour;
 
     return new Date(
         Date.UTC(
