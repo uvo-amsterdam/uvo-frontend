@@ -163,16 +163,3 @@ export function useFilteredMatchData(
 
     return { data: filteredData, loading, error: !!error };
 }
-
-/**
- * Hook to filter match results by a specific team's Nevobo identifier (e.g., 'HS 1').
- * @param nevoboTeamName The Nevobo identifier to filter by (e.g., 'HS 1' or 'DS 5').
- * @deprecated Use useFilteredMatchData('results', nevoboTeamName) instead.
- */
-export function useFilteredResults(nevoboTeamName?: string) {
-    const { data, loading, error } = useFilteredMatchData(
-        'results',
-        nevoboTeamName,
-    );
-    return { results: data, loading, error };
-}
