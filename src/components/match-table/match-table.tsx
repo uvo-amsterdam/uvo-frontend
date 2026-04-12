@@ -7,7 +7,7 @@ import { TableSkeleton } from '@components/ui-states/table-skeleton';
 import { useMatchData } from '@hooks/use-match-data';
 import type { Fixture } from '@interfaces/fixture';
 import type { MatchResult } from '@interfaces/match-result';
-import { Heading, Table } from '@radix-ui/themes';
+import { Table } from '@radix-ui/themes';
 import { IconTrophy } from '@tabler/icons-react';
 
 import css from './match-table.module.scss';
