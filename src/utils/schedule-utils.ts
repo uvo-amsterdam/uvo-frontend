@@ -31,7 +31,6 @@ export const getAmsterdamDate = (date: Date): Date => {
         }
     }
 
-    // Intl sometimes returns 24:00:00 for midnight (though hourCycle: 'h23' should prevent this)
     const hour = values.hour === 24 ? 0 : values.hour;
 
     return new Date(
@@ -60,7 +59,6 @@ export const getNextScheduleType = (
 ): ScheduleType => {
     const amsDate = getAmsterdamDate(currentDate);
 
-    // Cutoffs and week parity are calculated using the Amsterdam-shifted UTC values.
     const isCurrentlyEvenWeek = getWeekNumber(amsDate) % 2 === 0;
     const dayOfWeek = amsDate.getUTCDay() || 7; // 1 = Mon, ..., 7 = Sun
     const hours = amsDate.getUTCHours();
