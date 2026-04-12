@@ -36,7 +36,7 @@ const TeamsPage = async () => {
                             key={team.id}
                             teamName={team.siteDisplayName}
                             slug={team.id}
-                            imageUrl={team.teamImageUrl}
+                            imageUrl={team.teamImageUrl || undefined}
                         />
                     ))}
                 </div>

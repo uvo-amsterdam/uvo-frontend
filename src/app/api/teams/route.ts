@@ -52,8 +52,8 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
     return items.map(item => ({
         id: item.id,
         siteDisplayName: item.SiteDisplayName,
-        teamImageUrl: item.TeamImageUrl,
+        teamImageUrl: item.TeamImageUrl || '',
         nevoboTeamName: item.NevoboTeamName,
-        possibleAliases: item.PossibleAliases,
+        possibleAliases: item.PossibleAliases || [],
     }));
 }

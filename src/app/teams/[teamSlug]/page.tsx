@@ -148,7 +148,10 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                     <div>
                         <div className={css.teamImageWrapper}>
                             <Image
-                                src={team.teamImageUrl}
+                                src={
+                                    team.teamImageUrl ||
+                                    '/images/homepage/team-photo.jpeg'
+                                }
                                 alt={`${team.siteDisplayName} team photo`}
                                 fill
                                 sizes="(max-width: 64em) 100vw, 60vw"
