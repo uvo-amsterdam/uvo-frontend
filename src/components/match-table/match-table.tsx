@@ -159,9 +159,6 @@ export const MatchTable: FC<MatchTableProps> = ({ type = 'fixtures' }) => {
 
     return (
         <div className={css.tableContainer}>
-            <Heading as="h2" className={css.tableTitle}>
-                {isFixtures ? 'Upcoming Matches' : 'Recent Results'}
-            </Heading>
             <div className={css.tableWrap}>
                 <Table.Root className={css.table}>
                     <Table.Header>

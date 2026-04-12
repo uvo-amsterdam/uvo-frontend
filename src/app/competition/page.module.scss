@@ -11,4 +11,21 @@
 
 .selector {
   color: tokens.$accent-color;
+
+  @include tokens.section-heading;
+
+  font-size: 1.8rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 8%;
+  box-sizing: border-box;
+
+  @media (max-width: tokens.$breakpoint-xs) {
+    flex-direction: column;
+  }
+
+  @media (max-width: tokens.$breakpoint-sm) {
+    padding: 0 4%;
+  }
 }
