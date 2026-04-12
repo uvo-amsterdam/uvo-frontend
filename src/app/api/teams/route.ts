@@ -49,11 +49,24 @@ export async function GET() {
 }
 
 function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
-    return items.map(item => ({
-        id: item.id,
-        siteDisplayName: item.SiteDisplayName,
-        teamImageUrl: item.TeamImageUrl || '',
-        nevoboTeamName: item.NevoboTeamName,
-        possibleAliases: item.PossibleAliases || [],
-    }));
+    return items.map(item => {
+        let aliases: string[] = [];
+        if (typeof item.PossibleAliases === 'string') {
+            try {
+                aliases = JSON.parse(item.PossibleAliases);
+            } catch (_e) {
+                aliases = [item.PossibleAliases];
+            }
+        } else if (Array.isArray(item.PossibleAliases)) {
+            aliases = item.PossibleAliases;
+        }
+
+        return {
+            id: item.id,
+            siteDisplayName: item.SiteDisplayName,
+            teamImageUrl: item.TeamImageUrl || '',
+            nevoboTeamName: item.NevoboTeamName,
+            possibleAliases: aliases,
+        };
+    });
 }
