@@ -77,11 +77,10 @@ export const TrainingScheduleList: FC = () => {
         },
     ];
 
-    // Sort the schedules so that the 'nextScheduleType' is first
     const sortedSchedules = [...schedules].sort((a, b) => {
         if (a.type === nextScheduleType) return -1;
         if (b.type === nextScheduleType) return 1;
-        return 0; // Maintain default order for the rest
+        return 0;
     });
 
     return (
