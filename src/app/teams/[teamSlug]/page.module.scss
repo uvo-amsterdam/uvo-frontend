@@ -35,6 +35,16 @@
     gap: 3rem;
     width: 100%;
 
+    @media (max-width: tokens.$breakpoint-md) {
+        & > :first-child {
+            order: 2;
+        }
+
+        & > :last-child {
+            order: 1;
+        }
+    }
+
     @media (min-width: tokens.$breakpoint-md) {
         grid-template-columns: 350px 1fr;
         align-items: flex-start;
