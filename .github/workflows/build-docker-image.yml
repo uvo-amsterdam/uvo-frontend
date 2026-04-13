@@ -33,3 +33,16 @@ jobs:
           tags: |
             uvoitcommittee/uvo-amsterdam:latest
           platforms: linux/amd64
+
+  deploy:
+    needs: build-and-push-dockerfile-image
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Trigger Dokploy deployment
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{}'
+
