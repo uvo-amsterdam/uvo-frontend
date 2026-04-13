@@ -1,5 +1,4 @@
-### Jira Ticket
-<!-- [KAN-XXX](insert-link-here) -->
+### Linked issue
 [Insert here]
 
 ### Type of Pull Request

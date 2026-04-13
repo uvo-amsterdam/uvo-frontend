@@ -4,7 +4,7 @@ import type {
     TeamComposition,
 } from '@interfaces/team-composition';
 import { logger } from '@lib/logger';
-import { directus } from '@lib/server/directus';
+import { getDirectusClient } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
@@ -18,6 +18,7 @@ let cache: {
 
 export async function GET() {
     try {
+        const directus = getDirectusClient();
         const teams = await directus.request<DirectusTeamComposition[]>(
             readItems('team_compositions', { limit: -1 }),
         );
