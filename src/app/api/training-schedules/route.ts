@@ -8,7 +8,7 @@ import { logger } from '@lib/logger';
 import { getDirectusClient } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 const MAX_STALE_AGE = 1000 * 60 * 60 * 24 * 30 * 6; // ~6 months
 
