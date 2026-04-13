@@ -153,33 +153,53 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                             />
                         </div>
 
-                        <Tabs.Root defaultValue="results">
-                            <Tabs.List
-                                color={'orange'}
-                                style={{ marginBottom: '1.5rem' }}
-                            >
-                                <Tabs.Trigger value="fixtures">
-                                    Upcoming Matches
-                                </Tabs.Trigger>
-                                <Tabs.Trigger value="results">
-                                    Recent results
-                                </Tabs.Trigger>
-                            </Tabs.List>
+                        {team.competitionYesNo ? (
+                            <Tabs.Root defaultValue="results">
+                                <Tabs.List
+                                    color={'orange'}
+                                    style={{ marginBottom: '1.5rem' }}
+                                >
+                                    <Tabs.Trigger value="fixtures">
+                                        Upcoming Matches
+                                    </Tabs.Trigger>
+                                    <Tabs.Trigger value="results">
+                                        Recent results
+                                    </Tabs.Trigger>
+                                </Tabs.List>
 
-                            <Box>
-                                <Tabs.Content value="fixtures">
-                                    <MatchTable
-                                        nevoboTeamName={team.nevoboTeamName}
-                                    />
-                                </Tabs.Content>
-                                <Tabs.Content value="results">
-                                    <MatchTable
-                                        type="results"
-                                        nevoboTeamName={team.nevoboTeamName}
-                                    />
-                                </Tabs.Content>
+                                <Box>
+                                    <Tabs.Content value="fixtures">
+                                        <MatchTable
+                                            nevoboTeamName={team.nevoboTeamName}
+                                        />
+                                    </Tabs.Content>
+                                    <Tabs.Content value="results">
+                                        <MatchTable
+                                            type="results"
+                                            nevoboTeamName={team.nevoboTeamName}
+                                        />
+                                    </Tabs.Content>
+                                </Box>
+                            </Tabs.Root>
+                        ) : (
+                            <Box
+                                p="6"
+                                style={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '12px',
+                                    textAlign: 'center',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                                }}
+                            >
+                                <Text size="4" weight="bold" color="orange">
+                                    Training Only Team
+                                </Text>
+                                <Text as="p" size="3" color="gray" mt="2">
+                                    This team doesn&apos;t have games in the
+                                    Nevobo competition!
+                                </Text>
                             </Box>
-                        </Tabs.Root>
+                        )}
                     </div>
                 </div>
             </section>

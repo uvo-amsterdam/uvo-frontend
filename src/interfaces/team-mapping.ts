@@ -4,6 +4,7 @@ export interface DirectusTeamMapping {
     TeamImageUrl: string;
     NevoboTeamName: string;
     PossibleAliases: string[];
+    Competition_Yes_No: boolean;
 }
 
 export interface TeamMapping {
@@ -12,4 +13,5 @@ export interface TeamMapping {
     teamImageUrl: string;
     nevoboTeamName: string;
     possibleAliases: string[];
+    competitionYesNo: boolean;
 }

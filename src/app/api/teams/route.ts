@@ -67,6 +67,7 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
             teamImageUrl: item.TeamImageUrl || '',
             nevoboTeamName: item.NevoboTeamName,
             possibleAliases: aliases,
+            competitionYesNo: item.Competition_Yes_No ?? true,
         };
     });
 }
