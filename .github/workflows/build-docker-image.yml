@@ -2,7 +2,7 @@
 # It is triggered manually via the GitHub Actions interface.
 # Should this build fail it is probably due to the Docker Hub token being expired. It has an expiration of 90 days.
 # To fix this, generate a new token in Docker Hub and update the DOCKERHUB_TOKEN secret in the repository settings.
-name: Build Docker images
+name: Build & deploy new Docker image
 
 on:
   workflow_dispatch:
