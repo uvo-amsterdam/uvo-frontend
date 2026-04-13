@@ -1,10 +1,7 @@
+import { GET as getTeamCompositions } from '@app/api/team-compositions/route';
 import { GET as getTeams } from '@app/api/teams/route';
 import { MatchTable } from '@components/match-table/match-table';
-import { readItems } from '@directus/sdk';
-import type {
-    DirectusTeamComposition,
-    TeamComposition,
-} from '@interfaces/team-composition';
+import type { TeamComposition } from '@interfaces/team-composition';
 import type { TeamMapping } from '@interfaces/team-mapping';
 import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
 import { IconUserScan } from '@tabler/icons-react';
@@ -12,14 +9,24 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { logger } from '../../../lib/logger';
-import { directus } from '../../../lib/server/directus';
 
 import css from './page.module.scss';
+
+export const revalidate = 300;
 
 interface TeamPageProps {
     params: Promise<{
         teamSlug: string;
     }>;
+}
+
+export async function generateStaticParams() {
+    const res = await getTeams();
+    const teams: TeamMapping[] = await res.json();
+
+    return teams.map(team => ({
+        teamSlug: team.id,
+    }));
 }
 
 export async function generateMetadata({
@@ -42,35 +49,21 @@ export async function generateMetadata({
     };
 }
 
-function normalizeTeamCompositions(
-    items: DirectusTeamComposition[],
-): TeamComposition[] {
-    return items.map(item => ({
-        id: item.id,
-        team: item.Team,
-        name: item.Name,
-        position: item.Position,
-    }));
-}
-
 const TeamPage = async ({ params }: TeamPageProps) => {
     const { teamSlug } = await params;
-    const res = await getTeams();
-    const teams: TeamMapping[] = await res.json();
+    const resTeams = await getTeams();
+    const teams: TeamMapping[] = await resTeams.json();
     const team = teams.find(t => t.id === teamSlug);
 
     if (!team) {
         notFound();
     }
 
-    // Fetch team compositions and filter for the specific team using its aliases
+    // Fetch team compositions from our cached API layer
     let players: TeamComposition[] = [];
     try {
-        const rawTeams = await directus.request<DirectusTeamComposition[]>(
-            readItems('team_compositions', { limit: -1 }),
-        );
-
-        const allCompositions = normalizeTeamCompositions(rawTeams);
+        const resComps = await getTeamCompositions();
+        const allCompositions: TeamComposition[] = await resComps.json();
 
         players = allCompositions.filter((item: TeamComposition) => {
             if (!item.team) return false;

@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 
 import css from './page.module.scss';
 
+export const revalidate = 300;
+
 export const metadata: Metadata = {
     title: 'Teams — UvO Amsterdam',
     description: 'Explore all 15 teams representing UvO Amsterdam.',
