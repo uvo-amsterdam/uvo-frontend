@@ -1,0 +1,32 @@
+# This workflow will build a Docker image from the Dockerfile in the repository and push it to Docker Hub.
+# It is triggered manually via the GitHub Actions interface.
+# Should this build fail it is probably due to the Docker Hub token being expired. It has an expiration of 90 days.
+# To fix this, generate a new token in Docker Hub and update the DOCKERHUB_TOKEN secret in the repository settings.
+name: Build Docker images
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push-dockerfile-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            uvoitcommittee/uvo-amsterdam:latest
+          platforms: linux/amd64
