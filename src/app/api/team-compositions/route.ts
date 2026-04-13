@@ -7,7 +7,7 @@ import { logger } from '@lib/logger';
 import { getDirectusClient } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const MAX_STALE_AGE = 1000 * 60 * 60 * 24 * 30 * 6; // ~6 months
 
@@ -17,8 +17,8 @@ let cache: {
 } | null = null;
 
 export async function GET() {
-    const directus = getDirectusClient();
     try {
+        const directus = getDirectusClient();
         const teams = await directus.request<DirectusTeamComposition[]>(
             readItems('team_compositions', { limit: -1 }),
         );
