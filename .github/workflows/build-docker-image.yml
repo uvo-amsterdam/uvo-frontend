@@ -7,6 +7,9 @@ name: Build Docker images
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build-and-push-dockerfile-image:
     runs-on: ubuntu-latest
