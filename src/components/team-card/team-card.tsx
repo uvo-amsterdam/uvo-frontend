@@ -15,7 +15,7 @@ interface TeamCardProps {
 export const TeamCard: FC<TeamCardProps> = ({
     teamName,
     slug,
-    imageUrl = '/images/homepage/team-photo.jpeg',
+    imageUrl = '/images/unknown.webp',
 }) => {
     return (
         <NextLink href={`/teams/${slug}`} className={css.cardWrapper}>
@@ -38,7 +38,12 @@ export const TeamCard: FC<TeamCardProps> = ({
                 </Heading>
                 <div className={css.actionPrompt}>
                     <span>View Roster</span>
-                    <IconArrowRight size={20} className={css.icon} />
+                    <IconArrowRight
+                        size={20}
+                        className={css.icon}
+                        aria-hidden="true"
+                        focusable="false"
+                    />
                 </div>
             </div>
         </NextLink>
