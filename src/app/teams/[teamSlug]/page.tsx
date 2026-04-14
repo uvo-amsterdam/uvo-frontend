@@ -1,10 +1,10 @@
 import { GET as getTeamCompositions } from '@app/api/team-compositions/route';
-import { GET as getTeams } from '@app/api/teams/route';
 import { MatchTable } from '@components/match-table/match-table';
 import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import type { TeamComposition } from '@interfaces/team-composition';
 import type { TeamMapping } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
+import { getTeamsData } from '@lib/server/teams';
 import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
 import { IconUserScan } from '@tabler/icons-react';
 import type { Metadata } from 'next';
@@ -23,16 +23,7 @@ interface TeamPageProps {
 
 export async function generateStaticParams() {
     try {
-        const res = await getTeams();
-        if (!res.ok) {
-            logger.error(
-                { status: res.status },
-                'Failed to fetch teams for static params',
-            );
-            return [];
-        }
-
-        const teams: TeamMapping[] = await res.json();
+        const teams = await getTeamsData();
         return teams.map(team => ({
             teamSlug: team.id,
         }));
@@ -48,15 +39,7 @@ export async function generateMetadata({
     const { teamSlug } = await params;
 
     try {
-        const res = await getTeams();
-        if (!res.ok) {
-            return {
-                title: 'Teams — UvO Amsterdam',
-                robots: { index: false, follow: false },
-            };
-        }
-
-        const teams: TeamMapping[] = await res.json();
+        const teams = await getTeamsData();
         const team = teams.find(t => t.id === teamSlug);
 
         if (!team) {
@@ -84,11 +67,8 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
     let team: TeamMapping | undefined;
     try {
-        const resTeams = await getTeams();
-        if (resTeams.ok) {
-            const teams: TeamMapping[] = await resTeams.json();
-            team = teams.find(t => t.id === teamSlug);
-        }
+        const teams = await getTeamsData();
+        team = teams.find(t => t.id === teamSlug);
     } catch (error) {
         logger.error({ error, teamSlug }, 'Error fetching team detail');
     }
@@ -105,7 +85,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
             const allCompositions: TeamComposition[] = await resComps.json();
 
             players = allCompositions.filter((item: TeamComposition) => {
-                if (!item.team) return false;
+                if (!item.team || !item.name?.trim()) return false;
                 const lowerTeam = item.team.toLowerCase();
                 return team?.possibleAliases.some(alias =>
                     lowerTeam.includes(alias.toLowerCase()),
@@ -180,7 +160,8 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                                             size="2"
                                             className={css.playerPosition}
                                         >
-                                            {player.position}
+                                            {player.position?.trim() ||
+                                                'Player'}
                                         </Text>
                                     </div>
                                 ))}
