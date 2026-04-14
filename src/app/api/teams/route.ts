@@ -66,12 +66,10 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
                 if (trimmed) possibleAliases = [trimmed];
             }
         } catch (_e) {
-            // If parsing fails, treat the raw string as a single alias if not empty
             const raw = item.PossibleAliases.trim();
             if (raw) possibleAliases = [raw];
         }
 
-        // Final fallback: if no aliases found, use NevoboTeamName to ensure matching still works
         if (possibleAliases.length === 0 && item.NevoboTeamName) {
             possibleAliases = [item.NevoboTeamName];
         }

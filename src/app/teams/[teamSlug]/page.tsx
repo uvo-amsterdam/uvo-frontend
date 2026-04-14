@@ -77,7 +77,6 @@ const TeamPage = async ({ params }: TeamPageProps) => {
         notFound();
     }
 
-    // Fetch team compositions from our cached API layer
     let players: TeamComposition[] = [];
     try {
         const resComps = await getTeamCompositions();
@@ -95,9 +94,6 @@ const TeamPage = async ({ params }: TeamPageProps) => {
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');
     }
-
-    // Note: We don't 404 here if players.length === 0 because the team itself is valid (exists in teams array)
-    // and might just not have its roster filled out in Directus yet.
 
     return (
         <div className={css.root}>
