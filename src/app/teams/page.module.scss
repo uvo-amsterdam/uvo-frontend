@@ -15,10 +15,6 @@
     @include tokens.hero-content(800px);
 }
 
-.heroIcon {
-    @include tokens.hero-icon;
-}
-
 .title {
     @include tokens.hero-title(5rem, 3.5rem);
 }
