@@ -37,9 +37,12 @@
 
     @media (min-width: tokens.$breakpoint-md) {
         grid-template-columns: 350px 1fr;
+        grid-template-rows: min-content 1fr;
         align-items: flex-start;
     }
 }
+
+// ... rest remains same but need to find teamImageWrapper
 
 .photoColumn {
     width: 100%;
@@ -124,7 +127,6 @@
     height: 350px;
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 2rem;
     box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
 }
 
