@@ -1,3 +1,20 @@
+@use '@styles/tokens';
+
 .root {
   display: flex;
+  flex-direction: column;
+  background-color: tokens.$off-white;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  margin-top: -3rem; // overlap with hero arc
+  padding-bottom: 5rem;
+}
+
+.contentInner {
+  @include tokens.content-section(2rem, 1rem);
+
+  max-width: 1000px; // Constraint width since tables are too wide on huge screens
 }

@@ -5,7 +5,7 @@ import type {
     TrainingSchedules,
 } from '@interfaces/training-schedule';
 import { logger } from '@lib/logger';
-import { directus } from '@lib/server/directus';
+import { getDirectusClient } from '@lib/server/directus';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
@@ -19,6 +19,7 @@ let cache: {
 
 export async function GET() {
     try {
+        const directus = getDirectusClient();
         const [mondayEven, mondayUneven, thursdayEven, thursdayUneven] =
             await Promise.all([
                 directus.request<DirectusScheduleItem[]>(

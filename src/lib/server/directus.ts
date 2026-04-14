@@ -1,5 +1,12 @@
 import 'server-only';
-import { createDirectus, rest, staticToken } from '@directus/sdk';
+import {
+    createDirectus,
+    type DirectusClient,
+    type RestClient,
+    rest,
+    type StaticTokenClient,
+    staticToken,
+} from '@directus/sdk';
 import type { DirectusTeamComposition } from '@interfaces/team-composition';
 import type { DirectusTeamMapping } from '@interfaces/team-mapping';
 import type { DirectusScheduleItem } from '@interfaces/training-schedule';
@@ -13,18 +20,29 @@ interface Schema {
     thursday_uneven_schedule: DirectusScheduleItem[];
 }
 
-const directusUrl = process.env.DIRECTUS_URL;
-const token = process.env.DIRECTUS_TOKEN;
+type Client = DirectusClient<Schema> &
+    RestClient<Schema> &
+    StaticTokenClient<Schema>;
 
-if (!directusUrl)
-    throw new Error(
-        'DIRECTUS_URL is not defined in the environment variables. Please check your configuration.',
-    );
-if (!token)
-    throw new Error(
-        'DIRECTUS_TOKEN is not defined in the environment variables. Please check your configuration.',
-    );
+let _directus: Client | null = null;
 
-export const directus = createDirectus<Schema>(directusUrl)
-    .with(rest())
-    .with(staticToken(token));
+export function getDirectusClient(): Client {
+    if (_directus) return _directus;
+
+    const directusUrl = process.env.DIRECTUS_URL;
+    const token = process.env.DIRECTUS_TOKEN;
+
+    if (!directusUrl)
+        throw new Error(
+            'DIRECTUS_URL is not defined in the environment variables.',
+        );
+    if (!token)
+        throw new Error(
+            'DIRECTUS_TOKEN is not defined in the environment variables.',
+        );
+
+    _directus = createDirectus<Schema>(directusUrl)
+        .with(rest())
+        .with(staticToken(token));
+    return _directus;
+}
