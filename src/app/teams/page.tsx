@@ -14,8 +14,19 @@ export const metadata: Metadata = {
 };
 
 const TeamsPage = async () => {
-    const res = await getTeams();
-    const teams: TeamMapping[] = await res.json();
+    let teams: TeamMapping[] = [];
+    let error = false;
+
+    try {
+        const res = await getTeams();
+        if (res.ok) {
+            teams = await res.json();
+        } else {
+            error = true;
+        }
+    } catch (_err) {
+        error = true;
+    }
 
     return (
         <div className={css.root}>
@@ -33,14 +44,25 @@ const TeamsPage = async () => {
 
             <section className={css.gridSection}>
                 <div className={css.grid}>
-                    {teams.map(team => (
-                        <TeamCard
-                            key={team.id}
-                            teamName={team.siteDisplayName}
-                            slug={team.id}
-                            imageUrl={team.teamImageUrl || undefined}
-                        />
-                    ))}
+                    {error ? (
+                        <Text
+                            size="5"
+                            align="center"
+                            style={{ gridColumn: '1 / -1' }}
+                        >
+                            We encountered an error loading the teams. Please
+                            try again later.
+                        </Text>
+                    ) : (
+                        teams.map(team => (
+                            <TeamCard
+                                key={team.id}
+                                teamName={team.siteDisplayName}
+                                slug={team.id}
+                                imageUrl={team.teamImageUrl || undefined}
+                            />
+                        ))
+                    )}
                 </div>
             </section>
         </div>
