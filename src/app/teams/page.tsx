@@ -1,6 +1,7 @@
 import { GET as getTeams } from '@app/api/teams/route';
 import { TeamCard } from '@components/team-card/team-card';
 import type { TeamMapping } from '@interfaces/team-mapping';
+import { logger } from '@lib/logger';
 import { Heading, Text } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 
@@ -22,9 +23,14 @@ const TeamsPage = async () => {
         if (res.ok) {
             teams = await res.json();
         } else {
+            logger.error(
+                { status: res.status, statusText: res.statusText },
+                'Failed to fetch teams for index page',
+            );
             error = true;
         }
-    } catch (_err) {
+    } catch (err) {
+        logger.error({ err }, 'Unexpected error while loading teams');
         error = true;
     }
 
