@@ -3,12 +3,12 @@ import { GET as getTeams } from '@app/api/teams/route';
 import { MatchTable } from '@components/match-table/match-table';
 import type { TeamComposition } from '@interfaces/team-composition';
 import type { TeamMapping } from '@interfaces/team-mapping';
+import { logger } from '@lib/logger';
 import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
 import { IconUserScan } from '@tabler/icons-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { logger } from '../../../lib/logger';
 
 import css from './page.module.scss';
 
@@ -21,39 +21,76 @@ interface TeamPageProps {
 }
 
 export async function generateStaticParams() {
-    const res = await getTeams();
-    const teams: TeamMapping[] = await res.json();
+    try {
+        const res = await getTeams();
+        if (!res.ok) {
+            logger.error(
+                { status: res.status },
+                'Failed to fetch teams for static params',
+            );
+            return [];
+        }
 
-    return teams.map(team => ({
-        teamSlug: team.id,
-    }));
+        const teams: TeamMapping[] = await res.json();
+        return teams.map(team => ({
+            teamSlug: team.id,
+        }));
+    } catch (error) {
+        logger.error({ error }, 'Error generating static params for teams');
+        return [];
+    }
 }
 
 export async function generateMetadata({
     params,
 }: TeamPageProps): Promise<Metadata> {
     const { teamSlug } = await params;
-    const res = await getTeams();
-    const teams: TeamMapping[] = await res.json();
-    const team = teams.find(t => t.id === teamSlug);
 
-    if (!team) {
+    try {
+        const res = await getTeams();
+        if (!res.ok) {
+            return {
+                title: 'Teams — UvO Amsterdam',
+                robots: { index: false, follow: false },
+            };
+        }
+
+        const teams: TeamMapping[] = await res.json();
+        const team = teams.find(t => t.id === teamSlug);
+
+        if (!team) {
+            return {
+                title: 'Team Not Found — UvO Amsterdam',
+                robots: { index: false, follow: false },
+            };
+        }
+
         return {
-            title: 'Team Not Found — UvO Amsterdam',
+            title: `${team.siteDisplayName} — UvO Amsterdam`,
+            description: `Meet the roster and see recent match results for ${team.siteDisplayName}.`,
+        };
+    } catch (error) {
+        logger.error({ error, teamSlug }, 'Error generating metadata for team');
+        return {
+            title: 'Teams — UvO Amsterdam',
+            robots: { index: false, follow: false },
         };
     }
-
-    return {
-        title: `${team.siteDisplayName} — UvO Amsterdam`,
-        description: `Meet the roster and see recent match results for ${team.siteDisplayName}.`,
-    };
 }
 
 const TeamPage = async ({ params }: TeamPageProps) => {
     const { teamSlug } = await params;
-    const resTeams = await getTeams();
-    const teams: TeamMapping[] = await resTeams.json();
-    const team = teams.find(t => t.id === teamSlug);
+
+    let team: TeamMapping | undefined;
+    try {
+        const resTeams = await getTeams();
+        if (resTeams.ok) {
+            const teams: TeamMapping[] = await resTeams.json();
+            team = teams.find(t => t.id === teamSlug);
+        }
+    } catch (error) {
+        logger.error({ error, teamSlug }, 'Error fetching team detail');
+    }
 
     if (!team) {
         notFound();
@@ -63,15 +100,17 @@ const TeamPage = async ({ params }: TeamPageProps) => {
     let players: TeamComposition[] = [];
     try {
         const resComps = await getTeamCompositions();
-        const allCompositions: TeamComposition[] = await resComps.json();
+        if (resComps.ok) {
+            const allCompositions: TeamComposition[] = await resComps.json();
 
-        players = allCompositions.filter((item: TeamComposition) => {
-            if (!item.team) return false;
-            const lowerTeam = item.team.toLowerCase();
-            return team.possibleAliases.some(alias =>
-                lowerTeam.includes(alias.toLowerCase()),
-            );
-        });
+            players = allCompositions.filter((item: TeamComposition) => {
+                if (!item.team) return false;
+                const lowerTeam = item.team.toLowerCase();
+                return team?.possibleAliases.some(alias =>
+                    lowerTeam.includes(alias.toLowerCase()),
+                );
+            });
+        }
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');
     }
@@ -99,6 +138,8 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                             <IconUserScan
                                 size={32}
                                 className={css.sectionIcon}
+                                aria-hidden="true"
+                                focusable="false"
                             />
                             <Heading as="h2" className={css.sectionTitle}>
                                 Team Roster
@@ -142,8 +183,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                         <div className={css.teamImageWrapper}>
                             <Image
                                 src={
-                                    team.teamImageUrl ||
-                                    '/images/homepage/team-photo.jpeg'
+                                    team.teamImageUrl || '/images/unknown.webp'
                                 }
                                 alt={`${team.siteDisplayName} team photo`}
                                 fill
