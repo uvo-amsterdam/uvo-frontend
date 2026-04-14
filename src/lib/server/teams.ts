@@ -6,11 +6,12 @@ import type {
     TeamMapping,
 } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
-import { directus } from '@lib/server/directus';
+import { getDirectusClient } from '@lib/server/directus';
 
 export const getTeamsData = cache(async (): Promise<TeamMapping[]> => {
     try {
-        const items = await directus.request<DirectusTeamMapping[]>(
+        const client = getDirectusClient();
+        const items = await client.request<DirectusTeamMapping[]>(
             readItems('teams', { limit: -1 }),
         );
         return normalizeTeams(items);
