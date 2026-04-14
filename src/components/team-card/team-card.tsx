@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import { Heading } from '@radix-ui/themes';
 import { IconArrowRight } from '@tabler/icons-react';
 import Image from 'next/image';
@@ -15,7 +16,7 @@ interface TeamCardProps {
 export const TeamCard: FC<TeamCardProps> = ({
     teamName,
     slug,
-    imageUrl = '/images/unknown.webp',
+    imageUrl = UNKNOWN_TEAM_IMAGE_PATH,
 }) => {
     return (
         <NextLink href={`/teams/${slug}`} className={css.cardWrapper}>

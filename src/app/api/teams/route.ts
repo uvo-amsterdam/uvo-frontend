@@ -1,3 +1,4 @@
+import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import { readItems } from '@directus/sdk';
 import type {
     DirectusTeamMapping,
@@ -60,7 +61,7 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
         return {
             id: item.id,
             siteDisplayName: item.SiteDisplayName,
-            teamImageUrl: item.TeamImageUrl || '/images/unknown.webp',
+            teamImageUrl: normalizeTeamImageUrl(item.TeamImageUrl),
             nevoboTeamName: item.NevoboTeamName,
             possibleAliases: Array.isArray(aliases)
                 ? aliases
@@ -68,4 +69,14 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
             competitionYesNo: item.Competition_Yes_No,
         };
     });
+}
+
+function normalizeTeamImageUrl(teamImageUrl: string | null | undefined) {
+    const trimmed = teamImageUrl?.trim();
+
+    if (!trimmed) {
+        return UNKNOWN_TEAM_IMAGE_PATH;
+    }
+
+    return trimmed;
 }

@@ -1,6 +1,7 @@
 import { GET as getTeamCompositions } from '@app/api/team-compositions/route';
 import { GET as getTeams } from '@app/api/teams/route';
 import { MatchTable } from '@components/match-table/match-table';
+import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import type { TeamComposition } from '@interfaces/team-composition';
 import type { TeamMapping } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
@@ -133,6 +134,21 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
             <section className={css.contentSection}>
                 <div className={css.magazineLayout}>
+                    <div className={css.photoColumn}>
+                        <div className={css.teamImageWrapper}>
+                            <Image
+                                src={
+                                    team.teamImageUrl || UNKNOWN_TEAM_IMAGE_PATH
+                                }
+                                alt={`${team.siteDisplayName} team photo`}
+                                fill
+                                sizes="(max-width: 64em) 100vw, 60vw"
+                                className={css.teamImage}
+                                priority
+                            />
+                        </div>
+                    </div>
+
                     <div className={css.rosterColumn}>
                         <div className={css.sectionHeader}>
                             <IconUserScan
@@ -179,20 +195,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                         )}
                     </div>
 
-                    <div>
-                        <div className={css.teamImageWrapper}>
-                            <Image
-                                src={
-                                    team.teamImageUrl || '/images/unknown.webp'
-                                }
-                                alt={`${team.siteDisplayName} team photo`}
-                                fill
-                                sizes="(max-width: 64em) 100vw, 60vw"
-                                className={css.teamImage}
-                                priority
-                            />
-                        </div>
-
+                    <div className={css.fixturesColumn}>
                         {team.competitionYesNo ? (
                             <Tabs.Root defaultValue="results">
                                 <Tabs.List
