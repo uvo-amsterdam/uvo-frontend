@@ -1,9 +1,9 @@
-import { GET as getTeamCompositions } from '@app/api/team-compositions/route';
 import { MatchTable } from '@components/match-table/match-table';
 import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import type { TeamComposition } from '@interfaces/team-composition';
 import type { TeamMapping } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
+import { getTeamCompositionsData } from '@lib/server/compositions';
 import { getTeamsData } from '@lib/server/teams';
 import { Box, Heading, Tabs, Text } from '@radix-ui/themes';
 import { IconUserScan } from '@tabler/icons-react';
@@ -65,32 +65,37 @@ export async function generateMetadata({
 const TeamPage = async ({ params }: TeamPageProps) => {
     const { teamSlug } = await params;
 
-    let team: TeamMapping | undefined;
+    let teams: TeamMapping[] = [];
     try {
-        const teams = await getTeamsData();
-        team = teams.find(t => t.id === teamSlug);
+        teams = await getTeamsData();
     } catch (error) {
-        logger.error({ error, teamSlug }, 'Error fetching team detail');
+        logger.error(
+            { error, teamSlug },
+            'Error fetching teams for detail page',
+        );
+        // Throw to trigger error boundary instead of 404
+        throw new Error('Failed to load team data. Please try again later.');
     }
+
+    const team = teams.find(t => t.id === teamSlug);
 
     if (!team) {
         notFound();
     }
 
+    // Fetch team compositions from our shared server utility
     let players: TeamComposition[] = [];
     try {
-        const resComps = await getTeamCompositions();
-        if (resComps.ok) {
-            const allCompositions: TeamComposition[] = await resComps.json();
+        const allCompositions = await getTeamCompositionsData();
 
-            players = allCompositions.filter((item: TeamComposition) => {
-                if (!item.team || !item.name?.trim()) return false;
-                const lowerTeam = item.team.toLowerCase();
-                return team?.possibleAliases.some(alias =>
-                    lowerTeam.includes(alias.toLowerCase()),
-                );
-            });
-        }
+        players = allCompositions.filter((item: TeamComposition) => {
+            // Filter out entries without a name or team
+            if (!item.team || !item.name?.trim()) return false;
+            const lowerTeam = item.team.toLowerCase();
+            return team.possibleAliases.some(alias =>
+                lowerTeam.includes(alias.toLowerCase()),
+            );
+        });
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');
     }

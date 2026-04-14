@@ -11,7 +11,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: 'Teams — UvO Amsterdam',
-    description: 'Explore all 15 teams representing UvO Amsterdam.',
+    description: 'Explore the teams representing UvO Amsterdam.',
 };
 
 const TeamsPage = async () => {

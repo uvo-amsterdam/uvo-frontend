@@ -3,7 +3,7 @@ export interface DirectusTeamMapping {
     SiteDisplayName: string;
     TeamImageUrl: string | null;
     NevoboTeamName: string;
-    PossibleAliases: string;
+    PossibleAliases: string | string[] | null;
     Competition_Yes_No: boolean;
 }
 
