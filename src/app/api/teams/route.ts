@@ -51,23 +51,21 @@ export async function GET() {
 function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
     return items.map(item => {
         let aliases: string[] = [];
-        if (typeof item.PossibleAliases === 'string') {
-            try {
-                aliases = JSON.parse(item.PossibleAliases);
-            } catch (_e) {
-                aliases = [item.PossibleAliases];
-            }
-        } else if (Array.isArray(item.PossibleAliases)) {
-            aliases = item.PossibleAliases;
+        try {
+            aliases = JSON.parse(item.PossibleAliases);
+        } catch (_e) {
+            aliases = [item.PossibleAliases];
         }
 
         return {
             id: item.id,
             siteDisplayName: item.SiteDisplayName,
-            teamImageUrl: item.TeamImageUrl || '',
+            teamImageUrl: item.TeamImageUrl || '/images/unknown.webp',
             nevoboTeamName: item.NevoboTeamName,
-            possibleAliases: aliases,
-            competitionYesNo: item.Competition_Yes_No ?? true,
+            possibleAliases: Array.isArray(aliases)
+                ? aliases
+                : [item.PossibleAliases],
+            competitionYesNo: item.Competition_Yes_No,
         };
     });
 }
