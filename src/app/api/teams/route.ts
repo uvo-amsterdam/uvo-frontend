@@ -51,11 +51,28 @@ export async function GET() {
 
 function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
     return items.map(item => {
-        let aliases: string[] = [];
+        let possibleAliases: string[] = [];
+
         try {
-            aliases = JSON.parse(item.PossibleAliases);
+            const parsed: unknown = JSON.parse(item.PossibleAliases);
+            if (Array.isArray(parsed)) {
+                possibleAliases = parsed
+                    .filter((a): a is string => typeof a === 'string')
+                    .map(a => a.trim())
+                    .filter(Boolean);
+            } else if (typeof parsed === 'string') {
+                const trimmed = parsed.trim();
+                if (trimmed) possibleAliases = [trimmed];
+            }
         } catch (_e) {
-            aliases = [item.PossibleAliases];
+            // If parsing fails, treat the raw string as a single alias if not empty
+            const raw = item.PossibleAliases.trim();
+            if (raw) possibleAliases = [raw];
+        }
+
+        // Final fallback: if no aliases found, use NevoboTeamName to ensure matching still works
+        if (possibleAliases.length === 0 && item.NevoboTeamName) {
+            possibleAliases = [item.NevoboTeamName];
         }
 
         return {
@@ -63,9 +80,7 @@ function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
             siteDisplayName: item.SiteDisplayName,
             teamImageUrl: normalizeTeamImageUrl(item.TeamImageUrl),
             nevoboTeamName: item.NevoboTeamName,
-            possibleAliases: Array.isArray(aliases)
-                ? aliases
-                : [item.PossibleAliases],
+            possibleAliases,
             competitionYesNo: item.Competition_Yes_No,
         };
     });
