@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from 'react';
+import { Card } from '@components/card/card';
 import { Text } from '@radix-ui/themes';
 
 import css from './info-card.module.scss';
@@ -18,39 +19,24 @@ export const InfoCard: FC<InfoCardProps> = ({
     detail,
     href,
 }) => {
-    const content = (
-        <>
-            <div className={css.icon}>{icon}</div>
-            <div className={css.body}>
-                <Text size="1" weight="bold" className={css.label}>
-                    {label}
+    return (
+        <Card
+            icon={icon}
+            header={label}
+            href={href}
+            variant="accentLeft"
+            external={Boolean(href)}
+        >
+            {values.map(v => (
+                <Text key={v} size="3" weight="bold" className={css.value}>
+                    {v}
                 </Text>
-                {values.map(v => (
-                    <Text key={v} size="3" weight="bold" className={css.value}>
-                        {v}
-                    </Text>
-                ))}
-                {detail && (
-                    <Text size="2" className={css.detail}>
-                        {detail}
-                    </Text>
-                )}
-            </div>
-        </>
+            ))}
+            {detail && (
+                <Text size="2" className={css.detail}>
+                    {detail}
+                </Text>
+            )}
+        </Card>
     );
-
-    if (href) {
-        return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={css.root}
-            >
-                {content}
-            </a>
-        );
-    }
-
-    return <div className={css.root}>{content}</div>;
 };

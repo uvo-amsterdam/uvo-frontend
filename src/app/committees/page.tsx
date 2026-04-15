@@ -1,3 +1,4 @@
+import { Card } from '@components/card/card';
 import { Hero } from '@components/hero/hero';
 import { Heading, Text } from '@radix-ui/themes';
 import { IconMail } from '@tabler/icons-react';
@@ -130,19 +131,12 @@ export default function Committees() {
                 </div>
                 <div className={css.committeeGrid}>
                     {ORGANISING_COMMITTEES.map(com => (
-                        <div key={com.title} className={css.comCard}>
-                            <Heading
-                                as="h3"
-                                size="5"
-                                mb="2"
-                                className={css.comTitle}
-                            >
-                                {com.title}
-                            </Heading>
-                            <Text as="p" size="2" color="gray">
-                                {com.description}
-                            </Text>
-                        </div>
+                        <Card
+                            key={com.title}
+                            title={com.title}
+                            description={com.description}
+                            variant="accentBottom"
+                        />
                     ))}
                 </div>
             </section>
@@ -156,18 +150,12 @@ export default function Committees() {
 
                     <div className={css.supportList}>
                         {SUPPORTING_COMMITTEES.map(com => (
-                            <div key={com.title} className={css.supportItem}>
-                                <Heading
-                                    as="h3"
-                                    size="5"
-                                    className={css.comTitle}
-                                >
-                                    {com.title}
-                                </Heading>
-                                <Text as="p" size="3">
-                                    {com.description}
-                                </Text>
-                            </div>
+                            <Card
+                                key={com.title}
+                                title={com.title}
+                                description={com.description}
+                                variant="bordered"
+                            />
                         ))}
                     </div>
                 </div>
