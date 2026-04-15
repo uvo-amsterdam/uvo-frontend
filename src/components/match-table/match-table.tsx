@@ -35,6 +35,7 @@ const RESULT_COLUMNS = [
     'Home',
     'Result',
     'Away',
+    'Sets',
     'Venue',
     'City',
 ] as const;
@@ -84,6 +85,7 @@ const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
         >
             {result.away}
         </Table.Cell>
+        <Table.Cell className={css.setScoresCol}>{result.setScores}</Table.Cell>
         <Table.Cell>{result.venue}</Table.Cell>
         <Table.Cell>{result.city}</Table.Cell>
     </Table.Row>
