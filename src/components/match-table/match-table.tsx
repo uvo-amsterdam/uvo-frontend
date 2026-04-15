@@ -8,7 +8,11 @@ import { type MatchType, useFilteredMatchData } from '@hooks/use-match-data';
 import type { Fixture } from '@interfaces/fixture';
 import type { MatchResult } from '@interfaces/match-result';
 import { Heading, Table } from '@radix-ui/themes';
-import { IconBallVolleyball, IconTrophy } from '@tabler/icons-react';
+import {
+    IconBallVolleyball,
+    IconChevronDown,
+    IconTrophy,
+} from '@tabler/icons-react';
 import clsx from 'clsx';
 
 import css from './match-table.module.scss';
@@ -35,9 +39,9 @@ const RESULT_COLUMNS = [
     'Home',
     'Result',
     'Away',
-    'Sets',
     'Venue',
     'City',
+    '',
 ] as const;
 
 const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
@@ -59,37 +63,81 @@ const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
     </Table.Row>
 );
 
-const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
-    <Table.Row className={result.isHomeGame ? css.uvoRow : undefined}>
-        <Table.Cell>
-            {result.uvoWin && (
-                <IconTrophy size={20} stroke={1.8} className={css.trophyIcon} />
+const ResultRow: FC<{ result: MatchResult }> = ({ result }) => {
+    const [expanded, setExpanded] = useState(false);
+    const hasSetScores = Boolean(result.setScores);
+
+    return (
+        <>
+            <Table.Row
+                className={clsx(
+                    result.isHomeGame ? css.uvoRow : undefined,
+                    hasSetScores && css.expandableRow,
+                )}
+                onClick={() => hasSetScores && setExpanded(!expanded)}
+            >
+                <Table.Cell>
+                    {result.uvoWin && (
+                        <IconTrophy
+                            size={20}
+                            stroke={1.8}
+                            className={css.trophyIcon}
+                        />
+                    )}
+                </Table.Cell>
+                <Table.Cell>{result.date}</Table.Cell>
+                <Table.Cell>{result.time}</Table.Cell>
+                <Table.Cell
+                    className={clsx(
+                        css.teamCol,
+                        result.isHomeGame && css.uvoTeam,
+                    )}
+                >
+                    {result.home}
+                </Table.Cell>
+                <Table.Cell
+                    className={clsx(css.scoreCell, {
+                        [css.scoreWin]: result.uvoWin,
+                    })}
+                >
+                    {result.result}
+                </Table.Cell>
+                <Table.Cell
+                    className={clsx(
+                        css.teamCol,
+                        !result.isHomeGame && css.uvoTeam,
+                    )}
+                >
+                    {result.away}
+                </Table.Cell>
+                <Table.Cell>{result.venue}</Table.Cell>
+                <Table.Cell>{result.city}</Table.Cell>
+                <Table.Cell>
+                    {hasSetScores && (
+                        <IconChevronDown
+                            size={18}
+                            className={clsx(css.chevron, {
+                                [css.chevronExpanded]: expanded,
+                            })}
+                        />
+                    )}
+                </Table.Cell>
+            </Table.Row>
+            {expanded && (
+                <Table.Row className={css.expandedRow}>
+                    <Table.Cell colSpan={9}>
+                        <div className={css.expandedContent}>
+                            <span className={css.setLabel}>Set Scores:</span>
+                            <span className={css.setValues}>
+                                {result.setScores}
+                            </span>
+                        </div>
+                    </Table.Cell>
+                </Table.Row>
             )}
-        </Table.Cell>
-        <Table.Cell>{result.date}</Table.Cell>
-        <Table.Cell>{result.time}</Table.Cell>
-        <Table.Cell
-            className={clsx(css.teamCol, result.isHomeGame && css.uvoTeam)}
-        >
-            {result.home}
-        </Table.Cell>
-        <Table.Cell
-            className={clsx(css.scoreCell, {
-                [css.scoreWin]: result.uvoWin,
-            })}
-        >
-            {result.result}
-        </Table.Cell>
-        <Table.Cell
-            className={clsx(css.teamCol, !result.isHomeGame && css.uvoTeam)}
-        >
-            {result.away}
-        </Table.Cell>
-        <Table.Cell className={css.setScoresCol}>{result.setScores}</Table.Cell>
-        <Table.Cell>{result.venue}</Table.Cell>
-        <Table.Cell>{result.city}</Table.Cell>
-    </Table.Row>
-);
+        </>
+    );
+};
 
 const FixtureCard: FC<{ fixture: Fixture }> = ({ fixture }) => (
     <div className={clsx(css.card, fixture.isHomeGame && css.uvoCard)}>

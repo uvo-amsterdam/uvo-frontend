@@ -199,6 +199,67 @@
   white-space: nowrap;
 }
 
+.expandableRow {
+  cursor: pointer;
+
+  &:hover {
+    background: tokens.$cream !important;
+  }
+}
+
+.expandedRow {
+  background: tokens.$cream;
+
+  td {
+    border-bottom: 1px solid tokens.$gray-200;
+    padding: 0 !important;
+  }
+}
+
+.expandedContent {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: slide-down 0.2s ease-out;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.setLabel {
+  font-family: tokens.$font-heading;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: tokens.$primary-color;
+}
+
+.setValues {
+  color: tokens.$gray-800;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.chevron {
+  color: tokens.$gray-400;
+  transition: transform tokens.$transition-fast, color tokens.$transition-fast;
+}
+
+.chevronExpanded {
+  transform: rotate(180deg);
+  color: tokens.$primary-color;
+}
+
 .trophyIcon {
   color: tokens.$accent-color;
   filter: drop-shadow(0 0 4px rgb(255 107 53 / 40%));
