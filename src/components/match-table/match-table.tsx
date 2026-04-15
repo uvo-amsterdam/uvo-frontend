@@ -155,7 +155,7 @@ export const MatchTable: FC<MatchTableProps> = ({
     );
     const columns = isFixtures ? FIXTURE_COLUMNS : RESULT_COLUMNS;
 
-    const initialCount = nevoboTeamName ? 10 : 15;
+    const initialCount = nevoboTeamName ? 15 : 20;
     const [visibleCount, setVisibleCount] = useState(initialCount);
 
     const displayedData = data.slice(0, visibleCount);
