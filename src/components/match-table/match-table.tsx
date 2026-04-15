@@ -154,10 +154,11 @@ export const MatchTable: FC<MatchTableProps> = ({
         nevoboTeamName,
     );
     const columns = isFixtures ? FIXTURE_COLUMNS : RESULT_COLUMNS;
-    const [showAll, setShowAll] = useState(false);
 
-    const maxResults = nevoboTeamName ? 10 : 15;
-    const displayedData = showAll ? data : data.slice(0, maxResults);
+    const initialCount = nevoboTeamName ? 10 : 15;
+    const [visibleCount, setVisibleCount] = useState(initialCount);
+
+    const displayedData = data.slice(0, visibleCount);
 
     if (loading) return <TableSkeleton />;
 
@@ -250,9 +251,9 @@ export const MatchTable: FC<MatchTableProps> = ({
             </div>
 
             <ShowMoreButton
-                visible={data.length > maxResults && !showAll}
+                visible={data.length > visibleCount}
                 label={isFixtures ? 'Show More Matches' : 'Show More Results'}
-                onClick={() => setShowAll(true)}
+                onClick={() => setVisibleCount(prev => prev + initialCount)}
             />
         </div>
     );
