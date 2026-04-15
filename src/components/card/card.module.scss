@@ -22,7 +22,7 @@
     margin-bottom: 1.25rem;
     transition: transform tokens.$transition-fast, color tokens.$transition-fast;
     
-    // Default size if not provided
+    // Ensure the SVG doesn't introduce inline spacing
     svg {
         display: block;
     }

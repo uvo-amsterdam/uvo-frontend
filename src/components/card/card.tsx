@@ -36,9 +36,6 @@ export const Card: FC<CardProps> = ({
     external,
     children,
 }) => {
-    const isLink = Boolean(href);
-    const Tag = isLink ? (external ? 'a' : NextLink) : 'div';
-
     const content = (
         <>
             {icon && <div className={css.icon}>{icon}</div>}
@@ -63,18 +60,28 @@ export const Card: FC<CardProps> = ({
         </>
     );
 
-    const props = isLink
-        ? {
-              href: href as string,
-              className: clsx(css.root, css[variant], className),
-              ...(external
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {}),
-          }
-        : {
-              className: clsx(css.root, css[variant], className),
-          };
+    const rootClassName = clsx(css.root, css[variant], className);
 
-    // @ts-expect-error - Tag can be a string or a component
-    return <Tag {...props}>{content}</Tag>;
+    if (external && href) {
+        return (
+            <a
+                href={href}
+                className={rootClassName}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {content}
+            </a>
+        );
+    }
+
+    if (href) {
+        return (
+            <NextLink href={href} className={rootClassName}>
+                {content}
+            </NextLink>
+        );
+    }
+
+    return <div className={rootClassName}>{content}</div>;
 };
