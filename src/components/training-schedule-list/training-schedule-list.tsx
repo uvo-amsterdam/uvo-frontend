@@ -61,14 +61,14 @@ export const TrainingScheduleList: FC = () => {
             data: data.mondayEven,
         },
         {
-            type: 'mondayUneven',
-            title: 'Monday (Uneven Weeks)',
-            data: data.mondayUneven,
-        },
-        {
             type: 'thursdayEven',
             title: 'Thursday (Even Weeks)',
             data: data.thursdayEven,
+        },
+        {
+            type: 'mondayUneven',
+            title: 'Monday (Uneven Weeks)',
+            data: data.mondayUneven,
         },
         {
             type: 'thursdayUneven',
@@ -77,9 +77,21 @@ export const TrainingScheduleList: FC = () => {
         },
     ];
 
+    const isEvenWeekNow = nextScheduleType.includes('Even');
+
     const sortedSchedules = [...schedules].sort((a, b) => {
+        // 1. Next session always first
         if (a.type === nextScheduleType) return -1;
         if (b.type === nextScheduleType) return 1;
+
+        // 2. Then other sessions of the same week type (Even vs Uneven)
+        const aMatchesWeek = a.type.includes(isEvenWeekNow ? 'Even' : 'Uneven');
+        const bMatchesWeek = b.type.includes(isEvenWeekNow ? 'Even' : 'Uneven');
+
+        if (aMatchesWeek && !bMatchesWeek) return -1;
+        if (!aMatchesWeek && bMatchesWeek) return 1;
+
+        // 3. Maintain original day order (Monday before Thursday)
         return 0;
     });
 
