@@ -63,9 +63,13 @@ const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
     </Table.Row>
 );
 
-const ResultRow: FC<{ result: MatchResult }> = ({ result }) => {
+const ResultRow: FC<{ result: MatchResult; colCount: number }> = ({
+    result,
+    colCount,
+}) => {
     const [expanded, setExpanded] = useState(false);
     const hasSetScores = Boolean(result.setScores);
+    const rowId = `result-row-${result.code || `${result.home}-${result.away}`}`;
 
     return (
         <>
@@ -75,6 +79,8 @@ const ResultRow: FC<{ result: MatchResult }> = ({ result }) => {
                     hasSetScores && css.expandableRow,
                 )}
                 onClick={() => hasSetScores && setExpanded(!expanded)}
+                aria-expanded={hasSetScores ? expanded : undefined}
+                aria-controls={hasSetScores ? `${rowId}-details` : undefined}
             >
                 <Table.Cell>
                     {result.uvoWin && (
@@ -114,18 +120,30 @@ const ResultRow: FC<{ result: MatchResult }> = ({ result }) => {
                 <Table.Cell>{result.city}</Table.Cell>
                 <Table.Cell>
                     {hasSetScores && (
-                        <IconChevronDown
-                            size={18}
-                            className={clsx(css.chevron, {
-                                [css.chevronExpanded]: expanded,
-                            })}
-                        />
+                        <button
+                            type="button"
+                            className={css.expandButton}
+                            onClick={e => {
+                                e.stopPropagation();
+                                setExpanded(!expanded);
+                            }}
+                            aria-label={
+                                expanded ? 'Hide set scores' : 'Show set scores'
+                            }
+                        >
+                            <IconChevronDown
+                                size={18}
+                                className={clsx(css.chevron, {
+                                    [css.chevronExpanded]: expanded,
+                                })}
+                            />
+                        </button>
                     )}
                 </Table.Cell>
             </Table.Row>
             {expanded && (
-                <Table.Row className={css.expandedRow}>
-                    <Table.Cell colSpan={9}>
+                <Table.Row className={css.expandedRow} id={`${rowId}-details`}>
+                    <Table.Cell colSpan={colCount}>
                         <div className={css.expandedContent}>
                             <span className={css.setLabel}>Set Scores:</span>
                             <span className={css.setValues}>
@@ -263,14 +281,18 @@ export const MatchTable: FC<MatchTableProps> = ({
                                     className={clsx({
                                         [css.teamCol]:
                                             col === 'Home' || col === 'Away',
-                                        [css.visuallyHiddenHeader]:
+                                        [css.iconHeader]:
                                             col === 'Trophy' ||
                                             col === 'Expand',
                                     })}
                                 >
-                                    {col === 'Trophy' || col === 'Expand'
-                                        ? ''
-                                        : col}
+                                    {col === 'Trophy' || col === 'Expand' ? (
+                                        <span className={css.visuallyHidden}>
+                                            {col}
+                                        </span>
+                                    ) : (
+                                        col
+                                    )}
                                 </Table.ColumnHeaderCell>
                             ))}
                         </Table.Row>
@@ -284,7 +306,13 @@ export const MatchTable: FC<MatchTableProps> = ({
                             }
                             const r = item as MatchResult;
                             const key = `result-${r.code || `${r.home}-${r.away}-${r.date}-${r.time}`}-${index}`;
-                            return <ResultRow key={key} result={r} />;
+                            return (
+                                <ResultRow
+                                    key={key}
+                                    result={r}
+                                    colCount={columns.length}
+                                />
+                            );
                         })}
                     </Table.Body>
                 </Table.Root>
