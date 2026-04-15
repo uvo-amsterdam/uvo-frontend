@@ -33,7 +33,7 @@ const FIXTURE_COLUMNS = [
     'City',
 ] as const;
 const RESULT_COLUMNS = [
-    '',
+    'Trophy',
     'Date',
     'Time',
     'Home',
@@ -41,7 +41,7 @@ const RESULT_COLUMNS = [
     'Away',
     'Venue',
     'City',
-    '',
+    'Expand',
 ] as const;
 
 const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
@@ -260,13 +260,17 @@ export const MatchTable: FC<MatchTableProps> = ({
                             {columns.map(col => (
                                 <Table.ColumnHeaderCell
                                     key={col}
-                                    className={
-                                        col === 'Home' || col === 'Away'
-                                            ? css.teamCol
-                                            : undefined
-                                    }
+                                    className={clsx({
+                                        [css.teamCol]:
+                                            col === 'Home' || col === 'Away',
+                                        [css.visuallyHiddenHeader]:
+                                            col === 'Trophy' ||
+                                            col === 'Expand',
+                                    })}
                                 >
-                                    {col}
+                                    {col === 'Trophy' || col === 'Expand'
+                                        ? ''
+                                        : col}
                                 </Table.ColumnHeaderCell>
                             ))}
                         </Table.Row>

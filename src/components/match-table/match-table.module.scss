@@ -59,6 +59,11 @@
     width: 20%;
   }
 
+  .visuallyHiddenHeader {
+    width: 48px;
+    padding: 0;
+  }
+
   td {
     padding: 0.8rem 1rem;
     border-bottom: 1px solid tokens.$gray-100;
