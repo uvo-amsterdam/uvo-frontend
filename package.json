@@ -61,7 +61,7 @@
         "csstype": "3.2.3",
         "lint-staged": "16.4.0",
         "stylelint-config-standard-scss": "17.0.0",
-        "typescript": "6.0.2"
+        "typescript": "6.0.3"
     },
     "lint-staged": {
         "*.{css,scss,sass}": "stylelint --fix",
