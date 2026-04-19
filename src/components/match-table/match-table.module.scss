@@ -257,6 +257,17 @@
   animation: slide-down 0.2s ease-out;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .expandedContent {
+    animation: none;
+  }
+
+  .expandButton,
+  .chevron {
+    transition: none;
+  }
+}
+
 @keyframes slide-down {
   from {
     opacity: 0;

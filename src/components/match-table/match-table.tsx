@@ -69,7 +69,10 @@ const ResultRow: FC<{ result: MatchResult; colCount: number }> = ({
 }) => {
     const [expanded, setExpanded] = useState(false);
     const hasSetScores = Boolean(result.setScores);
-    const rowId = `result-row-${result.code || `${result.home}-${result.away}`}`;
+    const rowId = `result-row-${result.code}-${result.date}`;
+    const toggleExpanded = () => {
+        setExpanded(prev => !prev);
+    };
 
     return (
         <>
@@ -78,9 +81,8 @@ const ResultRow: FC<{ result: MatchResult; colCount: number }> = ({
                     result.isHomeGame ? css.uvoRow : undefined,
                     hasSetScores && css.expandableRow,
                 )}
-                onClick={() => hasSetScores && setExpanded(!expanded)}
+                onClick={() => hasSetScores && toggleExpanded()}
                 aria-expanded={hasSetScores ? expanded : undefined}
-                aria-controls={hasSetScores ? `${rowId}-details` : undefined}
             >
                 <Table.Cell>
                     {result.uvoWin && (
@@ -125,7 +127,7 @@ const ResultRow: FC<{ result: MatchResult; colCount: number }> = ({
                             className={css.expandButton}
                             onClick={e => {
                                 e.stopPropagation();
-                                setExpanded(!expanded);
+                                toggleExpanded();
                             }}
                             aria-label={
                                 expanded ? 'Hide set scores' : 'Show set scores'
