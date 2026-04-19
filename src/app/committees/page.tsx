@@ -130,11 +130,11 @@ export default function Committees() {
                     </Heading>
                 </div>
                 <div className={css.committeeGrid}>
-                    {ORGANISING_COMMITTEES.map(com => (
+                    {ORGANISING_COMMITTEES.map(committee => (
                         <Card
-                            key={com.title}
-                            title={com.title}
-                            description={com.description}
+                            key={committee.title}
+                            title={committee.title}
+                            description={committee.description}
                             variant="accentBottom"
                         />
                     ))}
@@ -149,11 +149,11 @@ export default function Committees() {
                     </div>
 
                     <div className={css.supportList}>
-                        {SUPPORTING_COMMITTEES.map(com => (
+                        {SUPPORTING_COMMITTEES.map(committee => (
                             <Card
-                                key={com.title}
-                                title={com.title}
-                                description={com.description}
+                                key={committee.title}
+                                title={committee.title}
+                                description={committee.description}
                                 variant="bordered"
                             />
                         ))}

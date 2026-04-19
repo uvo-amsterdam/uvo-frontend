@@ -21,7 +21,7 @@
     color: tokens.$primary-color;
     margin-bottom: 1.25rem;
     transition: transform tokens.$transition-fast, color tokens.$transition-fast;
-    
+
     // Ensure the SVG doesn't introduce inline spacing
     svg {
         display: block;

@@ -16,7 +16,7 @@ export type CardVariant =
 interface CardProps {
     title?: string;
     header?: string;
-    description?: string | ReactNode;
+    description?: ReactNode;
     icon?: ReactNode;
     href?: string;
     variant?: CardVariant;
@@ -51,7 +51,7 @@ export const Card: FC<CardProps> = ({
                     </Heading>
                 )}
                 {description && (
-                    <Text as="p" size="2" className={css.description}>
+                    <Text size="2" className={css.description}>
                         {description}
                     </Text>
                 )}
