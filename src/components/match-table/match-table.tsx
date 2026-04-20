@@ -8,7 +8,11 @@ import { type MatchType, useFilteredMatchData } from '@hooks/use-match-data';
 import type { Fixture } from '@interfaces/fixture';
 import type { MatchResult } from '@interfaces/match-result';
 import { Heading, Table } from '@radix-ui/themes';
-import { IconBallVolleyball, IconTrophy } from '@tabler/icons-react';
+import {
+    IconBallVolleyball,
+    IconChevronDown,
+    IconTrophy,
+} from '@tabler/icons-react';
 import clsx from 'clsx';
 
 import css from './match-table.module.scss';
@@ -29,7 +33,7 @@ const FIXTURE_COLUMNS = [
     'City',
 ] as const;
 const RESULT_COLUMNS = [
-    '',
+    'Trophy',
     'Date',
     'Time',
     'Home',
@@ -37,6 +41,7 @@ const RESULT_COLUMNS = [
     'Away',
     'Venue',
     'City',
+    'Expand',
 ] as const;
 
 const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
@@ -58,36 +63,101 @@ const FixtureRow: FC<{ fixture: Fixture }> = ({ fixture }) => (
     </Table.Row>
 );
 
-const ResultRow: FC<{ result: MatchResult }> = ({ result }) => (
-    <Table.Row className={result.isHomeGame ? css.uvoRow : undefined}>
-        <Table.Cell>
-            {result.uvoWin && (
-                <IconTrophy size={20} stroke={1.8} className={css.trophyIcon} />
+const ResultRow: FC<{ result: MatchResult; colCount: number }> = ({
+    result,
+    colCount,
+}) => {
+    const [expanded, setExpanded] = useState(false);
+    const hasSetScores = Boolean(result.setScores);
+    const rowId = `result-row-${result.code}-${result.date}`;
+    const toggleExpanded = () => {
+        setExpanded(prev => !prev);
+    };
+
+    return (
+        <>
+            <Table.Row
+                className={clsx(
+                    result.isHomeGame ? css.uvoRow : undefined,
+                    hasSetScores && css.expandableRow,
+                )}
+                onClick={() => hasSetScores && toggleExpanded()}
+                aria-expanded={hasSetScores ? expanded : undefined}
+            >
+                <Table.Cell>
+                    {result.uvoWin && (
+                        <IconTrophy
+                            size={20}
+                            stroke={1.8}
+                            className={css.trophyIcon}
+                        />
+                    )}
+                </Table.Cell>
+                <Table.Cell>{result.date}</Table.Cell>
+                <Table.Cell>{result.time}</Table.Cell>
+                <Table.Cell
+                    className={clsx(
+                        css.teamCol,
+                        result.isHomeGame && css.uvoTeam,
+                    )}
+                >
+                    {result.home}
+                </Table.Cell>
+                <Table.Cell
+                    className={clsx(css.scoreCell, {
+                        [css.scoreWin]: result.uvoWin,
+                    })}
+                >
+                    {result.result}
+                </Table.Cell>
+                <Table.Cell
+                    className={clsx(
+                        css.teamCol,
+                        !result.isHomeGame && css.uvoTeam,
+                    )}
+                >
+                    {result.away}
+                </Table.Cell>
+                <Table.Cell>{result.venue}</Table.Cell>
+                <Table.Cell>{result.city}</Table.Cell>
+                <Table.Cell>
+                    {hasSetScores && (
+                        <button
+                            type="button"
+                            className={css.expandButton}
+                            onClick={e => {
+                                e.stopPropagation();
+                                toggleExpanded();
+                            }}
+                            aria-label={
+                                expanded ? 'Hide set scores' : 'Show set scores'
+                            }
+                        >
+                            <IconChevronDown
+                                size={18}
+                                className={clsx(css.chevron, {
+                                    [css.chevronExpanded]: expanded,
+                                })}
+                            />
+                        </button>
+                    )}
+                </Table.Cell>
+            </Table.Row>
+            {expanded && (
+                <Table.Row className={css.expandedRow} id={`${rowId}-details`}>
+                    <Table.Cell colSpan={colCount}>
+                        <div className={css.expandedContent}>
+                            <span className={css.setLabel}>Set Scores:</span>
+                            <span className={css.setValues}>
+                                {result.setScores}
+                            </span>
+                        </div>
+                    </Table.Cell>
+                </Table.Row>
             )}
-        </Table.Cell>
-        <Table.Cell>{result.date}</Table.Cell>
-        <Table.Cell>{result.time}</Table.Cell>
-        <Table.Cell
-            className={clsx(css.teamCol, result.isHomeGame && css.uvoTeam)}
-        >
-            {result.home}
-        </Table.Cell>
-        <Table.Cell
-            className={clsx(css.scoreCell, {
-                [css.scoreWin]: result.uvoWin,
-            })}
-        >
-            {result.result}
-        </Table.Cell>
-        <Table.Cell
-            className={clsx(css.teamCol, !result.isHomeGame && css.uvoTeam)}
-        >
-            {result.away}
-        </Table.Cell>
-        <Table.Cell>{result.venue}</Table.Cell>
-        <Table.Cell>{result.city}</Table.Cell>
-    </Table.Row>
-);
+        </>
+    );
+};
 
 const FixtureCard: FC<{ fixture: Fixture }> = ({ fixture }) => (
     <div className={clsx(css.card, fixture.isHomeGame && css.uvoCard)}>
@@ -154,10 +224,11 @@ export const MatchTable: FC<MatchTableProps> = ({
         nevoboTeamName,
     );
     const columns = isFixtures ? FIXTURE_COLUMNS : RESULT_COLUMNS;
-    const [showAll, setShowAll] = useState(false);
 
-    const maxResults = nevoboTeamName ? 10 : 15;
-    const displayedData = showAll ? data : data.slice(0, maxResults);
+    const initialCount = nevoboTeamName ? 15 : 20;
+    const [visibleCount, setVisibleCount] = useState(initialCount);
+
+    const displayedData = data.slice(0, visibleCount);
 
     if (loading) return <TableSkeleton />;
 
@@ -210,13 +281,21 @@ export const MatchTable: FC<MatchTableProps> = ({
                             {columns.map(col => (
                                 <Table.ColumnHeaderCell
                                     key={col}
-                                    className={
-                                        col === 'Home' || col === 'Away'
-                                            ? css.teamCol
-                                            : undefined
-                                    }
+                                    className={clsx({
+                                        [css.teamCol]:
+                                            col === 'Home' || col === 'Away',
+                                        [css.iconHeader]:
+                                            col === 'Trophy' ||
+                                            col === 'Expand',
+                                    })}
                                 >
-                                    {col}
+                                    {col === 'Trophy' || col === 'Expand' ? (
+                                        <span className={css.visuallyHidden}>
+                                            {col}
+                                        </span>
+                                    ) : (
+                                        col
+                                    )}
                                 </Table.ColumnHeaderCell>
                             ))}
                         </Table.Row>
@@ -230,7 +309,13 @@ export const MatchTable: FC<MatchTableProps> = ({
                             }
                             const r = item as MatchResult;
                             const key = `result-${r.code || `${r.home}-${r.away}-${r.date}-${r.time}`}-${index}`;
-                            return <ResultRow key={key} result={r} />;
+                            return (
+                                <ResultRow
+                                    key={key}
+                                    result={r}
+                                    colCount={columns.length}
+                                />
+                            );
                         })}
                     </Table.Body>
                 </Table.Root>
@@ -250,9 +335,9 @@ export const MatchTable: FC<MatchTableProps> = ({
             </div>
 
             <ShowMoreButton
-                visible={data.length > maxResults && !showAll}
+                visible={data.length > visibleCount}
                 label={isFixtures ? 'Show More Matches' : 'Show More Results'}
-                onClick={() => setShowAll(true)}
+                onClick={() => setVisibleCount(prev => prev + initialCount)}
             />
         </div>
     );
