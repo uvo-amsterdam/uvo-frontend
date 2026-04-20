@@ -1,5 +1,4 @@
 import 'server-only';
-import { cache } from 'react';
 import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import { readItems } from '@directus/sdk';
 import type {
@@ -10,26 +9,21 @@ import { logger } from '@lib/logger';
 import { getDirectusClient } from '@lib/server/directus';
 import { unstable_cache } from 'next/cache';
 
-export const getTeamsData = cache(
-    unstable_cache(
-        async (): Promise<TeamMapping[]> => {
-            try {
-                const client = getDirectusClient();
-                const items = await client.request<DirectusTeamMapping[]>(
-                    readItems('teams', { limit: -1 }),
-                );
-                return normalizeTeams(items);
-            } catch (error) {
-                logger.error(
-                    { err: error },
-                    'Error fetching Teams from Directus',
-                );
-                throw error;
-            }
-        },
-        ['teams-data'],
-        { revalidate: 300, tags: ['teams'] },
-    ),
+export const getTeamsData = unstable_cache(
+    async (): Promise<TeamMapping[]> => {
+        try {
+            const client = getDirectusClient();
+            const items = await client.request<DirectusTeamMapping[]>(
+                readItems('teams', { limit: -1 }),
+            );
+            return normalizeTeams(items);
+        } catch (error) {
+            logger.error({ err: error }, 'Error fetching Teams from Directus');
+            throw error;
+        }
+    },
+    ['teams-data'],
+    { revalidate: 300, tags: ['teams'] },
 );
 
 function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {

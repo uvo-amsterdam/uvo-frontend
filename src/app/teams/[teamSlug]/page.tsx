@@ -85,6 +85,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
     // Fetch team compositions from our shared server utility
     let players: TeamComposition[] = [];
+    let compositionsError = false;
     try {
         const allCompositions = await getTeamCompositionsData();
 
@@ -98,6 +99,7 @@ const TeamPage = async ({ params }: TeamPageProps) => {
         });
     } catch (error) {
         logger.error({ error }, 'Error fetching Team Compositions');
+        compositionsError = true;
     }
 
     return (
@@ -108,7 +110,9 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                         {team.siteDisplayName}
                     </Heading>
                     <Text as="p" size="5" className={css.subtitle}>
-                        {players.length} players strong this season.
+                        {compositionsError
+                            ? 'Roster data unavailable right now.'
+                            : `${players.length} players strong this season.`}
                     </Text>
                 </div>
             </section>
