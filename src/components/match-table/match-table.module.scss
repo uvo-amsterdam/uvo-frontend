@@ -59,6 +59,11 @@
     width: 20%;
   }
 
+  .iconHeader {
+    width: 48px;
+    padding: 0;
+  }
+
   td {
     padding: 0.8rem 1rem;
     border-bottom: 1px solid tokens.$gray-100;
@@ -77,6 +82,18 @@
       border-bottom: none;
     }
   }
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .uvoRow {
@@ -190,6 +207,101 @@
 
 .scoreWin {
   color: tokens.$accent-color !important;
+}
+
+.expandableRow {
+  cursor: pointer;
+
+  &:hover {
+    background: tokens.$cream !important;
+  }
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: tokens.$gray-400;
+  transition: background tokens.$transition-fast, color tokens.$transition-fast;
+
+  &:hover {
+    background: tokens.$gray-100;
+    color: tokens.$primary-color;
+  }
+
+  &:focus-visible {
+    outline: 2px solid tokens.$primary-color;
+    outline-offset: 2px;
+  }
+}
+
+.expandedRow {
+  background: tokens.$cream;
+
+  td {
+    border-bottom: 1px solid tokens.$gray-200;
+    padding: 0 !important;
+  }
+}
+
+.expandedContent {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: slide-down 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandedContent {
+    animation: none;
+  }
+
+  .expandButton,
+  .chevron {
+    transition: none;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.setLabel {
+  font-family: tokens.$font-heading;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: tokens.$primary-color;
+}
+
+.setValues {
+  color: tokens.$gray-800;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.chevron {
+  color: tokens.$gray-400;
+  transition: transform tokens.$transition-fast, color tokens.$transition-fast;
+}
+
+.chevronExpanded {
+  transform: rotate(180deg);
+  color: tokens.$primary-color;
 }
 
 .trophyIcon {
