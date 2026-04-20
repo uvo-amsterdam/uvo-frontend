@@ -183,16 +183,14 @@ const SignUpPage: FC = () => {
                             applicants.
                         </Text>
                     )}
-                    {!isMayTryoutPeriod && (
-                        <Link
-                            href={FORMS.SIGN_UP}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={css.ctaButton}
-                        >
-                            Sign up for tryouts
-                        </Link>
-                    )}
+                    <Link
+                        href={FORMS.SIGN_UP}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css.ctaButton}
+                    >
+                        Sign up for tryouts
+                    </Link>
                 </div>
             </section>
 
