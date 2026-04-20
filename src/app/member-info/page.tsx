@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Card } from '@components/card/card';
 import { Hero } from '@components/hero/hero';
 import {
     Accordion,
@@ -223,55 +224,17 @@ const MemberInfoPage: FC = () => {
                     </Heading>
                 </div>
                 <div className={css.docGrid}>
-                    {documentsData.map(doc =>
-                        doc.external ? (
-                            <a
-                                key={doc.title}
-                                href={doc.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={css.docCard}
-                            >
-                                <doc.icon
-                                    stroke={2.5}
-                                    size={44}
-                                    className={css.docIcon}
-                                />
-                                <Heading
-                                    as="h3"
-                                    size="4"
-                                    className={css.docTitle}
-                                >
-                                    {doc.title}
-                                </Heading>
-                                <Text size="2" className={css.docDesc}>
-                                    {doc.description}
-                                </Text>
-                            </a>
-                        ) : (
-                            <NextLink
-                                key={doc.title}
-                                href={doc.href}
-                                className={css.docCard}
-                            >
-                                <doc.icon
-                                    stroke={2.5}
-                                    size={44}
-                                    className={css.docIcon}
-                                />
-                                <Heading
-                                    as="h3"
-                                    size="4"
-                                    className={css.docTitle}
-                                >
-                                    {doc.title}
-                                </Heading>
-                                <Text size="2" className={css.docDesc}>
-                                    {doc.description}
-                                </Text>
-                            </NextLink>
-                        ),
-                    )}
+                    {documentsData.map(doc => (
+                        <Card
+                            key={doc.title}
+                            title={doc.title}
+                            description={doc.description}
+                            href={doc.href}
+                            external={doc.external}
+                            icon={<doc.icon stroke={2.5} size={44} />}
+                            variant="bordered"
+                        />
+                    ))}
                 </div>
             </section>
         </div>

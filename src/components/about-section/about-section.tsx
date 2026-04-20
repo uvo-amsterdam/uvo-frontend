@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Card } from '@components/card/card';
 import { Heading, Link, Strong, Text } from '@radix-ui/themes';
 
 import css from './about-section.module.scss';
@@ -50,12 +51,16 @@ export const AboutSection: FC = () => {
 
                 <div className={css.statsCol}>
                     {STATS.map(stat => (
-                        <div key={stat.label} className={css.statCard}>
+                        <Card
+                            key={stat.label}
+                            variant="ghost"
+                            className={css.statCard}
+                        >
                             <Text className={css.statValue}>{stat.value}</Text>
                             <Text size="2" className={css.statLabel}>
                                 {stat.label}
                             </Text>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             </div>

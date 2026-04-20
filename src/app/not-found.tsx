@@ -1,3 +1,4 @@
+import { Card } from '@components/card/card';
 import { Container, Flex, Heading, Text } from '@radix-ui/themes';
 import {
     IconArrowRight,
@@ -53,20 +54,26 @@ export default function NotFound() {
                     </Text>
 
                     <div className={css.linkGrid}>
-                        <NextLink href="/" className={css.navCard}>
-                            <IconHome size={24} />
-                            <span>Go Home</span>
-                        </NextLink>
+                        <Card
+                            href="/"
+                            variant="centered"
+                            title="Go Home"
+                            icon={<IconHome size={24} />}
+                        />
 
-                        <NextLink href="/sign-up" className={css.navCard}>
-                            <IconUserPlus size={24} />
-                            <span>Sign Up</span>
-                        </NextLink>
+                        <Card
+                            href="/sign-up"
+                            variant="centered"
+                            title="Sign Up"
+                            icon={<IconUserPlus size={24} />}
+                        />
 
-                        <NextLink href="/contact" className={css.navCard}>
-                            <IconMessage2 size={24} />
-                            <span>Contact Us</span>
-                        </NextLink>
+                        <Card
+                            href="/contact"
+                            variant="centered"
+                            title="Contact Us"
+                            icon={<IconMessage2 size={24} />}
+                        />
                     </div>
 
                     <NextLink href="/competition" className={css.simpleLink}>

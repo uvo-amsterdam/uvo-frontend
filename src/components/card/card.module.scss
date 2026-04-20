@@ -1,0 +1,111 @@
+@use '@styles/tokens';
+
+.root {
+    background: tokens.$white-color;
+    padding: 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform tokens.$transition-fast, box-shadow tokens.$transition-fast, border-color tokens.$transition-fast;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 5%);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+    }
+}
+
+.icon {
+    color: tokens.$primary-color;
+    margin-bottom: 1.25rem;
+    transition: transform tokens.$transition-fast, color tokens.$transition-fast;
+
+    // Ensure the SVG doesn't introduce inline spacing
+    svg {
+        display: block;
+    }
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-family: tokens.$font-heading;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: tokens.$primary-color;
+}
+
+.header {
+    font-family: tokens.$font-heading;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: tokens.$primary-color;
+    margin-bottom: 0.25rem;
+}
+
+.description {
+    color: tokens.$gray-600;
+    line-height: 1.5;
+}
+
+// Variants
+.accentLeft {
+    flex-direction: row;
+    gap: 1rem;
+    border-left: 4px solid tokens.$primary-color;
+    border-radius: 8px;
+    padding: 1.25rem;
+    background: tokens.$cream;
+    box-shadow: none;
+
+    .icon {
+        margin-bottom: 0;
+        font-size: 1.8rem;
+    }
+
+    &:hover {
+        transform: translateX(4px);
+        border-left-color: tokens.$accent-color;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+    }
+}
+
+.accentBottom {
+    border-bottom: 4px solid tokens.$primary-color;
+}
+
+.bordered {
+    border: 2px solid rgb(0 0 0 / 6%);
+    box-shadow: none;
+
+    &:hover {
+        border-color: tokens.$primary-color;
+
+        .icon {
+            color: tokens.$accent-color;
+            transform: scale(1.1);
+        }
+    }
+}
+
+.centered {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.ghost {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+
+    &:hover {
+        box-shadow: none;
+        transform: scale(1.06);
+    }
+}
