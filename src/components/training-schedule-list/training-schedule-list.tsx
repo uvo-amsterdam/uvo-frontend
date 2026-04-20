@@ -61,14 +61,14 @@ export const TrainingScheduleList: FC = () => {
             data: data.mondayEven,
         },
         {
-            type: 'mondayUneven',
-            title: 'Monday (Uneven Weeks)',
-            data: data.mondayUneven,
-        },
-        {
             type: 'thursdayEven',
             title: 'Thursday (Even Weeks)',
             data: data.thursdayEven,
+        },
+        {
+            type: 'mondayUneven',
+            title: 'Monday (Uneven Weeks)',
+            data: data.mondayUneven,
         },
         {
             type: 'thursdayUneven',
@@ -77,11 +77,11 @@ export const TrainingScheduleList: FC = () => {
         },
     ];
 
-    const sortedSchedules = [...schedules].sort((a, b) => {
-        if (a.type === nextScheduleType) return -1;
-        if (b.type === nextScheduleType) return 1;
-        return 0;
-    });
+    const nextIndex = schedules.findIndex(s => s.type === nextScheduleType);
+    const sortedSchedules = [
+        ...schedules.slice(nextIndex),
+        ...schedules.slice(0, nextIndex),
+    ];
 
     return (
         <div className={css.listContainer}>
