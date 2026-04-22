@@ -7,25 +7,10 @@
     min-height: 100vh;
 }
 
-.hero {
-    @include tokens.hero-solid(6rem, 4rem);
-}
-
-.heroContent {
-    @include tokens.hero-content(800px);
-}
-
-.title {
-    @include tokens.hero-title(6rem, 4rem);
-}
-
-.subtitle {
-    @include tokens.hero-subtitle;
-}
-
 .contentSection {
     @include tokens.content-section(4rem, 2rem);
 
+    max-width: none; // Explicitly state no max width as otherwise there will be bars on both sides.
     background-color: tokens.$off-white;
 }
 

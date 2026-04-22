@@ -1,3 +1,4 @@
+import { Hero } from '@components/hero/hero';
 import { MatchTable } from '@components/match-table/match-table';
 import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import type { TeamComposition } from '@interfaces/team-composition';
@@ -102,20 +103,18 @@ const TeamPage = async ({ params }: TeamPageProps) => {
 
     return (
         <div className={css.root}>
-            <section className={css.hero}>
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        {team.siteDisplayName}
-                    </Heading>
-                    {(compositionsError || players.length > 0) && (
-                        <Text as="p" size="5" className={css.subtitle}>
+            <Hero
+                title={team.siteDisplayName}
+                subtitle={
+                    (compositionsError || players.length > 0) && (
+                        <Text size="5" className={css.subtitle}>
                             {compositionsError
                                 ? 'Roster data unavailable right now.'
                                 : `${players.length} players strong this season.`}
                         </Text>
-                    )}
-                </div>
-            </section>
+                    )
+                }
+            />
 
             <section className={css.contentSection}>
                 <div className={css.magazineLayout}>
