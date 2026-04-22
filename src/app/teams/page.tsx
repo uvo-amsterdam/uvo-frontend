@@ -1,8 +1,9 @@
+import { Hero } from '@components/hero/hero';
 import { TeamCard } from '@components/team-card/team-card';
 import type { TeamMapping } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
 import { getTeamsData } from '@lib/server/teams';
-import { Heading, Text } from '@radix-ui/themes';
+import { Text } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 
 import css from './page.module.scss';
@@ -10,7 +11,7 @@ import css from './page.module.scss';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-    title: 'Teams — UvO Amsterdam',
+    title: 'Teams - UvO Amsterdam',
     description: 'Explore the teams representing UvO Amsterdam.',
 };
 
@@ -27,18 +28,12 @@ const TeamsPage = async () => {
 
     return (
         <div className={css.root}>
-            <section className={css.hero}>
-                <div className={css.heroContent}>
-                    <Heading as="h1" className={css.title}>
-                        Our Teams
-                    </Heading>
-                    <Text as="p" size="4" className={css.subtitle}>
-                        Meet the players representing UvO Amsterdam across all
-                        levels.
-                    </Text>
-                </div>
-            </section>
-
+            <Hero
+                title={'Our Teams'}
+                subtitle={
+                    'Meet the players representing UvO Amsterdam across all levels.'
+                }
+            />
             <section className={css.gridSection}>
                 <div className={css.grid}>
                     {error ? (

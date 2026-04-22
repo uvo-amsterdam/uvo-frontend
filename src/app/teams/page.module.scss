@@ -7,28 +7,10 @@
     min-height: 100vh;
 }
 
-.hero {
-    @include tokens.hero-solid(6rem, 4rem);
-}
-
-.heroContent {
-    @include tokens.hero-content(800px);
-}
-
-.title {
-    @include tokens.hero-title(5rem, 3.5rem);
-}
-
-.subtitle {
-    @include tokens.hero-subtitle;
-
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 .gridSection {
     @include tokens.content-section(6rem, 3rem);
 
+    max-width: none; // Explicitly state no max width as otherwise there will be bars on both sides.
     background-color: tokens.$off-white;
     flex-grow: 1;
 }

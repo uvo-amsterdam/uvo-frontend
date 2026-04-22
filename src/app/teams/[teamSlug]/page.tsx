@@ -16,9 +16,7 @@ import css from './page.module.scss';
 export const revalidate = 300;
 
 interface TeamPageProps {
-    params: Promise<{
-        teamSlug: string;
-    }>;
+    params: Promise<{ teamSlug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -44,19 +42,19 @@ export async function generateMetadata({
 
         if (!team) {
             return {
-                title: 'Team Not Found — UvO Amsterdam',
+                title: 'Team Not Found - UvO Amsterdam',
                 robots: { index: false, follow: false },
             };
         }
 
         return {
-            title: `${team.siteDisplayName} — UvO Amsterdam`,
+            title: `${team.siteDisplayName} - UvO Amsterdam`,
             description: `Meet the roster and see recent match results for ${team.siteDisplayName}.`,
         };
     } catch (error) {
         logger.error({ error, teamSlug }, 'Error generating metadata for team');
         return {
-            title: 'Teams — UvO Amsterdam',
+            title: 'Teams - UvO Amsterdam',
             robots: { index: false, follow: false },
         };
     }
@@ -109,11 +107,13 @@ const TeamPage = async ({ params }: TeamPageProps) => {
                     <Heading as="h1" className={css.title}>
                         {team.siteDisplayName}
                     </Heading>
-                    <Text as="p" size="5" className={css.subtitle}>
-                        {compositionsError
-                            ? 'Roster data unavailable right now.'
-                            : `${players.length} players strong this season.`}
-                    </Text>
+                    {(compositionsError || players.length > 0) && (
+                        <Text as="p" size="5" className={css.subtitle}>
+                            {compositionsError
+                                ? 'Roster data unavailable right now.'
+                                : `${players.length} players strong this season.`}
+                        </Text>
+                    )}
                 </div>
             </section>
 
