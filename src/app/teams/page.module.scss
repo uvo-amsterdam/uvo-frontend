@@ -1,0 +1,44 @@
+@use '@styles/tokens';
+
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.gridSection {
+    @include tokens.content-section(6rem, 3rem);
+
+    max-width: none; // Explicitly state no max width as otherwise there will be bars on both sides.
+    background-color: tokens.$off-white;
+    flex-grow: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+
+    @media (min-width: tokens.$breakpoint-sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: tokens.$breakpoint-md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: tokens.$breakpoint-lg) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.emptyText {
+    color: tokens.$gray-600;
+}

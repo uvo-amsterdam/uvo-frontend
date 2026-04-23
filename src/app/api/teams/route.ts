@@ -1,10 +1,6 @@
-import { readItems } from '@directus/sdk';
-import type {
-    DirectusTeamMapping,
-    TeamMapping,
-} from '@interfaces/team-mapping';
+import type { TeamMapping } from '@interfaces/team-mapping';
 import { logger } from '@lib/logger';
-import { getDirectusClient } from '@lib/server/directus';
+import { getTeamsData } from '@lib/server/teams';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
@@ -18,12 +14,7 @@ let cache: {
 
 export async function GET() {
     try {
-        const directus = getDirectusClient();
-        const teams = await directus.request<DirectusTeamMapping[]>(
-            readItems('teams', { limit: -1 }),
-        );
-
-        const payload = normalizeTeams(teams);
+        const payload = await getTeamsData();
         cache = {
             data: payload,
             timestamp: Date.now(),
@@ -47,14 +38,4 @@ export async function GET() {
             { status: 503 },
         );
     }
-}
-
-function normalizeTeams(items: DirectusTeamMapping[]): TeamMapping[] {
-    return items.map(item => ({
-        id: item.id,
-        siteDisplayName: item.SiteDisplayName,
-        teamImageUrl: item.TeamImageUrl,
-        nevoboTeamName: item.NevoboTeamName,
-        possibleAliases: item.PossibleAliases,
-    }));
 }

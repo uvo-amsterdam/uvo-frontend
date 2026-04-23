@@ -1,10 +1,6 @@
-import { readItems } from '@directus/sdk';
-import type {
-    DirectusTeamComposition,
-    TeamComposition,
-} from '@interfaces/team-composition';
+import type { TeamComposition } from '@interfaces/team-composition';
 import { logger } from '@lib/logger';
-import { getDirectusClient } from '@lib/server/directus';
+import { getTeamCompositionsData } from '@lib/server/compositions';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 300;
@@ -18,12 +14,7 @@ let cache: {
 
 export async function GET() {
     try {
-        const directus = getDirectusClient();
-        const teams = await directus.request<DirectusTeamComposition[]>(
-            readItems('team_compositions', { limit: -1 }),
-        );
-
-        const payload = normalizeTeamCompositions(teams);
+        const payload = await getTeamCompositionsData();
         cache = {
             data: payload,
             timestamp: Date.now(),
@@ -49,15 +40,4 @@ export async function GET() {
             { status: 503 },
         );
     }
-}
-
-function normalizeTeamCompositions(
-    items: DirectusTeamComposition[],
-): TeamComposition[] {
-    return items.map(item => ({
-        id: item.id,
-        team: item.Team,
-        name: item.Name,
-        position: item.Position,
-    }));
 }
