@@ -5,6 +5,7 @@ import { logger } from '@lib/logger';
 import { getTeamsData } from '@lib/server/teams';
 import { Text } from '@radix-ui/themes';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 import css from './page.module.scss';
 
@@ -33,6 +34,14 @@ const TeamsPage = async () => {
                 subtitle={
                     'Meet the players representing UvO Amsterdam across all levels.'
                 }
+            />
+            <Image
+                src={
+                    'https://directus.uvo-amsterdam.cloud/assets/e6e6eb36-f7ce-4e3a-8e9f-74ade52b5234'
+                }
+                alt={'image'}
+                width={50}
+                height={50}
             />
             <section className={css.gridSection}>
                 <div className={css.grid}>
