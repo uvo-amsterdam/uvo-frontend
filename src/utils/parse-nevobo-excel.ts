@@ -1,9 +1,38 @@
 import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import pino from 'pino';
-import { parseData, readSheet, type Schema } from 'read-excel-file/node';
+import {
+    parseSheetData,
+    type Row,
+    readSheet,
+    type Schema,
+} from 'read-excel-file/node';
 
 const logger = pino();
+
+const isDate = (value: unknown): value is Date => value instanceof Date;
+
+/** with null before schema parsing.
+ * Nevobo exports can contain strings like "Vervallen" in this column for cancelled matches.
+ * Under the parseSheetData contract, any parse error causes `objects` to be undefined,
+ * so we sanitize upfront to avoid losing all parsed rows.
+ */
+function nullifyNonDateColumn(data: Row[], columnName: string): Row[] {
+    if (data.length === 0) return data;
+    const colIndex = data[0].findIndex(cell => cell === columnName);
+    if (colIndex === -1) return data;
+
+    return data.map((row, rowIndex) => {
+        if (rowIndex === 0) return row;
+        const cell = row[colIndex];
+        if (cell !== null && !isDate(cell)) {
+            const sanitized = [...row];
+            sanitized[colIndex] = null;
+            return sanitized;
+        }
+        return row;
+    });
+}
 
 const NEVOBO_FIXTURE_SCHEMA: Schema<NevoboFixture> = {
     date: { column: 'Datum', type: Date },
@@ -45,35 +74,25 @@ export async function parseNevoboExcel(
     response: Response,
     type: 'fixtures' | 'results',
 ): Promise<NevoboFixture[] | NevoboMatchResult[]> {
+    let rawData: Row[];
     try {
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const data = await readSheet(buffer);
+        rawData = await readSheet(buffer);
+        const data = nullifyNonDateColumn(rawData, 'Tijd');
 
         if (type === 'fixtures') {
-            const result = parseData(data, NEVOBO_FIXTURE_SCHEMA);
-            const rows: NevoboFixture[] = [];
-            for (const item of result) {
-                if (item.errors) {
-                    logger.debug(item.errors, 'Minor parsing issues:');
-                }
-                if (item.object) {
-                    rows.push(item.object);
-                }
+            const result = parseSheetData(data, NEVOBO_FIXTURE_SCHEMA);
+            if (result.errors?.length) {
+                logger.warn(result.errors, 'Parsing issues in fixtures sheet:');
             }
-            return rows;
+            return result.objects ?? [];
         } else {
-            const result = parseData(data, NEVOBO_RESULTS_SCHEMA);
-            const rows: NevoboMatchResult[] = [];
-            for (const item of result) {
-                if (item.errors) {
-                    logger.debug(item.errors, 'Minor parsing issues:');
-                }
-                if (item.object) {
-                    rows.push(item.object);
-                }
+            const result = parseSheetData(data, NEVOBO_RESULTS_SCHEMA);
+            if (result.errors?.length) {
+                logger.warn(result.errors, 'Parsing issues in results sheet:');
             }
-            return rows;
+            return result.objects ?? [];
         }
     } catch (error) {
         throw new Error(
