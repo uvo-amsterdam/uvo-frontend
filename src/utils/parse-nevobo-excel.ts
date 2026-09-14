@@ -1,13 +1,18 @@
 import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import pino from 'pino';
-import { parseData, readSheet, type Schema } from 'read-excel-file/node';
+import {
+    parseData,
+    readSheet,
+    type Schema,
+    type SheetData,
+} from 'read-excel-file/node';
 
 const logger = pino();
 
 const NEVOBO_FIXTURE_SCHEMA: Schema<NevoboFixture> = {
     date: { column: 'Datum', type: Date },
-    time: { column: 'Tijd', type: Date },
+    time: { column: 'Tijd', type: String },
     homeTeam: { column: 'Team thuis', type: String },
     awayTeam: { column: 'Team uit', type: String },
     location: { column: 'Locatie', type: String },
@@ -19,7 +24,7 @@ const NEVOBO_FIXTURE_SCHEMA: Schema<NevoboFixture> = {
 
 const NEVOBO_RESULTS_SCHEMA: Schema<NevoboMatchResult> = {
     date: { column: 'Datum', type: Date },
-    time: { column: 'Tijd', type: Date },
+    time: { column: 'Tijd', type: String },
     homeTeam: { column: 'Team thuis', type: String },
     awayTeam: { column: 'Team uit', type: String },
     result: { column: 'Uitslag', type: String },
@@ -32,6 +37,29 @@ const NEVOBO_RESULTS_SCHEMA: Schema<NevoboMatchResult> = {
     city: { column: 'Plaats', type: String },
     matchStatus: { column: 'Wedstrijd status', type: String },
 };
+
+function parseSheetRows<T extends object>(
+    data: SheetData,
+    schema: Schema<T>,
+    label: string,
+): T[] {
+    const result = parseData(data, schema);
+    const rows: T[] = [];
+
+    for (const item of result) {
+        if (item.errors && item.errors.length > 0) {
+            logger.warn(
+                { errors: item.errors, label },
+                'Failed to parse row in Excel',
+            );
+        }
+        if (item.object) {
+            rows.push(item.object);
+        }
+    }
+
+    return rows;
+}
 
 export async function parseNevoboExcel(
     response: Response,
@@ -51,30 +79,18 @@ export async function parseNevoboExcel(
         const data = await readSheet(buffer);
 
         if (type === 'fixtures') {
-            const result = parseData(data, NEVOBO_FIXTURE_SCHEMA);
-            const rows: NevoboFixture[] = [];
-            for (const item of result) {
-                if (item.errors) {
-                    logger.debug(item.errors, 'Minor parsing issues:');
-                }
-                if (item.object) {
-                    rows.push(item.object);
-                }
-            }
-            return rows;
-        } else {
-            const result = parseData(data, NEVOBO_RESULTS_SCHEMA);
-            const rows: NevoboMatchResult[] = [];
-            for (const item of result) {
-                if (item.errors) {
-                    logger.debug(item.errors, 'Minor parsing issues:');
-                }
-                if (item.object) {
-                    rows.push(item.object);
-                }
-            }
-            return rows;
+            return parseSheetRows<NevoboFixture>(
+                data,
+                NEVOBO_FIXTURE_SCHEMA,
+                'fixtures',
+            );
         }
+
+        return parseSheetRows<NevoboMatchResult>(
+            data,
+            NEVOBO_RESULTS_SCHEMA,
+            'results',
+        );
     } catch (error) {
         throw new Error(
             `Failed to process Nevobo export: ${error instanceof Error ? error.message : 'Unknown error'}`,
