@@ -7,11 +7,16 @@ import { IconCheck, IconMail } from '@tabler/icons-react';
 import css from './copyable-email.module.scss';
 
 interface CopyableEmailProps {
+    email: string | string[];
+    className?: string;
+}
+
+interface CopyableEmailSingleProps {
     email: string;
     className?: string;
 }
 
-export function CopyableEmail({ email, className }: CopyableEmailProps) {
+function CopyableEmailSingle({ email, className }: CopyableEmailSingleProps) {
     const [copied, setCopied] = useState(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -96,4 +101,18 @@ export function CopyableEmail({ email, className }: CopyableEmailProps) {
             )}
         </span>
     );
+}
+
+export function CopyableEmail({ email, className }: CopyableEmailProps) {
+    if (Array.isArray(email)) {
+        return email.map(singleEmail => (
+            <CopyableEmailSingle
+                key={singleEmail}
+                email={singleEmail}
+                className={className}
+            />
+        ));
+    }
+
+    return <CopyableEmailSingle email={email} className={className} />;
 }

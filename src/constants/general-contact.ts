@@ -5,7 +5,7 @@ export const GENERAL_CONTACT = {
     },
     CCP: {
         name: 'Confidential contact person',
-        email: 'vertrouwenspersoon@uvo-amsterdam.nl',
+        email: ['anoushkatab123@gmail.com', 'Donovanros01@gmail.com'],
     },
     DC: {
         name: 'Dispute Committee',
