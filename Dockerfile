@@ -1,15 +1,18 @@
 # Install dependencies only when needed
-FROM node:25-alpine AS deps
+FROM node:25-alpine AS base
+RUN npm install -g pnpm@10.33.0
+
+FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # Build the app
-FROM node:25-alpine AS builder
+FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN corepack enable && pnpm build
+RUN pnpm build
 
 # Production image
 FROM node:25-alpine AS runner
