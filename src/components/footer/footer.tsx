@@ -118,6 +118,7 @@ export const Footer: FC = () => {
                                 alt={sponsor.name}
                                 width={140}
                                 height={60}
+                                unoptimized
                                 className={css.sponsorLogo}
                             />
                         </Link>
