@@ -1,30 +1,32 @@
 # Install dependencies only when needed
-FROM node:24-alpine AS deps
+FROM node:25-alpine AS base
+RUN npm install -g pnpm@12.10.1
+
+FROM base AS deps
 WORKDIR /app
-COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable && pnpm install --frozen-lockfile
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Build the app
-FROM node:24-alpine AS builder
+FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN corepack enable && pnpm build
+RUN pnpm build
 
 # Production image
-FROM node:24-alpine AS runner
+FROM node:25-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
+ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.ts ./
-
-RUN corepack enable
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
-CMD ["pnpm", "start"]
+CMD ["node", "server.js"]

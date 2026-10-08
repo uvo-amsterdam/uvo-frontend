@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+    output: 'standalone',
     poweredByHeader: false,
     images: {
         remotePatterns: [
@@ -14,7 +15,7 @@ const nextConfig: NextConfig = {
     async headers() {
         return [
             {
-                source: '/',
+                source: '/:path*',
                 has: [
                     {
                         type: 'header',
