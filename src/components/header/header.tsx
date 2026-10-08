@@ -7,12 +7,12 @@ import React, {
     useEffect,
     useState,
 } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { NAVIGATION } from '@constants/navigation';
 import { Button, Link } from '@radix-ui/themes';
 import { IconCaretDownFilled, IconMenu2, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NavigationMenu } from 'radix-ui';
 
@@ -49,14 +49,14 @@ export const Header: FC = () => {
         <header className={css.root}>
             <div className={css.imageContainer}>
                 <Link asChild>
-                    <NextLink href="/">
+                    <AppLink href="/">
                         <Image
                             src="/images/logo/uvo-logo.jpeg"
                             alt="UvO logo"
                             fill={true}
                             sizes="auto"
                         />
-                    </NextLink>
+                    </AppLink>
                 </Link>
             </div>
             <NavigationMenu.Root className={css.base}>
@@ -119,9 +119,9 @@ export const Header: FC = () => {
                                         isActive && css.activeNav,
                                     )}
                                 >
-                                    <NextLink href={navLink.link}>
+                                    <AppLink href={navLink.link}>
                                         {navLink.title}
-                                    </NextLink>
+                                    </AppLink>
                                 </NavigationMenu.Link>
                             </NavigationMenu.Item>
                         );
@@ -223,7 +223,7 @@ export const Header: FC = () => {
                                             className={css.sidebarSubLinksInner}
                                         >
                                             {navLink.subPages.map(subPage => (
-                                                <NextLink
+                                                <AppLink
                                                     key={subPage.link}
                                                     href={subPage.link}
                                                     className={clsx(
@@ -234,7 +234,7 @@ export const Header: FC = () => {
                                                     )}
                                                 >
                                                     {subPage.title}
-                                                </NextLink>
+                                                </AppLink>
                                             ))}
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@ export const Header: FC = () => {
                         const isActive = pathname === navLink.link;
 
                         return (
-                            <NextLink
+                            <AppLink
                                 key={navLink.link}
                                 href={navLink.link}
                                 className={clsx(
@@ -254,7 +254,7 @@ export const Header: FC = () => {
                                 )}
                             >
                                 {navLink.title}
-                            </NextLink>
+                            </AppLink>
                         );
                     })}
                 </div>
@@ -273,7 +273,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
     ({ className, children, title, active, href, ...props }, forwardedRef) => (
         <li>
             <NavigationMenu.Link asChild active={active}>
-                <NextLink
+                <AppLink
                     href={href}
                     className={clsx(css.listItemLink, className)}
                     {...props}
@@ -281,7 +281,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
                 >
                     <div className={css.listItemHeading}>{title}</div>
                     <p className={css.listItemText}>{children}</p>
-                </NextLink>
+                </AppLink>
             </NavigationMenu.Link>
         </li>
     ),

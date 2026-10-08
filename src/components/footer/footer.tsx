@@ -1,9 +1,9 @@
 import type { FC } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { FORMS } from '@constants/forms';
 import { LOCATION } from '@constants/location';
 import { Flex, Link, Separator, Text } from '@radix-ui/themes';
 import Image from 'next/image';
-import NextLink from 'next/link';
 
 import css from './footer.module.scss';
 
@@ -138,7 +138,7 @@ export const Footer: FC = () => {
                 </Text>
                 <Text size="1">
                     <Link asChild highContrast className={css.footerLink}>
-                        <NextLink href="/terms">Algemene voorwaarden</NextLink>
+                        <AppLink href="/terms">Algemene voorwaarden</AppLink>
                     </Link>
                     {' | '}
                     Website made by{' '}

@@ -1,9 +1,9 @@
 import type { FC } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { UNKNOWN_TEAM_IMAGE_PATH } from '@constants/images';
 import { Heading } from '@radix-ui/themes';
 import { IconArrowRight } from '@tabler/icons-react';
 import Image from 'next/image';
-import NextLink from 'next/link';
 
 import css from './team-card.module.scss';
 
@@ -19,7 +19,7 @@ export const TeamCard: FC<TeamCardProps> = ({
     imageUrl = UNKNOWN_TEAM_IMAGE_PATH,
 }) => {
     return (
-        <NextLink href={`/teams/${slug}`} className={css.cardWrapper}>
+        <AppLink href={`/teams/${slug}`} className={css.cardWrapper}>
             <div className={css.imageWrapper}>
                 <Image
                     src={imageUrl}
@@ -47,6 +47,6 @@ export const TeamCard: FC<TeamCardProps> = ({
                     />
                 </div>
             </div>
-        </NextLink>
+        </AppLink>
     );
 };

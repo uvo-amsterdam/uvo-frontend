@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { Heading, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
-import NextLink from 'next/link';
 
 import css from './card.module.scss';
 
@@ -77,9 +77,9 @@ export const Card: FC<CardProps> = ({
 
     if (href) {
         return (
-            <NextLink href={href} className={rootClassName}>
+            <AppLink href={href} className={rootClassName}>
                 {content}
-            </NextLink>
+            </AppLink>
         );
     }
 
