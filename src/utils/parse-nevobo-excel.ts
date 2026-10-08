@@ -2,7 +2,7 @@ import type { NevoboFixture } from '@interfaces/nevobo-fixture';
 import type { NevoboMatchResult } from '@interfaces/nevobo-match-result';
 import pino from 'pino';
 import {
-    parseData,
+    parseSheetData,
     readSheet,
     type Schema,
     type SheetData,
@@ -43,22 +43,17 @@ function parseSheetRows<T extends object>(
     schema: Schema<T>,
     label: string,
 ): T[] {
-    const result = parseData(data, schema);
-    const rows: T[] = [];
+    const result = parseSheetData(data, schema);
 
-    for (const item of result) {
-        if (item.errors && item.errors.length > 0) {
-            logger.warn(
-                { errors: item.errors, label },
-                'Failed to parse row in Excel',
-            );
-        }
-        if (item.object) {
-            rows.push(item.object);
-        }
+    if ('errors' in result && result.errors && result.errors.length > 0) {
+        logger.warn(
+            { errors: result.errors, label },
+            'Failed to parse rows in Excel',
+        );
+        return [];
     }
 
-    return rows;
+    return ('objects' in result && result.objects) || [];
 }
 
 export async function parseNevoboExcel(

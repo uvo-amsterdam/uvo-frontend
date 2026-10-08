@@ -1,3 +1,4 @@
+import { AppLink } from '@components/app-link/app-link';
 import { Card } from '@components/card/card';
 import { Container, Flex, Heading, Text } from '@radix-ui/themes';
 import {
@@ -8,7 +9,6 @@ import {
     IconUserPlus,
 } from '@tabler/icons-react';
 import type { Metadata } from 'next';
-import NextLink from 'next/link';
 
 import css from '@styles/not-found.module.scss';
 
@@ -76,9 +76,9 @@ export default function NotFound() {
                         />
                     </div>
 
-                    <NextLink href="/competition" className={css.simpleLink}>
+                    <AppLink href="/competition" className={css.simpleLink}>
                         Check match results instead <IconArrowRight />
-                    </NextLink>
+                    </AppLink>
                 </Flex>
             </Container>
         </div>

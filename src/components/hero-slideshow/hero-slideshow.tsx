@@ -1,7 +1,7 @@
 import type { FC } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { Heading, Text } from '@radix-ui/themes';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import css from './hero-slideshow.module.scss';
 
@@ -47,12 +47,12 @@ export const HeroSlideshow: FC = () => {
                     since 1997
                 </Text>
                 <div className={css.actions}>
-                    <Link href="/sign-up" className={css.primaryBtn}>
+                    <AppLink href="/sign-up" className={css.primaryBtn}>
                         Join UvO
-                    </Link>
-                    <Link href="#about" className={css.secondaryBtn}>
+                    </AppLink>
+                    <AppLink href="#about" className={css.secondaryBtn}>
                         What's UvO? ↓
-                    </Link>
+                    </AppLink>
                 </div>
             </div>
         </section>

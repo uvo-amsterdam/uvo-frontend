@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+minimumReleaseAgeExclude:
+  - '@aws-sdk/client-s3@3.1148.0'
+  - '@smithy/core@3.35.2'
+  - baseline-browser-mapping@2.11.28
+  - cac@7.0.1
+  - read-excel-file@9.3.12
