@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { AppLink } from '@components/app-link/app-link';
 import { Card } from '@components/card/card';
 import { Hero } from '@components/hero/hero';
 import {
@@ -32,13 +33,13 @@ const accordionData = [
         steps: [
             <span key="link">
                 Go to{' '}
-                <a
+                <AppLink
                     href="https://dwf.volleybal.nl"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     dwf.volleybal.nl
-                </a>{' '}
+                </AppLink>{' '}
                 or use Nevobo’s "Mijn Competitie" app.
             </span>,
             'Log in with your Nevobo account (linked to your player code). If you need your code, ask the board or during the DWF course.',
@@ -133,7 +134,7 @@ const MemberInfoPage: FC = () => {
                                     <div className={css.stepList}>
                                         {item.steps.map((step, index) => (
                                             <div
-                                                key={`${item.value}-step}`}
+                                                key={`${item.value + item.title}-step}`}
                                                 className={css.step}
                                             >
                                                 <span
