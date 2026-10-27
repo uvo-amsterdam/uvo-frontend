@@ -1,6 +1,6 @@
 # Build stages use Debian (glibc) so native modules like sharp match the distroless runtime
 FROM node:25-slim AS base
-RUN corepack enable && corepack prepare pnpm@12.10.1 --activate
+RUN npm install -g corepack && corepack enable && corepack prepare pnpm@12.10.1 --activate
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -17,7 +17,7 @@ COPY . .
 RUN pnpm build
 
 # Production image
-FROM gcr.io/distroless/nodejs24-debian12:nonroot AS runner
+FROM gcr.io/distroless/nodejs25-debian12:nonroot AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
