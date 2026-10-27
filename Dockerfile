@@ -1,6 +1,6 @@
 # Build stages use Debian (glibc) so native modules like sharp match the distroless runtime
 FROM node:25-slim AS base
-RUN npm install -g corepack && corepack enable && corepack prepare pnpm@12.10.1 --activate
+RUN npm install -g pnpm@12.10.1
 
 # Install dependencies only when needed
 FROM base AS deps
