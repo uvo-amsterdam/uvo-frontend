@@ -39,7 +39,7 @@
         "@tabler/icons-react": "3.49.0",
         "clsx": "2.1.1",
         "husky": "9.1.7",
-        "next": "16.4.3",
+        "next": "16.4.5",
         "pino": "10.4.0",
         "radix-ui": "1.8.1",
         "react": "19.3.1",
